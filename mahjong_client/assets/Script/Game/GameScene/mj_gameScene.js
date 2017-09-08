@@ -13,6 +13,10 @@ cc.Class({
     onLoad: function () {
         // 屏幕适配
         cc.dd.appUtil.setScreenFit(this.node);
+        // cc.dd.Reload.loadDir("commonButton", (dir) => {
+        //     const dd = dir;
+        //     debugger;
+        // });
     },
 
     // 玩家自己进入房间
