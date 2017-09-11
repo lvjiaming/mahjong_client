@@ -35,7 +35,7 @@ ReLoad.loadPrefab = (path, callback) => {
             }
         }
     });
-}
+};
 /**
  *  加载图集资源
  * @param path 资源路径

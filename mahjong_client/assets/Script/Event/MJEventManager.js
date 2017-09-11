@@ -13,6 +13,10 @@ const MJEventManager = cc.Class({
         },
     },
 
+    connectNet(host, cb) {
+        this.connect(host, cb);
+    },
+
     /**
      *  请求协议
      * @param event 协议id
@@ -41,3 +45,4 @@ const MJEventManager = cc.Class({
         }
     }
 });
+cc.dd.net = MJEventManager.getInstance();

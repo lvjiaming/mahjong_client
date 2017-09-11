@@ -103,10 +103,11 @@ const GameEventManager = cc.Class({
         this.gameSocket.sendMessage(msgId, msgData);
     },
     /**
-     *  关闭与服务器的连接
+     *  关闭与服务器的连接(主动断开)
      */
     close() {
         this.gameSocket.close();
+        this.isDisConnect = true;
     },
     /**
      *  处理数据（反序列化以及转化）
