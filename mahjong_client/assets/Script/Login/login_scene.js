@@ -11,9 +11,10 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.dd.net("", () => {
-            this.setBtnLoginState(true);
-        });
+        cc.dd.appUtil.setScreenFit(this.node);
+        // cc.dd.net.connectNet("", () => {
+        //     this.setBtnLoginState(true);
+        // });
     },
     // 登录按钮
     onLoginClick() {

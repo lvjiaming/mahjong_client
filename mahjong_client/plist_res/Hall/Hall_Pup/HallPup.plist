@@ -4,148 +4,122 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Off.png</key>
+            <key>Change_EditBoxBk.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{406,36},{59,32}}</string>
+                <string>{{2,964},{96,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{59,32}}</string>
+                <string>{{0,0},{96,48}}</string>
                 <key>sourceSize</key>
-                <string>{59,32}</string>
+                <string>{96,48}</string>
             </dict>
-            <key>On.png</key>
+            <key>Change_Jia.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{406,2},{59,32}}</string>
+                <string>{{150,964},{48,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{59,32}}</string>
+                <string>{{0,0},{48,48}}</string>
                 <key>sourceSize</key>
-                <string>{59,32}</string>
+                <string>{48,48}</string>
             </dict>
-            <key>WeChat.png</key>
+            <key>Change_Jian.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{338,52},{45,45}}</string>
+                <string>{{100,964},{48,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{45,45}}</string>
+                <string>{{0,0},{48,48}}</string>
                 <key>sourceSize</key>
-                <string>{45,45}</string>
+                <string>{48,48}</string>
             </dict>
-            <key>bluebutton.png</key>
+            <key>Change_Line.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,160},{255,77}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{255,77}}</string>
-                <key>sourceSize</key>
-                <string>{255,77}</string>
-            </dict>
-            <key>btnQuestion.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{338,2},{48,66}}</string>
-                <key>offset</key>
-                <string>{-1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,0},{48,66}}</string>
-                <key>sourceSize</key>
-                <string>{62,66}</string>
-            </dict>
-            <key>dissolution.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{385,70},{35,45}}</string>
+                <string>{{2,1014},{1,196}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{35,45}}</string>
+                <string>{{0,0},{1,196}}</string>
                 <key>sourceSize</key>
-                <string>{35,45}</string>
+                <string>{1,196}</string>
             </dict>
-            <key>greenbutton.png</key>
+            <key>Record_InfoBk.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,81},{255,77}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{255,77}}</string>
-                <key>sourceSize</key>
-                <string>{255,77}</string>
-            </dict>
-            <key>huangbutton.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{259,2},{255,77}}</string>
+                <string>{{2,2},{960,159}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{255,77}}</string>
+                <string>{{0,0},{960,159}}</string>
                 <key>sourceSize</key>
-                <string>{255,77}</string>
+                <string>{960,159}</string>
             </dict>
-            <key>redbutton.png</key>
+            <key>Record_Line1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{255,77}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{255,77}}</string>
-                <key>sourceSize</key>
-                <string>{255,77}</string>
-            </dict>
-            <key>return.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{467,37},{33,39}}</string>
+                <string>{{2,1017},{1,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{33,39}}</string>
+                <string>{{0,0},{1,67}}</string>
                 <key>sourceSize</key>
-                <string>{33,39}</string>
+                <string>{1,67}</string>
             </dict>
-            <key>share.png</key>
+            <key>Record_Line2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{467,2},{43,33}}</string>
+                <string>{{163,2},{960,1}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{960,1}}</string>
+                <key>sourceSize</key>
+                <string>{960,1}</string>
+            </dict>
+            <key>Share_Friend.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{308,2},{106,106}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{43,33}}</string>
+                <string>{{0,0},{106,106}}</string>
                 <key>sourceSize</key>
-                <string>{43,33}</string>
+                <string>{106,106}</string>
+            </dict>
+            <key>Share_Quan.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{200,2},{106,106}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{106,106}}</string>
+                <key>sourceSize</key>
+                <string>{106,106}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -153,13 +127,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>commonButton.png</string>
+            <string>HallPup.png</string>
             <key>size</key>
-            <string>{512,512}</string>
+            <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c10146f855db47f3e1a1b38939bfd92b:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:d9bccf841c5df54046758132637ae6c9$</string>
             <key>textureFileName</key>
-            <string>commonButton.png</string>
+            <string>HallPup.png</string>
         </dict>
     </dict>
 </plist>
