@@ -18,7 +18,9 @@ cc.Class({
     },
     // 登录按钮
     onLoginClick() {
-        cc.log(`用户登录`)
+        cc.log(`用户登录`);
+        // 暂时写成这样
+        cc.director.loadScene("Hall_Scene.fire");
     },
     // 设置登录按钮的状态
     setBtnLoginState(state) {
