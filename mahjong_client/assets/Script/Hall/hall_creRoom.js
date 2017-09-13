@@ -42,7 +42,7 @@ cc.Class({
             cc.log(`玩法：${item}`);
         });
         //todo  暂时这样写
-        cc.director.loadScene("Mahjong_GmaeScene.fire");
+        cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
     },
     // 关闭
     onCloseClick() {

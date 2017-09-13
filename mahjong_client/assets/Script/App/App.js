@@ -8,3 +8,4 @@ cc.dd.appUtil = require("../Utils/AppUtils.js");
 require("../Utils/ReLoad.js");
 require("../Event/MJEventManager.js");
 require("../Hall/Config/Hall_Config.js");
+require("../Common/SceneManager.js");

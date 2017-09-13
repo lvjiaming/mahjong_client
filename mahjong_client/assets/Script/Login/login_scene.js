@@ -20,7 +20,7 @@ cc.Class({
     onLoginClick() {
         cc.log(`用户登录`);
         // 暂时写成这样
-        cc.director.loadScene("Hall_Scene.fire");
+        cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
     },
     // 设置登录按钮的状态
     setBtnLoginState(state) {
