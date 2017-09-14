@@ -1,0 +1,20 @@
+请求
+{
+    "command": 1003,
+    "did": "DADFG-ASDFADFG45-ASDF8-OLMJ5",
+    "roomsetting": {
+        "rounds": 8,
+        "playrule": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+        ],
+        "basicraise": 3
+    }
+}
+
+响应：指令4001

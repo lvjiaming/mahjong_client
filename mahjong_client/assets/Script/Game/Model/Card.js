@@ -22,7 +22,6 @@ cc.Class({
         suit: 2,  //  牌的花色
         num: 4,  // 牌的值
         cardState: CARD_STATE.NORMAL, // 牌的状态
-        canOut: false,  // 是否能出
     },
     onLoad: function () {
         this.node.on("touchstart", this._touchStart.bind(this));
@@ -91,18 +90,24 @@ cc.Class({
         switch (this.cardState) {
             case CARD_STATE.NORMAL: {
                 this.selectCard();
+                const readyCard = cc.dd.cardMgr.getReadyOutCard();
+                if (readyCard) {
+                    readyCard.getComponent("Card").cancelSelect();
+                }
+                cc.dd.cardMgr.setReadyOutCard(this.node);
                 break;
             }
             case CARD_STATE.SELECT: {
-                if (this.canOut) {
-                    cc.log(`可以出牌`)
+                if (cc.dd.cardMgr.getIsCanOutCard()) {
+                    cc.log(`可以出牌`);
                 } else {
                     this.cancelSelect();
                 }
                 break;
             }
             case CARD_STATE.HAS_OUT: {
-                cc.log(`麻将已经打出去了`)
+                cc.log(`麻将已经打出去了`);
+                cc.dd.cardMgr.setIsCanOutCard(false);
                 break;
             }
         }

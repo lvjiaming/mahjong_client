@@ -1,6 +1,17 @@
 // 玩家的一些配置
 const CONFIG = {
+    BOTTOM: {
 
+    },
+    RIGHT: {
+
+    },
+    TOP: {
+
+    },
+    LEFT: {
+
+    },
 };
 cc.Class({
     extends: cc.Component,
