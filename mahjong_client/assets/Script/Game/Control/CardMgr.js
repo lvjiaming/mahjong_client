@@ -93,6 +93,32 @@ const CardMgr = cc.Class({
         }
     },
     /**
+     *  摸牌的方法
+     * @param m_node 摸牌的节点
+     * @param localSeat 玩家的本地座位号
+     * @param data 摸的牌
+     * @constructor
+     */
+    MoCard(m_node, localSeat, data) {
+        switch (localSeat) {
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
+                break;
+            }
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
+                break;
+            }
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
+                break;
+            }
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
+                break;
+            }
+            default: {
+                cc.log(`未知的座位号：${localSeat}`);
+            }
+        }
+    },
+    /**
      *  设置是否能出牌
      * @param state
      */

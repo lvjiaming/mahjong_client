@@ -7,6 +7,11 @@ cc.Class({
 
     properties: {
         playerArr: [],  // 保存玩家的数组
+        PlayerNode: {
+            default: null,
+            type: cc.Node,
+            tooltip: "玩家的根节点",
+        },
     },
 
     // use this for initialization
