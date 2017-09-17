@@ -2,6 +2,26 @@
  * Created by Administrator on 2017/9/14.
  *  用于管理各种牌的操作
  */
+
+// 一些配置
+const CONFIG = {
+    BOTTOM: {
+
+    },
+    RIGHT: {
+        HAND_CARD_X: -11,
+        PENG_GANG_X: 30,
+        OUT_CARD_X: -5.5,
+    },
+    TOP: {
+
+    },
+    LEFT: {
+        HAND_CARD_X: -11,
+        PENG_GANG_X: -30,
+        OUT_CARD_X: -5.5
+    },
+};
 const CardMgr = cc.Class({
     _canOutCard: false,  // 是否可以出牌
     _readyOutCard: null, // 选择准备出的牌
@@ -26,6 +46,13 @@ const CardMgr = cc.Class({
     initHandCard(h_node, localSeat, data) {
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
+                data.forEach((item) => {
+                    const str = "HandPoker";
+                    const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                    card.getComponent("Card").suit = item.suit;
+                    card.getComponent("Card").num = item.num;
+                    h_node.addChild(card);
+                });
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {

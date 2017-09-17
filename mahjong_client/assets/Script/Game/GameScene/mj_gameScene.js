@@ -2,6 +2,22 @@
     处理游戏里的逻辑
  */
 
+const cardArr = [
+    {suit: 1, num: 3},
+    {suit: 1, num: 4},
+    {suit: 2, num: 5},
+    {suit: 3, num: 6},
+    {suit: 2, num: 7},
+    {suit: 1, num: 8},
+    {suit: 1, num: 9},
+    {suit: 2, num: 8},
+    {suit: 3, num: 3},
+    {suit: 3, num: 4},
+    {suit: 2, num: 5},
+    {suit: 3, num: 7},
+   // {suit: 2, num: 6},
+];
+
 cc.Class({
     extends: cc.Component,
 
@@ -18,6 +34,9 @@ cc.Class({
     onLoad: function () {
         // 屏幕适配
         cc.dd.appUtil.setScreenFit(this.node);
+
+        // 测试手牌
+        this.PlayerNode.getChildByName("Bottom").getComponent("PlayerSelf").createHandCard(cardArr);
     },
 
     // 玩家自己进入房间
