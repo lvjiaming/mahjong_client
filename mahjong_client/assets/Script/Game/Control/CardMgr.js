@@ -46,11 +46,11 @@ const CardMgr = cc.Class({
     initHandCard(h_node, localSeat, data) {
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
+                this.sortHandCard(data);
                 data.forEach((item) => {
                     const str = "HandPoker";
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
-                    card.getComponent("Card").suit = item.suit;
-                    card.getComponent("Card").num = item.num;
+                    card.getComponent("Card").id = item.id;
                     h_node.addChild(card);
                 });
                 break;
@@ -170,6 +170,24 @@ const CardMgr = cc.Class({
      */
     getReadyOutCard() {
         return this._readyOutCard;
+    },
+    /**
+     *  排序手牌
+     * @param data
+     */
+    sortHandCard(data) {
+        for (let i = 0; i < data.length - 1; i++) {
+            for (let j = i + 1; j < data.length; j++) {
+                if (data[i].id > data[j].id) {
+                    let a = data[i].id;
+                    data[i].id = data[j].id;
+                    data[j].id = a;
+                }
+            }
+        }
+        data.forEach((item) => {
+            cc.log(`排序后的手牌数组为：${item.id}`);
+        });
     },
 
 });

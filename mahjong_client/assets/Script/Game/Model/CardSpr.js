@@ -19,29 +19,27 @@ cc.Class({
      */
     initCard(data) {
         let str = "";
-        switch (data.suit) {
+        this.suit = parseInt(data.id / 9) + 1;
+        this.num = data.id % 9 + 1;
+        switch (this.suit ) {
             case cc.dd.gameCfg.CARD_SUIT.WAN: {
-                str = str + "wanzi_" + data.num;
+                str = str + "wanzi_" + this.num;
                 break;
             }
             case cc.dd.gameCfg.CARD_SUIT.TIAO: {
-                str = str + "tiaozi_" + data.num;
+                str = str + "tiaozi_" + this.num;
                 break;
             }
             case cc.dd.gameCfg.CARD_SUIT.TONG: {
-                str = str + "tongzi_" + data.num;
+                str = str + "tongzi_" + this.num;
                 break;
             }
-            case cc.dd.gameCfg.CARD_SUIT.HUA: {
-                str += "mj_hua_";
-                break;
-            }
-            case cc.dd.gameCfg.CARD_SUIT.OTHER: {
-                str = str + "zipai_" + data.num;
+            case cc.dd.gameCfg.CARD_SUIT.OHTER: {
+                str = str + "zipai_" + this.num;
                 break;
             }
             default: {
-                cc.log(`花色未知:${data.suit}`);
+                cc.log(`花色未知:${this.suit}`);
                 break;
             }
         }

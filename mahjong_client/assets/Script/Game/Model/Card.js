@@ -22,6 +22,7 @@ cc.Class({
         suit: 2,  //  牌的花色
         num: 4,  // 牌的值
         cardState: CARD_STATE.NORMAL, // 牌的状态
+        id: -1,  // 牌的id
     },
     onLoad: function () {
         this.node.on("touchstart", this._touchStart.bind(this));
@@ -35,10 +36,12 @@ cc.Class({
      *  初始化牌（纹理）
      */
     _initCard() {
-        if (this.suit  === 0 || this.num === 0 ) {
+        if (this.id === -1) {
             cc.log("牌值或花色未获取到值");
             return;
         }
+        this.suit = parseInt(this.id / 9) + 1;
+        this.num = this.id % 9 + 1;
         let str = "";
         switch (this.suit) {
             case cc.dd.gameCfg.CARD_SUIT.WAN: {
@@ -53,11 +56,7 @@ cc.Class({
                 str = str + "tongzi_" + this.num;
                 break;
             }
-            case cc.dd.gameCfg.CARD_SUIT.HUA: {
-                str += "mj_hua_";
-                break;
-            }
-            case cc.dd.gameCfg.CARD_SUIT.OTHER: {
+            case cc.dd.gameCfg.CARD_SUIT.OHTER: {
                 str = str + "zipai_" + this.num;
                 break;
             }

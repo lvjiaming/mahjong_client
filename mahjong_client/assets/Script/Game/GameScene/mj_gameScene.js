@@ -3,18 +3,19 @@
  */
 
 const cardArr = [
-    {suit: 1, num: 3},
-    {suit: 1, num: 4},
-    {suit: 2, num: 5},
-    {suit: 3, num: 6},
-    {suit: 2, num: 7},
-    {suit: 1, num: 8},
-    {suit: 1, num: 9},
-    {suit: 2, num: 8},
-    {suit: 3, num: 3},
-    {suit: 3, num: 4},
-    {suit: 2, num: 5},
-    {suit: 3, num: 7},
+    {id: 1},
+    {id: 10},
+    {id: 13},
+    {id: 14},
+    {id: 10},
+    {id: 11},
+    {id: 20},
+    {id: 25},
+    {id: 27},
+    {id: 33},
+    {id: 21},
+    {id: 11},
+    {id: 12},
    // {suit: 2, num: 6},
 ];
 
