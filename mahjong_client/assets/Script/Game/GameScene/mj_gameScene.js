@@ -35,6 +35,7 @@ cc.Class({
     onLoad: function () {
         // 屏幕适配
         cc.dd.appUtil.setScreenFit(this.node);
+        cc.dd.soundMgr.playMusic("resources/Game/Sound/common/bg.mp3", true);
 
         // 测试手牌
         this.PlayerNode.getChildByName("Bottom").getComponent("PlayerSelf").createHandCard(cardArr);

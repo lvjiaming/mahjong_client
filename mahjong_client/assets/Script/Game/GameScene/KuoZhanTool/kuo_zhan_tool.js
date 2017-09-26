@@ -30,6 +30,10 @@ cc.Class({
     // 设置
     onSettingClick() {
         cc.log(`设置`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Setting ", (prefab) => {
+            const setting = cc.instantiate(prefab);
+            cc.find("UI_ROOT").addChild(setting);
+        });
     },
     // 玩法
     onWanFaClick() {

@@ -12,6 +12,7 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         cc.dd.appUtil.setScreenFit(this.node);
+        cc.dd.soundMgr.init();
         // cc.dd.net.connectNet("", () => {
         //     this.setBtnLoginState(true);
         // });

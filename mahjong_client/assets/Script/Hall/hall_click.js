@@ -40,9 +40,18 @@ cc.Class({
     // 设置
     onSettingClick() {
         cc.log(`设置`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Setting ", (prefab) => {
+            const setting = cc.instantiate(prefab);
+            this.node.addChild(setting);
+        });
     },
     // 战绩
     onRecordClick() {
         cc.log(`战绩`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecord", (prefab) => {
+            const gameRecord = cc.instantiate(prefab);
+            gameRecord.getComponent("GameRecord").initInfo([1, 2, 3]);
+            this.node.addChild(gameRecord);
+        });
     },
 });
