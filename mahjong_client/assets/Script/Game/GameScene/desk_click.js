@@ -25,4 +25,23 @@ cc.Class({
     onSoundClick() {
         cc.log(`语音`);
     },
+    // 碰
+    onPengClick() {
+        cc.log(`发送碰牌请求`);
+    },
+    // 杠
+    onGangClick() {
+        cc.log(`发送杠牌请求`);
+    },
+    onHuClick() {
+        cc.log(`发送胡牌请求`);
+    },
+    // 过
+    onGuoClick() {
+        cc.log(`过牌`);
+    },
+    // 吃
+    onChiClick() {
+        cc.log(`发送吃牌的请求`);
+    },
 });

@@ -1,0 +1,9 @@
+{
+  "ver": "1.0.5",
+  "uuid": "adc800de-a488-4db6-8b06-6817a9863893",
+  "isPlugin": false,
+  "loadPluginInWeb": true,
+  "loadPluginInNative": true,
+  "loadPluginInEditor": false,
+  "subMetas": {}
+}

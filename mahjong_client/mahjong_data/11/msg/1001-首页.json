@@ -1,0 +1,18 @@
+请求
+{
+    "command": 1001,
+    "did": "DADFG-ASDFADFG45-ASDF8-OLMJ5",
+}
+
+正常响应
+{
+    "command": 1001,
+    "rtncode": 200,
+    "user": {
+        "UID": 658795,
+        "nickname": "用户昵称",
+        "wx_portrait": "http://www.xxx.com/portrait/asdf.png",
+        "roomcardnum": 15,
+        "isagent": 1,
+    }
+}

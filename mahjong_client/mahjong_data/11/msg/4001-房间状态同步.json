@@ -1,0 +1,87 @@
+广播
+{
+    "command": 4001,
+    "room": {
+        "rules": "1,2,3,4,7",
+        "roomid": 325712,
+        "rounds": 16,
+        "nowround": 2,
+        "basicraise": 3,
+        "guicard": 1,
+        "baocard": 25,
+        "qiangtoucard": 24
+    },
+    "user1": {
+        "UID": 654892,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "isbanker": "是不是庄家",
+        "iscontroller": "当前是否控牌",
+        "ipaddress": "ip地址",
+        "score": "在本房间当前分数",
+        "playedcards": [
+            1,
+            2
+        ],
+        "showCards": [
+            3,
+            4,
+            5
+        ]
+    },
+	"user2": {
+        "UID": 212354,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "isbanker": "是不是庄家",
+        "iscontroller": "当前是否控牌",
+        "ipaddress": "ip地址",
+        "score": "在本房间当前分数",
+        "playedcards": [
+            1,
+            2
+        ],
+        "showCards": [
+            3,
+            4,
+            5
+        ]
+    },
+    "user3": {
+        "UID": 235623,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "isbanker": "是不是庄家",
+        "iscontroller": "当前是否控牌",
+        "ipaddress": "ip地址",
+        "score": "在本房间当前分数",
+        "playedcards": [
+            1,
+            2
+        ],
+        "showCards": [
+            3,
+            4,
+            5
+        ]
+    },
+    "user4: {
+        "UID": 64324,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "isbanker": "是不是庄家",
+        "iscontroller": "当前是否控牌",
+        "ipaddress": "ip地址",
+        "score": "在本房间当前分数",
+        "playedcards": [
+            1,
+            2
+        ],
+        "showCards": [
+            3,
+            4,
+            5
+        ]
+    },        
+    "myhandcards": "15,15,15,16,18"
+}

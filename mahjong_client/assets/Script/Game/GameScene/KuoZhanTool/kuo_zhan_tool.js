@@ -46,5 +46,9 @@ cc.Class({
     // 转让房卡
     onChangeClick() {
         cc.log(`转让房卡`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+            const changePup = cc.instantiate(prefab);
+            cc.find("UI_ROOT").addChild(changePup);
+        });
     },
 });

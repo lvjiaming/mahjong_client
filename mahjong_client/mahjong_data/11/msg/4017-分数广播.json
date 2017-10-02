@@ -1,0 +1,41 @@
+{
+    "command": 4017,
+    "nowround": 12,
+    "rounds": 16,
+    "user1": {
+        "winner": true,
+        "UID": 654892,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "roomscore": 128,
+        "huscore": 8,
+        "gangscore": 4,
+        "hutype": 1,
+        "isbanker": true,
+        "tags": "\"清一色  夹胡 海底捞 三家闭门 飘胡  杠上开花\""
+    },
+    "user2": {
+        "isdiaopao": true,
+        "UID": 654892,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "roomscore": 10,
+        "isbanker": false,
+        "tags": "\"闭门 流泪\""
+    },
+    "user3": {
+        "UID": 656392,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "roomscore": 25,
+        "isbanker": false,
+        "tags": "\"闭门 \""
+    },
+    "user4": {
+        "UID": 659892,
+        "nickname": "昵称",
+        "wx_portrait": "头像地址",
+        "roomscore": 30,
+        "isbanker": false
+    }
+}
