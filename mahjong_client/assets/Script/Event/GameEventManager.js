@@ -3,6 +3,7 @@ const EventManager = require('./EventManager.js');
 const GameEventManager = cc.Class({
     extends: EventManager,
     gameSocket: null,
+    hostStr: null, // 连接的地址
     reconnectMaxNum: null,  // 重连的最大次
     reconnectCount: null, // 重连的计数
     reconnectTime: null, // 重连的间断时间
@@ -19,17 +20,22 @@ const GameEventManager = cc.Class({
         this.reconnectTime = 1000;
         this.reconnectTimer = null;
         this.isDisConnect = false;
+        this.hostStr = null;
     },
     /**
      *  连接服务器，已经监听服务器一系列事件
      */
     connect(hostStr, callBack) {
+        cc.log(`进行网络连接, hostStr = ${hostStr}`);
+        this.hostStr = hostStr;
         const self = this;
         this.gameSocket = new WebSocket(hostStr);
         this.gameSocket.onopen = () => {
             cc.log(`websocket has connect`);
             this.cleanReconnectTimer();
-            callBack();
+            if (callBack && callBack instanceof Function) {
+                callBack();
+            }
         };
         this.gameSocket.onerror = () => {
             cc.log(`websocket connect error`);
@@ -42,7 +48,9 @@ const GameEventManager = cc.Class({
         };
         this.gameSocket.onmessage = function (data) {
             data = JSON.parse(data.data);
-            self.onMsg(data.msgId, data.msgData);
+            const msgId = data.command;
+            const msgData = data;
+            self.onMsg(msgId, msgData);
             return;
             //  todo 以下是用protobuf传输数据写法
             if (cc.sys.isNative) {
@@ -56,9 +64,9 @@ const GameEventManager = cc.Class({
                 fileReader.readAsArrayBuffer(data.data);
             }
         };
-        this.gameSocket.sendMessage = (msgId, msgData) => {
+        this.gameSocket.sendMessage = (msgData) => {
             if (this.gameSocket.readyState === WebSocket.OPEN) {
-                this.gameSocket.send(JSON.stringify({msgId: msgId, msgData: msgData}));
+                this.gameSocket.send(JSON.stringify(msgData));
             } else {
                 cc.error(`websocket connect error: ${this.gameSocket.readyState}`);
             }
@@ -75,7 +83,7 @@ const GameEventManager = cc.Class({
         }
         this.reconnectTimer = setTimeout(() => {
             cc.log(`正在进行第${this.reconnectCount}次重连`);
-            this.connect();
+            this.connect(this.hostStr);
             this.reconnectCount ++;
         }, this.reconnectTime);
     },
@@ -96,11 +104,13 @@ const GameEventManager = cc.Class({
      * @param msgId 消息的id
      * @param msgData 消息的数据
      */
-    sendMessage(msgId, msgData) {
+    sendMessage(msgData) {
         if (msgData === null || msgData === undefined) {
             msgData = null;
+            cc.log(`消息为空`);
+            return;
         }
-        this.gameSocket.sendMessage(msgId, msgData);
+        this.gameSocket.sendMessage(msgData);
     },
     /**
      *  关闭与服务器的连接(主动断开)
