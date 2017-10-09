@@ -1,24 +1,17 @@
-请求
+
 {
     "command": 1003,
-    "did": "DADFG-ASDFADFG45-ASDF8-OLMJ5",
+    "did": "85c5adcd-ec58-42a3-93da-d778cef60a19",
     "roomsetting": {
-        "rounds": 8,
+        "rounds": 16,
         "playrule": [
             1,
             2,
             3,
             4,
             5,
-            6,
-            7
+            6
         ],
         "basicraise": 3
     }
 }
-
-
-
-
-
-响应：指令4001

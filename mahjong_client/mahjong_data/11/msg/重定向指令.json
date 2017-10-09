@@ -9,11 +9,3 @@
     rtnmsg: "请先登录",
     docommand: 1002
 }
-
-
-用户房间在线状态响应
-{
-    command: -1,
-    rtnmsg: "恢复房间",
-    docommand: 1005
-}

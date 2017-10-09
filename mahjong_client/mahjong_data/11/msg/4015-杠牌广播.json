@@ -1,7 +1,11 @@
+
 {
-    "command": 4015,				//用户确认杠牌以后，服务端确认如果碰牌成功会向四个玩家发送杠牌广播，杠牌的玩家只有接收到此广播才确认杠牌成功，
-    "ganguid": "杠牌用户ID",			//杠牌用户UID
-    "gangpai": "要苯杠的牌",			//要杠的牌，值 -1 表示为暗杠 此时mopaigang一定为true
-    "mopaigang": true,				//true 表示摸牌杠，false为杠其它玩家的出牌,如果值为false，则启动此杠牌玩家的出牌倒计时。true为摸牌杠，当前玩家出牌倒计时正常行进，不重置不暂停不延时
-    "chupaiuid": "出牌用户ID"			//出牌用户UID，mopaigang值为true,则chupaiuid不能有值
+    "command": 4015,
+    "ganguid": 92234,
+    "chupaiuid": 6123,
+    "gangpai": 18,
+    "angang": true,
+	"myaction": {						
+        "hu": true,
+     }
 }

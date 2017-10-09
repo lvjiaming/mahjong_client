@@ -1,11 +1,14 @@
+
 {
 	"command": 4012,
-    "hu": true,			//true | false
+    "hu": true,	
+    "forcehu": true,
     "ting": [
-        4,				//如果打出这些牌号，则可以听牌
+        4,		
         7, 
         9
     ],
-	"gang": true,       //摸到的牌可以杠
-    "mopai": 3			//摸到的牌
+    "mopai": 3,
+    "gangpais":[3,4]
 }
+

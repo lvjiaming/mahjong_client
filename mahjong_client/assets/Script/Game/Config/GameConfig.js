@@ -17,5 +17,13 @@ module.exports = {
         TOP: 3,
         LEFT: 4,
     },
+    // 消息枚举
+    EVENT: {
+        EVENT_CHECK_LOGIN_REP: 1001, // 检测登录请求
+        EVENT_CHECK_LOGIN_REQ: 5001, // 检测登录的返回
+        EVENT_LOGIN_REP: 1002, // 登录的请求
+        EVENT_LOGIN_REQ: 5002, // 登录的返回
+        EVENT_CREATE_ROOM_REP: 1003, // 创建房间的请求
+    },
 };
 cc.dd.gameCfg = module.exports;

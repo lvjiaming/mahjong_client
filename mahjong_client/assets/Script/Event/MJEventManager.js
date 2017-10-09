@@ -25,6 +25,10 @@ const MJEventManager = cc.Class({
     startEvent(event, data) {
         cc.log(`发送的协议id为：${event}`);
         switch (event) {
+            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {
+                this.sendMessage(data);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
@@ -39,6 +43,10 @@ const MJEventManager = cc.Class({
     onMsg(msgId, msgData) {
         cc.log(`收到的协议id为：${msgId}`);
         switch (msgId) {
+            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {
+                cc.dd.user.setUserInfo(msgData);
+                break;
+            }
             default: {
                 cc.log(`unkown msgId: ${msgId}`);
             }

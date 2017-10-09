@@ -11,3 +11,4 @@ require("../Hall/Config/Hall_Config.js");
 require("../Common/SceneManager.js");
 require("../Game/Control/CardMgr.js");
 require("../Utils/SoundManger.js");
+require("../Common/Const.js");

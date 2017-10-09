@@ -1,0 +1,12 @@
+
+{
+    "command": 5001,
+    "rtncode": 200,
+    "user": {
+        "UID": 658795,
+        "nickname": "user nickname",
+        "wx_portrait": "http://www.xxx.com/portrait/asdf.png",
+        "roomcardnum": 15,
+        "isagent": 1,
+    }
+}

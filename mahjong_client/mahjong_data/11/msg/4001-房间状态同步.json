@@ -1,87 +1,104 @@
-广播
+
 {
     "command": 4001,
     "room": {
-        "rules": "1,2,3,4,7",
+        "rules": [1,2,3,4,5,6],
         "roomid": 325712,
         "rounds": 16,
         "nowround": 2,
         "basicraise": 3,
         "guicard": 1,
-        "baocard": 25,
         "qiangtoucard": 24
     },
-    "user1": {
+    "user[0]": {
         "UID": 654892,
-        "nickname": "昵称",
-        "wx_portrait": "头像地址",
-        "isbanker": "是不是庄家",
-        "iscontroller": "当前是否控牌",
-        "ipaddress": "ip地址",
-        "score": "在本房间当前分数",
+        "nickname": "user nickname",
+        "wx_portrait": "head imgurl",
+        "isbanker": true,
+        "iscontroller": false,
+        "isting": true,
+        "isonline": true,
+        "ipaddress": "ip address",
+        "score": 120,
+        "handcardsnum": 7,
         "playedcards": [
             1,
             2
         ],
-        "showCards": [
+        "chicards": [
             3,
             4,
             5
+        ],
+        "pengcards": [
+            8,
+            8,
+            8
+        ],
+        "angangcards": [
+            9
+        ],
+        "minggangcards": [
+            6,
+            3
         ]
     },
-	"user2": {
+	"user[1]": {
         "UID": 212354,
-        "nickname": "昵称",
-        "wx_portrait": "头像地址",
-        "isbanker": "是不是庄家",
-        "iscontroller": "当前是否控牌",
-        "ipaddress": "ip地址",
-        "score": "在本房间当前分数",
+        "nickname": "user nickname",
+        "wx_portrait": "head imgurl",
+        "isbanker": true,
+        "iscontroller": false,
+        "isting": true,
+        "isonline": true,        
+        "ipaddress": "ip address",
+        "score": 120,
+        "handcardsnum": 13,        
         "playedcards": [
             1,
             2
         ],
-        "showCards": [
-            3,
-            4,
-            5
+        "angangcards": [
+            9
+        ],
+        "minggangcards": [
+            6,
+            3
         ]
     },
-    "user3": {
+    "user[2]": {
         "UID": 235623,
-        "nickname": "昵称",
-        "wx_portrait": "头像地址",
-        "isbanker": "是不是庄家",
-        "iscontroller": "当前是否控牌",
-        "ipaddress": "ip地址",
-        "score": "在本房间当前分数",
+        "nickname": "user nickname",
+        "wx_portrait": "head imgurl",
+        "isbanker": true,
+        "iscontroller": false,
+        "isting": false,
+        "isonline": true,        
+        "ipaddress": "ip address",
+        "score": 120,
+        "handcardsnum": 4,        
         "playedcards": [
             1,
             2
-        ],
-        "showCards": [
-            3,
-            4,
-            5
         ]
     },
-    "user4: {
+    "user[3]": {
         "UID": 64324,
-        "nickname": "昵称",
-        "wx_portrait": "头像地址",
-        "isbanker": "是不是庄家",
-        "iscontroller": "当前是否控牌",
-        "ipaddress": "ip地址",
-        "score": "在本房间当前分数",
+        "nickname": "user nickname",
+        "wx_portrait": "head imgurl",
+        "isbanker": false,
+        "iscontroller": true,
+        "isting": false,
+        "isonline": false,        
+        "ipaddress": "ip address",
+        "score": 120,
+        "handcardsnum": 13,
         "playedcards": [
             1,
             2
-        ],
-        "showCards": [
-            3,
-            4,
-            5
         ]
     },        
-    "myhandcards": "15,15,15,16,18"
+    "myhandcards": [15,15,15,16,18],
+    "myuid": 654788,
+    "baocard": 15
 }

@@ -1,0 +1,12 @@
+{
+	"command": 4012,
+    "hu": true,						//true | false
+	"forcehu": true,				//有些场景必须胡牌  值为true
+	"msg4hu": "message need show",	//需要显示的胡牌名称 包括 自摸、听宝儿、搂宝儿、四会儿胡
+    "ting": [
+        4,							//如果打出这些牌号，则可以听牌
+        7, 
+        9
+    ],
+    "mopai": 3						//摸到的牌
+}
