@@ -19,7 +19,7 @@ cc.Class({
     onLoad: function () {
 
     },
-    // 关闭的事件
+    // 关闭的事件，x按钮
     onCloseClick() {
         this.node.destroy();
     },
@@ -38,22 +38,27 @@ cc.Class({
         }
         cc.log(`当前的房卡：${this._preNum}`);
     },
-    // 返回的事件
+    // 返回的事件,返回按钮事件
     onReturnClick() {
         this.node.destroy();
     },
-    // 确认的事件
+    // 确认的事件，确认按钮
     onFixClick() {
         if (this.changeEditBox) {
             if (!this.changeEditBox.string) {
                 cc.log(`请输入转让的人！！`);
             } else {
                 cc.log(`转让人：${this.changeEditBox.string}, 转让数量：${this._preNum}`);
+                //Cannot read property 'addChild' of null
+                cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
+                    const exchangeFK = cc.instantiate(prefab);
+                    this.node.addChild(exchangeFK);
+                });
             }
         }
-        this.node.destroy();
+        // this.node.destroy();
     },
-    // 输入框确认的事件
+    // 输入框确认的事件，确认框
     onEditBoxFixClick(event) {
         cc.log(`转让人的id: ${this.changeEditBox.string}`);
     },
