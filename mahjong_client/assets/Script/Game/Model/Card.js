@@ -98,7 +98,7 @@ cc.Class({
             }
             case CARD_STATE.SELECT: {
                 if (cc.dd.cardMgr.getIsCanOutCard()) {
-                    cc.log(`可以出牌`);
+                    cc.log(`发送出牌请求：${this.id}`);
                 } else {
                     this.cancelSelect();
                 }
