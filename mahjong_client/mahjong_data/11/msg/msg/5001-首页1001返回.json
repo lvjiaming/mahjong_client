@@ -1,0 +1,12 @@
+
+{
+    "command": 5001,
+    "rtncode": 200,													//200代表成功  但好像用处不大
+    "user": {
+        "UID": 658795,		
+        "nickname": "user nickname",								//用户昵称，来自微信
+        "wx_portrait": "http://www.xxx.com/portrait/asdf.png",		//用户头像  来自微信
+        "roomcardnum": 15,											//剩余房卡数量
+        "isagent": 1,												//是否是代理商 ，代理商有权限使用转让房卡功能
+    }
+}

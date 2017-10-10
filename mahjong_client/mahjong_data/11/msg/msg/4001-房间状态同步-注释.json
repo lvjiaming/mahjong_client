@@ -1,15 +1,14 @@
-广播
+
 {
     "command": 4001,
     "room": {
-        "rules": "1,2,3,4,7",
+        "rules": "1,2,3,4,7",			//房间规则  见1003
         "roomid": 325712,
         "rounds": 16,
-        "nowround": 2,
-        "basicraise": 3,
-        "guicard": 1,
-        "baocard": 25,
-        "qiangtoucard": 24
+        "nowround": 2,					//当前第几局
+        "basicraise": 3,				
+        "guicard": 1,					//会牌牌值
+        "qiangtoucard": 24				//墙头牌值  墙头的下一张牌就是会儿牌  也叫鬼牌、癞子、万能牌，可充当任意牌  但不能用它来吃牌，不能碰牌，也不能打出，只能放到手牌里	
     },
     "user1": {
         "UID": 654892,

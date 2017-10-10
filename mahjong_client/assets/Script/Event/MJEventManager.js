@@ -29,6 +29,7 @@ const MJEventManager = cc.Class({
                 this.sendMessage(data);
                 break;
             }
+            // 需要添加协议，你在下面添加，我在上面添加
             default: {
                 cc.log(`unkown event: ${event}`);
             }
@@ -47,6 +48,7 @@ const MJEventManager = cc.Class({
                 cc.dd.user.setUserInfo(msgData);
                 break;
             }
+            // 回复处理，你在下面添加，我在上面添加
             default: {
                 cc.log(`unkown msgId: ${msgId}`);
             }

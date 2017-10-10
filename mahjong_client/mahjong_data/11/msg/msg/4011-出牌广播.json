@@ -1,0 +1,13 @@
+
+{
+    "command": 4011,
+    "senduid": 565748,					
+    "chupai": 16,						
+    "gonext": false,
+    "myaction": {						
+        "hu": true,						
+        "peng": true,						
+      	"gang": true,		
+        "chi": true		
+    }
+}

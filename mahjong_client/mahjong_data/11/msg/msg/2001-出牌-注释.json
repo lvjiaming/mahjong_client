@@ -1,0 +1,6 @@
+{
+    "command": 2001,
+    "did": "DADFG-ASDFADFG45-ASDF8-OLMJ5",
+    "chupai": 5,						//牌值				
+    "tingpai":true						//用户是否选择听牌
+}

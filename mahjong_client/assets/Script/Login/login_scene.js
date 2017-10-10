@@ -14,12 +14,14 @@ cc.Class({
         cc.dd.appUtil.setScreenFit(this.node);
         cc.dd.soundMgr.init();
         cc.dd.userEvent.addObserver(this);
+        cc.dd.net.addObserver(this);
         cc.dd.net.connectNet(cc.dd.pubConst.HOST_STR, () => {
             this.setBtnLoginState(true);
         });
     },
     onDestroy() {
         cc.dd.userEvent.removeObserver(this);
+        cc.dd.net.removeObserver(this);
     },
     // 登录按钮
     onLoginClick() {

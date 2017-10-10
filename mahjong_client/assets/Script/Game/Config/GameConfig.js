@@ -24,6 +24,8 @@ module.exports = {
         EVENT_LOGIN_REP: 1002, // 登录的请求
         EVENT_LOGIN_REQ: 5002, // 登录的返回
         EVENT_CREATE_ROOM_REP: 1003, // 创建房间的请求
+
+        // 消息枚举，你在下面添加，我在上面添加
     },
 };
 cc.dd.gameCfg = module.exports;
