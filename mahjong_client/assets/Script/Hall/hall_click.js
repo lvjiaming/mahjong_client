@@ -36,10 +36,18 @@ cc.Class({
     // 分享
     onShareClick() {
         cc.log(`分享`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Shares ", (prefab) => {
+            const setting = cc.instantiate(prefab);
+            this.node.addChild(setting);
+        });
     },
     // 帮助
     onHelpClick() {
         cc.log(`帮助`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Helps ", (prefab) => {
+            const setting = cc.instantiate(prefab);
+            this.node.addChild(setting);
+        });
     },
     // 设置
     onSettingClick() {
