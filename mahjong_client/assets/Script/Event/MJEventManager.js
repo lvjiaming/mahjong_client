@@ -24,9 +24,19 @@ const MJEventManager = cc.Class({
      */
     startEvent(event, data) {
         cc.log(`发送的协议id为：${event}`);
+        const body = {
+            "command": event,
+            "did": "2efd0aef-4a3d-4ecb-8a50-c9434b32e303",
+        };
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {
-                this.sendMessage(data);
+                body.code = data;
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {
+                body.roomid = data;
+                this.sendMessage(body);
                 break;
             }
             // 需要添加协议，你在下面添加，我在上面添加
@@ -45,7 +55,11 @@ const MJEventManager = cc.Class({
         cc.log(`收到的协议id为：${msgId}`);
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {
-                cc.dd.user.setUserInfo(msgData);
+                cc.dd.user.updataUserInfo(msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {
+
                 break;
             }
             // 回复处理，你在下面添加，我在上面添加
