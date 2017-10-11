@@ -66,6 +66,7 @@ const GameEventManager = cc.Class({
         };
         this.gameSocket.sendMessage = (msgData) => {
             if (this.gameSocket.readyState === WebSocket.OPEN) {
+                cc.log(`发送的消息为：${JSON.stringify(msgData)}`)
                 this.gameSocket.send(JSON.stringify(msgData));
             } else {
                 cc.error(`websocket connect error: ${this.gameSocket.readyState}`);

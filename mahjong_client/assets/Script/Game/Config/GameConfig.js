@@ -26,6 +26,18 @@ module.exports = {
         EVENT_CREATE_ROOM_REP: 1003, // 创建房间的请求
         EVENT_ENTER_ROOM_REP: 1004, // 加入房间的请求
         EVENT_ROOM_DATA: 4001,  // 房间数据
+        EVENT_GAME_STATE: 4002, // 房间的状态
+        EVENT_OUTCARD_REP: 2001, // 出牌的请求
+        EVENT_OUTCARD_RAD: 4011, // 出牌成功的广播
+        EVENT_CHICARD_REP: 2003, // 吃牌的请求
+        EVENT_CHICARD_RAD: 4013, // 吃牌成功的广播
+        EVENT_PENGCARD_REP: 2004, // 碰牌的请求
+        EVENT_PENGCARD_RAD: 4014, // 碰牌成功的广播
+        EVENT_GANGCARD_REP: 2005, // 杠牌的请求
+        EVENT_GANGCARD_RAD: 4015, // 杠牌成功的广播
+        EVENT_HUCARD_REP: 2006, // 胡牌的请求
+        EVENT_HUCARD_RAD: 4016, // 胡牌成功的广播
+        EVENT_MOCARD_RAB: 4012, // 摸牌的广播
 
         // 消息枚举，你在下面添加，我在上面添加
     },

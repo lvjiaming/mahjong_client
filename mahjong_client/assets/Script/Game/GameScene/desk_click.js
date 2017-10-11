@@ -28,13 +28,16 @@ cc.Class({
     // 碰
     onPengClick() {
         cc.log(`发送碰牌请求`);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_PENGCARD_REP);
     },
     // 杠
     onGangClick() {
         cc.log(`发送杠牌请求`);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP);
     },
     onHuClick() {
         cc.log(`发送胡牌请求`);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
     },
     // 过
     onGuoClick() {

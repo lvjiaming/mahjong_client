@@ -39,6 +39,12 @@ cc.Class({
 
     onMessageEvent(event, data) {
         switch (event) {
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
+                cc.dd.Reload.loadDir("DirRes", () => {
+                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+                });
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
