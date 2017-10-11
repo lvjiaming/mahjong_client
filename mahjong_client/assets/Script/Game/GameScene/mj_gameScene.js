@@ -34,30 +34,127 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         // 屏幕适配
+
         cc.dd.appUtil.setScreenFit(this.node);
         cc.dd.soundMgr.playMusic("resources/Game/Sound/common/bg.mp3", true);
 
+        this.initPlayerArr();
         // 测试手牌
-        this.PlayerNode.getChildByName("Bottom").getComponent("PlayerSelf").createHandCard(cardArr);
+       // this.PlayerNode.getChildByName("Bottom").getComponent("PlayerSelf").createHandCard(cardArr);
+
+        cc.dd.roomEvent.notifyMsg();
     },
 
-    // 玩家自己进入房间
-    selfEnterRoom(data) {
-
+    // 初始化玩家的列表
+    initPlayerArr() {
+        this.playerArr.push(this.PlayerNode.getChildByName("Bottom"));
+        this.PlayerNode.getChildByName("Bottom").localSeat = 1;
+        this.playerArr.push(this.PlayerNode.getChildByName("Right"));
+        this.PlayerNode.getChildByName("Right").localSeat = 2;
+        this.playerArr.push(this.PlayerNode.getChildByName("Top"));
+        this.PlayerNode.getChildByName("Top").localSeat = 3;
+        this.playerArr.push(this.PlayerNode.getChildByName("Left"));
+        this.PlayerNode.getChildByName("Left").localSeat = 4;
     },
-
-    // 别的玩家加入房间
-    otherPlayerEnterRoom(data) {
-
+    // 初始化玩家
+    initPlayerSeat() {
+        const userList = this.sortUserList();
+        userList.forEach((item, index) => {
+            this.playerArr[index].active = true;
+            let player_class = null;
+            if (index === 0) {
+                cc.log(`初始化自己的信息`);
+                player_class = this.playerArr[index].getComponent("PlayerSelf");
+            } else {
+                cc.log(`初始化其他玩家信息`);
+                player_class = this.playerArr[index].getComponent("PlayerOther");
+            }
+            if (player_class) {
+                player_class.initInfo(item);
+            }
+            this.playerArr[index].userInfo = item;
+        });
     },
-
-    // 添加玩家
-    addPlayer(data) {
-
+    /**
+     *  排序玩家
+     * @param arr
+     */
+    sortUserList() {
+        const userList = cc.dd.room.userList;
+        const selfInfo = cc.dd.user.getUserInfo();
+        let idx = 0;
+        const newUserList = [];
+        userList.forEach((item, index) => {
+            if (selfInfo.UID === item.UID) {
+                idx = index;
+            }
+        });
+        for (let i = idx; i < userList.length; i ++) {
+            newUserList.push(userList[i]);
+        }
+        for (let i = 0; i < idx; i ++) {
+            newUserList.push(userList[i]);
+        }
+        return newUserList;
     },
+    // 玩家出牌
+    playerOutCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.senduid);
+        if (localSeat) {
+            cc.dd.cardMgr.outCard();
+        } else {
+            cc.error(`本地座位号未找到！！！`);
+        }
+    },
+    // 玩家吃牌
+    playerChiCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
+        if (localSeat) {
 
-    // 移除玩家
-    removePlayer(data) {
+        } else {
+            cc.error(`本地座位号未找到！！！`);
+        }
+    },
+    // 玩家碰牌
+    playerPengCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.penguid);
+        if (localSeat) {
+            cc.dd.cardMgr.pengGangCard();
+        } else {
+            cc.error(`本地座位号未找到！！！`);
+        }
+    },
+    // 玩家杠牌
+    playerGangCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.ganguid);
+        if (localSeat) {
+            cc.dd.cardMgr.pengGangCard();
+        } else {
+            cc.error(`本地座位号未找到！！！`);
+        }
+    },
+    // 玩家胡牌
+    playerHuCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.huuid);
+        if (localSeat) {
 
+        } else {
+            cc.error(`本地座位号未找到！！！`);
+        }
+    },
+    /**
+     *  根据玩家id返回本地座位号
+     * @param userid
+     */
+    getLocalSeatByUserId(userid) {
+        let localSeat = 0;
+        this.playerArr.forEach((item) => {
+            if (item.userInfo) {
+                if (item.userInfo.UID === userid) {
+                    localSeat = item.localSeat;
+                }
+            }
+        });
+        return localSeat;
     },
 });

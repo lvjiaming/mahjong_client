@@ -50,6 +50,8 @@ cc.Class({
      */
     initInfo(data) {
         this.setLocalSeat();
+        this.setNickNameLabel(data.nickname);
+        this.setCoinLabel(data.score);
     },
     /**
      *  设置玩家的本地桌位号
@@ -66,14 +68,18 @@ cc.Class({
      * @param nickName 昵称
      */
     setNickNameLabel(nickName) {
-        this.NickNameLabel.string = nickName;
+        if (this.NickNameLabel) {
+            this.NickNameLabel.string = nickName;
+        }
     },
     /**
      *  设置金币
      * @param coin 金币
      */
     setCoinLabel(coin) {
-        this.CoinLabel.string = coin;
+        if (this.CoinLabel) {
+            this.CoinLabel.string = coin;
+        }
     },
     /**
      * 设置头像

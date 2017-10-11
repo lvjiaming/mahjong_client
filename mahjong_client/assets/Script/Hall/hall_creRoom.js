@@ -42,9 +42,9 @@ cc.Class({
             cc.log(`玩法：${item}`);
         });
         //todo  暂时这样写
-        cc.dd.Reload.loadDir("DirRes", () => {
-            cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-        });
+        // cc.dd.Reload.loadDir("DirRes", () => {
+        //     cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+        // });
     },
     // 关闭
     onCloseClick() {

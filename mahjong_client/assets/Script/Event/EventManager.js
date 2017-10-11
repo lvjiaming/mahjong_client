@@ -7,6 +7,7 @@
  */
 const EventManager = cc.Class({
     observerList: null, // 观察者列表
+    msgList: null, // 消息列表
     statics: {
         getInstance() {
             if (!this.eventManager) {
@@ -17,6 +18,7 @@ const EventManager = cc.Class({
     },
     ctor() {
         this.observerList = [];
+        this.msgList = [];
     },
 
     /**
@@ -65,5 +67,31 @@ const EventManager = cc.Class({
         } catch (err) {
             cc.error(err);
         }
+    },
+    /**
+     *  添加消息列表
+     * @param event 消息id
+     * @param data 消息内容
+     */
+    addMsg(event, data) {
+        const msg = {
+            event: event,
+            data: data,
+        };
+        this.msgList.push(msg);
+    },
+    /**
+     *  下发存储的消息
+     */
+    notifyMsg() {
+        this.msgList.forEach((item) => {
+            cc.dd.roomEvent.notifyEvent(item.event, item.data);
+        });
+    },
+    /**
+     *  清空存储的消息列表
+     */
+    cleanMsgList() {
+        this.msgList = [];
     },
 });
