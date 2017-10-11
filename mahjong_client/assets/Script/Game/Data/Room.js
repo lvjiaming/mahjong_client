@@ -3,7 +3,7 @@
  */
 const EventManager = require("../../Event/EventManager.js");
 const RoomEvName = {
-
+    USER_ENTER_ROOM: "user_enter_room", // 玩家进入房间
 };
 cc.dd.roomEvName = RoomEvName;
 const RoomEvent = cc.Class({

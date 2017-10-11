@@ -21,19 +21,19 @@ const User = cc.Class({
         },
     },
     properties: {
-        _userid: null, // 用户Id
+        _userInfo: null, // 用户信息
     },
-    // 设置用户id
-    setUserId(userid) {
-        this._userid = userid;
+    // 设置用户信息
+    setUserInfo(user) {
+        this._userInfo = user;
     },
-    // 得到用户id
-    getUserId() {
-        return this._userid;
+    // 得到用户信息
+    getUserInfo() {
+        return this._userInfo;
     },
     // 用户登录成功
-    setUserInfo(data) {
-        this.setUserId(data.user.UID);
+    updataUserInfo(data) {
+        this.setUserInfo(data);
         cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data.user);
     },
 });

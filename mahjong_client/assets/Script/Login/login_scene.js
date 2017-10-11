@@ -32,13 +32,15 @@ cc.Class({
     onLoginClick() {
         cc.log(`用户登录`);
         // 请求登录
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, {
-            "command": cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP,
-            "did": "39d394f7-db13-4768-a4da-40e18273d7a8",
-            "code": "6SDF4ASD4GFAS4FG5ASD5F5Dsdf"
-        });
-        cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
+        // cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, {
+        //     "command": cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP,
+        //     "did": "39d394f7-db13-4768-a4da-40e18273d7a8",
+        //     "code": "6SDF4ASD4GFAS4FG5ASD5F5Dsdf"
+        // });
+        // cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
     },
+
     clickCheckBoxToggle(event, custom) {
         var temp = this.CheckBox.getComponent(cc.dd.CheckBox);
         cc.log(temp.isChecked);
@@ -51,6 +53,7 @@ cc.Class({
             tempbtn.interactable = false;
         }
     },
+    
     // 设置登录按钮的状态
     setBtnLoginState(state) {
         if (this.BtnLogin) {
@@ -61,8 +64,9 @@ cc.Class({
     },
     onMessageEvent(event, data) {
         switch (event) {
-            case cc.dd.userEvent.USER_LOGIN_SCU: {
+            case cc.dd.userEvName.USER_LOGIN_SCU: {
                 cc.log(`登录成功`);
+                cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
                 break;
             }
             default: {
