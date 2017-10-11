@@ -63,10 +63,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 24
+        "__id__": 25
       },
       {
-        "__id__": 25
+        "__id__": 26
       }
     ],
     "_prefab": null,
@@ -128,7 +128,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 23
+        "__id__": 24
       }
     ],
     "_prefab": null,
@@ -264,7 +264,7 @@
       }
     ],
     "_tag": -1,
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 11
@@ -575,7 +575,7 @@
         "__id__": 15
       },
       {
-        "__id__": 21
+        "__id__": 22
       }
     ],
     "_tag": -1,
@@ -620,7 +620,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Toggle",
+    "_name": "CheckBox",
     "_objFlags": 0,
     "_parent": {
       "__id__": 14
@@ -890,8 +890,21 @@
     "checkMark": {
       "__id__": 19
     },
-    "checkEvents": [],
+    "checkEvents": [
+      {
+        "__id__": 21
+      }
+    ],
     "_N$isChecked": true
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 2
+    },
+    "component": "login_scene",
+    "handler": "clickCheckBoxToggle",
+    "customEventData": ""
   },
   {
     "__type__": "cc.Node",
@@ -905,7 +918,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 22
+        "__id__": 23
       }
     ],
     "_prefab": null,
@@ -950,7 +963,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 21
+      "__id__": 22
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -1019,6 +1032,9 @@
     "_enabled": true,
     "BtnLogin": {
       "__id__": 6
+    },
+    "CheckBox": {
+      "__id__": 15
     }
   }
 ]
