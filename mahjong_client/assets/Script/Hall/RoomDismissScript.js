@@ -4,25 +4,37 @@ cc.Class({
     properties: {
        agreeOnDismiss :{
             default: null,
-            type: cc.Node,
+            type: cc.Button,
             tooltip: "确认取消房间",
-            // label: cc.node,
-            // interactable: true, //这个属性为什么不能让按钮禁止
        },
     },
 
     // use this for initialization
     onLoad: function () {
         // 倒计时一分钟，一分钟后自动拒绝，如何能改到btn的label
-        var tiktok = 0;
-         cc.dd.getScheduler().schedule(function(){
-            tiktok += 1;
-         }, this, 1, tiktok >= 60);
+         // cc.dd.getScheduler().schedule(function(){
+
+         //    tiktok += 1;
+         //    cc.log(this.agreeOnDismiss);
+         //    if (tiktok == 60) {
+
+         //    }
+         // }, this, 1, tiktok > 60);
+        this.count = 60;
+        this.callback = function () {
+            if (this.count === 0) {
+                // 在第六十次执行回调时取消这个计时器
+                this.unschedule(this.callback);
+            }
+            this.agreeOnDismiss.getComponent(cc.Label).String = this.count.toString();
+            this.count++;
+        }
+        this.agreeOnDismiss.schedule(this.callback, 1);
     },
     onRejectClick() {
         cc.log("拒绝取消房间");
-        // this.agreeOnDismiss.interactable = false;
-        // this.agreeOnDismiss.label.string = "30";
+        //取消定时器
+        this.unschedule(this.callback);
         this.node.destroy();
     },
     onConfrimClick() {
@@ -31,6 +43,7 @@ cc.Class({
         cc.log("确认取消房间");
         this.node.destroy();
     },
+
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 

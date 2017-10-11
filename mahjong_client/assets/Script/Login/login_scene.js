@@ -4,14 +4,15 @@ cc.Class({
     properties: {
         BtnLogin: {
             default: null,
-            type: cc.Node,
+            type: cc.Button,
             tooltip: "登录的按钮",
         },
         CheckBox: {
             default: null,
-            type: cc.Node,
+            type: cc.Toggle,
             tooltip: "用户协议",
         },
+        CheckBoxGotCheck: true,
     },
 
     // use this for initialization
@@ -30,6 +31,9 @@ cc.Class({
     },
     // 登录按钮
     onLoginClick() {
+    	// if (this.CheckBoxGotCheck == false) {
+    	// 	return;
+    	// }
         cc.log(`用户登录`);
         // 请求登录
         // cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, {
@@ -42,24 +46,20 @@ cc.Class({
     },
 
     clickCheckBoxToggle(event, custom) {
-        var temp = this.CheckBox.getComponent(cc.CheckBox);
-        cc.log(temp.isChecked);
-        var tempbtn = this.BtnLogin.getComponent(cc.BtnLogin);
-        log(tempbtn.interactable);
-        if (temp.isChecked) {
-            cc.log(temp.isChecked);
-            tempbtn.interactable = true;
+        this.CheckBoxGotCheck = !this.CheckBoxGotCheck;
+        if(this.CheckBoxGotCheck){
+        	this.BtnLogin.getComponent(cc.Button).interactable = true;
         }else{
-            tempbtn.interactable = false;
+        	this.BtnLogin.getComponent(cc.Button).interactable = false;
         }
     },
     
     // 设置登录按钮的状态
     setBtnLoginState(state) {
         if (this.BtnLogin) {
-            this.BtnLogin.active = state
+            this.BtnLogin.active = state;
         } else {
-            cc.log(`节点未绑定`)
+            cc.log(`节点未绑定`);
         }
     },
     onMessageEvent(event, data) {

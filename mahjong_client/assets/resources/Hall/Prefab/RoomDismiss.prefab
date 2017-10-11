@@ -1011,7 +1011,10 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "agreeOnDismiss": {
+      "__id__": 20
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

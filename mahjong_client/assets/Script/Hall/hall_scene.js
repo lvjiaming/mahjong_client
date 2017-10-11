@@ -31,21 +31,22 @@ cc.Class({
     },
     // 设置用户信息
     setUserInfo() {
+        cc.log("设置用户信息");
         this.setUserId(cc.dd.user.getUserInfo().UID);
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
         this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
     },
     // 设置用户的id
     setUserId(id) {
-        this.NickNameLabel.string = id;
+        this.PlayerId.string = id;
     },
     // 设置昵称
     setUserNickName(nickName) {
-
+        this.NickNameLabel.string = nickName;
     },
     // 设置房卡数目
     setFangKaNum(num) {
-
+        this.RoomCard.string = num;
     },
 
     onMessageEvent(event, data) {
