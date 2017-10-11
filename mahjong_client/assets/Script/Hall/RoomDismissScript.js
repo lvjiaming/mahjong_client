@@ -23,14 +23,13 @@ cc.Class({
         cc.log("拒绝取消房间");
         // this.agreeOnDismiss.interactable = false;
         // this.agreeOnDismiss.label.string = "30";
-        this.node.destory();
+        this.node.destroy();
     },
     onConfrimClick() {
         //转菊花
         //网络请求
         cc.log("确认取消房间");
-        //报错 this.node.destory is not a function
-        // this.node.destroy();
+        this.node.destroy();
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

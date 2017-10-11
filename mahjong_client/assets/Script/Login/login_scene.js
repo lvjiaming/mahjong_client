@@ -27,12 +27,12 @@ cc.Class({
     onLoginClick() {
         cc.log(`用户登录`);
         // 请求登录
-        // cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, {
-        //     "command": cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP,
-        //     "did": "DADFG-ASDFADFG45-ASDF8-OLMJ5",
-        //     "code": "6SDF4ASD4GFAS4FG5ASD5F5Dsdf"
-        // });
-        cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, {
+            "command": cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP,
+            "did": "39d394f7-db13-4768-a4da-40e18273d7a8",
+            "code": "6SDF4ASD4GFAS4FG5ASD5F5Dsdf"
+        });
+        // cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
     },
     // 设置登录按钮的状态
     setBtnLoginState(state) {

@@ -19,7 +19,7 @@ cc.Class({
 
     },
     onCancleClick() {
-        this.node.destory();
+        this.node.destroy();
     },
     onComfrimClick() {
 
