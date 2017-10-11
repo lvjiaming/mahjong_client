@@ -22,7 +22,7 @@ cc.Class({
         cc.dd.roomEvent.addObserver(this);
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
-        this.setUserInfo();
+        // this.setUserInfo();
     },
     onDestroy() {
         cc.dd.roomEvent.removeObserver(this);
