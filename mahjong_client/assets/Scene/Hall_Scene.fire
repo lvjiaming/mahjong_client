@@ -1841,7 +1841,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Id",
+    "_name": "PlayerId",
     "_objFlags": 0,
     "_parent": {
       "__id__": 42
@@ -1915,7 +1915,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Id",
+    "_name": "RoomCard",
     "_objFlags": 0,
     "_parent": {
       "__id__": 42
@@ -2446,7 +2446,16 @@
     "node": {
       "__id__": 2
     },
-    "_enabled": true
+    "_enabled": true,
+    "NickNameLabel": {
+      "__id__": 44
+    },
+    "PlayerId": {
+      "__id__": 46
+    },
+    "RoomCard": {
+      "__id__": 48
+    }
   },
   {
     "__type__": "6f651Ek+BRNRb9JWxHWztjr",

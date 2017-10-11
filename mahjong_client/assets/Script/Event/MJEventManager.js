@@ -26,7 +26,7 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,
-            "did": "2efd0aef-4a3d-4ecb-8a50-c9434b32e303",
+            "did": "4b9ccebe-fcd8-4afa-831e-8b987e8ce786",
         };
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {
@@ -55,7 +55,7 @@ const MJEventManager = cc.Class({
         cc.log(`收到的协议id为：${msgId}`);
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {
-                cc.dd.user.updataUserInfo(msgData);
+                cc.dd.user.updataUserInfo(JSON.stringify(msgData));
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {

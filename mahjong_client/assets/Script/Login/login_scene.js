@@ -42,9 +42,9 @@ cc.Class({
     },
 
     clickCheckBoxToggle(event, custom) {
-        var temp = this.CheckBox.getComponent(cc.dd.CheckBox);
+        var temp = this.CheckBox.getComponent(cc.CheckBox);
         cc.log(temp.isChecked);
-        var tempbtn = this.BtnLogin.getComponent(cc.dd.BtnLogin);
+        var tempbtn = this.BtnLogin.getComponent(cc.BtnLogin);
         log(tempbtn.interactable);
         if (temp.isChecked) {
             cc.log(temp.isChecked);
@@ -68,6 +68,9 @@ cc.Class({
                 cc.log(`登录成功`);
                 cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
                 break;
+            }
+            case cc.dd.userEvName.USER_LOGIN_FAIL: {
+                cc.log('登录失败');
             }
             default: {
                 cc.log(`unkown event: ${event}`);

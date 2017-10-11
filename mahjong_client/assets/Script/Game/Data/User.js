@@ -34,6 +34,8 @@ const User = cc.Class({
     // 用户登录成功
     updataUserInfo(data) {
         this.setUserInfo(data);
+        cc.log("刚登录返回的"+ data);
+        cc.log("data.user:" + data.user);
         cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data.user);
     },
 });

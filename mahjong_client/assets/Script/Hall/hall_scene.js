@@ -2,7 +2,18 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        NickNameLabel: {
+            default:null,
+            type: cc.Label,
+        },
+        PlayerId: {
+            default:null,
+            type: cc.Label,
+        },
+        RoomCard: {
+            default:null,
+            type: cc.Label,
+        },
     },
 
     // use this for initialization
@@ -26,7 +37,7 @@ cc.Class({
     },
     // 设置用户的id
     setUserId(id) {
-
+        this.NickNameLabel.string = id;
     },
     // 设置昵称
     setUserNickName(nickName) {
