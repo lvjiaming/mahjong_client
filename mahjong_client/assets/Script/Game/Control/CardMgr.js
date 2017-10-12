@@ -44,6 +44,7 @@ const CardMgr = cc.Class({
      * @param data 手牌数据（除了自己，其他只传手牌的数量）
      */
     initHandCard(h_node, localSeat, data) {
+        cc.log(`初始化本地座位号为${localSeat}玩家的手牌`);
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 this.sortHandCard(data);
@@ -56,12 +57,37 @@ const CardMgr = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
+                let initPos = 0;
+                const str = "HandCard_Left";
+                for (let i = 0; i < data.length; i ++) {
+                    const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                    h_node.addChild(card);
+                    if (i === 0) {
+                        initPos = card.getPositionX();
+                    }
+                    card.setPositionX(initPos + (i * CONFIG.RIGHT.HAND_CARD_X));
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
+                const str = "HandCard_Top";
+                for (let i = 0; i < data.length; i ++) {
+                    const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                    h_node.addChild(card);
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
+                let initPos = 0;
+                const str = "HandCard_Left";
+                for (let i = 0; i < data.length; i ++) {
+                    const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                    h_node.addChild(card);
+                    if (i === 0) {
+                        initPos = card.getPositionX();
+                    }
+                    card.setPositionX(initPos + (i * CONFIG.LEFT.HAND_CARD_X));
+                }
                 break;
             }
             default: {

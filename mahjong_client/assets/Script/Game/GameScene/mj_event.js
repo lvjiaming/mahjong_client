@@ -52,7 +52,7 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_MOCARD_RAB: {  // 玩家摸牌的广播
-
+                this.node.getComponent("mj_gameScene").playerMoCard(data);
                 break;
             }
             default: {

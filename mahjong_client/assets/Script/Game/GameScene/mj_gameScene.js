@@ -62,6 +62,10 @@ cc.Class({
         userList.forEach((item, index) => {
             this.playerArr[index].active = true;
             let player_class = null;
+            // todo 测试代码（测试自己手牌的生成）
+            //const handNode = this.playerArr[index].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+            //cc.dd.cardMgr.initHandCard(handNode, this.playerArr[index].localSeat, cardArr);
+
             if (index === 0) {
                 cc.log(`初始化自己的信息`);
                 player_class = this.playerArr[index].getComponent("PlayerSelf");
@@ -101,6 +105,7 @@ cc.Class({
     playerOutCard(data) {
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
+            const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.outCard();
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -119,6 +124,7 @@ cc.Class({
     playerPengCard(data) {
         const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (localSeat) {
+            const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard();
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -128,6 +134,7 @@ cc.Class({
     playerGangCard(data) {
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
+            const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard();
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -141,6 +148,10 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+    },
+    // 玩家摸牌
+    playerMoCard() {
+
     },
     /**
      *  根据玩家id返回本地座位号
