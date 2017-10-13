@@ -50,7 +50,7 @@
     "_scaleY": 0.6,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 28.5,
+      "x": 0,
       "y": 0
     },
     "_skewX": 0,
@@ -94,7 +94,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "54ec245b-efcd-4b71-9454-cda9fd3e38bf"
     },
     "fileId": "97AJGTDytFsanHeHa8BNqn",
     "sync": false

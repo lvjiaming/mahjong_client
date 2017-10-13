@@ -60,7 +60,7 @@
     "_scaleY": 0.6,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -333,
+      "x": 0,
       "y": 0
     },
     "_skewX": 0,
@@ -299,7 +299,7 @@
     "suit": 2,
     "num": 4,
     "cardState": 1,
-    "canOut": false
+    "id": -1
   },
   {
     "__type__": "cc.PrefabInfo",

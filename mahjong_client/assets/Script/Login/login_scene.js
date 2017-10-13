@@ -72,6 +72,12 @@ cc.Class({
             case cc.dd.userEvName.USER_LOGIN_FAIL: {
                 cc.log('登录失败');
             }
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
+                cc.log(`玩家进入原房间`);
+                cc.dd.Reload.loadDir("DirRes", () => {
+                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+                });
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

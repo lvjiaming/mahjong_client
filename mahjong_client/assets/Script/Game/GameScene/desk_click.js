@@ -42,6 +42,7 @@ cc.Class({
     // 过
     onGuoClick() {
         cc.log(`过牌`);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
     },
     // 吃
     onChiClick() {

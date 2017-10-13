@@ -63,19 +63,19 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 144
+        "__id__": 149
       },
       {
-        "__id__": 145
+        "__id__": 150
       },
       {
-        "__id__": 146
+        "__id__": 151
       },
       {
-        "__id__": 147
+        "__id__": 152
       },
       {
-        "__id__": 148
+        "__id__": 153
       }
     ],
     "_prefab": null,
@@ -133,14 +133,14 @@
         "__id__": 29
       },
       {
-        "__id__": 40
+        "__id__": 45
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 143
+        "__id__": 148
       }
     ],
     "_prefab": null,
@@ -1263,20 +1263,23 @@
         "__id__": 31
       },
       {
-        "__id__": 33
-      },
-      {
-        "__id__": 35
+        "__id__": 34
       },
       {
         "__id__": 37
+      },
+      {
+        "__id__": 40
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 39
+        "__id__": 43
+      },
+      {
+        "__id__": 44
       }
     ],
     "_prefab": null,
@@ -1329,6 +1332,9 @@
     "_components": [
       {
         "__id__": 32
+      },
+      {
+        "__id__": 33
       }
     ],
     "_prefab": null,
@@ -1397,6 +1403,15 @@
     }
   },
   {
+    "__type__": "e8ca3tmOd1HurXSCXGWrHW1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 31
+    },
+    "_enabled": true
+  },
+  {
     "__type__": "cc.Node",
     "_name": "Right",
     "_objFlags": 0,
@@ -1408,7 +1423,10 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 34
+        "__id__": 35
+      },
+      {
+        "__id__": 36
       }
     ],
     "_prefab": null,
@@ -1453,7 +1471,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 33
+      "__id__": 34
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1477,6 +1495,15 @@
     }
   },
   {
+    "__type__": "e8ca3tmOd1HurXSCXGWrHW1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 34
+    },
+    "_enabled": true
+  },
+  {
     "__type__": "cc.Node",
     "_name": "Top",
     "_objFlags": 0,
@@ -1488,7 +1515,10 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 36
+        "__id__": 38
+      },
+      {
+        "__id__": 39
       }
     ],
     "_prefab": null,
@@ -1533,7 +1563,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 35
+      "__id__": 37
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1557,6 +1587,15 @@
     }
   },
   {
+    "__type__": "e8ca3tmOd1HurXSCXGWrHW1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 37
+    },
+    "_enabled": true
+  },
+  {
     "__type__": "cc.Node",
     "_name": "Left",
     "_objFlags": 0,
@@ -1568,7 +1607,10 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 38
+        "__id__": 41
+      },
+      {
+        "__id__": 42
       }
     ],
     "_prefab": null,
@@ -1613,7 +1655,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 37
+      "__id__": 40
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1635,6 +1677,15 @@
     "_atlas": {
       "__uuid__": "c009d04a-a0ec-49fa-b212-0fd2f04ca0c8"
     }
+  },
+  {
+    "__type__": "e8ca3tmOd1HurXSCXGWrHW1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 40
+    },
+    "_enabled": true
   },
   {
     "__type__": "cc.Sprite",
@@ -1665,6 +1716,16 @@
     }
   },
   {
+    "__type__": "d47b1l3GUBOg4kPSFzkxXsn",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 30
+    },
+    "_enabled": true,
+    "_preTimer": null
+  },
+  {
     "__type__": "cc.Node",
     "_name": "Player",
     "_objFlags": 0,
@@ -1673,16 +1734,16 @@
     },
     "_children": [
       {
-        "__id__": 41
+        "__id__": 46
       },
       {
-        "__id__": 61
+        "__id__": 66
       },
       {
-        "__id__": 81
+        "__id__": 86
       },
       {
-        "__id__": 101
+        "__id__": 106
       }
     ],
     "_tag": -1,
@@ -1730,27 +1791,27 @@
     "_name": "Right",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 40
+      "__id__": 45
     },
     "_children": [
       {
-        "__id__": 42
+        "__id__": 47
       },
       {
-        "__id__": 46
-      },
-      {
-        "__id__": 48
+        "__id__": 51
       },
       {
         "__id__": 53
+      },
+      {
+        "__id__": 58
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
-        "__id__": 60
+        "__id__": 65
       }
     ],
     "_prefab": null,
@@ -1795,18 +1856,18 @@
     "_name": "InfoBk",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 41
+      "__id__": 46
     },
     "_children": [
       {
-        "__id__": 43
+        "__id__": 48
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 45
+        "__id__": 50
       }
     ],
     "_prefab": null,
@@ -1851,14 +1912,14 @@
     "_name": "Coin",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 42
+      "__id__": 47
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 44
+        "__id__": 49
       }
     ],
     "_prefab": null,
@@ -1903,7 +1964,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 43
+      "__id__": 48
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -1925,7 +1986,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 42
+      "__id__": 47
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1953,14 +2014,14 @@
     "_name": "PengGangLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 41
+      "__id__": 46
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 47
+        "__id__": 52
       }
     ],
     "_prefab": null,
@@ -1990,7 +2051,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 495,
+      "x": 493,
       "y": -182
     },
     "_skewX": 0,
@@ -2005,7 +2066,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 46
+      "__id__": 51
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2036,21 +2097,21 @@
     "_name": "HandCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 41
+      "__id__": 46
     },
     "_children": [
       {
-        "__id__": 49
+        "__id__": 54
       },
       {
-        "__id__": 50
+        "__id__": 55
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 52
+        "__id__": 57
       }
     ],
     "_prefab": null,
@@ -2072,7 +2133,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 120
+      "height": 152
     },
     "_rotationX": 2,
     "_rotationY": 2,
@@ -2095,7 +2156,7 @@
     "_name": "MoCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 48
+      "__id__": 53
     },
     "_children": [],
     "_tag": -1,
@@ -2128,7 +2189,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 85,
+      "x": 69,
       "y": -50
     },
     "_skewX": 0,
@@ -2143,14 +2204,14 @@
     "_name": "HandCardLay",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 48
+      "__id__": 53
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 51
+        "__id__": 56
       }
     ],
     "_prefab": null,
@@ -2172,7 +2233,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 80,
-      "height": 68
+      "height": 100
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2180,7 +2241,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 122,
+      "x": 50,
       "y": -52
     },
     "_skewX": 0,
@@ -2195,13 +2256,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 50
+      "__id__": 55
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 80,
-      "height": 68
+      "height": 100
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -2226,13 +2287,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 48
+      "__id__": 53
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 120
+      "height": 152
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -2257,17 +2318,17 @@
     "_name": "OutCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 41
+      "__id__": 46
     },
     "_children": [
       {
-        "__id__": 54
+        "__id__": 59
       },
       {
-        "__id__": 56
+        "__id__": 61
       },
       {
-        "__id__": 58
+        "__id__": 63
       }
     ],
     "_tag": -1,
@@ -2315,14 +2376,14 @@
     "_name": "OutCardLayer1",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 53
+      "__id__": 58
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 55
+        "__id__": 60
       }
     ],
     "_prefab": null,
@@ -2367,7 +2428,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 54
+      "__id__": 59
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2398,14 +2459,14 @@
     "_name": "OutCardLayer2",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 53
+      "__id__": 58
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 57
+        "__id__": 62
       }
     ],
     "_prefab": null,
@@ -2450,7 +2511,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 56
+      "__id__": 61
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2481,14 +2542,14 @@
     "_name": "OutCardLayer3",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 53
+      "__id__": 58
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 59
+        "__id__": 64
       }
     ],
     "_prefab": null,
@@ -2518,7 +2579,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 174,
+      "x": 190,
       "y": -64
     },
     "_skewX": 0,
@@ -2533,7 +2594,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 58
+      "__id__": 63
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2564,25 +2625,25 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 41
+      "__id__": 46
     },
     "_enabled": true,
     "NickNameLabel": null,
     "HeadNode": null,
     "CoinLabel": {
-      "__id__": 44
+      "__id__": 49
     },
     "HandCardNode": {
-      "__id__": 50
+      "__id__": 55
     },
     "PengGangNode": {
-      "__id__": 46
+      "__id__": 51
     },
     "OutCardNode": {
-      "__id__": 53
+      "__id__": 58
     },
     "MoCardNode": {
-      "__id__": 49
+      "__id__": 54
     },
     "_HandCardArr": [],
     "_PengCardArr": [],
@@ -2594,27 +2655,27 @@
     "_name": "Top",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 40
+      "__id__": 45
     },
     "_children": [
       {
-        "__id__": 62
-      },
-      {
-        "__id__": 66
+        "__id__": 67
       },
       {
         "__id__": 71
       },
       {
-        "__id__": 73
+        "__id__": 76
+      },
+      {
+        "__id__": 78
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 80
+        "__id__": 85
       }
     ],
     "_prefab": null,
@@ -2659,18 +2720,18 @@
     "_name": "InfoBk",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 66
     },
     "_children": [
       {
-        "__id__": 63
+        "__id__": 68
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 65
+        "__id__": 70
       }
     ],
     "_prefab": null,
@@ -2715,14 +2776,14 @@
     "_name": "Coin",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 62
+      "__id__": 67
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 64
+        "__id__": 69
       }
     ],
     "_prefab": null,
@@ -2767,7 +2828,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 63
+      "__id__": 68
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -2789,7 +2850,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 62
+      "__id__": 67
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2817,21 +2878,21 @@
     "_name": "HandCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 66
     },
     "_children": [
       {
-        "__id__": 67
+        "__id__": 72
       },
       {
-        "__id__": 68
+        "__id__": 73
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 70
+        "__id__": 75
       }
     ],
     "_prefab": null,
@@ -2852,7 +2913,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 328,
+      "width": 200,
       "height": 50
     },
     "_rotationX": 0,
@@ -2876,7 +2937,7 @@
     "_name": "MoCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 66
+      "__id__": 71
     },
     "_children": [],
     "_tag": -1,
@@ -2924,14 +2985,14 @@
     "_name": "HandCardLay",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 66
+      "__id__": 71
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 69
+        "__id__": 74
       }
     ],
     "_prefab": null,
@@ -2952,7 +3013,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 281,
+      "width": 153,
       "height": 50
     },
     "_rotationX": 0,
@@ -2976,12 +3037,12 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 68
+      "__id__": 73
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 281,
+      "width": 153,
       "height": 50
     },
     "_resize": 1,
@@ -3007,12 +3068,12 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 66
+      "__id__": 71
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 328,
+      "width": 200,
       "height": 50
     },
     "_resize": 1,
@@ -3038,14 +3099,14 @@
     "_name": "PengGangLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 66
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 72
+        "__id__": 77
       }
     ],
     "_prefab": null,
@@ -3090,7 +3151,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 71
+      "__id__": 76
     },
     "_enabled": true,
     "_layoutSize": {
@@ -3121,17 +3182,17 @@
     "_name": "OutCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 61
+      "__id__": 66
     },
     "_children": [
       {
-        "__id__": 74
+        "__id__": 79
       },
       {
-        "__id__": 76
+        "__id__": 81
       },
       {
-        "__id__": 78
+        "__id__": 83
       }
     ],
     "_tag": -1,
@@ -3179,14 +3240,14 @@
     "_name": "OutCardLayer1",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 73
+      "__id__": 78
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 75
+        "__id__": 80
       }
     ],
     "_prefab": null,
@@ -3231,7 +3292,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 79
     },
     "_enabled": true,
     "_layoutSize": {
@@ -3262,14 +3323,14 @@
     "_name": "OutCardLayer2",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 73
+      "__id__": 78
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 77
+        "__id__": 82
       }
     ],
     "_prefab": null,
@@ -3314,7 +3375,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 76
+      "__id__": 81
     },
     "_enabled": true,
     "_layoutSize": {
@@ -3342,17 +3403,17 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "OutCardLayer2",
+    "_name": "OutCardLayer3",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 73
+      "__id__": 78
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 79
+        "__id__": 84
       }
     ],
     "_prefab": null,
@@ -3397,7 +3458,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 78
+      "__id__": 83
     },
     "_enabled": true,
     "_layoutSize": {
@@ -3428,25 +3489,25 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 61
+      "__id__": 66
     },
     "_enabled": true,
     "NickNameLabel": null,
     "HeadNode": null,
     "CoinLabel": {
-      "__id__": 64
+      "__id__": 69
     },
     "HandCardNode": {
-      "__id__": 68
-    },
-    "PengGangNode": {
-      "__id__": 71
-    },
-    "OutCardNode": {
       "__id__": 73
     },
+    "PengGangNode": {
+      "__id__": 76
+    },
+    "OutCardNode": {
+      "__id__": 78
+    },
     "MoCardNode": {
-      "__id__": 67
+      "__id__": 72
     },
     "_HandCardArr": [],
     "_PengCardArr": [],
@@ -3458,27 +3519,27 @@
     "_name": "Left",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 40
+      "__id__": 45
     },
     "_children": [
       {
-        "__id__": 82
+        "__id__": 87
       },
       {
-        "__id__": 86
-      },
-      {
-        "__id__": 88
+        "__id__": 91
       },
       {
         "__id__": 93
+      },
+      {
+        "__id__": 98
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 100
+        "__id__": 105
       }
     ],
     "_prefab": null,
@@ -3523,18 +3584,18 @@
     "_name": "InfoBk",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 81
+      "__id__": 86
     },
     "_children": [
       {
-        "__id__": 83
+        "__id__": 88
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 85
+        "__id__": 90
       }
     ],
     "_prefab": null,
@@ -3579,14 +3640,14 @@
     "_name": "Coin",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 82
+      "__id__": 87
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 84
+        "__id__": 89
       }
     ],
     "_prefab": null,
@@ -3631,7 +3692,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 83
+      "__id__": 88
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3653,7 +3714,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 87
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -3681,14 +3742,14 @@
     "_name": "PengGangLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 81
+      "__id__": 86
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 87
+        "__id__": 92
       }
     ],
     "_prefab": null,
@@ -3718,8 +3779,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -383,
-      "y": 296
+      "x": -352,
+      "y": 298
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -3733,7 +3794,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 86
+      "__id__": 91
     },
     "_enabled": true,
     "_layoutSize": {
@@ -3764,21 +3825,21 @@
     "_name": "HandCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 81
+      "__id__": 86
     },
     "_children": [
       {
-        "__id__": 89
+        "__id__": 94
       },
       {
-        "__id__": 91
+        "__id__": 96
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 92
+        "__id__": 97
       }
     ],
     "_prefab": null,
@@ -3800,7 +3861,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 184
+      "height": 472
     },
     "_rotationX": -2,
     "_rotationY": -2,
@@ -3823,14 +3884,14 @@
     "_name": "HandCardLay",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 88
+      "__id__": 93
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 90
+        "__id__": 95
       }
     ],
     "_prefab": null,
@@ -3852,7 +3913,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 80,
-      "height": 132
+      "height": 420
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3875,13 +3936,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 89
+      "__id__": 94
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 80,
-      "height": 132
+      "height": 420
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -3906,7 +3967,7 @@
     "_name": "MoCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 88
+      "__id__": 93
     },
     "_children": [],
     "_tag": -1,
@@ -3939,7 +4000,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -18.4,
+      "x": -37,
       "y": 50
     },
     "_skewX": 0,
@@ -3954,13 +4015,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 88
+      "__id__": 93
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 184
+      "height": 472
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -3985,17 +4046,17 @@
     "_name": "OutCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 81
+      "__id__": 86
     },
     "_children": [
       {
-        "__id__": 94
+        "__id__": 99
       },
       {
-        "__id__": 96
+        "__id__": 101
       },
       {
-        "__id__": 98
+        "__id__": 103
       }
     ],
     "_tag": -1,
@@ -4043,14 +4104,14 @@
     "_name": "OutCardLayer1",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 93
+      "__id__": 98
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 95
+        "__id__": 100
       }
     ],
     "_prefab": null,
@@ -4072,7 +4133,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 331
+      "height": 67
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4095,13 +4156,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 94
+      "__id__": 99
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 331
+      "height": 67
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -4126,14 +4187,14 @@
     "_name": "OutCardLayer2",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 93
+      "__id__": 98
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 97
+        "__id__": 102
       }
     ],
     "_prefab": null,
@@ -4155,7 +4216,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 287
+      "height": 67
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4178,13 +4239,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 96
+      "__id__": 101
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 287
+      "height": 67
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -4209,14 +4270,14 @@
     "_name": "OutCardLayer3",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 93
+      "__id__": 98
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 99
+        "__id__": 104
       }
     ],
     "_prefab": null,
@@ -4261,7 +4322,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 98
+      "__id__": 103
     },
     "_enabled": true,
     "_layoutSize": {
@@ -4292,25 +4353,25 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 81
+      "__id__": 86
     },
     "_enabled": true,
     "NickNameLabel": null,
     "HeadNode": null,
     "CoinLabel": {
-      "__id__": 84
-    },
-    "HandCardNode": {
       "__id__": 89
     },
+    "HandCardNode": {
+      "__id__": 94
+    },
     "PengGangNode": {
-      "__id__": 86
+      "__id__": 91
     },
     "OutCardNode": {
-      "__id__": 93
+      "__id__": 98
     },
     "MoCardNode": {
-      "__id__": 91
+      "__id__": 96
     },
     "_HandCardArr": [],
     "_PengCardArr": [],
@@ -4322,30 +4383,30 @@
     "_name": "Bottom",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 40
+      "__id__": 45
     },
     "_children": [
       {
-        "__id__": 102
+        "__id__": 107
       },
       {
-        "__id__": 106
+        "__id__": 111
       },
       {
-        "__id__": 108
-      },
-      {
-        "__id__": 115
+        "__id__": 113
       },
       {
         "__id__": 120
+      },
+      {
+        "__id__": 125
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 142
+        "__id__": 147
       }
     ],
     "_prefab": null,
@@ -4390,18 +4451,18 @@
     "_name": "InfoBk",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 101
+      "__id__": 106
     },
     "_children": [
       {
-        "__id__": 103
+        "__id__": 108
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 105
+        "__id__": 110
       }
     ],
     "_prefab": null,
@@ -4446,14 +4507,14 @@
     "_name": "Coin",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 102
+      "__id__": 107
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 104
+        "__id__": 109
       }
     ],
     "_prefab": null,
@@ -4498,7 +4559,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 103
+      "__id__": 108
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4520,7 +4581,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 102
+      "__id__": 107
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -4548,14 +4609,14 @@
     "_name": "PengGangLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 101
+      "__id__": 106
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 107
+        "__id__": 112
       }
     ],
     "_prefab": null,
@@ -4600,7 +4661,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 106
+      "__id__": 111
     },
     "_enabled": true,
     "_layoutSize": {
@@ -4631,17 +4692,17 @@
     "_name": "OutCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 101
+      "__id__": 106
     },
     "_children": [
       {
-        "__id__": 109
+        "__id__": 114
       },
       {
-        "__id__": 111
+        "__id__": 116
       },
       {
-        "__id__": 113
+        "__id__": 118
       }
     ],
     "_tag": -1,
@@ -4689,14 +4750,14 @@
     "_name": "OutCardLayer3",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 108
+      "__id__": 113
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 110
+        "__id__": 115
       }
     ],
     "_prefab": null,
@@ -4741,7 +4802,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 109
+      "__id__": 114
     },
     "_enabled": true,
     "_layoutSize": {
@@ -4772,14 +4833,14 @@
     "_name": "OutCardLayer2",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 108
+      "__id__": 113
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 112
+        "__id__": 117
       }
     ],
     "_prefab": null,
@@ -4824,7 +4885,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 111
+      "__id__": 116
     },
     "_enabled": true,
     "_layoutSize": {
@@ -4855,14 +4916,14 @@
     "_name": "OutCardLayer1",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 108
+      "__id__": 113
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 114
+        "__id__": 119
       }
     ],
     "_prefab": null,
@@ -4883,7 +4944,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 539,
+      "width": 500,
       "height": 80
     },
     "_rotationX": 0,
@@ -4907,12 +4968,12 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 113
+      "__id__": 118
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 539,
+      "width": 500,
       "height": 80
     },
     "_resize": 1,
@@ -4938,21 +4999,21 @@
     "_name": "HandCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 101
+      "__id__": 106
     },
     "_children": [
       {
-        "__id__": 116
+        "__id__": 121
       },
       {
-        "__id__": 118
+        "__id__": 123
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 119
+        "__id__": 124
       }
     ],
     "_prefab": null,
@@ -4997,14 +5058,14 @@
     "_name": "HandCardLay",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 115
+      "__id__": 120
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 117
+        "__id__": 122
       }
     ],
     "_prefab": null,
@@ -5049,7 +5110,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 116
+      "__id__": 121
     },
     "_enabled": true,
     "_layoutSize": {
@@ -5080,7 +5141,7 @@
     "_name": "MoCardLayer",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 115
+      "__id__": 120
     },
     "_children": [],
     "_tag": -1,
@@ -5128,7 +5189,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 115
+      "__id__": 120
     },
     "_enabled": true,
     "_layoutSize": {
@@ -5159,30 +5220,30 @@
     "_name": "BtnMenu",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 101
+      "__id__": 106
     },
     "_children": [
       {
-        "__id__": 121
+        "__id__": 126
       },
       {
-        "__id__": 125
+        "__id__": 130
       },
       {
-        "__id__": 129
+        "__id__": 134
       },
       {
-        "__id__": 133
+        "__id__": 138
       },
       {
-        "__id__": 137
+        "__id__": 142
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 141
+        "__id__": 146
       }
     ],
     "_prefab": null,
@@ -5227,17 +5288,17 @@
     "_name": "BtnPeng",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 120
+      "__id__": 125
     },
     "_children": [],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 122
+        "__id__": 127
       },
       {
-        "__id__": 123
+        "__id__": 128
       }
     ],
     "_prefab": null,
@@ -5282,7 +5343,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 121
+      "__id__": 126
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5310,7 +5371,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 121
+      "__id__": 126
     },
     "_enabled": true,
     "transition": 3,
@@ -5334,7 +5395,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 124
+        "__id__": 129
       }
     ],
     "_N$interactable": true,
@@ -5356,7 +5417,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 121
+      "__id__": 126
     }
   },
   {
@@ -5373,17 +5434,17 @@
     "_name": "BtnGang",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 120
+      "__id__": 125
     },
     "_children": [],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 126
+        "__id__": 131
       },
       {
-        "__id__": 127
+        "__id__": 132
       }
     ],
     "_prefab": null,
@@ -5428,7 +5489,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 125
+      "__id__": 130
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5456,7 +5517,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 125
+      "__id__": 130
     },
     "_enabled": true,
     "transition": 3,
@@ -5480,7 +5541,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 128
+        "__id__": 133
       }
     ],
     "_N$interactable": true,
@@ -5502,7 +5563,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 125
+      "__id__": 130
     }
   },
   {
@@ -5519,17 +5580,17 @@
     "_name": "BtnHu",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 120
+      "__id__": 125
     },
     "_children": [],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 130
+        "__id__": 135
       },
       {
-        "__id__": 131
+        "__id__": 136
       }
     ],
     "_prefab": null,
@@ -5574,7 +5635,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 129
+      "__id__": 134
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5602,7 +5663,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 129
+      "__id__": 134
     },
     "_enabled": true,
     "transition": 3,
@@ -5626,7 +5687,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 132
+        "__id__": 137
       }
     ],
     "_N$interactable": true,
@@ -5648,7 +5709,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 129
+      "__id__": 134
     }
   },
   {
@@ -5662,20 +5723,20 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "BtnHu",
+    "_name": "BtnChi",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 120
+      "__id__": 125
     },
     "_children": [],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 134
+        "__id__": 139
       },
       {
-        "__id__": 135
+        "__id__": 140
       }
     ],
     "_prefab": null,
@@ -5720,7 +5781,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 133
+      "__id__": 138
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5748,7 +5809,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 133
+      "__id__": 138
     },
     "_enabled": true,
     "transition": 3,
@@ -5772,7 +5833,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 136
+        "__id__": 141
       }
     ],
     "_N$interactable": true,
@@ -5794,7 +5855,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 133
+      "__id__": 138
     }
   },
   {
@@ -5808,20 +5869,20 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "BtnHu",
+    "_name": "BtnGuo",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 120
+      "__id__": 125
     },
     "_children": [],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 138
+        "__id__": 143
       },
       {
-        "__id__": 139
+        "__id__": 144
       }
     ],
     "_prefab": null,
@@ -5866,7 +5927,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 137
+      "__id__": 142
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5894,7 +5955,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 137
+      "__id__": 142
     },
     "_enabled": true,
     "transition": 3,
@@ -5918,7 +5979,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 140
+        "__id__": 145
       }
     ],
     "_N$interactable": true,
@@ -5940,7 +6001,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 137
+      "__id__": 142
     }
   },
   {
@@ -5957,7 +6018,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 120
+      "__id__": 125
     },
     "_enabled": true,
     "_layoutSize": {
@@ -5988,32 +6049,32 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 101
+      "__id__": 106
     },
     "_enabled": true,
     "NickNameLabel": null,
     "HeadNode": null,
     "CoinLabel": {
-      "__id__": 104
+      "__id__": 109
     },
     "HandCardNode": {
-      "__id__": 116
+      "__id__": 121
     },
     "PengGangNode": {
-      "__id__": 106
+      "__id__": 111
     },
     "OutCardNode": {
-      "__id__": 108
+      "__id__": 113
     },
     "MoCardNode": {
-      "__id__": 118
+      "__id__": 123
     },
     "_HandCardArr": [],
     "_PengCardArr": [],
     "_GangCardArr": [],
     "_LocalSeat": 1,
     "operateBtnNode": {
-      "__id__": 120
+      "__id__": 125
     }
   },
   {
@@ -6077,7 +6138,10 @@
     "_enabled": true,
     "playerArr": [],
     "PlayerNode": {
-      "__id__": 40
+      "__id__": 45
+    },
+    "TimerNode": {
+      "__id__": 30
     }
   },
   {

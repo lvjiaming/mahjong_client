@@ -33,5 +33,14 @@ const Room = cc.Class({
             cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.ROOM_GAME_DATA, data);
         }
     },
+    // 所有游戏中的协议，如果未在游戏场景，讲协议缓存
+    saveMsg(event, data) {
+        if (cc.director.getScene().sceneId !== cc.dd.sceneID.GAME_SCENE) {
+            cc.log(`未在游戏场景，此协议缓存`);
+            cc.dd.roomEvent.addMsg(event, data);
+        } else {
+            cc.dd.net.notifyEvent(event, data);
+        }
+    },
 });
 cc.dd.room = Room.getInstance();

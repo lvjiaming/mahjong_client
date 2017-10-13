@@ -40,6 +40,9 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP: {  // 玩家出牌的请求
+                body.chupai = data.id;
+                body.tingpai = data.tingpai;
+                this.sendMessage(body);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_CHICARD_REP: {  // 玩家吃牌的请求
@@ -55,6 +58,10 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP: {  // 玩家胡牌的请求
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP: {  // 玩家过牌的请求
                 this.sendMessage(body);
                 break;
             }
@@ -87,21 +94,31 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_CHICARD_RAD: {  // 玩家吃牌的广播
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_PENGCARD_RAD: {  // 玩家碰牌的广播
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GANGCARD_RAD: {  // 玩家杠牌的广播
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_HUCARD_RAD: {  // 玩家胡牌的广播
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_MOCARD_RAB: {  // 玩家摸牌的广播
+                cc.dd.room.saveMsg(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_TIMER_SPRCIEL: {  // 指针转动
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             // 回复处理，你在下面添加，我在上面添加

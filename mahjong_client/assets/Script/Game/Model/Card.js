@@ -99,6 +99,7 @@ cc.Class({
             case CARD_STATE.SELECT: {
                 if (cc.dd.cardMgr.getIsCanOutCard()) {
                     cc.log(`发送出牌请求：${this.id}`);
+                    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: false});
                 } else {
                     this.cancelSelect();
                 }

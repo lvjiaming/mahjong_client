@@ -38,6 +38,8 @@ module.exports = {
         EVENT_HUCARD_REP: 2006, // 胡牌的请求
         EVENT_HUCARD_RAD: 4016, // 胡牌成功的广播
         EVENT_MOCARD_RAB: 4012, // 摸牌的广播
+        EVENT_GUOCARD_REP: 2002, // 过牌的请求
+        EVENT_TIMER_SPRCIEL: 4010, // 指针转动
 
         // 消息枚举，你在下面添加，我在上面添加
     },

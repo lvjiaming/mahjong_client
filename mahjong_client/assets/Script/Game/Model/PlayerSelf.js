@@ -16,7 +16,26 @@ cc.Class({
 
     // 显示玩家操作的按钮（比如碰，杠，胡）
     showOperateBtn(data) {
-
+        let guoBtn = false;
+        if (data.hu) {
+            this.operateBtnNode.getChildByName("BtnHu").active = true;
+            guoBtn = true;
+        }
+        if (data.peng) {
+            this.operateBtnNode.getChildByName("BtnPeng").active = true;
+            guoBtn = true;
+        }
+        if (data.gang) {
+            this.operateBtnNode.getChildByName("BtnGang").active = true;
+            guoBtn = true;
+        }
+        if (data.chi) {
+            this.operateBtnNode.getChildByName("BtnChi").active = true;
+            guoBtn = true;
+        }
+        if (guoBtn) {
+            this.operateBtnNode.getChildByName("BtnGuo").active = true;
+        }
     },
     // 隐藏操作按钮
     hideOperateBtn() {

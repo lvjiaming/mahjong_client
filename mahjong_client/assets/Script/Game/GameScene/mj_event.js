@@ -23,7 +23,7 @@ cc.Class({
     onMessageEvent(event, data) {
         switch (event) {
             case cc.dd.roomEvName.ROOM_GAME_DATA: { // 房间信息
-                this.node.getComponent("mj_gameScene").initPlayerSeat();
+                this.node.getComponent("mj_gameScene").initPlayerSeat(data);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播
@@ -52,7 +52,11 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_MOCARD_RAB: {  // 玩家摸牌的广播
-                this.node.getComponent("mj_gameScene").playerMoCard(data);
+                this.node.getComponent("mj_gameScene").playerMoCard(data, cc.dd.user.getUserInfo().UID);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_TIMER_SPRCIEL: {  // 指针转动
+                this.node.getComponent("mj_gameScene").timerRatation(data);
                 break;
             }
             default: {

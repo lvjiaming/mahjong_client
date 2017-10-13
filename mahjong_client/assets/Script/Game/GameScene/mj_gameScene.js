@@ -29,6 +29,11 @@ cc.Class({
             type: cc.Node,
             tooltip: "玩家的根节点",
         },
+        TimerNode: {
+            default: null,
+            type: cc.Node,
+            tooltip: "转盘",
+        },
     },
 
     // use this for initialization
@@ -57,40 +62,67 @@ cc.Class({
         this.PlayerNode.getChildByName("Left").localSeat = 4;
     },
     // 初始化玩家
-    initPlayerSeat() {
-        const userList = this.sortUserList();
+    initPlayerSeat(data) {
+        const userList = this.sortUserList(data.myuid);
         userList.forEach((item, index) => {
             this.playerArr[index].active = true;
             let player_class = null;
-            // todo 测试代码（测试自己手牌的生成）
-            //const handNode = this.playerArr[index].getChildByName("HandCardLayer").getChildByName("HandCardLay");
-            //cc.dd.cardMgr.initHandCard(handNode, this.playerArr[index].localSeat, cardArr);
+
+            // 手牌节点
+            const handNode = this.playerArr[index].getChildByName("HandCardLayer").getChildByName("HandCardLay");
 
             if (index === 0) {
                 cc.log(`初始化自己的信息`);
                 player_class = this.playerArr[index].getComponent("PlayerSelf");
+                cc.dd.cardMgr.setIsCanOutCard(item.iscontroller);
+
+                cc.dd.cardMgr.initHandCard(handNode, this.playerArr[index].localSeat, data.myhandcards);
             } else {
                 cc.log(`初始化其他玩家信息`);
                 player_class = this.playerArr[index].getComponent("PlayerOther");
+                cc.dd.cardMgr.initHandCard(handNode, this.playerArr[index].localSeat, item.handcardsnum);
             }
             if (player_class) {
                 player_class.initInfo(item);
             }
             this.playerArr[index].userInfo = item;
+            // 渲染出的牌
+            this.playerOutCard({chupai: item.playedcards, senduid: item.UID});
+            // 渲染碰的牌
+            if (item.pengcards) {
+                item.pengcards.forEach((pengcard) => {
+                    this.playerPengCard({pengpai: pengcard, penguid: item.UID});
+                });
+            }
+            // 渲染暗杠的牌
+            if (item.angangcards) {
+                item.angangcards.forEach((gangcard) => {
+                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: true});
+                });
+            }
+            // 渲染明杠的牌
+            if (item.minggangcards) {
+                if (item.minggangcards) {
+                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: false});
+                }
+            }
+
         });
+
     },
     /**
      *  排序玩家
      * @param arr
      */
-    sortUserList() {
+    sortUserList(selfUserId) {
         const userList = cc.dd.room.userList;
-        const selfInfo = cc.dd.user.getUserInfo();
+        // const selfInfo = cc.dd.user.getUserInfo();
         let idx = 0;
         const newUserList = [];
         userList.forEach((item, index) => {
-            if (selfInfo.UID === item.UID) {
+            if (selfUserId === item.UID) {
                 idx = index;
+                cc.dd.user.setUserInfo(item);
             }
         });
         for (let i = idx; i < userList.length; i ++) {
@@ -105,10 +137,22 @@ cc.Class({
     playerOutCard(data) {
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
-            const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
-            cc.dd.cardMgr.outCard();
+            const outNode = this.playerArr[localSeat - 1].getChildByName("OutCardLayer");
+            if (data.chupai instanceof Array) {
+                data.chupai.forEach((item) => {
+                    cc.dd.cardMgr.outCard(outNode, localSeat, item);
+                });
+            } else {
+                cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
+            }
         } else {
             cc.error(`本地座位号未找到！！！`);
+        }
+
+        // 有碰刚胡时显示操作按钮
+        if (data.myaction) {
+            const self = this.playerArr[0].getComponent("PlayerSelf");
+            self.showOperateBtn(data.myaction);
         }
     },
     // 玩家吃牌
@@ -125,7 +169,7 @@ cc.Class({
         const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
-            cc.dd.cardMgr.pengGangCard();
+            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, false);
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -135,7 +179,7 @@ cc.Class({
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
-            cc.dd.cardMgr.pengGangCard();
+            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, true);
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -150,8 +194,35 @@ cc.Class({
         }
     },
     // 玩家摸牌
-    playerMoCard() {
+    playerMoCard(data, userid) {
+        const localSeat = this.getLocalSeatByUserId(userid);
+        if (localSeat) {
+            const moNode = this.playerArr[localSeat - 1].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+            cc.dd.cardMgr.MoCard(moNode, localSeat, data);
+        } else {
+            cc.error(`本地座位号未找到！！！`);
+        }
+    },
 
+    // 指针转动
+    timerRatation(data) {
+        const localSeat = this.getLocalSeatByUserId(data.pointtouid);
+        if (data.mopai) {
+            this.playerMoCard(data, data.pointtouid);
+        }
+        if (localSeat) {
+            this.TimerNode.getComponent("TimerControl").ratateTimer(localSeat);
+        } else {
+            cc.log(`未知的本地座位号: ${userid}`);
+        }
+        if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
+            cc.log(`轮到自己操作`);
+            cc.dd.cardMgr.setIsCanOutCard(true);
+        } else {
+            cc.log(`不是自己操作, 不能出牌`);
+            cc.dd.cardMgr.setIsCanOutCard(false);
+            this.playerArr[1].getComponent("PlayerSelf").hideOperateBtn();
+        }
     },
     /**
      *  根据玩家id返回本地座位号
