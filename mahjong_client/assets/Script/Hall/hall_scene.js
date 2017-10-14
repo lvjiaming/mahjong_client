@@ -14,6 +14,10 @@ cc.Class({
             default:null,
             type: cc.Label,
         },
+        avatar: {
+            default:null,
+            type: cc.Sprite,
+        },
     },
 
     // use this for initialization
@@ -22,7 +26,7 @@ cc.Class({
         cc.dd.roomEvent.addObserver(this);
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
-        // this.setUserInfo();
+        this.setUserInfo();
     },
     onDestroy() {
         cc.dd.roomEvent.removeObserver(this);
@@ -35,6 +39,7 @@ cc.Class({
         this.setUserId(cc.dd.user.getUserInfo().UID);
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
         this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
+        // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);//跨域了，先注释掉
     },
     // 设置用户的id
     setUserId(id) {
@@ -48,7 +53,17 @@ cc.Class({
     setFangKaNum(num) {
         this.RoomCard.string = num;
     },
+    setAvatarSpriteFrame(sfurl) {
+        var self = this;
+        cc.loader.load("http://wx.qlogo.cn/mmopen/vi_32/OFpicnz436LIG7e2BPAoByaibwBOEwdITGJ5IzbAYsicJfM1kPjoyyEibShVicOgRCQZqzucfuEhmGYIkicEcmmsxShw/0", function(err, texture){
+            if (err){
+                cc.log("头像下载错误： " + err);
+            }else {
+                self.avatar.spriteFrame = new cc.SpriteFrame(texture);
 
+            }
+        });
+    },
     onMessageEvent(event, data) {
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {

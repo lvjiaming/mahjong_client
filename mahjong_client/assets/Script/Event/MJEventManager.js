@@ -80,7 +80,7 @@ const MJEventManager = cc.Class({
     onMsg(msgId, msgData) {
         cc.log(`收到的协议id为：${msgId}`);
         switch (msgId) {
-            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复
+            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
                 cc.dd.user.updataUserInfo(JSON.stringify(msgData));
                 // cc.dd.user.updataUserInfo(msgData);
                 break;

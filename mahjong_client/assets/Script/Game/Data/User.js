@@ -25,17 +25,19 @@ const User = cc.Class({
     },
     // 设置用户信息
     setUserInfo(user) {
+        cc.log("user.js:setUserInfo的参数："+user);
         this._userInfo = user;
     },
     // 得到用户信息
     getUserInfo() {
+        cc.log(this._userInfo);
         return this._userInfo;
     },
     // 用户登录成功
     updataUserInfo(data) {
         this.setUserInfo(data);
         cc.log("刚登录返回的"+ data);
-        cc.log("data.user:" + data.user);
+        cc.log("data.user:" + data.nickname);
         cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data.user);
     },
 });
