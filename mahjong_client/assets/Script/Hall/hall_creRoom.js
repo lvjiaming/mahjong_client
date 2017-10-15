@@ -2,16 +2,16 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // HuiToggle: {
-        //     default: null,
-        //     type: cc.Toogle,
-        //     tooltip: "玩法：会",
-        // },
-        // JiahuToggle: {
-        //     default: null,
-        //     type: cc.Toogle,
-        //     tooltip: "玩法：夹胡",
-        // },
+        HuiToggle: {
+            default: null,
+            type: cc.Toggle,
+            tooltip: "玩法：会",
+        },
+        JiahuToggle: {
+            default: null,
+            type: cc.Toggle,
+            tooltip: "玩法：夹胡",
+        },
     },
 
     // use this for initialization
@@ -35,29 +35,36 @@ cc.Class({
     onWanFaClick(event, custom) {
         const item = cc.dd.hall_config.CYMJ_WF[custom];
         if (event.isChecked) {
+            cc.log("gotchecked");
             if (item == 3 || item == 5){
-                var hasThree = this.WanFa.some(function (eachItem,index,array) {
-                    cc.log(eachItem == 3);
-                    return (eachItem == 3);
-                });
-                var hasFive = this.WanFa.some(function (eachItem,index,array) {
-                    cc.log(eachItem == 5);
-                    return (eachItem == 5);
-                });
-                if (item == 3 && hasFive){
-                    cc.log("是3有5了");
-                    return;
-                }
-                if (item == 5 && hasThree){
-                    cc.log("是5有3了");
-                    return;
-                }
+                // var hasThree = this.WanFa.some(function (eachItem,index,array) {
+                //     cc.log(eachItem == 3);
+                //     return (eachItem == 3);
+                // });
+                // var hasFive = this.WanFa.some(function (eachItem,index,array) {
+                //     cc.log(eachItem == 5);
+                //     return (eachItem == 5);
+                // });
                 this.WanFa.push(item);
+                if (item == 3){
+                    cc.log("是3有5了");
+                    this.JiahuToggle.interactable = false;
+                }
+                if (item == 5){
+                    cc.log("是5有3了");
+                    this.HuiToggle.interactable = false;
+                }
             }else {
                 this.WanFa.push(item);
             }
         } else {
             this.WanFa.forEach((items, index) => {
+                if (items == 3){
+                    this.JiahuToggle.interactable = true;
+                }
+                if (items == 5){
+                    this.HuiToggle.interactable = true;
+                }
                 if (item == items) {
                     this.WanFa.splice(index, 1);
                 }

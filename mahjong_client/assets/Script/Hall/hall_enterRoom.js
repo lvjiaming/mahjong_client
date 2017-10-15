@@ -58,8 +58,8 @@ cc.Class({
                 password = password + this.keyboardInput.homeNumber[i];
                 console.log("房间号：",this.keyboardInput.homeNumber[i]);
             }
-            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP, parseInt(password));
-        }
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP, password);
+        }//parseInt(password)
     },
     // 关闭按钮
     onCloseClick() {

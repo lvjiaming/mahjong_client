@@ -72,6 +72,21 @@ cc.Class({
                 });
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
+                cc.log("进入房间");
+                cc.dd.Reload.loadDir("DirRes", () => {
+                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+            });
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {
+                cc.log("房间不存在");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const roomNotExitMes = cc.instantiate(prefab);
+                this.node.addChild(roomNotExitMes);
+            });
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

@@ -24,9 +24,13 @@ module.exports = {
         EVENT_LOGIN_REP: 1002, // 登录的请求
         EVENT_LOGIN_REQ: 5002, // 登录的返回
         EVENT_CREATE_ROOM_REP: 1003, // 创建房间的请求
-        EVENT_ENTER_ROOM_REP: 1004, // 加入房间的请求
         EVENT_ROOM_DATA: 4001,  // 房间数据
+        EVENT_ENTER_ROOM_REP: 1004, // 加入房间的请求
         EVENT_GAME_STATE: 4002, // 房间的状态
+        EVENT_ENTER_CARDCHANGE_REP: 1007, // 查询房卡数量
+        EVENT_ENTER_CARDCHANGE_REQ: 5007, // 查询房卡数量的返回
+        EVENT_CARDCHANGE_REP: 1008, // 转让房卡
+        EVENT_CARDCHANGE_REQ: 5008, // 转让房卡返回
         EVENT_OUTCARD_REP: 2001, // 出牌的请求
         EVENT_OUTCARD_RAD: 4011, // 出牌成功的广播
         EVENT_CHICARD_REP: 2003, // 吃牌的请求

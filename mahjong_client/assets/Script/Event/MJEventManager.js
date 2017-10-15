@@ -26,7 +26,7 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,
-            "did": "10325223-c191-4b61-a9ea-60144187dcaa", // 真机里换调起oc方法
+            "did": "e99cefdb-139f-46d3-ad4b-81883fc0c53a", // 真机里换调起oc方法
         };
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
@@ -41,6 +41,17 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 玩家进入房间的请求,1004
                 body.roomid = data;
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP: {  // 查询房卡请求，1007
+                body.uid4query = data;
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 转让房卡请求，1008
+                body.receiveruid = data;
+                body.roomcardnum = data;
                 this.sendMessage(body);
                 break;
             }
@@ -84,6 +95,7 @@ const MJEventManager = cc.Class({
      */
     onMsg(msgId, msgData) {
         cc.log(`收到的协议id为：${msgId}`);
+        cc.log(JSON.stringify(msgData));
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
                 cc.dd.user.updataUserInfo(msgData);
@@ -94,7 +106,23 @@ const MJEventManager = cc.Class({
                 cc.dd.room.updataRoomData(msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态，存在房间 4002
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {  // 查询房卡返回，5007
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 失败转让房卡返回，1008
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {  // 成功转让房卡返回，5008
                 this.notifyEvent(msgId, msgData);
                 break;
             }

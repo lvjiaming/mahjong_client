@@ -6946,8 +6946,12 @@
       "__id__": 1
     },
     "_enabled": true,
-    "HuiToggle": null,
-    "JiahuToggle": null
+    "HuiToggle": {
+      "__id__": 85
+    },
+    "JiahuToggle": {
+      "__id__": 111
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
