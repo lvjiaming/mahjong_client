@@ -8,6 +8,8 @@
 const EventManager = cc.Class({
     observerList: null, // 观察者列表
     msgList: null, // 消息列表
+    _isCache: null, // 是否协议缓存
+    _cacheList: null, // 协议缓存列表
     statics: {
         getInstance() {
             if (!this.eventManager) {
@@ -19,6 +21,8 @@ const EventManager = cc.Class({
     ctor() {
         this.observerList = [];
         this.msgList = [];
+        this._isCache = false;
+        this._cacheList = [];
     },
 
     /**
@@ -44,7 +48,7 @@ const EventManager = cc.Class({
      * @param target
      */
     removeObserver(target) {
-        if (target) {
+        if (!target) {
             cc.log("target is null");
         } else {
             this.observerList.forEach((item, index) => {
@@ -93,5 +97,42 @@ const EventManager = cc.Class({
      */
     cleanMsgList() {
         this.msgList = [];
+    },
+    /**
+     *  将消息加入协议缓存列表
+     * @param event id
+     * @param data 数据
+     */
+    addMsgToCacheList(event, data) {
+        cc.log(`将协议缓存下来`);
+        let body = {
+            event: event,
+            data: data,
+        };
+        this._cacheList.push(body);
+    },
+    /**
+     *  缓存的开关
+     * @param state
+     */
+    setIsCache(state) {
+        this._isCache = state;
+    },
+    /**
+     *  下发缓存中的协议
+     */
+    notifyCacheList() {
+        // this._cacheList.forEach((item, index) => {
+        //     if (this._isCache) {
+        //         setTimeout((item, ) => {
+        //             cc.dd.roomEvent.notifyEvent(item.event, item.data);
+        //         }, 1000);
+        //     }
+        // });
+        if (this._isCache && this._cacheList.length > 0) {
+            const cacheMsg = this._cacheList[0];
+            this._cacheList.splice(0, 1);
+            cc.dd.roomEvent.notifyEvent(cacheMsg.event, cacheMsg.data);
+        }
     },
 });

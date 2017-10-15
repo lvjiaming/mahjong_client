@@ -126,6 +126,10 @@ const MJEventManager = cc.Class({
                 cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_ONE_GAME_OVER: { // 结算
+                cc.dd.room.saveMsg(msgId, msgData);
+                break;
+            }
             // 回复处理，你在下面添加，我在上面添加
             default: {
                 cc.log(`unkown msgId: ${msgId}`);
