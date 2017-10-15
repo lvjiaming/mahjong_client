@@ -2,14 +2,29 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        // HuiToggle: {
+        //     default: null,
+        //     type: cc.Toogle,
+        //     tooltip: "玩法：会",
+        // },
+        // JiahuToggle: {
+        //     default: null,
+        //     type: cc.Toogle,
+        //     tooltip: "玩法：夹胡",
+        // },
     },
 
     // use this for initialization
     onLoad: function () {
+        cc.dd.userEvent.addObserver(this);
+        cc.dd.net.addObserver(this);
         this.JuShu = 16;
         this.FanShu = 1;
-        this.WanFa = [];
+        this.WanFa = [1];
+    },
+    onDestroy() {
+        cc.dd.userEvent.removeObserver(this);
+        cc.dd.net.removeObserver(this);
     },
     // 局数
     onJuShuClick(event, custom) {
@@ -20,7 +35,27 @@ cc.Class({
     onWanFaClick(event, custom) {
         const item = cc.dd.hall_config.CYMJ_WF[custom];
         if (event.isChecked) {
-            this.WanFa.push(item);
+            if (item == 3 || item == 5){
+                var hasThree = this.WanFa.some(function (eachItem,index,array) {
+                    cc.log(eachItem == 3);
+                    return (eachItem == 3);
+                });
+                var hasFive = this.WanFa.some(function (eachItem,index,array) {
+                    cc.log(eachItem == 5);
+                    return (eachItem == 5);
+                });
+                if (item == 3 && hasFive){
+                    cc.log("是3有5了");
+                    return;
+                }
+                if (item == 5 && hasThree){
+                    cc.log("是5有3了");
+                    return;
+                }
+                this.WanFa.push(item);
+            }else {
+                this.WanFa.push(item);
+            }
         } else {
             this.WanFa.forEach((items, index) => {
                 if (item == items) {
@@ -28,6 +63,7 @@ cc.Class({
                 }
             });
         }
+        cc.log(this.WanFa);
     },
     // 底番
     onDiFanClick(event, custom) {
@@ -41,6 +77,12 @@ cc.Class({
         this.WanFa.forEach((item) => {
             cc.log(`玩法：${item}`);
         });
+
+        var roomConfig = {};
+        roomConfig.rounds = this.JuShu;
+        roomConfig.basicraise = this.FanShu;
+        roomConfig.playrule = this.WanFa;
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CREATE_ROOM_REP,roomConfig);
         //todo  暂时这样写
         // cc.dd.Reload.loadDir("DirRes", () => {
         //     cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);

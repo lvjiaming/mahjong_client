@@ -42,7 +42,7 @@ cc.Class({
         //     "code": "6SDF4ASD4GFAS4FG5ASD5F5Dsdf"
         // });
         // cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
     },
 
     clickCheckBoxToggle(event, custom) {

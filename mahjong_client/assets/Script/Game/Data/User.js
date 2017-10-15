@@ -35,10 +35,10 @@ const User = cc.Class({
     },
     // 用户登录成功
     updataUserInfo(data) {
-        this.setUserInfo(data);
+        this.setUserInfo(data.user);
         cc.log("刚登录返回的"+ data);
-        cc.log("data.user:" + data.nickname);
-        cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data.user);
+        cc.log("data.user:" + data.user);
+        cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data);
     },
 });
 cc.dd.user = User.getInstance();

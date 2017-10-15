@@ -26,15 +26,20 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,
-            "did": "4b9ccebe-fcd8-4afa-831e-8b987e8ce786",
+            "did": "10325223-c191-4b61-a9ea-60144187dcaa", // 真机里换调起oc方法
         };
         switch (event) {
-            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录
-                body.code = data;
+            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
+                body.code = data; // 真机里不需要它
                 this.sendMessage(body);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 玩家进入房间的请求
+            case cc.dd.gameCfg.EVENT.EVENT_CREATE_ROOM_REP: {  // 新建房间，1003
+                body.roomsetting = data;
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 玩家进入房间的请求,1004
                 body.roomid = data;
                 this.sendMessage(body);
                 break;
@@ -81,11 +86,11 @@ const MJEventManager = cc.Class({
         cc.log(`收到的协议id为：${msgId}`);
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
-                cc.dd.user.updataUserInfo(JSON.stringify(msgData));
-                // cc.dd.user.updataUserInfo(msgData);
+                cc.dd.user.updataUserInfo(msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
+                cc.log(msgData);
                 cc.dd.room.updataRoomData(msgData);
                 break;
             }
