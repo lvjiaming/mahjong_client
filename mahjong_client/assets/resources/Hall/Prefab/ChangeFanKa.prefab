@@ -1016,15 +1016,15 @@
     "_string": "",
     "_tabIndex": 0,
     "editingDidBegan": [],
-    "textChanged": [],
-    "editingDidEnded": [],
-    "editingReturn": [
+    "textChanged": [
       {
         "__id__": 29
       }
     ],
+    "editingDidEnded": [],
+    "editingReturn": [],
     "_N$backgroundImage": null,
-    "_N$returnType": 0,
+    "_N$returnType": 3,
     "_N$inputFlag": 5,
     "_N$inputMode": 6,
     "_N$fontSize": 25,
@@ -1045,7 +1045,7 @@
       "b": 127,
       "a": 255
     },
-    "_N$maxLength": 20,
+    "_N$maxLength": 5,
     "_N$stayOnTop": false
   },
   {
@@ -2900,6 +2900,12 @@
     },
     "changeEditBox": {
       "__id__": 28
+    },
+    "totalCardLabel": {
+      "__id__": 59
+    },
+    "recieverAvatar": {
+      "__id__": 87
     },
     "_preNum": 1
   },

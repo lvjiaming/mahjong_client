@@ -28,10 +28,8 @@ cc.Class({
     // 转让房卡
     onChangeClick() {
         cc.log(`转让房卡`);
-        cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
-            const changePup = cc.instantiate(prefab);
-            this.node.addChild(changePup);
-        });
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP,cc.dd.user.getUserInfo().UID);
+
     },
     // 分享
     onShareClick() {

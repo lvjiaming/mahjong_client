@@ -40,5 +40,12 @@ const User = cc.Class({
         cc.log("data.user:" + data.user);
         cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data);
     },
+    //查询当前用户房卡数量成功
+    updataUserFangka(data) {
+        cc.log("当前用户房卡数量"+ data.mycards);
+        this._userInfo.roomcardnum = data.mycards;
+        cc.dd.userEvent.notifyEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ, data);
+
+    },
 });
 cc.dd.user = User.getInstance();

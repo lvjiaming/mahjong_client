@@ -43,7 +43,7 @@ cc.Class({
     },
     // 设置用户的id
     setUserId(id) {
-        this.PlayerId.string = id;
+        this.PlayerId.string = "ID：" + id;
     },
     // 设置昵称
     setUserNickName(nickName) {
@@ -51,7 +51,7 @@ cc.Class({
     },
     // 设置房卡数目
     setFangKaNum(num) {
-        this.RoomCard.string = num;
+        this.RoomCard.string = "房卡：" + num;
     },
     setAvatarSpriteFrame(sfurl) {
         var self = this;
@@ -87,6 +87,22 @@ cc.Class({
             });
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
+                cc.log("进入转让房卡");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+                    const changePup = cc.instantiate(prefab);
+                    this.node.addChild(changePup);
+                });
+                break;
+            }
+            // case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
+            //     cc.log("成功转让房卡");
+            //     cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+            //         const changePup = cc.instantiate(prefab);
+            //     this.node.addChild(changePup);
+            // });
+            //     break;
+            // }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

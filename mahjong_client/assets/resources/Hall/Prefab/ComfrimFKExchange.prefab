@@ -1198,7 +1198,16 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "fangkaAmountLabel": {
+      "__id__": 27
+    },
+    "recieverNameLabel": {
+      "__id__": 30
+    },
+    "recieverAvatar": {
+      "__id__": 33
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

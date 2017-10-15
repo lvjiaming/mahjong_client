@@ -12,12 +12,22 @@ cc.Class({
             type: cc.EditBox,
             tooltip: "输入框",
         },
+        totalCardLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "有张房卡可以转让",
+        },
+        recieverAvatar: {
+            default: null,
+            type: cc.Sprite,
+            tooltip: "玩家头像",
+        },
         _preNum: 1,
     },
 
     // use this for initialization
     onLoad: function () {
-
+        this.totalCardLabel.string = cc.dd.user.getUserInfo().roomcardnum + "张房卡可以转让";
     },
     // 关闭的事件，x按钮
     onCloseClick() {
@@ -49,7 +59,6 @@ cc.Class({
                 cc.log(`请输入转让的人！！`);
             } else {
                 cc.log(`转让人：${this.changeEditBox.string}, 转让数量：${this._preNum}`);
-                //Cannot read property 'addChild' of null
                 cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
                     const exchangeFK = cc.instantiate(prefab);
                     this.node.addChild(exchangeFK);
@@ -58,7 +67,7 @@ cc.Class({
         }
         // this.node.destroy();
     },
-    // 输入框确认的事件，确认框
+    // 输入框确认的事件，确认框,每次编辑改变内容将会调用
     onEditBoxFixClick(event) {
         cc.log(`转让人的id: ${this.changeEditBox.string}`);
     },

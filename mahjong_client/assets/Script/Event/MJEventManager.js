@@ -107,7 +107,6 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
-                // this.erroMessage = msgData.errmsg;
                 this.notifyEvent(msgId, msgData);
                 break;
             }
@@ -116,7 +115,7 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {  // 查询房卡返回，5007
-                this.notifyEvent(msgId, msgData);
+                cc.dd.user.updataUserFangka(msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 失败转让房卡返回，1008
