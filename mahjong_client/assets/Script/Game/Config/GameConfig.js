@@ -44,6 +44,7 @@ module.exports = {
         EVENT_MOCARD_RAB: 4012, // 摸牌的广播
         EVENT_GUOCARD_REP: 2002, // 过牌的请求
         EVENT_TIMER_SPRCIEL: 4010, // 指针转动
+        EVENT_ONE_GAME_OVER: 4017, // 结算
 
         // 消息枚举，你在下面添加，我在上面添加
     },

@@ -7,23 +7,38 @@
 const CONFIG = {
     BOTTOM: {
         OUT_CARD_X: 0,
+        OUT_CARD_Y: 0,
+        OUT_CARD_INIT_Y: 0,  // 出牌的第一张位置x为：-(length - 1) * 5.5
         PENG_GANG_X: 0,
     },
     RIGHT: {
         HAND_CARD_X: -11,
+        HAND_CARD_Y: -32,
+        HAND_CARD_INIT_Y: -50,
         PENG_GANG_X: 30,
-        OUT_CARD_X: -5.5,
-        OUT_CARD_INIT_X: 1,
+        PENG_GANG_Y: 85,
+        PENG_GANE_INIT_Y: 40,
+        OUT_CARD_X: 5.5,
+        OUT_CARD_Y: 22,
+        OUT_CARD_INIT_Y: 33.5,  // 出牌的第一张位置x为：-(length - 1) * 5.5
     },
     TOP: {
         OUT_CARD_X: 0,
+        OUT_CARD_Y: 0,
+        OUT_CARD_INIT_Y: 0,  // 出牌的第一张位置x为：-(length - 1) * 5.5
         PENG_GANG_X: 0,
     },
     LEFT: {
-        HAND_CARD_X: -11,
+        HAND_CARD_X: 11,
+        HAND_CARD_Y: 32,
+        HAND_CARD_INIT_Y: 50,  // 手牌第一场的初始位置x为: -(length - 1) * -11
+        HAND_CARD_INIT_X: -133,
         PENG_GANG_X: -30,
+        PENG_GANG_Y: -80,
+        PENG_GANE_INIT_Y: -40,
         OUT_CARD_X: -5.5,
-        OUT_CARD_INIT_X: 1,
+        OUT_CARD_Y: -22,
+        OUT_CARD_INIT_Y: -33.5,
     },
     // 出牌的每层里牌的张数
     OUT_CARD_NUM: {
@@ -68,10 +83,7 @@ const CardMgr = cc.Class({
                 for (let i = 0; i < data; i ++) {
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
                     h_node.addChild(card);
-                    if (i === 0) {
-                        initPos = card.getPositionX();
-                    }
-                    card.setPositionX(initPos + (i * CONFIG.RIGHT.HAND_CARD_X));
+                    card.setPosition(cc.p(i * CONFIG.RIGHT.HAND_CARD_X, CONFIG.RIGHT.HAND_CARD_INIT_Y + i * CONFIG.RIGHT.HAND_CARD_Y));
                 }
                 break;
             }
@@ -88,11 +100,10 @@ const CardMgr = cc.Class({
                 const str = "HandCard_Left";
                 for (let i = 0; i < data; i ++) {
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
-                    h_node.addChild(card);
-                    if (i === 0) {
-                        initPos = card.getPositionX();
-                    }
-                    card.setPositionX(initPos + (i * CONFIG.LEFT.HAND_CARD_X));
+                    h_node.addChild(card, data - i);
+                    const pos_x = CONFIG.LEFT.HAND_CARD_INIT_X + (i * CONFIG.LEFT.HAND_CARD_X);
+                    const pos_y = CONFIG.LEFT.HAND_CARD_INIT_Y + (i * CONFIG.LEFT.HAND_CARD_Y);
+                    card.setPosition(cc.p(pos_x, pos_y));
                 }
                 break;
             }
@@ -125,41 +136,107 @@ const CardMgr = cc.Class({
     pengGangCard(p_node, localSeat, data, isGang) {
         let preStr = "";
         let selfConfig = null;
+
+        // 碰杠需要销毁的牌数量
+        let destoryNum = 2;
+        if (isGang) {
+            destoryNum = 3;
+        }
+        // 碰或者杠的牌
+        let pengOrGangId = data.pengpai;
+        if (isGang) {
+            pengOrGangId = data.gangpai;
+        }
+        // 摸牌的节点
+        const moNode = p_node.parent.getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+        // 手牌节点
+        const handNode = p_node.parent.getChildByName("HandCardLayer").getChildByName("HandCardLay");
+        if (moNode && !data.notDes) { // 将摸牌的节点里的牌清掉
+            moNode.children.forEach((item) => {
+                hasMo = true;
+                item.destroy();
+                destoryNum --;
+            });
+            moNode.removeAllChildren();
+        }
+        // 更新其他玩家的手牌
+        const otherFunc = (handNode) => {
+            if (!data.notDes) {
+                for (let i = 0; i < destoryNum; i ++) {
+                    const childNode = handNode.children;
+                    let index = 0;
+                    if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT) {
+                        index = childNode.length - 1;
+                    }
+                    childNode[index].destroy();
+                    childNode[index].removeFromParent();
+                }
+            }
+        };
+        let pengGang = null;
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 preStr = "PengGang";
-                selfConfig = CONFIG.BOTTOM;
+                if (!data.notDes) {
+                    for (let i = 0; i < destoryNum; i ++) {
+                        for (let j = 0; this._selfHandCard.length; j ++) {
+                            if (this._selfHandCard[j] == pengOrGangId) {
+                                this._selfHandCard.splice(j, 1);
+                                break;
+                            }
+                        }
+                    }
+                    this.updateCard(handNode);
+                }
+                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
                 preStr = "PengGang_Left";
-                selfConfig = CONFIG.RIGHT;
+                otherFunc(handNode);
+                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                const pos_x = p_node.childrenCount * CONFIG.RIGHT.PENG_GANG_X;
+                const pos_y = CONFIG.RIGHT.PENG_GANE_INIT_Y + (p_node.childrenCount * CONFIG.RIGHT.PENG_GANG_Y);
+                pengGang.setPosition(cc.p(pos_x, pos_y));
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
                 preStr = "PengGang_Top";
-                selfConfig = CONFIG.TOP;
+                otherFunc(handNode);
+                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
                 preStr = "PengGang_Left";
-                selfConfig = CONFIG.LEFT;
+                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                otherFunc(handNode);
+                const pos_x = p_node.childrenCount * CONFIG.LEFT.PENG_GANG_X;
+                const pos_y = CONFIG.LEFT.PENG_GANE_INIT_Y + (p_node.childrenCount * CONFIG.LEFT.PENG_GANG_Y);
+                pengGang.setPosition(cc.p(pos_x, pos_y));
                 break;
             }
             default: {
                 cc.log(`未知的座位号：${localSeat}`);
             }
         }
-        const pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
-        pengGang.setPositionX(p_node.childrenCount * selfConfig.PENG_GANG_X);
+
         p_node.addChild(pengGang);
         const card = pengGang.children;
         card.forEach((item) => {
             if (isGang) {
-
-            } else {
-                if (item.name == "GangCard") {
-                    item.active = false;
+                if (data.angang) {
+                    if (item.name === "AnGang") {
+                        item.active = true;
+                    }
+                } else {
+                    if (item.name === "GangCard") {
+                        item.active = true;
+                    }
+                }
+            }
+            if (item.name !== "AnGang") {
+                if (isGang) {
+                    item.getComponent("CardSpr").initCard(data.gangpai);
                 } else {
                     item.getComponent("CardSpr").initCard(data.pengpai);
                 }
@@ -172,51 +249,66 @@ const CardMgr = cc.Class({
      * @param localSeat 本地座位号
      * @param data 出的牌
      */
-    outCard(o_node, localSeat, data) {
+    outCard(o_node, localSeat, data, notDes) {
         const node1 = o_node.getChildByName("OutCardLayer1");
         const node2 = o_node.getChildByName("OutCardLayer2");
         const node3 = o_node.getChildByName("OutCardLayer3");
         const moNode = o_node.parent.getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+        const handNode = o_node.parent.getChildByName("HandCardLayer").getChildByName("HandCardLay");
         let hasMo = false;  // 标记是否是摸牌后出牌的
         if (moNode) { // 将摸牌的节点里的牌清掉
             moNode.children.forEach((item) => {
                 hasMo = true;
                 item.destroy();
             });
+            moNode.removeAllChildren();
         }
+        // 其他玩家出牌
+        const otherDes = (handNode) => {
+            const childNode = handNode.children;
+            if (!hasMo && !notDes) {
+                let index = 0;
+                if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT) {
+                   index = childNode.length - 1;
+                }
+                childNode[index].destroy();
+                childNode[index].removeFromParent();
+            }
+        };
         let str = "";
         let preConfif = null;
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 // 更新手牌数组
-                for (let i = 0; i < this._selfHandCard.length; i ++) {
-                    if (this._selfHandCard[i] === data) {
-                        this._selfHandCard.splice(i, 1);
-                        break;
-                    }
-                }
                 str = "OutCard_Bottom";
                 preConfif = CONFIG.BOTTOM;
-                const handNode = o_node.parent.getChildByName("HandCardLayer").getChildByName("HandCardLay");
-                handNode.children.forEach((item) => {
-                    item.destroy();
-                });
-                this.initSelfHandCard(handNode, this._selfHandCard);
+                if (!notDes) {
+                    for (let i = 0; i < this._selfHandCard.length; i ++) {
+                        if (this._selfHandCard[i] === data) {
+                            this._selfHandCard.splice(i, 1);
+                            break;
+                        }
+                    }
+                    this.updateCard(handNode);
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
                 str = "OutCard_Left";
                 preConfif = CONFIG.RIGHT;
+                otherDes(handNode);
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
                 str = "OutCard_Top";
                 preConfif = CONFIG.TOP;
+                otherDes(handNode);
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
                 str = "OutCard_Left";
                 preConfif = CONFIG.LEFT;
+                otherDes(handNode);
                 break;
             }
             default: {
@@ -226,16 +318,47 @@ const CardMgr = cc.Class({
         const outCard = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
         if (outCard) {
             outCard.getComponent("CardSpr").initCard(data);
+            let addNode = null;
+            let pos_x = 0; // 牌的x位置
+            let pos_y = 0; // 牌的y位置
+            let pos_init_x = 0; // 第一张牌的x位置
+            let pos_init_y = preConfif.OUT_CARD_INIT_Y; // 第一张牌的y位置
+            let index_z = null;
             if (node1.childrenCount < CONFIG.OUT_CARD_NUM.LAYER_ONE) {
-                outCard.setPositionX(node1.childrenCount * preConfif.OUT_CARD_X);
-                node1.addChild(outCard);
+                addNode = node1;
+                if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT) {
+                    pos_init_x = -(CONFIG.OUT_CARD_NUM.LAYER_ONE - 1) * preConfif.OUT_CARD_X;
+                    index_z = CONFIG.OUT_CARD_NUM.LAYER_ONE - addNode.childrenCount;
+                }
+                pos_x = pos_init_x + (addNode.childrenCount * preConfif.OUT_CARD_X);
+                pos_y = pos_init_y + (addNode.childrenCount * preConfif.OUT_CARD_Y);
+                outCard.setPosition(cc.p(pos_x, pos_y));
             } else if (node2.childrenCount < CONFIG.OUT_CARD_NUM.LAYER_TWO) {
+                addNode = node2;
+                if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT) {
+                    pos_init_x = -(CONFIG.OUT_CARD_NUM.LAYER_TWO - 1) * preConfif.OUT_CARD_X;
+                    index_z = CONFIG.OUT_CARD_NUM.LAYER_TWO - addNode.childrenCount;
+                }
+                pos_x = pos_init_x + (addNode.childrenCount * preConfif.OUT_CARD_X);
+                pos_y = pos_init_y + (addNode.childrenCount * preConfif.OUT_CARD_Y);
+                outCard.setPosition(cc.p(pos_x, pos_y));
                 outCard.setPositionX(node2.childrenCount * preConfif.OUT_CARD_X);
-                node2.addChild(outCard);
             } else {
-                cc.log(`节点名字:${node3.name}, 子节点：${node3.childrenCount}`)
+                addNode = node3;
+                if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT) {
+                    pos_init_x = -(CONFIG.OUT_CARD_NUM.LAYER_THREE - 1) * preConfif.OUT_CARD_X;
+                    index_z = CONFIG.OUT_CARD_NUM.LAYER_THREE - addNode.childrenCount;
+                }
+                pos_x = pos_init_x + (addNode.childrenCount * preConfif.OUT_CARD_X);
+                pos_y = pos_init_y + (addNode.childrenCount * preConfif.OUT_CARD_Y);
+                outCard.setPosition(cc.p(pos_x, pos_y));
+                cc.log(`节点名字:${node3.name}, 子节点：${node3.childrenCount}`);
                 outCard.setPositionX(node3.childrenCount * preConfif.OUT_CARD_X);
-                node3.addChild(outCard);
+            }
+            if (index_z) {
+                addNode.addChild(outCard, index_z);
+            } else {
+                addNode.addChild(outCard);
             }
         }
     },
@@ -250,12 +373,14 @@ const CardMgr = cc.Class({
         let preStr = null;
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
-                const str = "HandPoker";
-                const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
-                card.getComponent("Card").id = data.mopai;
-                card.cardId = data.mopai;
-                m_node.addChild(card);
-                this._selfHandCard.push(data.mopai);
+                if (data.mopai !== true) {
+                    const str = "HandPoker";
+                    const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                    card.getComponent("Card").id = data.mopai;
+                    card.cardId = data.mopai;
+                    m_node.addChild(card);
+                    this._selfHandCard.push(data.mopai);
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
@@ -326,13 +451,14 @@ const CardMgr = cc.Class({
     /**
      *  更新牌
      */
-    updateCard() {
-        for (let i = 0; i < this._selfHandCard.length; i++) {
-            if (card.cardId <= this._selfHandCard[i].cardId) {
-                this._selfHandCard.push();
-                break;
-            }
-        }
+    updateCard(handNode) {
+        handNode.children.forEach((item) => {
+            item.destroy();
+        });
+        handNode.removeAllChildren(true);
+        this.initSelfHandCard(handNode, this._selfHandCard);
+        // 将选中牌赋予空
+        this.setReadyOutCard(null);
     },
 
 });

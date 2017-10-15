@@ -59,6 +59,16 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").timerRatation(data);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_ONE_GAME_OVER: { // 结算
+                this.node.getComponent("mj_gameScene").oneGameOver(data);
+                break;
+            }
+            case cc.dd.roomEvName.MSG_NOTIFY: {
+                this.scheduleOnce(() => {
+                    cc.dd.roomEvent.notifyCacheList();
+                }, 0.5);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

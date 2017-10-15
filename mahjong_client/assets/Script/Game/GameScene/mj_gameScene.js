@@ -64,6 +64,7 @@ cc.Class({
     // 初始化玩家
     initPlayerSeat(data) {
         const userList = this.sortUserList(data.myuid);
+        cc.dd.roomEvent.setIsCache(false);
         userList.forEach((item, index) => {
             this.playerArr[index].active = true;
             let player_class = null;
@@ -87,28 +88,31 @@ cc.Class({
             }
             this.playerArr[index].userInfo = item;
             // 渲染出的牌
-            this.playerOutCard({chupai: item.playedcards, senduid: item.UID});
+            this.playerOutCard({chupai: item.playedcards, senduid: item.UID, notDes: true});
             // 渲染碰的牌
             if (item.pengcards) {
                 item.pengcards.forEach((pengcard) => {
-                    this.playerPengCard({pengpai: pengcard, penguid: item.UID});
+                    this.playerPengCard({pengpai: pengcard, penguid: item.UID, notDes: true});
                 });
             }
             // 渲染暗杠的牌
             if (item.angangcards) {
                 item.angangcards.forEach((gangcard) => {
-                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: true});
+                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: true, notDes: true});
                 });
             }
             // 渲染明杠的牌
             if (item.minggangcards) {
                 if (item.minggangcards) {
-                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: false});
+                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: false, notDes: true});
                 }
             }
 
         });
-
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
     },
     /**
      *  排序玩家
@@ -135,12 +139,15 @@ cc.Class({
     },
     // 玩家出牌
     playerOutCard(data) {
+        if (!data.notDes) {
+            cc.dd.roomEvent.setIsCache(false);
+        }
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
             const outNode = this.playerArr[localSeat - 1].getChildByName("OutCardLayer");
             if (data.chupai instanceof Array) {
                 data.chupai.forEach((item) => {
-                    cc.dd.cardMgr.outCard(outNode, localSeat, item);
+                    cc.dd.cardMgr.outCard(outNode, localSeat, item, data.notDes);
                 });
             } else {
                 cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
@@ -154,18 +161,32 @@ cc.Class({
             const self = this.playerArr[0].getComponent("PlayerSelf");
             self.showOperateBtn(data.myaction);
         }
+        if (!data.notDes) {
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 0.5);
+        }
     },
     // 玩家吃牌
     playerChiCard(data) {
+        cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
         if (localSeat) {
 
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
     },
     // 玩家碰牌
     playerPengCard(data) {
+        if (!data.notDes) {
+            cc.dd.roomEvent.setIsCache(false);
+        }
         const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
@@ -173,9 +194,18 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+        if (!data.notDes) {
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 0.5);
+        }
     },
     // 玩家杠牌
     playerGangCard(data) {
+        if (!data.notDes) {
+            cc.dd.roomEvent.setIsCache(false);
+        }
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
@@ -183,18 +213,30 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+        if (!data.notDes) {
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 0.5);
+        }
     },
     // 玩家胡牌
     playerHuCard(data) {
+        cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.huuid);
         if (localSeat) {
 
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
     },
     // 玩家摸牌
     playerMoCard(data, userid) {
+        cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(userid);
         if (localSeat) {
             const moNode = this.playerArr[localSeat - 1].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
@@ -202,10 +244,24 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
+    },
+    // 结算
+    oneGameOver(data) {
+        cc.dd.roomEvent.setIsCache(false);
+        this.cleanDesk();
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 2);
     },
 
     // 指针转动
     timerRatation(data) {
+        cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.pointtouid);
         if (data.mopai) {
             this.playerMoCard(data, data.pointtouid);
@@ -221,8 +277,62 @@ cc.Class({
         } else {
             cc.log(`不是自己操作, 不能出牌`);
             cc.dd.cardMgr.setIsCanOutCard(false);
-            this.playerArr[1].getComponent("PlayerSelf").hideOperateBtn();
         }
+        this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
+    },
+    /**
+     *  清理桌面
+     */
+    cleanDesk() {
+        this.playerArr.forEach((item) => {
+            const handNode = item.getChildByName("HandCardLayer").getChildByName("HandCardLay");
+            const outNode = item.getChildByName("OutCardLayer");
+            const moNode = item.getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+            const pengGangNode = item.getChildByName("PengGangLayer");
+            handNode.removeAllChildren(true);
+            moNode.removeAllChildren(true);
+            pengGangNode.removeAllChildren(true);
+            // // 清空手牌
+            // handNode.children.forEach((item) => {
+            //     item.destroy();
+            //     item.removeFromParent();
+            // });
+            // // 清空摸牌
+            // moNode.children.forEach((item) => {
+            //     item.destroy();
+            //     item.removeFromParent();
+            // });
+            // // 清空碰刚拍
+            // pengGangNode.children.forEach((item) => {
+            //     item.destroy();
+            //     item.removeFromParent();
+            // });
+            // 清空出牌
+            const outNode1 = outNode.getChildByName("OutCardLayer1");
+            const outNode2 = outNode.getChildByName("OutCardLayer2");
+            const outNode3 = outNode.getChildByName("OutCardLayer3");
+            outNode1.removeAllChildren(true);
+            outNode2.removeAllChildren(true);
+            outNode3.removeAllChildren(true);
+            // outNode1.children.forEach((item) => {
+            //     item.destroy();
+            //     item.removeFromParent();
+            // });
+            // outNode2.children.forEach((item) => {
+            //     item.destroy();
+            //     item.removeFromParent();
+            // });
+            // outNode3.children.forEach((item) => {
+            //     item.destroy();
+            //     item.removeFromParent();
+            // });
+        });
+        cc.dd.cardMgr.setReadyOutCard(null);
     },
     /**
      *  根据玩家id返回本地座位号
