@@ -262,8 +262,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 594,
-      "height": 300
+      "width": 610,
+      "height": 320
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -463,7 +463,7 @@
       "__id__": 10
     },
     "_enabled": true,
-    "transition": 2,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -719,7 +719,7 @@
       "__id__": 15
     },
     "_enabled": true,
-    "transition": 2,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 255,

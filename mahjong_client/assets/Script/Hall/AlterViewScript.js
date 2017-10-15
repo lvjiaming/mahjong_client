@@ -11,11 +11,16 @@ cc.Class({
 
 
     onLoad: function () {
-
+        cc.dd.net.addObserver(this);
     },
-    updatePresentedMessage(mes) {
-        cc.log();
-        this.MesLabel.string = mes;
+    onDestroy() {
+        cc.dd.net.removeObserver(this);
+    },
+    onMessageEvent(event, data) {
+        if (event == cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP){
+            cc.log("更改alterview显示的提示信息");
+            this.MesLabel.string = data.errmsg;
+        }
     },
     onClickComfrimMessage() {
         cc.log(`确认：关闭`);

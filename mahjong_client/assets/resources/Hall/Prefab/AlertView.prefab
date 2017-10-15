@@ -256,8 +256,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 594,
-      "height": 300
+      "width": 613,
+      "height": 320
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -550,7 +550,7 @@
       "__id__": 10
     },
     "_enabled": true,
-    "transition": 2,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -565,7 +565,7 @@
       "b": 255,
       "a": 255
     },
-    "duration": 0.1,
+    "duration": 0.2,
     "zoomScale": 1.2,
     "pressedSprite": {
       "__uuid__": "94d35c20-8516-4cc4-9042-a2af30f14400"
