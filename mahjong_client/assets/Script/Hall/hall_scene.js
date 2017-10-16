@@ -35,7 +35,8 @@ cc.Class({
     },
     // 设置用户信息
     setUserInfo() {
-        cc.log("设置用户信息");
+        cc.log("设置用户信息" );
+        cc.log(cc.dd.user.getUserInfo());
         this.setUserId(cc.dd.user.getUserInfo().UID);
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
         this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
@@ -95,14 +96,13 @@ cc.Class({
                 });
                 break;
             }
-            // case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
-            //     cc.log("成功转让房卡");
-            //     cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
-            //         const changePup = cc.instantiate(prefab);
-            //     this.node.addChild(changePup);
-            // });
-            //     break;
-            // }
+            case  cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+                cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
+                    const exchangeFK = cc.instantiate(prefab);
+                    this.node.addChild(exchangeFK);
+                });
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
