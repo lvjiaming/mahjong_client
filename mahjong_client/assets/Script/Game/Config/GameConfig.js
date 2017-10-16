@@ -31,6 +31,8 @@ module.exports = {
         EVENT_ENTER_CARDCHANGE_REQ: 5007, // 查询房卡数量的返回
         EVENT_CARDCHANGE_REP: 1008, // 转让房卡
         EVENT_CARDCHANGE_REQ: 5008, // 转让房卡返回
+        EVENT_QUERY_GAMERECORD_REP: 1006,// 查询用户战绩
+        EVENT_QUERY_GAMERECORD_REQ: 5006,// 查询用户战绩的返回
         EVENT_OUTCARD_REP: 2001, // 出牌的请求
         EVENT_OUTCARD_RAD: 4011, // 出牌成功的广播
         EVENT_CHICARD_REP: 2003, // 吃牌的请求

@@ -58,10 +58,11 @@ cc.Class({
     // 战绩
     onRecordClick() {
         cc.log(`战绩`);
-        cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecord", (prefab) => {
-            const gameRecord = cc.instantiate(prefab);
-            gameRecord.getComponent("GameRecord").initInfo([1, 2, 3]);
-            this.node.addChild(gameRecord);
-        });
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REP);
+        // cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecord", (prefab) => {
+        //     const gameRecord = cc.instantiate(prefab);
+        //     gameRecord.getComponent("GameRecord").initInfo([1, 2, 3]);
+        //     this.node.addChild(gameRecord);
+        // });
     },
 });

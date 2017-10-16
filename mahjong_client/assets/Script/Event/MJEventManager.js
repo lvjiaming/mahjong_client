@@ -25,9 +25,9 @@ const MJEventManager = cc.Class({
     startEvent(event, data) {
         cc.log(`发送的协议id为：${event}`);
         const body = {
-            "command": event,
-            "did": "e99cefdb-139f-46d3-ad4b-81883fc0c53a", // 真机里换调起oc方法
-        };
+            "command": event,//
+            "did": "4b9ccebe-fcd8-4afa-831e-8b987e8ce786", // 真机里换调起oc方法
+        };//e99cefdb-139f-46d3-ad4b-81883fc0c53a
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
                 body.code = data; // 真机里不需要它
@@ -51,7 +51,11 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 转让房卡请求，1008
                 body.receiveruid = data;
-                body.roomcardnum = data;
+                body.roomcardnum = cc.dd.user._userInfo.recieveCardNum;
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REP: {  // 查询战绩请求，1006
                 this.sendMessage(body);
                 break;
             }
@@ -123,7 +127,11 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {  // 成功转让房卡返回，5008
-                this.notifyEvent(msgId, msgData);
+                this.notifyEvent(cc.dd.userEvent.EXCHANGE_FK_SCU, msgData);
+                break;
+            }
+            case  cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
+
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播

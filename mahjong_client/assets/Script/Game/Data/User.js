@@ -5,7 +5,8 @@ const EventManager = require("../../Event/EventManager.js");
 
 const UserEventName = {
     USER_LOGIN_SCU: "user_login_suc", // 用户登录成功
-    QUERY_RECEIVER_SCU: "query_receiver_scu",
+    QUERY_RECEIVER_SCU: "query_receiver_scu", //查询接收者信息成功
+    EXCHANGE_FK_SCU: "exchange_fk_scu", // 转让房卡成功
 };
 cc.dd.userEvName = UserEventName;
 const UserEvent = cc.Class({

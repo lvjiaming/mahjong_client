@@ -18,6 +18,10 @@ cc.Class({
             default:null,
             type: cc.Sprite,
         },
+        changeButton: {
+            default:null,
+            type: cc.Button,
+        },
     },
 
     // use this for initialization
@@ -41,6 +45,7 @@ cc.Class({
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
         this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);//跨域了，先注释掉
+        this.setBtnChangeState(parseInt(0));// cc.dd.user.getUserInfo().isagent
     },
     // 设置用户的id
     setUserId(id) {
@@ -107,5 +112,19 @@ cc.Class({
                 cc.log(`unkown event: ${event}`);
             }
         }
+    },
+    // 设置转让房卡按钮是否可见
+    setBtnChangeState(state) {
+        cc.log("isagent:"+state);
+        if (!state || state == 0){
+            this.changeButton.enable = false;
+            return;
+        }
+        cc.log("isagent:"+state);
+        // if (this.changeButton) {
+            this.changeButton.enable = true;
+        // } else {
+        //     cc.log(`节点未绑定`);
+        // }
     },
 });

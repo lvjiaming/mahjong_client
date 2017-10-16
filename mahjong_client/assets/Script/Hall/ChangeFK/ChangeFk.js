@@ -27,12 +27,12 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        // cc.dd.userEvent.addObserver(this);
+        cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
         this.totalCardLabel.string = cc.dd.user.getUserInfo().roomcardnum + "张房卡可以转让";
     },
     onDestroy() {
-        // cc.dd.userEvent.removeObserver(this);
+        cc.dd.userEvent.removeObserver(this);
         cc.dd.net.removeObserver(this);
     },
     // 关闭的事件，x按钮
@@ -77,16 +77,15 @@ cc.Class({
     onEditBoxFixClick(event) {
         cc.log(`转让人的id: ${this.changeEditBox.string}`);
     },
-
-    // onMessageEvent(event, data) {
-    //     switch (event) {
-    //         case (cc.dd.userEvName.QUERY_RECEIVER_SCU): {
-    //
-    //             break;
-    //         }
-    //         default: {
-    //             cc.log(`unkown event: ${event}`);
-    //         }
-    //     }
-    //     },
+    onMessageEvent(event, data) {
+        // switch(event) {
+        //     case cc.dd.userEvent.EXCHANGE_FK_SCU: {
+        //         this.node.destroy();
+        //         break;
+        //     }
+        //     default: {
+                cc.log(`unkown event: ${event}`);
+            // }
+        // }
+    },
 });
