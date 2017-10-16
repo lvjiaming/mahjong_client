@@ -22,6 +22,7 @@ cc.Class({
         suit: 2,  //  牌的花色
         num: 4,  // 牌的值
         cardState: CARD_STATE.NORMAL, // 牌的状态
+        isHuiPi: false,
         id: -1,  // 牌的id
     },
     onLoad: function () {
@@ -66,6 +67,9 @@ cc.Class({
             }
         }
         this.PokerSpr.spriteFrame = cc.dd.dirRes[str.toUpperCase()];
+        if (this.isHuiPi) {
+            this.node.getChildByName("IsHuiPai").active = true;
+        }
     },
     /**
      *  麻将触摸开始事件
