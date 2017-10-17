@@ -121,8 +121,9 @@ const CardMgr = cc.Class({
         if (cardList) {
             this.sortHandCard(cardList);
         }
-        cardList.forEach((item, index) => {
-            const str = "HandPoker";
+        if(cardList) {
+            cardList.forEach((item, index) => {
+                const str = "HandPoker";
             const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
             card.getComponent("Card").id = item;
             card.cardId = item;
@@ -130,7 +131,8 @@ const CardMgr = cc.Class({
                 card.getComponent("Card").isHuiPi = true;
             }
             h_node.addChild(card, index + 1);
-        });
+            });
+        }
     },
     /**
      *  玩家碰杠操作

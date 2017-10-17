@@ -25,9 +25,9 @@ const MJEventManager = cc.Class({
     startEvent(event, data) {
         cc.log(`发送的协议id为：${event}`);
         const body = {
-            "command": event,//
+            "command": event,
             "did": "15a516d1-c7d1-4925-9ada-4360780a4098", // 真机里换调起oc方法
-        };//e99cefdb-139f-46d3-ad4b-81883fc0c53a
+        };
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
                 body.code = data; // 真机里不需要它
@@ -86,6 +86,22 @@ const MJEventManager = cc.Class({
                 break;
             }
             // 需要添加协议，你在下面添加，我在上面添加
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_REQUEST: { // 申请解散房间，1009
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_AGREE: { // 同意解散房间，1010
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_DISAGREE: { // 不同意解散房间，1011
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REP: { // 申请解散房间，1013
+                this.sendMessage(body);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
@@ -102,16 +118,16 @@ const MJEventManager = cc.Class({
         cc.log(JSON.stringify(msgData));
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
-                cc.dd.user.updataUserInfo(msgData);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
-                cc.log(msgData);
-                cc.dd.room.updataRoomData(msgData);
+                cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
                 this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
+                cc.dd.room.updataRoomData(msgData);
+                cc.dd.user.updataUserInfo(msgData.userlist);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态，存在房间 4002
@@ -127,11 +143,7 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {  // 成功转让房卡返回，5008
-                this.notifyEvent(cc.dd.userEvent.EXCHANGE_FK_SCU, msgData);
-                break;
-            }
-            case  cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
-
+                this.notifyEvent(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播
@@ -167,6 +179,26 @@ const MJEventManager = cc.Class({
                 break;
             }
             // 回复处理，你在下面添加，我在上面添加
+            case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: { // 查询战绩成功，5006
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: { // 收到解散房间申请，4003
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: { // 收到解散房间众人态度，4004
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: { // 收到解散房间结果，4008
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: { // 收到登出的结果，5013
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
             default: {
                 cc.log(`unkown msgId: ${msgId}`);
             }
