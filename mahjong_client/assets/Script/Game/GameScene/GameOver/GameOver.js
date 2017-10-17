@@ -41,7 +41,7 @@ cc.Class({
     /**
      *  初始化内容
      */
-    initNote(data) {
+    initNote(data, target) {
         // 更新局数信息
         if (this.JuNode) {
             this.JuNode.string = `第${data.nowround}/${data.rounds}局`
@@ -71,6 +71,49 @@ cc.Class({
                 this.RightContent.addChild(right);
             });
         });
+        data.userlist.forEach((item) => {
+            this.showCard(item, target);
+        });
+    },
+    /**
+     *  显示牌
+     */
+    showCard(data, target) {
+        let parantNode = null;
+        switch (target.getLocalSeatByUserId(data.UID)) {
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
+                parantNode = this.node.getChildByName("Bottom");
+                break;
+            }
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
+                parantNode = this.node.getChildByName("Up");
+                break;
+            }
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
+                parantNode = this.node.getChildByName("Left");
+                break;
+            }
+            case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
+                parantNode = this.node.getChildByName("Right");
+                break;
+            }
+            default: {
+                cc.log('不知名的位置:', target.getLocalSeatByUserId(data.UID));
+                break;
+            }
+        }
+        if (data.handcards) {
+            cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
+                cc.dd.Reload.loadAtlas("Game/Atlas/gameOver", (atlas) => {
+                    data.handcards.forEach((item) => {
+                        const card = cc.instantiate(prefab);
+                        const str = "little_card_" + (item  + 1);
+                        card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                        parantNode.getChildByName("HandCard").addChild(card);
+                    });
+                });
+            });
+        }
     },
     // 显示按钮
     showBtn(state) {

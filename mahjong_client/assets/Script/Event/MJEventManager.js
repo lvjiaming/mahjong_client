@@ -26,7 +26,7 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,//
-            "did": "4b9ccebe-fcd8-4afa-831e-8b987e8ce786", // 真机里换调起oc方法
+            "did": "15a516d1-c7d1-4925-9ada-4360780a4098", // 真机里换调起oc方法
         };//e99cefdb-139f-46d3-ad4b-81883fc0c53a
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
