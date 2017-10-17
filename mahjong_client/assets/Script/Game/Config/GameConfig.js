@@ -17,12 +17,20 @@ module.exports = {
         TOP: 3,
         LEFT: 4,
     },
+    // 操作的类型
+    OPERATE_TYPE: {
+        PENG: 1,
+        GANG: 2,
+        CHI: 3,
+    },
     // 消息枚举
     EVENT: {
         EVENT_CHECK_LOGIN_REP: 1001, // 检测登录请求
         EVENT_CHECK_LOGIN_REQ: 5001, // 检测登录的返回
         EVENT_LOGIN_REP: 1002, // 登录的请求
         EVENT_LOGIN_REQ: 5002, // 登录的返回
+        EVENT_LOGOUT_REP: 1013,// 登出的请求
+        EVENT_LOGOUT_REQ: 5013,// 登出的返回
         EVENT_CREATE_ROOM_REP: 1003, // 创建房间的请求
         EVENT_ROOM_DATA: 4001,  // 房间数据
         EVENT_ENTER_ROOM_REP: 1004, // 加入房间的请求
@@ -31,6 +39,8 @@ module.exports = {
         EVENT_ENTER_CARDCHANGE_REQ: 5007, // 查询房卡数量的返回
         EVENT_CARDCHANGE_REP: 1008, // 转让房卡
         EVENT_CARDCHANGE_REQ: 5008, // 转让房卡返回
+        EVENT_QUERY_GAMERECORD_REP: 1006,// 查询用户战绩
+        EVENT_QUERY_GAMERECORD_REQ: 5006,// 查询用户战绩的返回
         EVENT_OUTCARD_REP: 2001, // 出牌的请求
         EVENT_OUTCARD_RAD: 4011, // 出牌成功的广播
         EVENT_CHICARD_REP: 2003, // 吃牌的请求

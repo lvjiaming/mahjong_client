@@ -51,6 +51,7 @@ const CardMgr = cc.Class({
     _canOutCard: false,  // 是否可以出牌
     _readyOutCard: null, // 选择准备出的牌
     _selfHandCard: null, // 玩家自己的手牌
+    _huiPai: null, // 会牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -123,6 +124,9 @@ const CardMgr = cc.Class({
             const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
             card.getComponent("Card").id = item;
             card.cardId = item;
+            if (this._huiPai == item) {
+                card.getComponent("Card").isHuiPi = true;
+            }
             h_node.addChild(card, index + 1);
         });
     },
@@ -135,22 +139,43 @@ const CardMgr = cc.Class({
      */
     pengGangCard(p_node, localSeat, data, isGang) {
         let preStr = "";
-        let selfConfig = null;
-
-        // 碰杠需要销毁的牌数量
-        let destoryNum = 2;
-        if (isGang) {
-            destoryNum = 3;
-        }
-        // 碰或者杠的牌
-        let pengOrGangId = data.pengpai;
-        if (isGang) {
-            pengOrGangId = data.gangpai;
-        }
         // 摸牌的节点
         const moNode = p_node.parent.getChildByName("HandCardLayer").getChildByName("MoCardLayer");
         // 手牌节点
         const handNode = p_node.parent.getChildByName("HandCardLayer").getChildByName("HandCardLay");
+
+        let needCre = true; // 明刚不需要重新生成牌堆
+
+        // 碰杠需要销毁的牌数量
+        let destoryNum = 2;
+        // 碰或者杠的牌
+        let pengOrGangId = null;
+        switch (isGang) {
+            case cc.dd.gameCfg.OPERATE_TYPE.PENG: {
+                pengOrGangId = data.pengpai;
+                break;
+            }
+            case cc.dd.gameCfg.OPERATE_TYPE.GANG: {
+                pengOrGangId = data.gangpai;
+                if (!data.angang) {
+                    // needCre = false;
+                    destoryNum = 3;
+                } else {
+                    destoryNum = 4;
+                }
+                break;
+            }
+            case cc.dd.gameCfg.OPERATE_TYPE.CHI: {
+                if (!data.notDes) {
+                    pengOrGangId = data.chipai;
+                }
+                break;
+            }
+            default: {
+                cc.log(`类型不对!!`);
+                return;
+            }
+        }
         if (moNode && !data.notDes) { // 将摸牌的节点里的牌清掉
             moNode.children.forEach((item) => {
                 hasMo = true;
@@ -162,6 +187,10 @@ const CardMgr = cc.Class({
         // 更新其他玩家的手牌
         const otherFunc = (handNode) => {
             if (!data.notDes) {
+                if (!destoryNum) {
+                    cc.log(`不需要删除!!`);
+                    return;
+                }
                 for (let i = 0; i < destoryNum; i ++) {
                     const childNode = handNode.children;
                     let index = 0;
@@ -188,42 +217,77 @@ const CardMgr = cc.Class({
                     }
                     this.updateCard(handNode);
                 }
-                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                if (needCre) {
+                    pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
                 preStr = "PengGang_Left";
                 otherFunc(handNode);
-                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
-                const pos_x = p_node.childrenCount * CONFIG.RIGHT.PENG_GANG_X;
-                const pos_y = CONFIG.RIGHT.PENG_GANE_INIT_Y + (p_node.childrenCount * CONFIG.RIGHT.PENG_GANG_Y);
-                pengGang.setPosition(cc.p(pos_x, pos_y));
+                if (needCre) {
+                    pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                    const pos_x = p_node.childrenCount * CONFIG.RIGHT.PENG_GANG_X;
+                    const pos_y = CONFIG.RIGHT.PENG_GANE_INIT_Y + (p_node.childrenCount * CONFIG.RIGHT.PENG_GANG_Y);
+                    pengGang.setPosition(cc.p(pos_x, pos_y));
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
                 preStr = "PengGang_Top";
                 otherFunc(handNode);
-                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                if (needCre) {
+                    pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
                 preStr = "PengGang_Left";
-                pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
                 otherFunc(handNode);
-                const pos_x = p_node.childrenCount * CONFIG.LEFT.PENG_GANG_X;
-                const pos_y = CONFIG.LEFT.PENG_GANE_INIT_Y + (p_node.childrenCount * CONFIG.LEFT.PENG_GANG_Y);
-                pengGang.setPosition(cc.p(pos_x, pos_y));
+                if (needCre) {
+                    pengGang = cc.instantiate(cc.dd.dirRes[preStr.toUpperCase()]);
+                    const pos_x = p_node.childrenCount * CONFIG.LEFT.PENG_GANG_X;
+                    const pos_y = CONFIG.LEFT.PENG_GANE_INIT_Y + (p_node.childrenCount * CONFIG.LEFT.PENG_GANG_Y);
+                    pengGang.setPosition(cc.p(pos_x, pos_y));
+                }
                 break;
             }
             default: {
                 cc.log(`未知的座位号：${localSeat}`);
             }
         }
-
-        p_node.addChild(pengGang);
+        if (pengGang) {
+            p_node.addChild(pengGang);
+        }
+        // } else {
+        //     cc.log(`明刚，不需要生成牌堆`);
+        //     const p_gNode = p_node.children;
+        //     p_gNode.forEach((item) => {
+        //         if (item.cardId === pengOrGangId) {
+        //             if (item.getChildByName("GangCard")) {
+        //                 item.getChildByName("GangCard").active = true;
+        //             } else {
+        //                 cc.log(`杠牌的节点为找到!!`);
+        //             }
+        //         }
+        //     });
+        //     return;
+        // }
         const card = pengGang.children;
+        if (isGang === cc.dd.gameCfg.OPERATE_TYPE.CHI) {
+            cc.log(`吃的操作：`);
+            let index = 0;
+            card.forEach((item) => {
+                if (item.name !== "AnGang" && item.name !== "GangCard") {
+                    item.getComponent("CardSpr").initCard(data.straight[index]);
+                    index ++;
+                }
+            });
+            return;
+        }
+        pengGang.cardId = pengOrGangId;
         card.forEach((item) => {
-            if (isGang) {
+            if (isGang === cc.dd.gameCfg.OPERATE_TYPE.GANG) {
                 if (data.angang) {
                     if (item.name === "AnGang") {
                         item.active = true;
@@ -235,7 +299,7 @@ const CardMgr = cc.Class({
                 }
             }
             if (item.name !== "AnGang") {
-                if (isGang) {
+                if (isGang === cc.dd.gameCfg.OPERATE_TYPE.GANG) {
                     item.getComponent("CardSpr").initCard(data.gangpai);
                 } else {
                     item.getComponent("CardSpr").initCard(data.pengpai);
@@ -429,6 +493,20 @@ const CardMgr = cc.Class({
      */
     getReadyOutCard() {
         return this._readyOutCard;
+    },
+    /**
+     *  设置会牌
+     * @param id 牌的id
+     */
+    setHuiPai(id) {
+        this._huiPai = id;
+    },
+    /**
+     *  得到会牌
+     * @returns {null}
+     */
+    getHuiPai() {
+        return this._huiPai;
     },
     /**
      *  排序手牌
