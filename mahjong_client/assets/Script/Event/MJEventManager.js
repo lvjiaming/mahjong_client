@@ -26,15 +26,11 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,//
-            "did": "55f894e6-7ccd-4c8c-b0e3-31245a19a5ba", // 真机里换调起oc方法
-        };
+            "did": "15a516d1-c7d1-4925-9ada-4360780a4098", // 真机里换调起oc方法
+        };//e99cefdb-139f-46d3-ad4b-81883fc0c53a
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
                 body.code = data; // 真机里不需要它
-                this.sendMessage(body);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REP: {  // 用户登出微信登录
                 this.sendMessage(body);
                 break;
             }
@@ -60,18 +56,6 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REP: {  // 查询战绩请求，1006
-                this.sendMessage(body);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_REQUEST: {  // 申请解散房间，1009
-                this.sendMessage(body);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_AGREE: {  // 同意解散房间，1010
-                this.sendMessage(body);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_DISAGREE: {  // 拒绝解散房间，1011
                 this.sendMessage(body);
                 break;
             }
@@ -118,23 +102,19 @@ const MJEventManager = cc.Class({
         cc.log(JSON.stringify(msgData));
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
-                cc.dd.user.updataUserInfo(msgData.user);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: {  // 玩家登出的返回 1013
-                this.notifyEvent(msgId, msgData);
+                cc.dd.user.updataUserInfo(msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
-                cc.dd.user.updataUserInfo(msgData.userlist);
+                cc.log(msgData);
                 cc.dd.room.updataRoomData(msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态，存在房间 4002
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
                 this.notifyEvent(msgId, msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态，存在房间 4002
                 this.notifyEvent(msgId, msgData);
                 break;
             }
@@ -142,28 +122,16 @@ const MJEventManager = cc.Class({
                 cc.dd.user.updataUserFangka(msgData);
                 break;
             }
-            // case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 失败转让房卡返回，1008
-            //     this.notifyEvent(msgId, msgData);
-            //     break;
-            // }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 失败转让房卡返回，1008
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {  // 成功转让房卡返回，5008
-                this.notifyEvent(msgId, msgData);
+                this.notifyEvent(cc.dd.userEvent.EXCHANGE_FK_SCU, msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: { //查询战绩成功
-                this.notifyEvent(msgId, msgData);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: {  // 申请解散房间广播，4003
-                this.notifyEvent(msgId, msgData);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {  // 解散房间状态广播，4004
-                this.notifyEvent(msgId, msgData);
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {  // 解散房间结果广播，4008
-                this.notifyEvent(msgId, msgData);
+            case  cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
+
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播

@@ -118,7 +118,9 @@ const CardMgr = cc.Class({
      */
     initSelfHandCard(h_node, cardList) {
         this._selfHandCard = cardList;
-        this.sortHandCard(cardList);
+        if (cardList) {
+            this.sortHandCard(cardList);
+        }
         cardList.forEach((item, index) => {
             const str = "HandPoker";
             const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
@@ -176,6 +178,7 @@ const CardMgr = cc.Class({
                 return;
             }
         }
+        let hasMo = false;
         if (moNode && !data.notDes) { // 将摸牌的节点里的牌清掉
             moNode.children.forEach((item) => {
                 hasMo = true;
@@ -314,6 +317,9 @@ const CardMgr = cc.Class({
      * @param data 出的牌
      */
     outCard(o_node, localSeat, data, notDes) {
+        if (!data) {
+            return;
+        }
         const node1 = o_node.getChildByName("OutCardLayer1");
         const node2 = o_node.getChildByName("OutCardLayer2");
         const node3 = o_node.getChildByName("OutCardLayer3");
