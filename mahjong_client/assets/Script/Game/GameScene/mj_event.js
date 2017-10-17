@@ -73,8 +73,8 @@ cc.Class({
                 cc.log("收到4003");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDismiss", (prefab) => {
                     const RoomDismiss = cc.instantiate(prefab);
-                cc.find("UI_ROOT").addChild(RoomDismiss);
-            });
+                    cc.find("UI_ROOT").addChild(RoomDismiss);
+                });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {
@@ -83,8 +83,16 @@ cc.Class({
                 break;
             }
             case  cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {
-                cc.log("收到4008");
-                // 返回大厅
+                if(data.success) {
+                    cc.log("收到4008,成功解散房间：" + data.success);
+                    cc.dd.Reload.loadDir("DirRes", () => {
+                        cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
+                    });
+                }else {
+                    cc.log("收到4008,不解散房间：" + data.success);
+                    // 条条节点干掉
+                    // 弹窗也是
+                }
                 break;
             }
             default: {

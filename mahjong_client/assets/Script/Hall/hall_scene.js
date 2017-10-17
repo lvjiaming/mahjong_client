@@ -128,7 +128,7 @@ cc.Class({
                 cc.log("成功登出");
                 cc.dd.Reload.loadDir("DirRes", () => {
                     cc.dd.sceneMgr.runScene(cc.dd.sceneID.LOGIN_SCENE);
-            });
+                });
                 break;
             }
             default: {
