@@ -42,9 +42,8 @@ cc.Class({
     // cc.dd.userEvent.removeObserver(this);
     onMessageEvent(event, data) {
         switch (event) {
-            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: { // 不能写在这里
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: {
                 cc.log("收到4003");
-                // 弹窗出
                 cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDismiss", (prefab) => {
                     const RoomDismiss = cc.instantiate(prefab);
                     cc.find("UI_ROOT").addChild(RoomDismiss);

@@ -118,7 +118,7 @@ const MJEventManager = cc.Class({
         cc.log(JSON.stringify(msgData));
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
-                cc.dd.user.updataUserInfo(msgData);
+                cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: {  // 玩家登出的返回 1013
@@ -127,7 +127,7 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
                 cc.dd.user.updataUserInfo(msgData.userlist);
-                cc.dd.room.updataRoomData(msgData.room);
+                cc.dd.room.updataRoomData(msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态，存在房间 4002
@@ -159,9 +159,11 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {  // 解散房间状态广播，4004
+                this.notifyEvent(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {  // 解散房间结果广播，4008
+                this.notifyEvent(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播

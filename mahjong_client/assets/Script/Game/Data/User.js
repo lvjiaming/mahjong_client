@@ -32,12 +32,12 @@ const User = cc.Class({
         cc.log("user.js:setUserInfo的参数："+ user);
         this._userInfo = user;
         if(user.isagent) {
+            cc.log(user.isagent);
             this._isagent = user.isagent;
         }
     },
     // 得到用户信息
     getUserInfo() {
-        // cc.log(this._userInfo);
         return this._userInfo;
     },
     // 设置接收者信息
