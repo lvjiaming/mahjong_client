@@ -1,0 +1,15 @@
+APPID：
+wxeed9199aa8377c6a
+
+AppSecret：
+13b340c734f1e616662d325b59fc687f
+
+
+iOS平台
+Bundle ID：com.cy.mj
+测试版本Bundle ID：com.cy.mj
+
+
+Android平台
+应用签名(可以更改)：3e9a94ce19d5dac0f09e999e92aaedc6
+包名：com.cy.mj
