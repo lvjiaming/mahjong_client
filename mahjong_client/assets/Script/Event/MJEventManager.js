@@ -130,8 +130,8 @@ const MJEventManager = cc.Class({
                 this.notifyEvent(cc.dd.userEvent.EXCHANGE_FK_SCU, msgData);
                 break;
             }
-            case  cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
-
+            case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: { //查询战绩成功
+                this.notifyEvent(cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ,msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_OUTCARD_RAD: {  // 玩家出牌的广播

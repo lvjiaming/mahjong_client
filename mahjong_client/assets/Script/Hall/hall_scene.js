@@ -20,7 +20,7 @@ cc.Class({
         },
         changeButton: {
             default:null,
-            type: cc.Button,
+            type: cc.Node,
         },
     },
 
@@ -45,7 +45,7 @@ cc.Class({
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
         this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);//跨域了，先注释掉
-        this.setBtnChangeState(parseInt(0));// cc.dd.user.getUserInfo().isagent
+        this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
     setUserId(id) {
@@ -101,10 +101,26 @@ cc.Class({
                 });
                 break;
             }
-            case  cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+            case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+                cc.log("查询接收者成功");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
                     const exchangeFK = cc.instantiate(prefab);
                     this.node.addChild(exchangeFK);
+                });
+                break;
+            }
+            case cc.dd.userEvent.EXCHANGE_FK_SCU: {
+                cc.log("转让房卡成功，更新大厅房卡数");
+                var currentFKNum = parseInt(cc.dd.user.getUserInfo().roomcardnum) - parseInt(cc.dd.user._userInfo.recieveCardNum);
+                this.setFangKaNum(currentFKNum);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
+                cc.log("查询战绩成功");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecord", (prefab) => {
+                    const gameRecord = cc.instantiate(prefab);
+                    gameRecord.getComponent("GameRecord").initInfo(data.scoreSet);
+                    this.node.addChild(gameRecord);
                 });
                 break;
             }
@@ -117,12 +133,12 @@ cc.Class({
     setBtnChangeState(state) {
         cc.log("isagent:"+state);
         if (!state || state == 0){
-            this.changeButton.enable = false;
+            this.changeButton.active = false;
             return;
         }
         cc.log("isagent:"+state);
         // if (this.changeButton) {
-            this.changeButton.enable = true;
+            this.changeButton.active = true;
         // } else {
         //     cc.log(`节点未绑定`);
         // }

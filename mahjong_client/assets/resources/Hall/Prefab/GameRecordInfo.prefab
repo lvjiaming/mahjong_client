@@ -188,14 +188,14 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "7eedSEa49JUZRL9bmKRLOY",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "RoomId",
+    "_name": "BattleDate",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -275,7 +275,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "d8VQDAMKNNdrkfQEjPsw85",
     "sync": false
@@ -368,7 +368,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "32AUu64HdJE7vIiFVss67J",
     "sync": false
@@ -455,7 +455,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "b2q7k1oIdIILy4ROJIWOrX",
     "sync": false
@@ -542,7 +542,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "f208z4TrVJKp5HlKjlDMgG",
     "sync": false
@@ -635,7 +635,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "c9TMXzk91Ks4T1OH42EnGk",
     "sync": false
@@ -722,7 +722,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "1fKje6ZvBLLYDkIDh2aZAM",
     "sync": false
@@ -809,7 +809,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "2cTgKUup9A17XFm4Q/5FN4",
     "sync": false
@@ -902,7 +902,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "47y0nlPIRL4Jn2pVAIkx5L",
     "sync": false
@@ -989,7 +989,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "3dt/88P3JGJqOv2RzFONU/",
     "sync": false
@@ -1076,7 +1076,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "46AkY576xPuqYzadGQTDJ3",
     "sync": false
@@ -1169,7 +1169,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "1dOb9URY1JDaZMgEvCGDsf",
     "sync": false
@@ -1256,7 +1256,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "cfAZ4yFYlMTJhy1B6ZpnZ2",
     "sync": false
@@ -1343,7 +1343,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "b083/pGPZACrCl2z9iVW0F",
     "sync": false
@@ -1383,7 +1383,37 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "RoomID": {
+      "__id__": 3
+    },
+    "GameDate": {
+      "__id__": 6
+    },
+    "NicknameOne": {
+      "__id__": 12
+    },
+    "NicknameOnePoint": {
+      "__id__": 15
+    },
+    "NicknameTwo": {
+      "__id__": 21
+    },
+    "NicknameTwoPoint": {
+      "__id__": 24
+    },
+    "NicknameThree": {
+      "__id__": 33
+    },
+    "NicknameThreePoint": {
+      "__id__": 30
+    },
+    "NicknameFour": {
+      "__id__": 39
+    },
+    "NicknameFourPoint": {
+      "__id__": 42
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1391,7 +1421,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "5f9b5ef3-8f5e-435a-b04b-5c1ad4167004"
     },
     "fileId": "febDbgtHFOjKmPhXfLdCXx",
     "sync": false
