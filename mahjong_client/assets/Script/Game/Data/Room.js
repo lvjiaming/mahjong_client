@@ -23,6 +23,7 @@ const Room = cc.Class({
     },
     properties: {
         userList: [], // 玩家列表
+        _countNum: null,
     },
     // 房间数据
     updataRoomData(data) {

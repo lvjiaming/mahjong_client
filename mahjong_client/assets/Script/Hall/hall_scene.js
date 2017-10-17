@@ -66,32 +66,32 @@ cc.Class({
                 cc.log("头像下载错误： " + err);
             }else {
                 self.avatar.spriteFrame = new cc.SpriteFrame(texture);
-
             }
         });
     },
+    // 设置转让房卡按钮是否可见
+    setBtnChangeState(state) {
+        if (!state || state == 0){
+            this.changeButton.active = false;
+        }else {
+            this.changeButton.active = true;
+        }
+    },
     onMessageEvent(event, data) {
         switch (event) {
-            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                cc.log("进入房间4002");
-                cc.dd.Reload.loadDir("DirRes", () => {
-                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-                });
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                cc.log("进入房间4001");
-                cc.dd.Reload.loadDir("DirRes", () => {
-                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-            });
-                break;
-            }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {
                 cc.log("输入的房间不存在");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
                     const roomNotExitMes = cc.instantiate(prefab);
                 this.node.addChild(roomNotExitMes);
-            });
+                });
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
+                    cc.log("4002,创建并进入房间");
+                    cc.dd.Reload.loadDir("DirRes", () => {
+                        cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+                });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
@@ -112,7 +112,6 @@ cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
                 cc.log("转让房卡成功，更新大厅房卡数");
-                // var currentFKNum = parseInt(cc.dd.user.getUserInfo().roomcardnum) - parseInt(cc.dd.user._userInfo.recieveCardNum);
                 this.setFangKaNum(data.myroomcards);
                 break;
             }
@@ -136,19 +135,5 @@ cc.Class({
                 cc.log(`unkown event: ${event}`);
             }
         }
-    },
-    // 设置转让房卡按钮是否可见
-    setBtnChangeState(state) {
-        cc.log("isagent:"+state);
-        if (!state || state == 0){
-            this.changeButton.active = false;
-            return;
-        }
-        cc.log("isagent:"+state);
-        // if (this.changeButton) {
-            this.changeButton.active = true;
-        // } else {
-        //     cc.log(`节点未绑定`);
-        // }
     },
 });

@@ -16,15 +16,9 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.dd.userEvent.addObserver(this);
-        cc.dd.net.addObserver(this);
         this.JuShu = 16;
         this.FanShu = 1;
         this.WanFa = [1];
-    },
-    onDestroy() {
-        cc.dd.userEvent.removeObserver(this);
-        cc.dd.net.removeObserver(this);
     },
     // 局数
     onJuShuClick(event, custom) {
@@ -37,21 +31,11 @@ cc.Class({
         if (event.isChecked) {
             cc.log("gotchecked");
             if (item == 3 || item == 5){
-                // var hasThree = this.WanFa.some(function (eachItem,index,array) {
-                //     cc.log(eachItem == 3);
-                //     return (eachItem == 3);
-                // });
-                // var hasFive = this.WanFa.some(function (eachItem,index,array) {
-                //     cc.log(eachItem == 5);
-                //     return (eachItem == 5);
-                // });
                 this.WanFa.push(item);
                 if (item == 3){
-                    cc.log("是3有5了");
                     this.JiahuToggle.interactable = false;
                 }
                 if (item == 5){
-                    cc.log("是5有3了");
                     this.HuiToggle.interactable = false;
                 }
             }else {
@@ -84,16 +68,11 @@ cc.Class({
         this.WanFa.forEach((item) => {
             cc.log(`玩法：${item}`);
         });
-
         var roomConfig = {};
         roomConfig.rounds = this.JuShu;
         roomConfig.basicraise = this.FanShu;
         roomConfig.playrule = this.WanFa;
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CREATE_ROOM_REP,roomConfig);
-        //todo  暂时这样写
-        // cc.dd.Reload.loadDir("DirRes", () => {
-        //     cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-        // });
     },
     // 关闭
     onCloseClick() {

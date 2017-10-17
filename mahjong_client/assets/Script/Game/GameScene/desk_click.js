@@ -13,13 +13,20 @@ cc.Class({
     onReturnClick() {
         cc.log(`返回`);
     },
-    // 扩展tool
+    // 扩展tool,isagent为1的时候才显示转让房卡
     onKuoZhanClick() {
-        cc.log(`扩展`);
-        cc.dd.Reload.loadPrefab("Game/Prefab/KuoZhanTool", (prefan) => {
-            const kzTool = cc.instantiate(prefan);
+        cc.log(`扩展，${cc.dd.user._isagent}`);
+        if (!cc.dd.user._isagent || (cc.dd.user._isagent == 0)){
+            cc.dd.Reload.loadPrefab("Game/Prefab/NoKFKZTool", (prefan) => {
+                const kzTool = cc.instantiate(prefan);
             this.node.addChild(kzTool);
-        });
+            });
+        }else {
+            cc.dd.Reload.loadPrefab("Game/Prefab/KuoZhanTool", (prefan) => {
+                const kzTool = cc.instantiate(prefan);
+            this.node.addChild(kzTool);
+            });
+        }
     },
     // 语音
     onSoundClick() {

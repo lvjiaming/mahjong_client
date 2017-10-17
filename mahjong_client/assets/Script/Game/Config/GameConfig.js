@@ -41,6 +41,12 @@ module.exports = {
         EVENT_CARDCHANGE_REQ: 5008, // 转让房卡返回
         EVENT_QUERY_GAMERECORD_REP: 1006,// 查询用户战绩
         EVENT_QUERY_GAMERECORD_REQ: 5006,// 查询用户战绩的返回
+        EVENT_ROOM_DISMISS_REQUEST: 1009, // 申请解散房间
+        EVENT_ROOM_DISMISS_AGREE: 1010, // 同意解散房间
+        EVENT_ROOM_DISMISS_DISAGREE: 1011, // 不同意解散房间
+        EVENT_ROOM_DISMISS_ANOUNCE: 4003, // 解散房间申请广播
+        EVENT_ROOM_DISMISS_STATE: 4004, // 解散状态广播
+        EVENT_ROOM_DISMISS_RESULT: 4008, //解散结果广播
         EVENT_OUTCARD_REP: 2001, // 出牌的请求
         EVENT_OUTCARD_RAD: 4011, // 出牌成功的广播
         EVENT_CHICARD_REP: 2003, // 吃牌的请求
