@@ -20,7 +20,7 @@ cc.Class({
         },
         changeButton: {
             default:null,
-            type: cc.Button,
+            type: cc.Node,
         },
     },
 
@@ -45,7 +45,7 @@ cc.Class({
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
         this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);//跨域了，先注释掉
-        this.setBtnChangeState(parseInt(0));// cc.dd.user.getUserInfo().isagent
+        this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
     setUserId(id) {
@@ -66,65 +66,74 @@ cc.Class({
                 cc.log("头像下载错误： " + err);
             }else {
                 self.avatar.spriteFrame = new cc.SpriteFrame(texture);
-
             }
         });
     },
+    // 设置转让房卡按钮是否可见
+    setBtnChangeState(state) {
+        if (!state || state == 0){
+            this.changeButton.active = false;
+        }else {
+            this.changeButton.active = true;
+        }
+    },
     onMessageEvent(event, data) {
         switch (event) {
-            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                cc.dd.Reload.loadDir("DirRes", () => {
-                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {
+                cc.log("输入的房间不存在");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const roomNotExitMes = cc.instantiate(prefab);
+                this.node.addChild(roomNotExitMes);
                 });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                cc.log("进入房间");
-                cc.dd.Reload.loadDir("DirRes", () => {
-                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-            });
-                break;
-            }
-            case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {
-                cc.log("房间不存在");
-                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
-                    const roomNotExitMes = cc.instantiate(prefab);
-                this.node.addChild(roomNotExitMes);
-            });
+                    cc.log("4002,创建并进入房间");
+                    cc.dd.Reload.loadDir("DirRes", () => {
+                        cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+                });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
-                cc.log("进入转让房卡");
+                cc.log("显示转让房卡的弹窗");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
                     const changePup = cc.instantiate(prefab);
                     this.node.addChild(changePup);
                 });
                 break;
             }
-            case  cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+            case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+                cc.log("查询接收者成功");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
                     const exchangeFK = cc.instantiate(prefab);
                     this.node.addChild(exchangeFK);
                 });
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
+                cc.log("转让房卡成功，更新大厅房卡数");
+                this.setFangKaNum(data.myroomcards);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
+                cc.log("查询战绩成功");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecord", (prefab) => {
+                    const gameRecord = cc.instantiate(prefab);
+                    gameRecord.getComponent("GameRecord").initInfo(data.scoreset);
+                    this.node.addChild(gameRecord);
+                });
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: {
+                cc.log("成功登出");
+                cc.dd.Reload.loadDir("DirRes", () => {
+                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.LOGIN_SCENE);
+            });
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
         }
-    },
-    // 设置转让房卡按钮是否可见
-    setBtnChangeState(state) {
-        cc.log("isagent:"+state);
-        if (!state || state == 0){
-            this.changeButton.enable = false;
-            return;
-        }
-        cc.log("isagent:"+state);
-        // if (this.changeButton) {
-            this.changeButton.enable = true;
-        // } else {
-        //     cc.log(`节点未绑定`);
-        // }
     },
 });

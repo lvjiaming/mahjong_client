@@ -18,10 +18,14 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        // cc.dd.net.addObserver(this);
         if (this.NoteNode) {
             const moveAni = cc.moveTo(MOVE_TIME, cc.p(END_POS.x, END_POS.y));
             this.NoteNode.runAction(moveAni);
         }
+    },
+    onDestroy() {
+        // cc.dd.net.removeObserver(this);
     },
     // 关闭
     onCloseClick() {
@@ -38,17 +42,22 @@ cc.Class({
     // 玩法
     onWanFaClick() {
         cc.log(`玩法`);
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Helps", (prefab) => {
+            const helping = cc.instantiate(prefab);
+        cc.find("UI_ROOT").addChild(helping);
+        });
     },
     // 解散房间
     onJieSanRoomClick() {
         cc.log(`解散房间`);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_REQUEST);
     },
     // 转让房卡
     onChangeClick() {
         cc.log(`转让房卡`);
-        cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
-            const changePup = cc.instantiate(prefab);
-            cc.find("UI_ROOT").addChild(changePup);
-        });
+        // cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+        //     const changePup = cc.instantiate(prefab);
+        //     cc.find("UI_ROOT").addChild(changePup);
+        // });
     },
 });

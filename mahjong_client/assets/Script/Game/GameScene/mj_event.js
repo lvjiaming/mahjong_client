@@ -69,6 +69,24 @@ cc.Class({
                 }, 0.5);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: {
+                cc.log("收到4003");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDismiss", (prefab) => {
+                    const RoomDismiss = cc.instantiate(prefab);
+                cc.find("UI_ROOT").addChild(RoomDismiss);
+            });
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {
+                cc.log("收到4004");
+                // 更新条条
+                break;
+            }
+            case  cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {
+                cc.log("收到4008");
+                // 返回大厅
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

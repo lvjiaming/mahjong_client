@@ -25,16 +25,19 @@ const User = cc.Class({
     properties: {
         _userInfo: null, // 用户信息
         _receiverInfo: null, // 房卡转让接受者信息
+        _isagent: null,  // 是否是代理商
     },
     // 设置用户信息
     setUserInfo(user) {
         cc.log("user.js:setUserInfo的参数："+ user);
         this._userInfo = user;
-        // cc.log("user.js,_userInfo:"+ JSON.stringify(this._userInfo));
+        if(user.isagent) {
+            cc.log(user.isagent);
+            this._isagent = user.isagent;
+        }
     },
     // 得到用户信息
     getUserInfo() {
-        cc.log(this._userInfo);
         return this._userInfo;
     },
     // 设置接收者信息
@@ -44,14 +47,13 @@ const User = cc.Class({
     },
     // 得到接收者信息
     getReciverInfo() {
-        cc.log(this._receiverInfo);
+        // cc.log(this._receiverInfo);
         return this._receiverInfo;
     },
     // 用户登录成功
     updataUserInfo(data) {
-        this.setUserInfo(data.user);
-        cc.log("刚登录返回的"+ data);
-        cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data.user);
+        this.setUserInfo(data);
+        cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data);
     },
     // 查询接收者用户房卡数量成功
     updataReciverInfo(data) {

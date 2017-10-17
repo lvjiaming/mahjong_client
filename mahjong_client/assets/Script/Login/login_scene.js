@@ -31,20 +31,10 @@ cc.Class({
     },
     // 登录按钮
     onLoginClick() {
-    	// if (this.CheckBoxGotCheck == false) {
-    	// 	return;
-    	// }
         cc.log(`用户登录`);
-        // 请求登录
-        // cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, {
-        //     "command": cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP,
-        //     "did": "39d394f7-db13-4768-a4da-40e18273d7a8",
-        //     "code": "6SDF4ASD4GFAS4FG5ASD5F5Dsdf"
-        // });
-        // cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
-            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
     },
-
+    // 同意与否用户协议
     clickCheckBoxToggle(event, custom) {
         this.CheckBoxGotCheck = !this.CheckBoxGotCheck;
         if(this.CheckBoxGotCheck){
@@ -53,7 +43,6 @@ cc.Class({
         	this.BtnLogin.getComponent(cc.Button).interactable = false;
         }
     },
-    
     // 设置登录按钮的状态
     setBtnLoginState(state) {
         if (this.BtnLogin) {
@@ -69,14 +58,20 @@ cc.Class({
                 cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
                 break;
             }
-            case cc.dd.userEvName.USER_LOGIN_FAIL: {
+            case cc.dd.userEvName.USER_LOGIN_FAIL: { // 接真机改
                 cc.log('登录失败');
+                break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                cc.log(`玩家进入原房间`);
-                cc.dd.Reload.loadDir("DirRes", () => {
-                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-                });
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: { // 4002
+                if(data.subcommand == 1) {
+                    cc.log("4002,action为1");
+                }else {
+                    cc.log("4002,action为其他");
+                    cc.dd.Reload.loadDir("DirRes", () => {
+                        cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+                    });
+                }
+                break;
             }
             default: {
                 cc.log(`unkown event: ${event}`);

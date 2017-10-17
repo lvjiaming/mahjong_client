@@ -23,11 +23,11 @@ cc.Class({
     onLoad: function () {
         this.setUserInfo();
         cc.dd.net.addObserver(this);
-        cc.dd.userEvent.addObserver(this);
+        // cc.dd.userEvent.addObserver(this);
     },
     onDestroy() {
         cc.dd.net.removeObserver(this);
-        cc.dd.userEvent.removeObserver(this);
+        // cc.dd.userEvent.removeObserver(this);
     },
     setUserInfo() {
         this.setFangkaAmountLabelContent(cc.dd.user._userInfo.recieveCardNum);
@@ -49,16 +49,17 @@ cc.Class({
     },
     onComfrimClick() {
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP,cc.dd.user.getReciverInfo().uid4query);
+        this.node.destroy();
     },
-    onMessageEvent(event, data) {
+    // onMessageEvent(event, data) {
         // switch(event) {
         //     case cc.dd.userEvent.EXCHANGE_FK_SCU: {
         //         this.node.destroy();
         //         break;
         //     }
         //     default: {
-                cc.log(`unkown event: ${event}`);
+        //         cc.log(`unkown event: ${event}`);
             // }
         // }
-    },
+    // },
 });
