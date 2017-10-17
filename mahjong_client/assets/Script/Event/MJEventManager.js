@@ -26,11 +26,15 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,//
-            "did": "4b9ccebe-fcd8-4afa-831e-8b987e8ce786", // 真机里换调起oc方法
-        };//e99cefdb-139f-46d3-ad4b-81883fc0c53a
+            "did": "55f894e6-7ccd-4c8c-b0e3-31245a19a5ba", // 真机里换调起oc方法
+        };
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
                 body.code = data; // 真机里不需要它
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REP: {  // 用户登出微信登录
                 this.sendMessage(body);
                 break;
             }
@@ -105,8 +109,12 @@ const MJEventManager = cc.Class({
                 cc.dd.user.updataUserInfo(msgData);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: {  // 玩家登出的返回 1013
+                cc.log("玩家登出");
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
-                cc.log(msgData);
                 cc.dd.room.updataRoomData(msgData);
                 break;
             }
@@ -122,12 +130,12 @@ const MJEventManager = cc.Class({
                 cc.dd.user.updataUserFangka(msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 失败转让房卡返回，1008
-                this.notifyEvent(msgId, msgData);
-                break;
-            }
+            // case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 失败转让房卡返回，1008
+            //     this.notifyEvent(msgId, msgData);
+            //     break;
+            // }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {  // 成功转让房卡返回，5008
-                this.notifyEvent(cc.dd.userEvent.EXCHANGE_FK_SCU, msgData);
+                this.notifyEvent(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: { //查询战绩成功

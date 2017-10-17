@@ -78,14 +78,14 @@ cc.Class({
         cc.log(`转让人的id: ${this.changeEditBox.string}`);
     },
     onMessageEvent(event, data) {
-        // switch(event) {
-        //     case cc.dd.userEvent.EXCHANGE_FK_SCU: {
-        //         this.node.destroy();
-        //         break;
-        //     }
-        //     default: {
+        switch(event) {
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
+                this.node.destroy();
+                break;
+            }
+            default: {
                 cc.log(`unkown event: ${event}`);
-            // }
-        // }
+            }
+        }
     },
 });

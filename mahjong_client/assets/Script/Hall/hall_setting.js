@@ -12,6 +12,11 @@ cc.Class({
             type: cc.Slider,
             tooltip: "音效的控制",
         },
+        logoutButton: {
+            default: null,
+            type: cc.Button,
+            tooltip: "退出登录",
+        }
     },
 
     // use this for initialization
@@ -43,5 +48,9 @@ cc.Class({
     onCloseClick() {
         this.node.destroy();
     },
-
+    onLogoutClick() {
+        cc.log("退出微信登录");
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REP, "logout");
+        this.node.destroy();
+    },
 });

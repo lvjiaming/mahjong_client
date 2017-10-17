@@ -73,20 +73,21 @@ cc.Class({
     onMessageEvent(event, data) {
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
+                cc.log("进入房间4002");
                 cc.dd.Reload.loadDir("DirRes", () => {
                     cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
                 });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                cc.log("进入房间");
+                cc.log("进入房间4001");
                 cc.dd.Reload.loadDir("DirRes", () => {
                     cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
             });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {
-                cc.log("房间不存在");
+                cc.log("输入的房间不存在");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
                     const roomNotExitMes = cc.instantiate(prefab);
                 this.node.addChild(roomNotExitMes);
@@ -94,7 +95,7 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
-                cc.log("进入转让房卡");
+                cc.log("显示转让房卡的弹窗");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
                     const changePup = cc.instantiate(prefab);
                     this.node.addChild(changePup);
@@ -109,19 +110,26 @@ cc.Class({
                 });
                 break;
             }
-            case cc.dd.userEvent.EXCHANGE_FK_SCU: {
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
                 cc.log("转让房卡成功，更新大厅房卡数");
-                var currentFKNum = parseInt(cc.dd.user.getUserInfo().roomcardnum) - parseInt(cc.dd.user._userInfo.recieveCardNum);
-                this.setFangKaNum(currentFKNum);
+                // var currentFKNum = parseInt(cc.dd.user.getUserInfo().roomcardnum) - parseInt(cc.dd.user._userInfo.recieveCardNum);
+                this.setFangKaNum(data.myroomcards);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
                 cc.log("查询战绩成功");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecord", (prefab) => {
                     const gameRecord = cc.instantiate(prefab);
-                    gameRecord.getComponent("GameRecord").initInfo(data.scoreSet);
+                    gameRecord.getComponent("GameRecord").initInfo(data.scoreset);
                     this.node.addChild(gameRecord);
                 });
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: {
+                cc.log("成功登出");
+                cc.dd.Reload.loadDir("DirRes", () => {
+                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.LOGIN_SCENE);
+            });
                 break;
             }
             default: {

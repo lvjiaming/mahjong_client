@@ -29,6 +29,8 @@ module.exports = {
         EVENT_CHECK_LOGIN_REQ: 5001, // 检测登录的返回
         EVENT_LOGIN_REP: 1002, // 登录的请求
         EVENT_LOGIN_REQ: 5002, // 登录的返回
+        EVENT_LOGOUT_REP: 1013,// 登出的请求
+        EVENT_LOGOUT_REQ: 5013,// 登出的返回
         EVENT_CREATE_ROOM_REP: 1003, // 创建房间的请求
         EVENT_ROOM_DATA: 4001,  // 房间数据
         EVENT_ENTER_ROOM_REP: 1004, // 加入房间的请求
