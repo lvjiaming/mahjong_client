@@ -17,6 +17,12 @@ module.exports = {
         TOP: 3,
         LEFT: 4,
     },
+    // 操作的类型
+    OPERATE_TYPE: {
+        PENG: 1,
+        GANG: 2,
+        CHI: 3,
+    },
     // 消息枚举
     EVENT: {
         EVENT_CHECK_LOGIN_REP: 1001, // 检测登录请求

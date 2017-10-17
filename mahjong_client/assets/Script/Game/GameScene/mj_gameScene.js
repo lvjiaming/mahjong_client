@@ -65,6 +65,7 @@ cc.Class({
     initPlayerSeat(data) {
         const userList = this.sortUserList(data.myuid);
         cc.dd.roomEvent.setIsCache(false);
+        cc.dd.cardMgr.setHuiPai(data.room.guicard);
         userList.forEach((item, index) => {
             this.playerArr[index].active = true;
             let player_class = null;
@@ -103,9 +104,15 @@ cc.Class({
             }
             // 渲染明杠的牌
             if (item.minggangcards) {
-                if (item.minggangcards) {
+                item.minggangcards.forEach((gangcard) => {
                     this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: false, notDes: true});
-                }
+                });
+            }
+            // 渲染吃的牌
+            if (item.showcards) {
+                item.showcards.forEach((item) => {
+                    this.playerChiCard({straight: item, chipaiuid: item.UID, notDes: true});
+                });
             }
 
         });
@@ -173,7 +180,8 @@ cc.Class({
         cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
         if (localSeat) {
-
+            const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
+            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.CHI);
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -190,7 +198,7 @@ cc.Class({
         const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
-            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, false);
+            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.PENG);
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -209,7 +217,7 @@ cc.Class({
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
-            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, true);
+            cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.GANG);
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -253,10 +261,15 @@ cc.Class({
     oneGameOver(data) {
         cc.dd.roomEvent.setIsCache(false);
         this.cleanDesk();
-        this.scheduleOnce(() => {
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
-        }, 2);
+        cc.dd.Reload.loadPrefab("Game/Prefab/OneGameOver", (prefab) => {
+            const gameOver = cc.instantiate(prefab);
+            gameOver.getComponent("GameOver").initNote(data);
+            this.node.addChild(gameOver);
+        });
+        // this.scheduleOnce(() => {
+        //     cc.dd.roomEvent.setIsCache(true);
+        //     cc.dd.roomEvent.notifyCacheList();
+        // }, 2);
     },
 
     // 指针转动
@@ -331,8 +344,11 @@ cc.Class({
             //     item.destroy();
             //     item.removeFromParent();
             // });
+
         });
         cc.dd.cardMgr.setReadyOutCard(null);
+        this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+        cc.dd.cardMgr.setHuiPai(null);
     },
     /**
      *  根据玩家id返回本地座位号
