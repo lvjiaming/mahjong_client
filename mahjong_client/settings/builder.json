@@ -19,7 +19,7 @@
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.mahjong_client",
+  "packageName": "com.cy.mj",
   "privateKey": "",
   "renderMode": "0",
   "startScene": "ffe25c5e-fc0d-41f0-91b0-8a50083592ab",
