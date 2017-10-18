@@ -25,16 +25,16 @@ const User = cc.Class({
     properties: {
         _userInfo: null, // 用户信息
         _receiverInfo: null, // 房卡转让接受者信息
-        _isagent: null,  // 是否是代理商
-        _countNum: null,
+        _isAgent: null,  // 是否是代理商
+        _countNum: null, // 给解散房间的同意进度条倒数
     },
     // 设置用户信息
     setUserInfo(user) {
-        cc.log("user.js:setUserInfo的参数："+ user);
         this._userInfo = user;
         if(user.isagent) {
-            cc.log(user.isagent);
-            this._isagent = user.isagent;
+            cc.log("user.isagent存变量：" + user.isagent);
+            this._isAgent = user.isagent;
+            // 调起存到手机本地的方法
         }
     },
     // 得到用户信息

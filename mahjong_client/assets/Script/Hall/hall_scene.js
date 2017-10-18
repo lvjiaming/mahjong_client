@@ -51,7 +51,7 @@ cc.Class({
             this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         }
         this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
-        this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
+        this.setBtnChangeState(parseInt(cc.dd.user._isAgent));
     },
     // 设置用户的id
     setUserId(id) {

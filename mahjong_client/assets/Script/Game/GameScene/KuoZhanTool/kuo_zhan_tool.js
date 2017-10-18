@@ -32,7 +32,7 @@ cc.Class({
         cc.log(`设置`);
         cc.dd.Reload.loadPrefab("Hall/Prefab/Setting", (prefab) => {
             const setting = cc.instantiate(prefab);
-            // setting.getComponent("Setting").initLogoutInfo();
+            setting.getComponent("Setting").initLogoutInfo();
             // setting.getComponent("Setting")._isHallSence == false;
             cc.find("UI_ROOT").addChild(setting);
         });

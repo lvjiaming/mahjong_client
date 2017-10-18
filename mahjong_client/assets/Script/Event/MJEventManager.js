@@ -26,11 +26,25 @@ const MJEventManager = cc.Class({
         cc.log(`发送的协议id为：${event}`);
         const body = {
             "command": event,
-            "did": "15a516d1-c7d1-4925-9ada-4360780a4098", // 真机里换调起oc方法
-        };``
+        };
+        if(cc.sys.isMobile) {
+            var deviceid = jsb.reflection.callStaticMethod("CCCKeychianTool", "getDeviceIDInKeychain");
+            body.did = deviceid;
+        }else{
+            body.did = "15a516d1-c7d1-4925-9ada-4360780a4098";// 网页
+        }
+
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
-                body.code = data; // 真机里不需要它
+                if(!cc.sys.isMobile) {
+                    body.code = data; // 真机里不需要它
+                }
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP: {  // 未登录过的设备登录，1002
+                body.code = data;
+                body.appid = "wxeed9199aa8377c6a";
                 this.sendMessage(body);
                 break;
             }
@@ -121,6 +135,16 @@ const MJEventManager = cc.Class({
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_LOGIN_REQ: {  // 检查登录的回复，1002登录成功返回5002
+                cc.dd.user.updataUserInfo(msgData.user);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 没有登录过的设备返回1001
+                cc.log("未登录过的设备");
+                //调起oc的微信登录方法
+                jsb.reflection.callStaticMethod("RootViewController", "provokeWXLogin")
+                break;
+            }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
                 this.notifyEvent(msgId, msgData);
                 break;
@@ -203,6 +227,13 @@ const MJEventManager = cc.Class({
                 cc.log(`unkown msgId: ${msgId}`);
             }
         }
-    }
+    },
+    /**
+     *  微信回调返回到code后，被调用的方法
+     * @param wxcode 微信成功授权登录后传过来的code
+     */
+    recieveWXAuthenticationCode(wxcode){
+        this.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP,wxcode);
+    },
 });
 cc.dd.net = MJEventManager.getInstance();

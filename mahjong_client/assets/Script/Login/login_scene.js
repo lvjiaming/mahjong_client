@@ -58,7 +58,7 @@ cc.Class({
                 cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
                 break;
             }
-            case cc.dd.userEvName.USER_LOGIN_FAIL: { // 接真机改
+            case cc.dd.userEvName.USER_LOGIN_FAIL: {
                 cc.log('登录失败');
                 break;
             }
