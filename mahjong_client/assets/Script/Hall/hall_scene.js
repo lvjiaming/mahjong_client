@@ -22,6 +22,7 @@ cc.Class({
             default:null,
             type: cc.Node,
         },
+        toUpdateCardum: null,
     },
 
     // use this for initialization
@@ -43,7 +44,12 @@ cc.Class({
         cc.log(cc.dd.user.getUserInfo());
         this.setUserId(cc.dd.user.getUserInfo().UID);
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
-        this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
+        if(!cc.dd.user.getUserInfo().roomcardnum) {
+            this.toUpdateCardum = true;
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP,cc.dd.user.getUserInfo().UID);
+        }else {
+            this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
+        }
         // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);//跨域了，先注释掉
         this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
@@ -95,11 +101,16 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
-                cc.log("显示转让房卡的弹窗");
-                cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
-                    const changePup = cc.instantiate(prefab);
+                if(this.toUpdateCardum) {
+                    this.toUpdateCardum = false;
+                    this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
+                }else {
+                    cc.log("显示转让房卡的弹窗");
+                    cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+                        const changePup = cc.instantiate(prefab);
                     this.node.addChild(changePup);
-                });
+                    });
+                }
                 break;
             }
             case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
