@@ -50,7 +50,7 @@ cc.Class({
     // 设置
     onSettingClick() {
         cc.log(`设置`);
-        cc.dd.Reload.loadPrefab("Hall/Prefab/Setting ", (prefab) => {
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Setting", (prefab) => {
             const setting = cc.instantiate(prefab);
             this.node.addChild(setting);
         });

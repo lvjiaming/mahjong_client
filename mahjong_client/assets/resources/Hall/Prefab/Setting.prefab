@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Setting ",
+    "_name": "Setting",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -2441,7 +2441,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 83
@@ -2774,7 +2774,8 @@
     },
     "logoutButton": {
       "__id__": 84
-    }
+    },
+    "_isHallSence": null
   },
   {
     "__type__": "cc.PrefabInfo",

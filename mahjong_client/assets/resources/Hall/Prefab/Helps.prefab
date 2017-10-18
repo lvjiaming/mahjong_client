@@ -836,9 +836,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 245,
-      "g": 240,
-      "b": 240,
+      "r": 247,
+      "g": 243,
+      "b": 243,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -924,7 +924,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "playhow-wa@2x",
+    "_name": "New Label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 24
@@ -944,9 +944,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 36,
+      "g": 34,
+      "b": 34,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -957,7 +957,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 834,
+      "width": 800,
       "height": 1400
     },
     "_rotationX": 0,
@@ -977,30 +977,26 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 25
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "6e247383-4564-4aa7-af61-5970f22ae187"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
+    "_useOriginalSize": false,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "\n一  玩法\n\n1、无幺九不能胡，会牌宝牌不能顶幺九，字牌也可顶幺九\n2、必须有碰牌(也叫大叉)才能胡，中发白做将牌可不需碰牌\n3、正常已开门才可以胡，房间设置为”闭门胡”则未开门也可胡\n4、“夹”与”会”不可同时设置，“夹”即死夹，只能胡一张的牌型\n5、房间可以设置底番倍数，胡牌正常算分以后再乘以底番倍数得出本局实际分数\n6、胡牌番数与杠牌分数分开计算\n7、抓到四张会儿直接算胡牌\n\n二、算分规则\n\n1、庄家：1番\n2、自摸：1番\n3、闭门：1番\n4、搂宝：1番\n5、清一色：1番\n6、飘胡：2番\n7、海底捞：1番\n8、夹胡：1番\n9、杠上开花：1番\n10、流泪：1番\n\n三、杠牌\n\n1、明杠一倍基础分，暗杠两倍基础分",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 2
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1010,7 +1006,7 @@
     "asset": {
       "__uuid__": "65ac4ee6-9904-4fb1-aa00-88e4fa215998"
     },
-    "fileId": "e15LJ4ih9AVpa6rQEDUHhK",
+    "fileId": "84/rlyyslOp4/7tuwdD3DB",
     "sync": false
   },
   {

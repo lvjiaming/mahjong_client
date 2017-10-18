@@ -30,8 +30,10 @@ cc.Class({
     // 设置
     onSettingClick() {
         cc.log(`设置`);
-        cc.dd.Reload.loadPrefab("Hall/Prefab/Setting ", (prefab) => {
+        cc.dd.Reload.loadPrefab("Hall/Prefab/Setting", (prefab) => {
             const setting = cc.instantiate(prefab);
+            // setting.getComponent("Setting").initLogoutInfo();
+            // setting.getComponent("Setting")._isHallSence == false;
             cc.find("UI_ROOT").addChild(setting);
         });
     },
@@ -40,7 +42,7 @@ cc.Class({
         cc.log(`玩法`);
         cc.dd.Reload.loadPrefab("Hall/Prefab/Helps", (prefab) => {
             const helping = cc.instantiate(prefab);
-        cc.find("UI_ROOT").addChild(helping);
+            cc.find("UI_ROOT").addChild(helping);
         });
     },
     // 解散房间

@@ -16,7 +16,8 @@ cc.Class({
             default: null,
             type: cc.Button,
             tooltip: "退出登录",
-        }
+        },
+        _isHallSence: null,
     },
 
     // use this for initialization
@@ -27,8 +28,15 @@ cc.Class({
         if (this.soundSlider) {
             this.soundSlider.progress = cc.dd.soundMgr.getSoundVolume();
         }
+        if(this._isHallSence == false){
+            this.initLogoutInfo();
+        }
     },
-
+    // 控制注销登录按钮的显示
+    initLogoutInfo() {
+        this.logoutButton.active = false;
+    },
+    // 音量条
     onSliderClick(event, custom) {
         switch (parseInt(custom)) {
             case 1: {
@@ -45,9 +53,11 @@ cc.Class({
             }
         }
     },
+    // 关闭
     onCloseClick() {
         this.node.destroy();
     },
+    // 退出登录按钮的响应方法
     onLogoutClick() {
         cc.log("退出微信登录");
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REP, "logout");
