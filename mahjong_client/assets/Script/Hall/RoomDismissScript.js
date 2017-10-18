@@ -16,13 +16,13 @@ cc.Class({
         cc.dd.room._countNum = 60;
         this.callback = function () {
             if (cc.dd.room._countNum === 0) {
-                this.onConfrimClick();
                 this.unschedule(this.callback);
+                this.onConfrimClick();
             }
             cc.dd.room._countNum--;
             this.agreeOnDismiss.string = cc.dd.room._countNum;
         }
-        this.agreeOnDismiss.schedule(this.callback, 1);
+        this.schedule(this.callback, 1);
     },
     onDestroy() {
         this.unschedule(this.callback);

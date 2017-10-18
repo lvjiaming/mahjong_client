@@ -79,12 +79,16 @@ cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {
                 cc.log("收到4004");
-                // 更新条条
+                cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
+                    const bar = cc.instantiate(prefab);
+                cc.find("UI_ROOT").addChild(bar);
+                });
                 break;
             }
             case  cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {
                 if(data.success) {
                     cc.log("收到4008,成功解散房间：" + data.success);
+                    cc.dd.soundMgr.stopAllSound();
                     cc.dd.Reload.loadDir("DirRes", () => {
                         cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
                     });

@@ -91,5 +91,18 @@ const SoundManger = cc.Class({
         }
         cc.audioEngine.play(cc.url.raw(url), false, this._soundVolume);
     },
+    /**
+     *  暂停声音播放
+     * @param
+     */
+    stopAllSound() {
+        if (this._musicVolume === 0) {
+            return;
+        }
+        if (this._soundVolume === 0) {
+            return;
+        }
+        cc.audioEngine.stopAll();
+    }
 });
 cc.dd.soundMgr = SoundManger.getInstance();

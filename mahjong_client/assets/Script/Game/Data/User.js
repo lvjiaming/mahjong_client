@@ -26,6 +26,7 @@ const User = cc.Class({
         _userInfo: null, // 用户信息
         _receiverInfo: null, // 房卡转让接受者信息
         _isagent: null,  // 是否是代理商
+        _countNum: null,
     },
     // 设置用户信息
     setUserInfo(user) {
