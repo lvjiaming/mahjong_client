@@ -32,6 +32,7 @@ cc.Class({
         if (data.chi) {
             this.operateBtnNode.getChildByName("BtnChi").active = true;
             guoBtn = true;
+            cc.dd.cardMgr.setChiList(data.chilist);
         }
         if (guoBtn) {
             this.operateBtnNode.getChildByName("BtnGuo").active = true;

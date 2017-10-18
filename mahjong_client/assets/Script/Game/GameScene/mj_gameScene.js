@@ -109,9 +109,9 @@ cc.Class({
                 });
             }
             // 渲染吃的牌
-            if (item.showcards) {
-                item.showcards.forEach((item) => {
-                    this.playerChiCard({straight: item, chipaiuid: item.UID, notDes: true});
+            if (item.chicards) {
+                item.chicards.forEach((chicard) => {
+                    this.playerChiCard({straight: chicard, chipaiuid: item.UID, notDes: true});
                 });
             }
 
@@ -182,6 +182,11 @@ cc.Class({
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.CHI);
+            if (localSeat == 1) {
+                if (data.lostcards4ting) {
+                    cc.dd.cardMgr.setTingList(data.lostcards4ting);
+                }
+            }
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -199,6 +204,11 @@ cc.Class({
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.PENG);
+            if (localSeat == 1) {
+                if (data.lostcards4ting) {
+                    cc.dd.cardMgr.setTingList(data.lostcards4ting);
+                }
+            }
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -249,6 +259,11 @@ cc.Class({
         if (localSeat) {
             const moNode = this.playerArr[localSeat - 1].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
             cc.dd.cardMgr.MoCard(moNode, localSeat, data);
+            if (localSeat == 1) {
+                if (data.ting) {
+                    cc.dd.cardMgr.setTingList(data.ting);
+                }
+            }
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
@@ -349,6 +364,8 @@ cc.Class({
         cc.dd.cardMgr.setReadyOutCard(null);
         this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.cardMgr.setHuiPai(null);
+        cc.dd.cardMgr.setChiList(null);
+        cc.dd.cardMgr.setTingList(null);
     },
     /**
      *  根据玩家id返回本地座位号
