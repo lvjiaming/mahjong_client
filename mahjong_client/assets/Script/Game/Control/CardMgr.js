@@ -52,6 +52,8 @@ const CardMgr = cc.Class({
     _readyOutCard: null, // 选择准备出的牌
     _selfHandCard: null, // 玩家自己的手牌
     _huiPai: null, // 会牌
+    _chiList: null,  // 吃牌的列表
+    _tingList: null, // 听牌的列表
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -124,13 +126,13 @@ const CardMgr = cc.Class({
         if(cardList) {
             cardList.forEach((item, index) => {
                 const str = "HandPoker";
-            const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
-            card.getComponent("Card").id = item;
-            card.cardId = item;
-            if (this._huiPai == item) {
-                card.getComponent("Card").isHuiPi = true;
-            }
-            h_node.addChild(card, index + 1);
+                const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                card.getComponent("Card").id = item;
+                card.cardId = item;
+                if (this._huiPai == item) {
+                    card.getComponent("Card").isHuiPi = true;
+                }
+                h_node.addChild(card, index + 1);
             });
         }
     },
@@ -164,15 +166,23 @@ const CardMgr = cc.Class({
                 if (!data.angang) {
                     // needCre = false;
                     destoryNum = 3;
+                    const p_childNode = p_node.children;
+                    if (p_childNode) {
+                        p_childNode.forEach((item) => {
+                            if (item.cardId == pengOrGangId) {
+                                needCre = false;
+                                destoryNum = 1;
+                                item.getChildByName("GangCard").active = true;
+                            }
+                        });
+                    }
                 } else {
                     destoryNum = 4;
                 }
                 break;
             }
             case cc.dd.gameCfg.OPERATE_TYPE.CHI: {
-                if (!data.notDes) {
-                    pengOrGangId = data.chipai;
-                }
+                pengOrGangId = data.straight;
                 break;
             }
             default: {
@@ -212,11 +222,22 @@ const CardMgr = cc.Class({
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 preStr = "PengGang";
                 if (!data.notDes) {
-                    for (let i = 0; i < destoryNum; i ++) {
-                        for (let j = 0; this._selfHandCard.length; j ++) {
-                            if (this._selfHandCard[j] == pengOrGangId) {
-                                this._selfHandCard.splice(j, 1);
-                                break;
+                    if (isGang !== cc.dd.gameCfg.OPERATE_TYPE.CHI) {
+                        for (let i = 0; i < destoryNum; i ++) {
+                            for (let j = 0; this._selfHandCard.length; j ++) {
+                                if (this._selfHandCard[j] == pengOrGangId) {
+                                    this._selfHandCard.splice(j, 1);
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        for (let i = 0; i < pengOrGangId.length; i ++) {
+                            for (let j = 0; j < this._selfHandCard.length; j++) {
+                                if (pengOrGangId[i] == this._selfHandCard[j]) {
+                                    this._selfHandCard.splice(j, 1);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -450,6 +471,9 @@ const CardMgr = cc.Class({
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
                     card.getComponent("Card").id = data.mopai;
                     card.cardId = data.mopai;
+                    if (this._huiPai == data.mopai) {
+                        card.getComponent("Card").isHuiPi = true;
+                    }
                     m_node.addChild(card);
                     this._selfHandCard.push(data.mopai);
                 }
@@ -515,6 +539,30 @@ const CardMgr = cc.Class({
      */
     getHuiPai() {
         return this._huiPai;
+    },
+    /**
+     * 设置吃牌列表
+     */
+    setChiList(list) {
+        this._chiList = list;
+    },
+    /**
+     *  得到吃牌列表
+     */
+    getChiList() {
+        return this._chiList;
+    },
+    /**
+     * 设置听牌列表
+     */
+    setTingList(list) {
+        this._tingList = list;
+    },
+    /**
+     *  得到吃牌列表
+     */
+    getTingList() {
+        return this._tingList;
     },
     /**
      *  排序手牌

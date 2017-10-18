@@ -102,9 +102,10 @@ cc.Class({
                 break;
             }
         }
-        if (data.handcards) {
-            cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
-                cc.dd.Reload.loadAtlas("Game/Atlas/gameOver", (atlas) => {
+        cc.dd.Reload.loadAtlas("Game/Atlas/gameOver", (atlas) => {
+            // 手牌
+            if (data.handcards) {
+                cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
                     data.handcards.forEach((item) => {
                         const card = cc.instantiate(prefab);
                         const str = "little_card_" + (item  + 1);
@@ -112,8 +113,49 @@ cc.Class({
                         parantNode.getChildByName("HandCard").addChild(card);
                     });
                 });
+            }
+            // 碰的牌
+            cc.dd.Reload.loadPrefab("Game/Prefab/GO_PengGang", (prefab) => {
+                const pengGangNode = parantNode.getChildByName("PengGang");
+                if (data.pengcards) {
+                    data.pengcards.forEach((item) => {
+                        const penggang = cc.instantiate(prefab);
+                        const str = "little_card_" + (item  + 1);
+                        penggang.children.forEach((card) => {
+                            card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                        });
+                        pengGangNode.addChild(penggang);
+                    });
+                }
+                // 杠的牌
+                if (data.gangcards) {
+                    data.gangcards.forEach((item) => {
+                        const penggang = cc.instantiate(prefab);
+                        const str = "little_card_" + (item  + 1);
+                        penggang.children.forEach((card) => {
+                            card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                            card.active = true;
+                        });
+                        pengGangNode.addChild(penggang);
+                    });
+                }
+                // 吃的牌
+                if (data.chicards) {
+                    data.chicards.forEach((item) => {
+                        const penggang = cc.instantiate(prefab);
+                        let index = 0;
+                        penggang.children.forEach((card) => {
+                            const str = "little_card_" + (item[index]  + 1);
+                            if (card.name !== "Gang") {
+                                card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                                index ++;
+                            }
+                        });
+                        pengGangNode.addChild(penggang);
+                    });
+                }
             });
-        }
+        });
     },
     // 显示按钮
     showBtn(state) {

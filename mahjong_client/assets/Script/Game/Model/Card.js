@@ -103,6 +103,15 @@ cc.Class({
             case CARD_STATE.SELECT: {
                 if (cc.dd.cardMgr.getIsCanOutCard()) {
                     cc.log(`发送出牌请求：${this.id}`);
+                    const tingList = cc.dd.cardMgr.getTingList();
+                    let tingPai = false;
+                    if (tingList) {
+                        tingList.forEach((item) => {
+                            if (item == this.id) {
+                                tingPai = true;
+                            }
+                        });
+                    }
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: false});
                 } else {
                     this.cancelSelect();

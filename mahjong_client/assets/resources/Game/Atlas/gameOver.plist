@@ -859,7 +859,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:12c6d957da5658f298e339908c4cc3d7$</string>
+            <string>$TexturePacker:SmartUpdate:ed256d6db12e75d22f5bd9693d56f52e$</string>
             <key>textureFileName</key>
             <string>gameOver.png</string>
         </dict>

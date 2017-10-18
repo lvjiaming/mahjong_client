@@ -54,5 +54,13 @@ cc.Class({
     // 吃
     onChiClick() {
         cc.log(`发送吃牌的请求`);
+        const chiList = cc.dd.cardMgr.getChiList();
+        if (chiList) {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ChiSelect", (prefab) => {
+                const chiLayer = cc.instantiate(prefab);
+                chiLayer.getComponent("ChiSelect").initCard(chiList);
+                this.node.addChild(chiLayer);
+            });
+        }
     },
 });
