@@ -27,7 +27,7 @@ const MJEventManager = cc.Class({
         const body = {
             "command": event,
             "did": "15a516d1-c7d1-4925-9ada-4360780a4098", // 真机里换调起oc方法
-        };
+        };``
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
                 body.code = data; // 真机里不需要它

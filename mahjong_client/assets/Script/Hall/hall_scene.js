@@ -50,7 +50,7 @@ cc.Class({
         }else {
             this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         }
-        // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);//跨域了，先注释掉
+        this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
         this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
@@ -66,8 +66,10 @@ cc.Class({
         this.RoomCard.string = "房卡：" + num;
     },
     setAvatarSpriteFrame(sfurl) {
+        var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
+        cc.log(full);
         var self = this;
-        cc.loader.load("http://wx.qlogo.cn/mmopen/vi_32/OFpicnz436LIG7e2BPAoByaibwBOEwdITGJ5IzbAYsicJfM1kPjoyyEibShVicOgRCQZqzucfuEhmGYIkicEcmmsxShw/0", function(err, texture){
+        cc.loader.load(full, function(err, texture){
             if (err){
                 cc.log("头像下载错误： " + err);
             }else {
