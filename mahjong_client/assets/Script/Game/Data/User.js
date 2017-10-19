@@ -36,14 +36,16 @@ const User = cc.Class({
     setUserInfo(user) {
         this._userInfo = user;
         // 往手机本地存用户信息
-        jsb.reflection.callStaticMethod("MJUserInfoDataTool", "writtenUserInfoInLocalUD:",JSON.stringify(user));
-        if(user.isagent) {
-            cc.log("user.isagent存变量：" + user.isagent);
-            this._isAgent = user.isagent;
+        if(cc.sys.isNative) {
+            jsb.reflection.callStaticMethod("MJUserInfoDataTool","writtenUserInfoInLocalUD:", JSON.stringify(user));
         }
     },
     // 得到用户信息
     getUserInfo() {
+        if(this._userInfo) {
+            var userjson = jsb.reflection.callStaticMethod("MJUserInfoDataTool","retriveUserInfoFromLocalUD");
+            cc.log("js调用oc的：" + userjson);
+        }
         return this._userInfo;
     },
     // 设置接收者信息

@@ -147,7 +147,6 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 没有登录过的设备返回1001
                 cc.log("未登录过的设备");
-                // jsb.reflection.callStaticMethod("RootViewController", "provokeWXLogin");
                 cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_FAIL);
                 break;
             }

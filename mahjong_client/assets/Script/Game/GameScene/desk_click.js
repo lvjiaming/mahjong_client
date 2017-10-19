@@ -16,7 +16,7 @@ cc.Class({
     // 扩展tool,isagent为1的时候才显示转让房卡
     onKuoZhanClick() {
         cc.log(`扩展，${cc.dd.user._isAgent}`);
-        if (!cc.dd.user._isAgent || (cc.dd.user._isAgent == 0)){
+        if (!cc.dd.user.getUserInfo().isagent || (cc.dd.user.getUserInfo().isagent == 0)){
             cc.dd.Reload.loadPrefab("Game/Prefab/NoKFKZTool", (prefan) => {
                 const kzTool = cc.instantiate(prefan);
             this.node.addChild(kzTool);
