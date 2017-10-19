@@ -29,7 +29,7 @@ cc.Class({
         cc.dd.userEvent.addObserver(this);
         cc.dd.user._countNum = 60;
         this.callback = function () {
-            if (cc.dd.user._countNum === 0) {
+            if (cc.dd.user._countNum === 1) {
                 this.unschedule(this.callback);
             }
             cc.dd.user._countNum--;

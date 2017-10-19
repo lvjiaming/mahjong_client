@@ -15,7 +15,7 @@ cc.Class({
         // 倒计时一分钟，一分钟后自动拒绝
         cc.dd.room._countNum = 60;
         this.callback = function () {
-            if (cc.dd.room._countNum === 0) {
+            if (cc.dd.room._countNum === 1) {
                 this.unschedule(this.callback);
                 this.onConfrimClick();
             }

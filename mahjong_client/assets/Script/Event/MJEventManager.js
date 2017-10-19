@@ -144,7 +144,7 @@ const MJEventManager = cc.Class({
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 没有登录过的设备返回1001
                 cc.log("未登录过的设备");
                 //调起oc的微信登录方法
-                jsb.reflection.callStaticMethod("RootViewController", "provokeWXLogin")
+                jsb.reflection.callStaticMethod("RootViewController", "provokeWXLogin");
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
@@ -153,7 +153,6 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DATA: {  // 房间数据,4001
                 cc.dd.room.updataRoomData(msgData);
-                cc.dd.user.updataUserInfo(msgData.userlist);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {  // 房间状态，存在房间 4002

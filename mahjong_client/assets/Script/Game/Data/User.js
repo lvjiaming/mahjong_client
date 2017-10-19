@@ -31,10 +31,11 @@ const User = cc.Class({
     // 设置用户信息
     setUserInfo(user) {
         this._userInfo = user;
+        // 往手机本地存用户信息
+        jsb.reflection.callStaticMethod("MJUserInfoDataTool", "writtenUserInfoInLocalUD:",JSON.stringify(user));
         if(user.isagent) {
             cc.log("user.isagent存变量：" + user.isagent);
             this._isAgent = user.isagent;
-            // 调起存到手机本地的方法
         }
     },
     // 得到用户信息
