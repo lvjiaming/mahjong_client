@@ -58,6 +58,7 @@ SoundConfig.getWoManSound = (num, suit) => {
  */
 cc.dd.playEffect = (xb, v_1, v_2) => {
     if (xb == 1) {
+        cc.log(`音效路径为：${SoundConfig.getManSound(v_1, v_2)}`);
         cc.dd.soundMgr.playSound(SoundConfig.getManSound(v_1, v_2));
     } else {
         cc.dd.soundMgr.playSound(SoundConfig.getWoManSound(v_1, v_2));

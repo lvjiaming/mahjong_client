@@ -1,3 +1,12 @@
+const HU_TYPE_NAME = [
+    null,
+    "zimo",
+    "pinghu",
+    "sihui",
+    "duibao",
+    "loubao",
+    "gangshanghua"
+];
 cc.Class({
     extends: cc.Component,
 
@@ -55,6 +64,13 @@ cc.Class({
             if (data.UID == otherData.dianpaouid) {
                 this.DianPao.active = true;
             }
+        }
+        if (this.HuType) {
+            cc.dd.Reload.loadAtlas("Game/Atlas/gameOver", (atlas) => {
+                if (data.UID == otherData.huuid) {
+                    this.HuType.spriteFrame = atlas.getSpriteFrame(HU_TYPE_NAME[otherData.hutype]);
+                }
+            });
         }
     },
 });
