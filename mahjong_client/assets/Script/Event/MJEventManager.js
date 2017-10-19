@@ -27,16 +27,20 @@ const MJEventManager = cc.Class({
         const body = {
             "command": event,
         };
-        if(cc.sys.isMobile) {
-            var deviceid = jsb.reflection.callStaticMethod("CCCKeychianTool", "getDeviceIDInKeychain");
-            body.did = deviceid;
+        if(cc.sys.isNative) {
+            if (cc.sys.ANDROID) {
+                body.did = cc.dd.user.getUserDid();
+            } else {
+                var deviceid = jsb.reflection.callStaticMethod("CCCKeychianTool", "getDeviceIDInKeychain");
+                body.did = deviceid;
+            }
         }else{
-            body.did = "15a516d1-c7d1-4925-9ada-4360780a4098";// 网页
+            body.did = "15a516d1-c7d1-4925-9ada-4360780a4";// 网页
         }
 
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
-                if(!cc.sys.isMobile) {
+                if(!cc.sys.isNative) {
                     body.code = data; // 真机里不需要它
                 }
                 this.sendMessage(body);
@@ -143,8 +147,7 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 没有登录过的设备返回1001
                 cc.log("未登录过的设备");
-                //调起oc的微信登录方法
-                jsb.reflection.callStaticMethod("RootViewController", "provokeWXLogin")
+                cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_FAIL);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP: {  // 房间状态，不存在房间 1004
