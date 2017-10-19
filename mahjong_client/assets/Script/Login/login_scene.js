@@ -17,6 +17,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        cc.dd.sendGetAndroidDeviceId();
         cc.dd.appUtil.setScreenFit(this.node);
         cc.dd.soundMgr.init();
         cc.dd.userEvent.addObserver(this);
@@ -60,6 +61,11 @@ cc.Class({
             }
             case cc.dd.userEvName.USER_LOGIN_FAIL: {
                 cc.log('登录失败');
+                if (cc.sys.ANDROID) {
+                    cc.dd.sendWXLogin();
+                } else {
+                    cc.dd.sendOCWXlogin();
+                }
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: { // 4002
