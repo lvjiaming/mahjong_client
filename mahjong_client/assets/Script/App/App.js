@@ -12,3 +12,4 @@ require("../Common/SceneManager.js");
 require("../Game/Control/CardMgr.js");
 require("../Utils/SoundManger.js");
 require("../Common/Const.js");
+require("../Game/Config/SoundConfig.js");
