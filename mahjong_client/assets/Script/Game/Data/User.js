@@ -42,15 +42,6 @@ const User = cc.Class({
     getUserInfo() {
         if(!this._userInfo) {
             this._userInfo = JSON.parse(cc.sys.localStorage.getItem(cc.dd.userEvName.USER_INFO_KEY));
-            // if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地并从本地读取的方法
-            //
-            // }else if(cc.sys.os == cc.sys.OS_IOS) {
-            //     var userjson = jsb.reflection.callStaticMethod("MJUserInfoDataTool","retriveUserInfoFromLocalUD");
-            //     cc.log(userjson.isagent);
-            //     this.setUserInfo(userjson);
-            // }else {
-            //
-            // }
         }
         return this._userInfo;
     },

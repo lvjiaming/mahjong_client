@@ -1,3 +1,13 @@
+
+const PLAY_OPERA_NAME = [
+    null,
+    "可断门",
+    "闭门胡",
+    "会牌",
+    "搂宝",
+    "夹胡",
+    "点炮包三家"
+];
 cc.Class({
     extends: cc.Component,
 
@@ -33,6 +43,8 @@ cc.Class({
             tooltip: "邀请微信好友",
         },
         didGameStarted: null,
+        wanfaString: null,
+        roomidString: null,
     },
 
     // use this for initialization
@@ -45,13 +57,24 @@ cc.Class({
      */
     initInfo(data) {
         cc.log(`初始化单个信息`);
+        this.roomidString = data.roomid.toString();
         this.RoomID.string = data.roomid;
         this.setDelegRoomGameRulesString(data.playrule);
         this.setDelegRoomStateString(data);
-        // this.RoomBalanceState.string = "呵" + "\n" +"呵"
     },
     setDelegRoomGameRulesString(data){
-
+        if (data) {
+            let str;
+            data.forEach((item) => {
+                if(!str){
+                    str = PLAY_OPERA_NAME[item];
+                }else {
+                    str = str + " " + PLAY_OPERA_NAME[item];
+                }
+            });
+            this.GameRules.string = str;
+            this.wanfaString = str;
+        }
     },
     setDelegRoomStateString(data){
         if(data.nowround == -1){
@@ -85,5 +108,9 @@ cc.Class({
     },
     onInvitatedFriendsClick() {
         cc.log("邀请微信朋友");
+        var contentstr = "立刻进入正宗朝阳北票建平凌源手机麻将。本房间玩法：" + this.wanfaString + "。房间号：" + this.roomidString;
+        if(cc.sys.isMobile) {
+            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",contentstr);//this.roomidString
+        }
     },
 });

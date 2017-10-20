@@ -44,13 +44,14 @@ cc.Class({
         cc.log(cc.dd.user.getUserInfo());
         this.setUserId(cc.dd.user.getUserInfo().UID);
         this.setUserNickName(cc.dd.user.getUserInfo().nickname);
-        if(!cc.dd.user.getUserInfo().roomcardnum) {
+        if(!cc.dd.user.getUserInfo().roomcardnum || cc.dd.user.getUserInfo().wereInGameSence) {
             this.toUpdateCardum = true;
+            cc.dd.user.getUserInfo().wereInGameSence = false;
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP,cc.dd.user.getUserInfo().UID);
         }else {
             this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         }
-        // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
+        this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
         this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
@@ -69,6 +70,7 @@ cc.Class({
         var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
         cc.log("拼接头像地址："+full);
         var self = this;
+        // cc.dd.setPlayerHead(sfurl,this.avatar);// 模拟器黑屏
         cc.loader.load(full, function(err, texture){
             if (err){
                 cc.log("头像下载错误： " + err);
@@ -105,6 +107,7 @@ cc.Class({
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
                 if(this.toUpdateCardum) {
                     this.toUpdateCardum = false;
+                    cc.dd.user.getUserInfo().roomcardnum = data.mycards;
                     this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
                 }else {
                     cc.log("显示转让房卡的弹窗");

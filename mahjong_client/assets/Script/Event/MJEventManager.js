@@ -27,7 +27,7 @@ const MJEventManager = cc.Class({
         const body = {
             "command": event,
         };
-        if(cc.sys.isNative) {
+        if(cc.sys.isMobile) {
             if (cc.sys.os == cc.sys.OS_ANDROID) {
                 body.did = cc.dd.user.getUserDid();
             } else {
@@ -260,13 +260,6 @@ const MJEventManager = cc.Class({
     // 往手机本地存用户信息
     writtenUserInfoIntoCellPhone(user) {
         cc.sys.localStorage.setItem(cc.dd.userEvName.USER_INFO_KEY, JSON.stringify(user));
-        // if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地
-        //
-        // }else if(cc.sys.os == cc.sys.OS_IOS) {
-        //     jsb.reflection.callStaticMethod("MJUserInfoDataTool","writtenUserInfoInLocalUD:", JSON.stringify(user));
-        // }else {
-        //
-        // }
     },
 });
 cc.dd.net = MJEventManager.getInstance();

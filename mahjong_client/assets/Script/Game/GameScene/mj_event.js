@@ -13,6 +13,7 @@ cc.Class({
         cc.dd.roomEvent.addObserver(this);
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
+        cc.dd.user.getUserInfo().wereInGameSence = true;
     },
     onDestroy() {
         cc.dd.roomEvent.removeObserver(this);
