@@ -22,17 +22,17 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.setUserInfo();
-        cc.dd.net.addObserver(this);
+        // cc.dd.net.addObserver(this);
         // cc.dd.userEvent.addObserver(this);
     },
     onDestroy() {
-        cc.dd.net.removeObserver(this);
+        // cc.dd.net.removeObserver(this);
         // cc.dd.userEvent.removeObserver(this);
     },
     setUserInfo() {
         this.setFangkaAmountLabelContent(cc.dd.user._userInfo.recieveCardNum);
         this.setRecieverNameLabelContent(cc.dd.user.getReciverInfo().nickname,cc.dd.user.getReciverInfo().uid4query);
-        // this.setRecieverAvatarContent(cc.dd.user.getReciverInfo().wx_portrait);
+        this.setRecieverAvatarContent(cc.dd.user.getReciverInfo().wx_portrait);
 
     },
     setFangkaAmountLabelContent(data) {
@@ -43,6 +43,8 @@ cc.Class({
     },
     setRecieverAvatarContent(data) {
         //头像
+        var iamgenew =  cc.dd.loadPicTool.LoadAvatar(data);
+        cc.log(iamgenew);// 返回的为undefine
     },
     onCancleClick() {
         this.node.destroy();

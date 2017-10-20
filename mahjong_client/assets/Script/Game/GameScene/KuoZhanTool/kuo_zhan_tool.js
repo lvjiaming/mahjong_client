@@ -29,10 +29,11 @@ cc.Class({
     },
     // 设置
     onSettingClick() {
-        cc.log(`设置`);
+        cc.log(`游戏界面内点击设置`);
         cc.dd.Reload.loadPrefab("Hall/Prefab/Setting", (prefab) => {
             const setting = cc.instantiate(prefab);
-            // setting.getComponent("Setting").initLogoutInfo();
+            cc.log(setting.getComponent("hallSetting"));
+            // setting.getComponent("hallSetting").initLogoutInfo();
             // setting.getComponent("Setting")._isHallSence == false;
             cc.find("UI_ROOT").addChild(setting);
         });

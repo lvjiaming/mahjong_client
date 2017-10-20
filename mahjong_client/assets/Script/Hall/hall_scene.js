@@ -50,7 +50,7 @@ cc.Class({
         }else {
             this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         }
-        this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
+        // this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
         this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
@@ -67,7 +67,7 @@ cc.Class({
     },
     setAvatarSpriteFrame(sfurl) {
         var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
-        cc.log(full);
+        cc.log("拼接头像地址："+full);
         var self = this;
         cc.loader.load(full, function(err, texture){
             if (err){

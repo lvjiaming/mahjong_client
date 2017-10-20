@@ -79,10 +79,12 @@ cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {
                 cc.log("收到4004");
-                cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
-                    const bar = cc.instantiate(prefab);
-                cc.find("UI_ROOT").addChild(bar);
-                });
+                if(cc.dd.room.userList.length > 1) {//一个在房间自动解散，不需要显示条条
+                    cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
+                        const bar = cc.instantiate(prefab);
+                    cc.find("UI_ROOT").addChild(bar);
+                    });
+                }
                 break;
             }
             case  cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {

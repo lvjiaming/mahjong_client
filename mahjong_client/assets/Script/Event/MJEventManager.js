@@ -28,14 +28,14 @@ const MJEventManager = cc.Class({
             "command": event,
         };
         if(cc.sys.isNative) {
-            if (cc.sys.ANDROID) {
+            if (cc.sys.os == cc.sys.OS_ANDROID) {
                 body.did = cc.dd.user.getUserDid();
             } else {
                 var deviceid = jsb.reflection.callStaticMethod("CCCKeychianTool", "getDeviceIDInKeychain");
                 body.did = deviceid;
             }
         }else{
-            body.did = "15a516d1-c7d1-4925-9ada-4360780a4";// 网页
+            body.did = "e99cefdb-139f-46d3-ad4b-81883fc0c53a";// 网页
         }
 
         switch (event) {
@@ -138,10 +138,12 @@ const MJEventManager = cc.Class({
         cc.log(JSON.stringify(msgData));
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
+                this.writtenUserInfoIntoCellPhone(msgData.user);
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_LOGIN_REQ: {  // 检查登录的回复，1002登录成功返回5002
+                this.writtenUserInfoIntoCellPhone(msgData.user);
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
@@ -238,6 +240,16 @@ const MJEventManager = cc.Class({
      */
     recieveWXAuthenticationCode(wxcode){
         this.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP,wxcode);
+    },
+    writtenUserInfoIntoCellPhone(user) {
+        // 往手机本地存用户信息
+        if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地
+
+        }else if(cc.sys.os == cc.sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("MJUserInfoDataTool","writtenUserInfoInLocalUD:", JSON.stringify(user));
+        }else {
+
+        }
     },
 });
 cc.dd.net = MJEventManager.getInstance();

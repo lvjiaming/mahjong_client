@@ -5,9 +5,9 @@
 
 cc.dd.sendWXLogin = function () {
     cc.log(`发起微信登录请求`);
-    // if (cc.sys.ANDROID) {
-    //     jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"SendWXAuthReq", "()V");
-    // }
+    if (cc.sys.os == cc.sys.OS_ANDROID) {
+        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"SendWXAuthReq", "()V");
+    }
 };
 cc.dd.sendOCWXlogin = function () {
     cc.log("IOS发起微信登录");
@@ -16,16 +16,16 @@ cc.dd.sendOCWXlogin = function () {
     }
 };
 cc.dd.sendGetAndroidDeviceId = function () {
-    // if (cc.sys.ANDROID) {
-    //     jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"getAndroidDeviceId", "()V");
-    // }
+    if (cc.sys.os == cc.sys.OS_ANDROID) {
+        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"getAndroidDeviceId", "()V");
+    }
 };
 
 // 接受
-// cc.WXLoginCallBack = (code) => {  // 微信登录的code值
-//     cc.log(`返回的值${code}`);
-//     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP, code);
-// };
+cc.WXLoginCallBack = (code) => {  // 微信登录的code值
+    cc.log(`返回的值${code}`);
+    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP, code);
+};
 
 // deviceId
 cc.AndroidDeviceId = (id) => {

@@ -52,7 +52,6 @@ cc.Class({
             type: cc.Label,
             tooltip: "四号玩家得分",
         },
-
     },
 
     // use this for initialization

@@ -12,6 +12,16 @@ cc.Class({
             type: cc.Toggle,
             tooltip: "玩法：夹胡",
         },
+        CreateRoom: {
+            default: null,
+            type: cc.Button,
+            tooltip: "创建房间",
+        },
+        CreateDelegateRoom: {
+            default: null,
+            type: cc.Button,
+            tooltip: "创建代开房间",
+        },
     },
 
     // use this for initialization
@@ -72,7 +82,29 @@ cc.Class({
         roomConfig.rounds = this.JuShu;
         roomConfig.basicraise = this.FanShu;
         roomConfig.playrule = this.WanFa;
+        roomConfig.createtype = "selfuse";// agent  selfuse
+        roomConfig.roomtype = "cymj";
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CREATE_ROOM_REP,roomConfig);
+    },
+    // 代理人代开房间给其他用户玩的功能
+    onAgentRoomDelegateClick() {
+        var roomConfig = {};
+        roomConfig.rounds = this.JuShu;
+        roomConfig.basicraise = this.FanShu;
+        roomConfig.playrule = this.WanFa;
+        roomConfig.createtype = "agent";// agent  selfuse
+        roomConfig.roomtype = "cymj";
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CREATE_ROOM_REP,roomConfig);
+    },
+    // 我的代开房间
+    onRoomDelegateRecords() {
+        cc.log("我的代开房间")
+        cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDelegateRecord", (prefab) => {
+            const gameRecord = cc.instantiate(prefab);
+        // gameRecord.getComponent("RoomDelegateRecord").initInfo([1,2,3]);
+        cc.find("UI_ROOT").addChild(gameRecord);
+        });
+        this.node.destroy();
     },
     // 关闭
     onCloseClick() {

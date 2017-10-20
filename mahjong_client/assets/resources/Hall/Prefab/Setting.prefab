@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Setting",
+    "_name": "hallSetting",
     "_objFlags": 0,
     "_parent": null,
     "_children": [

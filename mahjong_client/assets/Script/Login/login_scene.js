@@ -39,15 +39,22 @@ cc.Class({
     clickCheckBoxToggle(event, custom) {
         this.CheckBoxGotCheck = !this.CheckBoxGotCheck;
         if(this.CheckBoxGotCheck){
-        	this.BtnLogin.getComponent(cc.Button).interactable = true;
+        	this.setBtnLoginInterateState(true);
         }else{
-        	this.BtnLogin.getComponent(cc.Button).interactable = false;
+            this.setBtnLoginInterateState(false);
         }
     },
     // 设置登录按钮的状态
     setBtnLoginState(state) {
         if (this.BtnLogin) {
             this.BtnLogin.active = state;
+        } else {
+            cc.log(`节点未绑定`);
+        }
+    },
+    setBtnLoginInterateState(state) {
+        if (this.BtnLogin) {
+            this.BtnLogin.getComponent(cc.Button).interactable = state;
         } else {
             cc.log(`节点未绑定`);
         }
@@ -61,7 +68,7 @@ cc.Class({
             }
             case cc.dd.userEvName.USER_LOGIN_FAIL: {
                 cc.log('登录失败');
-                if (cc.sys.ANDROID) {
+                if (cc.sys.os == cc.sys.OS_ANDROID) {
                     cc.dd.sendWXLogin();
                 } else {
                     cc.dd.sendOCWXlogin();

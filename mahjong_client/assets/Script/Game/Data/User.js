@@ -26,25 +26,30 @@ const User = cc.Class({
     properties: {
         _userInfo: null, // 用户信息
         _receiverInfo: null, // 房卡转让接受者信息
-        _isAgent: null,  // 是否是代理商
+        // _isAgent: null,  // 是否是代理商
         _countNum: null, // 给解散房间的同意进度条倒数
-
+        _creatRoomDelegate: null, // 是否是代理人新建代理房间
         // did
         _did: null,
     },
     // 设置用户信息
     setUserInfo(user) {
+        cc.log("user:" + JSON.stringify(user));
         this._userInfo = user;
-        // 往手机本地存用户信息
-        if(cc.sys.isNative) {
-            jsb.reflection.callStaticMethod("MJUserInfoDataTool","writtenUserInfoInLocalUD:", JSON.stringify(user));
-        }
     },
     // 得到用户信息
     getUserInfo() {
-        if(this._userInfo) {
-            var userjson = jsb.reflection.callStaticMethod("MJUserInfoDataTool","retriveUserInfoFromLocalUD");
-            cc.log("js调用oc的：" + userjson);
+        if(!this._userInfo) {
+            //OS_IOS
+            if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地并从本地读取的方法
+
+            }else if(cc.sys.os == cc.sys.OS_IOS) {
+                var userjson = jsb.reflection.callStaticMethod("MJUserInfoDataTool","retriveUserInfoFromLocalUD");
+                cc.log(userjson.isagent);
+                this.setUserInfo(userjson);
+            }else {
+
+            }
         }
         return this._userInfo;
     },
