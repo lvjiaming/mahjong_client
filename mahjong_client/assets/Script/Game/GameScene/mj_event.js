@@ -63,6 +63,10 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").oneGameOver(data);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_PLAYER_TING_CARD: { // 玩家听牌
+                this.node.getComponent("mj_gameScene").playerTingCard(data);
+                break;
+            }
             case cc.dd.roomEvName.MSG_NOTIFY: {
                 this.scheduleOnce(() => {
                     cc.dd.roomEvent.notifyCacheList();

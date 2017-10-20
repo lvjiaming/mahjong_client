@@ -70,6 +70,7 @@ module.exports = {
         EVENT_GUOCARD_REP: 2002, // 过牌的请求
         EVENT_TIMER_SPRCIEL: 4010, // 指针转动
         EVENT_ONE_GAME_OVER: 4017, // 结算
+        EVENT_PLAYER_TING_CARD: 4022, // 玩家听牌
 
         // 消息枚举，你在下面添加，我在上面添加
     },

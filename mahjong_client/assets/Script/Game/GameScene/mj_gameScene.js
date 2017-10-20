@@ -183,6 +183,10 @@ cc.Class({
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
             cc.dd.playEffect(1, cc.dd.soundName.V_CHI);
+            cc.dd.Reload.loadPrefab("Game/Prefab/ChiAni", (prefab) => {
+                const chiAni = cc.instantiate(prefab);
+                this.node.addChild(chiAni);
+            });
         }
         const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
         if (localSeat) {
@@ -206,6 +210,10 @@ cc.Class({
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
             cc.dd.playEffect(1, cc.dd.soundName.V_PENG);
+            cc.dd.Reload.loadPrefab("Game/Prefab/PengAni", (prefab) => {
+                const pengAni = cc.instantiate(prefab);
+                this.node.addChild(pengAni);
+            });
         }
         const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (localSeat) {
@@ -231,6 +239,10 @@ cc.Class({
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
             cc.dd.playEffect(1, cc.dd.soundName.V_GANG);
+            cc.dd.Reload.loadPrefab("Game/Prefab/GangAni", (prefab) => {
+                const gangAni = cc.instantiate(prefab);
+                this.node.addChild(gangAni);
+            });
         }
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
@@ -294,6 +306,17 @@ cc.Class({
         //     cc.dd.roomEvent.setIsCache(true);
         //     cc.dd.roomEvent.notifyCacheList();
         // }, 2);
+    },
+    // 玩家听牌
+    playerTingCard(data) {
+        cc.dd.roomEvent.setIsCache(false);
+
+
+
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
     },
 
     // 指针转动

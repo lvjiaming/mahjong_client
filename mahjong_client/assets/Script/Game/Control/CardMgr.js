@@ -299,6 +299,9 @@ const CardMgr = cc.Class({
         //     });
         //     return;
         // }
+        if (!needCre) {
+            return;
+        }
         const card = pengGang.children;
         if (isGang === cc.dd.gameCfg.OPERATE_TYPE.CHI) {
             cc.log(`吃的操作：`);
@@ -340,7 +343,7 @@ const CardMgr = cc.Class({
      * @param data 出的牌
      */
     outCard(o_node, localSeat, data, notDes) {
-        if (!data) {
+        if (data == null) {
             return;
         }
         const node1 = o_node.getChildByName("OutCardLayer1");

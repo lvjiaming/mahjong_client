@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "PengAni",
+    "_name": "GangAni",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -75,7 +75,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "f8a69648-34e5-4eaf-9baf-a634ae319799"
+      "__uuid__": "9ca2ff64-b2c3-441f-bafb-4984e13cc636"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -103,11 +103,11 @@
     },
     "_enabled": true,
     "_defaultClip": {
-      "__uuid__": "efee197f-1722-483b-82e8-e01176dd0fe7"
+      "__uuid__": "b94abc67-407c-4130-9d75-0a55579145a5"
     },
     "_clips": [
       {
-        "__uuid__": "efee197f-1722-483b-82e8-e01176dd0fe7"
+        "__uuid__": "b94abc67-407c-4130-9d75-0a55579145a5"
       }
     ],
     "playOnLoad": true
@@ -127,9 +127,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "90f44a84-6d95-4886-b10c-73bb759df686"
+      "__uuid__": "7e2987d6-a110-4fb0-91eb-8fb1efa1fb32"
     },
-    "fileId": "6ajlZNitpH0YRliOEF0h8z",
+    "fileId": "14qcUVLAlAhLOqA7Z/MBlB",
     "sync": false
   }
 ]
