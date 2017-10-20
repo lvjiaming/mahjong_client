@@ -8,6 +8,15 @@ const PLAY_OPERA_NAME = [
     "夹胡",
     "点炮包三家"
 ];
+const PLAY_OPERA_NAME_ORAL = [
+    null,
+    "可断门",
+    "可闭门",
+    "带会儿",
+    "搂宝",
+    "夹胡",
+    "点炮赔三家"
+];
 cc.Class({
     extends: cc.Component,
 
@@ -43,7 +52,7 @@ cc.Class({
             tooltip: "邀请微信好友",
         },
         didGameStarted: null,
-        wanfaString: null,
+        wanfaSet: null,
         roomidString: null,
     },
 
@@ -64,6 +73,7 @@ cc.Class({
     },
     setDelegRoomGameRulesString(data){
         if (data) {
+            this.wanfaSet = data;
             let str;
             data.forEach((item) => {
                 if(!str){
@@ -73,7 +83,6 @@ cc.Class({
                 }
             });
             this.GameRules.string = str;
-            this.wanfaString = str;
         }
     },
     setDelegRoomStateString(data){
@@ -108,7 +117,16 @@ cc.Class({
     },
     onInvitatedFriendsClick() {
         cc.log("邀请微信朋友");
-        var contentstr = "立刻进入正宗朝阳北票建平凌源手机麻将。本房间玩法：" + this.wanfaString + "。房间号：" + this.roomidString;
+        let str = "";
+        //wanfaSet
+        this.wanfaSet.forEach((item) => {
+            if(!str){
+                str = PLAY_OPERA_NAME_ORAL[item];
+            }else {
+                str = str + " 、" + PLAY_OPERA_NAME_ORAL[item];
+            }
+        });
+        var contentstr = "房间号："+ this.roomidString + " 本房间玩法：" + str;
         if(cc.sys.isMobile) {
             jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",contentstr);//this.roomidString
         }

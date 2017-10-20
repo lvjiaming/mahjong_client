@@ -398,7 +398,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 400,
-      "y": 25
+      "y": 28
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1088,7 +1088,9 @@
     "InviateWXFriends": {
       "__id__": 19
     },
-    "didGameStarted": null
+    "didGameStarted": null,
+    "wanfaSet": null,
+    "roomidString": null
   },
   {
     "__type__": "cc.PrefabInfo",
