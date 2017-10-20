@@ -73,6 +73,10 @@ module.exports = {
         EVENT_PLAYER_TING_CARD: 4022, // 玩家听牌
 
         // 消息枚举，你在下面添加，我在上面添加
+        EVENT_DELEGATE_ROOM_REOCRD_REP: 1015, // 代理用户查询自己代开房间的记录
+        EVENT_DELEGATE_ROOM_REOCRD_REQ: 5015, // 代理用户查询自己代开房间的记录的返回
+
+
     },
 };
 cc.dd.gameCfg = module.exports;

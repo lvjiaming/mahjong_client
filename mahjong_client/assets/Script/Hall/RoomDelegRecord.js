@@ -19,9 +19,9 @@ cc.Class({
      */
     initInfo(data) {
         cc.dd.Reload.loadPrefab("Hall/Prefab/DelegRoomRecordInfo", (prefab) => {
-            [1,2,2].forEach((item) => {
+            [1,9].forEach((item) => {
             const info = cc.instantiate(prefab);
-            // info.getComponent("DelegRoomRecordInfo").initInfo(item);
+            info.getComponent("RoomDelegRecordInfo").initInfo(item);
             if (this.ContentNode) {
                 this.ContentNode.addChild(info);
             }
@@ -33,6 +33,11 @@ cc.Class({
     },
     onToCreDelegateRoomClick() {
         cc.log("新建代理房间");
+        cc.dd.Reload.loadPrefab("Hall/Prefab/CrePup", (prefab) => {
+            const cre = cc.instantiate(prefab);
+            cre.getComponent("hall_creRoom").initDelgatedRoomCreSetting();
+        cc.find("UI_ROOT").addChild(cre);
+        });
         this.onCloseClick();
     },
 });

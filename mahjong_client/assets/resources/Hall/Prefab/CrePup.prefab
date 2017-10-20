@@ -6334,7 +6334,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 200
@@ -7463,10 +7463,13 @@
       "__id__": 111
     },
     "CreateRoom": {
-      "__id__": 209
+      "__id__": 204
     },
     "CreateDelegateRoom": {
-      "__id__": 217
+      "__id__": 212
+    },
+    "DelegateRoomRecord": {
+      "__id__": 196
     }
   },
   {

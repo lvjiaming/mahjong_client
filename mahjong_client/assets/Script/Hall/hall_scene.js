@@ -144,6 +144,16 @@ cc.Class({
                 });
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_DELEGATE_ROOM_REOCRD_REQ: {
+                cc.log("成功返回房间代理记录或是成功创建代理房间");
+                //{"command":5015,"rooms":[{"roomid":244342,"playrule":[1],"nowround":-1,"players":0}]}
+                cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDelegateRecord", (prefab) => {
+                    const delegateRecord = cc.instantiate(prefab);
+                delegateRecord.getComponent("RoomDelegRecord").initInfo(data.rooms);
+                cc.find("UI_ROOT").addChild(delegateRecord);
+                });
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

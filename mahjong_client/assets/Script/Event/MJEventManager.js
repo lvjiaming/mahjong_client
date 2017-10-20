@@ -35,7 +35,7 @@ const MJEventManager = cc.Class({
                 body.did = deviceid;
             }
         }else{
-            body.did = "e99cefdb-139f-46d3-ad4b-81883fc0c53a";// 网页
+            body.did = "47194279-dfb8-4e35-9ba2-d13dd70028dc";// 网页
         }
 
         switch (event) {
@@ -119,6 +119,10 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REP: { // 申请解散房间，1013
+                this.sendMessage(body);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_DELEGATE_ROOM_REOCRD_REP: { // 查询代开房间的记录,1015
                 this.sendMessage(body);
                 break;
             }
@@ -230,6 +234,10 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_LOGOUT_REQ: { // 收到登出的结果，5013
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_DELEGATE_ROOM_REOCRD_REQ: { // 查询代开房间记录的返回，5015
                 this.notifyEvent(msgId, msgData);
                 break;
             }

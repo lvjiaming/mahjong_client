@@ -14,10 +14,9 @@ cc.Class({
         },
         logoutButton: {
             default: null,
-            type: cc.Button,
+            type: cc.Node,
             tooltip: "退出登录",
         },
-        _isHallSence: null,
     },
 
     // use this for initialization
@@ -27,9 +26,6 @@ cc.Class({
         }
         if (this.soundSlider) {
             this.soundSlider.progress = cc.dd.soundMgr.getSoundVolume();
-        }
-        if(this._isHallSence == false){
-            this.initLogoutInfo();
         }
     },
     // 控制注销登录按钮的显示

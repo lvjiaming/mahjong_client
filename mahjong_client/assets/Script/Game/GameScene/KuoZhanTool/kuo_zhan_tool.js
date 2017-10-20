@@ -32,9 +32,8 @@ cc.Class({
         cc.log(`游戏界面内点击设置`);
         cc.dd.Reload.loadPrefab("Hall/Prefab/Setting", (prefab) => {
             const setting = cc.instantiate(prefab);
-            cc.log(setting.getComponent("hallSetting"));
-            // setting.getComponent("hallSetting").initLogoutInfo();
-            // setting.getComponent("Setting")._isHallSence == false;
+            cc.log(setting.getComponent("hall_setting"));
+            setting.getComponent("hall_setting").initLogoutInfo();
             cc.find("UI_ROOT").addChild(setting);
         });
     },
