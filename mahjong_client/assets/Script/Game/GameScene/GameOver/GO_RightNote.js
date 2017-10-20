@@ -68,7 +68,8 @@ cc.Class({
         if (this.HuType) {
             cc.dd.Reload.loadAtlas("Game/Atlas/gameOver", (atlas) => {
                 if (data.UID == otherData.huuid) {
-                    this.HuType.spriteFrame = atlas.getSpriteFrame(HU_TYPE_NAME[otherData.hutype]);
+                    this.HuType.spriteFrame = atlas.getSpriteFrame(HU_TYPE_NAME[otherData.huType]);
+                    this.HuType.node.active = true;
                 }
             });
         }

@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "PengAni",
+    "_name": "ChiAni",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -75,7 +75,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "f8a69648-34e5-4eaf-9baf-a634ae319799"
+      "__uuid__": "18740cc0-9758-4106-a212-421af7288b32"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -103,11 +103,11 @@
     },
     "_enabled": true,
     "_defaultClip": {
-      "__uuid__": "efee197f-1722-483b-82e8-e01176dd0fe7"
+      "__uuid__": "13d457a8-9a63-489d-a256-e18f850a1a76"
     },
     "_clips": [
       {
-        "__uuid__": "efee197f-1722-483b-82e8-e01176dd0fe7"
+        "__uuid__": "13d457a8-9a63-489d-a256-e18f850a1a76"
       }
     ],
     "playOnLoad": true
@@ -127,9 +127,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "90f44a84-6d95-4886-b10c-73bb759df686"
+      "__uuid__": "68b26d03-d230-4865-9e37-4a78280a6e3e"
     },
-    "fileId": "6ajlZNitpH0YRliOEF0h8z",
+    "fileId": "64R/VaCCFN/6kZsB+xvYQi",
     "sync": false
   }
 ]

@@ -4,8 +4,8 @@
 const SUIT = [
     null,
     "wan",
-    "tiao",
     "tong",
+    "tiao",
     "zi"
 ];
 const SOUND_NAME = {
@@ -28,7 +28,7 @@ const SoundConfig = {
 SoundConfig.getManSound = (num, suit) => {
     let str = "";
     if (num && suit) {
-        str = "dgame_" + num + SUIT[suit] + ".mp3";
+        str = "dgame_" + num + "_" +SUIT[suit] + ".mp3";
     }
     if (num && !suit) {
         str = num + ".mp3";

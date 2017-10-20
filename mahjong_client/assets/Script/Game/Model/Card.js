@@ -113,6 +113,9 @@ cc.Class({
                         });
                     }
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: false});
+
+                    // 处理直接更新手牌
+
                 } else {
                     this.cancelSelect();
                 }
