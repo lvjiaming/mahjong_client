@@ -112,7 +112,7 @@ cc.Class({
                             }
                         });
                     }
-                    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: false});
+                    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: tingPai});
 
                     // 处理直接更新手牌
 

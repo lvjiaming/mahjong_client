@@ -18,6 +18,15 @@ const cardArr = [
     {id: 12},
    // {suit: 2, num: 6},
 ];
+const PLAY_OPERA_NAME = [
+    null,
+    "可断门",
+    "闭门胡",
+    "会牌",
+    "搂宝",
+    "夹胡",
+    "点炮包三家"
+];
 
 cc.Class({
     extends: cc.Component,
@@ -33,6 +42,21 @@ cc.Class({
             default: null,
             type: cc.Node,
             tooltip: "转盘",
+        },
+        BaoCard: {
+            default: null,
+            type: cc.Node,
+            tooltip: "宝牌",
+        },
+        QiangTouCard: {
+            default: null,
+            type: cc.Node,
+            tooltip: "墙头牌"
+        },
+        TopLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "顶部的信息",
         },
     },
 
@@ -63,6 +87,8 @@ cc.Class({
     },
     // 初始化玩家
     initPlayerSeat(data) {
+        this.cleanDesk();
+
         const userList = this.sortUserList(data.myuid);
         cc.dd.roomEvent.setIsCache(false);
         cc.dd.cardMgr.setHuiPai(data.room.guicard);
@@ -87,6 +113,15 @@ cc.Class({
             if (player_class) {
                 player_class.initInfo(item);
             }
+
+            // 初始化听得标志
+            if (item.isting) {
+                if (index == 0) {
+                    cc.dd.cardMgr.setIsTing(item.isting);
+                }
+                this.playerArr[index].getChildByName("InfoBk").getChildByName("Ting").active = item.isting;
+            }
+
             this.playerArr[index].userInfo = item;
             // 渲染出的牌
             this.playerOutCard({chupai: item.playedcards, senduid: item.UID, notDes: true});
@@ -116,6 +151,11 @@ cc.Class({
             }
 
         });
+        // 初始化墙头牌
+        this.initQiangTouCard(data.room.qiangtoucard);
+        // 初始化顶部信息
+        this.initTopInfo(data);
+
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
@@ -143,6 +183,57 @@ cc.Class({
             newUserList.push(userList[i]);
         }
         return newUserList;
+    },
+    // 初始化顶部玩法信息
+    initTopInfo(data) {
+        let str = "朝阳麻将";
+        let hasLouBao = false;
+        str = str + " " + data.room.rounds + "局";
+        if (data) {
+            data.room.rules.forEach((item) => {
+                if (item == cc.dd.gameCfg.PLAY_OPERA.LOU_BAO) {
+                    hasLouBao = true;
+                }
+                str = str + " " + PLAY_OPERA_NAME[item];
+            });
+        }
+        if (this.TopLabel) {
+            this.TopLabel.string = str;
+        }
+        if (hasLouBao) {
+            this.setBaoCard(true, data.baocard)
+        } else {
+            this.setBaoCard(false);
+        }
+    },
+    // 初始化墙头牌
+    initQiangTouCard(data) {
+        if (this.QiangTouCard) {
+            if (data || data == 0) {
+                this.QiangTouCard.getComponent("CardSpr").initCard(data);
+                this.QiangTouCard.active = true;
+            } else {
+                this.QiangTouCard.active = false;
+            }
+        }
+    },
+    // 设置宝牌
+    setBaoCard(state, data) {
+        if (this.BaoCard) {
+            this.BaoCard.active = state;
+            if (state) {
+                const bk = this.BaoCard.getChildByName("BaoCardBk");
+                const card = this.BaoCard.getChildByName("BaoCard");
+                if (data || data == 0) {
+                    bk.active = false;
+                    card.active = true;
+                    this.BaoCard.getComponent("CardSpr").initCard(data);
+                } else {
+                    bk.active = true;
+                    card.active = false
+                }
+            }
+        }
     },
     // 玩家出牌
     playerOutCard(data) {
@@ -284,6 +375,15 @@ cc.Class({
                 if (data.ting) {
                     cc.dd.cardMgr.setTingList(data.ting);
                 }
+                if (data.hu) {
+                    this.playerArr[0].getComponent("PlayerSelf").showOperateBtn({hu: data.hu});
+                }
+                if (cc.dd.cardMgr.getIsTing()) {
+                    if (!data.hu) {
+                        cc.log(`自动出牌`);
+                        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                    }
+                }
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -311,12 +411,21 @@ cc.Class({
     playerTingCard(data) {
         cc.dd.roomEvent.setIsCache(false);
 
+        const localSeat = this.getLocalSeatByUserId(data.tinguid);
+        this.playerArr[localSeat - 1].getChildByName("InfoBk").getChildByName("Ting").active = true;
 
+        if (localSeat == 1) {
+            cc.dd.cardMgr.setIsTing(true);
+        }
 
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
         }, 0.5);
+    },
+    // 更换宝牌
+    baoCardChange(data) {
+        this.setBaoCard(true, data.baocard);
     },
 
     // 指针转动
@@ -392,12 +501,16 @@ cc.Class({
             //     item.removeFromParent();
             // });
 
+            // 清理听得标志
+            item.getChildByName("InfoBk").getChildByName("Ting").active = false;
+
         });
         cc.dd.cardMgr.setReadyOutCard(null);
         this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.cardMgr.setHuiPai(null);
         cc.dd.cardMgr.setChiList(null);
         cc.dd.cardMgr.setTingList(null);
+        cc.dd.cardMgr.setIsTing(false);
     },
     /**
      *  根据玩家id返回本地座位号

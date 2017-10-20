@@ -32,6 +32,15 @@ module.exports = {
         LOU_BAO_HU: 5, // 楼宝儿胡
         GANG_SHANG_HUA: 6, // 杠上花
     },
+    // 房间玩法
+    PLAY_OPERA: {
+        KE_DUAN_MEN: 1,  // 可断门
+        BI_MEN_HU: 2, // 闭门胡
+        HUI_PAI: 3, // 会牌
+        LOU_BAO: 4, // 楼宝
+        JIA_HU: 5, // 夹胡
+        DIAN_PAO_BAO_SAN_JIA: 5, // 点炮包三家
+    },
     // 消息枚举
     EVENT: {
         EVENT_CHECK_LOGIN_REP: 1001, // 检测登录请求
@@ -71,6 +80,7 @@ module.exports = {
         EVENT_TIMER_SPRCIEL: 4010, // 指针转动
         EVENT_ONE_GAME_OVER: 4017, // 结算
         EVENT_PLAYER_TING_CARD: 4022, // 玩家听牌
+        EVENT_BAO_CARD_CHANGE: 4021,  // 宝牌更换
 
         // 消息枚举，你在下面添加，我在上面添加
     },
