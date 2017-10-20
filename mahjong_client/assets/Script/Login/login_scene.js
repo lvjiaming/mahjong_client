@@ -33,7 +33,12 @@ cc.Class({
     // 登录按钮
     onLoginClick() {
         cc.log(`用户登录`);
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
+        // cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            cc.dd.sendWXLogin();
+        } else {
+            cc.dd.sendOCWXlogin();
+        }
     },
     // 同意与否用户协议
     clickCheckBoxToggle(event, custom) {
@@ -49,6 +54,7 @@ cc.Class({
         if (this.BtnLogin) {
             this.BtnLogin.active = state;
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
+            this.setBtnLoginInterateState(false);
         } else {
             cc.log(`节点未绑定`);
         }
@@ -69,11 +75,12 @@ cc.Class({
             }
             case cc.dd.userEvName.USER_LOGIN_FAIL: {
                 cc.log('登录失败');
-                if (cc.sys.os == cc.sys.OS_ANDROID) {
-                    cc.dd.sendWXLogin();
-                } else {
-                    cc.dd.sendOCWXlogin();
-                }
+                this.setBtnLoginInterateState(true);
+                // if (cc.sys.os == cc.sys.OS_ANDROID) {
+                //     cc.dd.sendWXLogin();
+                // } else {
+                //     cc.dd.sendOCWXlogin();
+                // }
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: { // 4002
