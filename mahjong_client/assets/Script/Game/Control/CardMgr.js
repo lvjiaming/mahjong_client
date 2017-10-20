@@ -54,6 +54,7 @@ const CardMgr = cc.Class({
     _huiPai: null, // 会牌
     _chiList: null,  // 吃牌的列表
     _tingList: null, // 听牌的列表
+    _isTing: null, // 是否是听牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -66,6 +67,7 @@ const CardMgr = cc.Class({
         this._canOutCard = false;
         this._readyOutCard = null;
         this._selfHandCard = [];
+        this._isTing = false;
     },
     /**
      *  手牌的初始化
@@ -566,6 +568,18 @@ const CardMgr = cc.Class({
      */
     getTingList() {
         return this._tingList;
+    },
+    /**
+     * 设置听
+     */
+    setIsTing(isTing) {
+        this._isTing = isTing;
+    },
+    /**
+     *  得到听
+     */
+    getIsTing() {
+        return this._isTing;
     },
     /**
      *  排序手牌

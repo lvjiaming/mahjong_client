@@ -67,6 +67,10 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").playerTingCard(data);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_BAO_CARD_CHANGE: { // 宝牌切换
+                this.node.getComponent("mj_gameScene").baoCardChange(data);
+                break;
+            }
             case cc.dd.roomEvName.MSG_NOTIFY: {
                 this.scheduleOnce(() => {
                     cc.dd.roomEvent.notifyCacheList();

@@ -212,7 +212,11 @@ const MJEventManager = cc.Class({
                 cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_PLAYER_TING_CARD: { // 结算
+            case cc.dd.gameCfg.EVENT.EVENT_PLAYER_TING_CARD: { // 听牌
+                cc.dd.room.saveMsg(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_BAO_CARD_CHANGE: { // 宝牌更换
                 cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
