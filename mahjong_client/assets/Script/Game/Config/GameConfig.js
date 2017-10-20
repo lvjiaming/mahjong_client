@@ -23,6 +23,15 @@ module.exports = {
         GANG: 2,
         CHI: 3,
     },
+    // 胡牌的类型
+    HU_TYPE: {
+        ZI_MO: 1, // 自摸
+        DIAN_PAO_HU: 2, // 点炮胡
+        SI_HUI_HU: 3, // 四会儿胡
+        DUI_BAO_HU: 4, // 对宝儿胡
+        LOU_BAO_HU: 5, // 楼宝儿胡
+        GANG_SHANG_HUA: 6, // 杠上花
+    },
     // 消息枚举
     EVENT: {
         EVENT_CHECK_LOGIN_REP: 1001, // 检测登录请求

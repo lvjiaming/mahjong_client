@@ -148,6 +148,9 @@ cc.Class({
     playerOutCard(data) {
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
+            const suit = parseInt(data.chupai / 9) + 1;
+            const num = data.chupai % 9 + 1;
+            cc.dd.playEffect(1, num, suit)
         }
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
@@ -177,7 +180,10 @@ cc.Class({
     },
     // 玩家吃牌
     playerChiCard(data) {
-        cc.dd.roomEvent.setIsCache(false);
+        if (!data.notDes) {
+            cc.dd.roomEvent.setIsCache(false);
+            cc.dd.playEffect(1, cc.dd.soundName.V_CHI);
+        }
         const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
@@ -199,6 +205,7 @@ cc.Class({
     playerPengCard(data) {
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
+            cc.dd.playEffect(1, cc.dd.soundName.V_PENG);
         }
         const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (localSeat) {
@@ -223,6 +230,7 @@ cc.Class({
     playerGangCard(data) {
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
+            cc.dd.playEffect(1, cc.dd.soundName.V_GANG);
         }
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
@@ -241,6 +249,7 @@ cc.Class({
     // 玩家胡牌
     playerHuCard(data) {
         cc.dd.roomEvent.setIsCache(false);
+        cc.dd.playEffect(1, cc.dd.soundName.V_HU);
         const localSeat = this.getLocalSeatByUserId(data.huuid);
         if (localSeat) {
 

@@ -67,7 +67,7 @@ cc.Class({
         cc.dd.Reload.loadPrefab("Game/Prefab/RightNote", (prefab) => {
             data.userlist.forEach((item) => {
                 const right = cc.instantiate(prefab);
-                right.getComponent("GO_RightNote").initNote(item, {huType: data.hutype, dianpaouid: data.dianpaouid});
+                right.getComponent("GO_RightNote").initNote(item, {huType: data.hutype, dianpaouid: data.dianpaouid, huuid: data.huuid});
                 this.RightContent.addChild(right);
             });
         });
