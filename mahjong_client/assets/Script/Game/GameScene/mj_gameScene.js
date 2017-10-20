@@ -307,6 +307,17 @@ cc.Class({
         //     cc.dd.roomEvent.notifyCacheList();
         // }, 2);
     },
+    // 玩家听牌
+    playerTingCard(data) {
+        cc.dd.roomEvent.setIsCache(false);
+
+
+
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
+    },
 
     // 指针转动
     timerRatation(data) {

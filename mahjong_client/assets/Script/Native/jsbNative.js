@@ -36,3 +36,19 @@ cc.AndroidDeviceId = (id) => {
         cc.dd.user.setUserDid(id);
     }
 };
+
+/**
+ *  公用的设置头像的方法
+ * @param url 头像下载的地址
+ * @param head 需要设置的头像的sprite组件
+ */
+cc.dd.setPlayerHead = (url, head) => {
+    const headUrl = cc.dd.pubConst;  // 此处写你拼接的url
+    cc.loader.load(headUrl, (err, texture) => {
+        if (err) {
+            cc.error(err);
+        } else {
+            head.spriteFrame = new cc.SpriteFrame(texture);
+        }
+    });
+};
