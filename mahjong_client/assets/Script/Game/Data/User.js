@@ -8,6 +8,7 @@ const UserEventName = {
     USER_LOGIN_FAIL: "user_login_fail",
     QUERY_RECEIVER_SCU: "query_receiver_scu", //查询接收者信息成功
     EXCHANGE_FK_SCU: "exchange_fk_scu", // 转让房卡成功
+    USER_INFO_KEY: "userInfoKey",  // 本地化读写 _userinfo 的key
 };
 cc.dd.userEvName = UserEventName;
 const UserEvent = cc.Class({
@@ -40,16 +41,16 @@ const User = cc.Class({
     // 得到用户信息
     getUserInfo() {
         if(!this._userInfo) {
-            //OS_IOS
-            if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地并从本地读取的方法
-
-            }else if(cc.sys.os == cc.sys.OS_IOS) {
-                var userjson = jsb.reflection.callStaticMethod("MJUserInfoDataTool","retriveUserInfoFromLocalUD");
-                cc.log(userjson.isagent);
-                this.setUserInfo(userjson);
-            }else {
-
-            }
+            this._userInfo = JSON.parse(cc.sys.localStorage.getItem(cc.dd.userEvName.USER_INFO_KEY));
+            // if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地并从本地读取的方法
+            //
+            // }else if(cc.sys.os == cc.sys.OS_IOS) {
+            //     var userjson = jsb.reflection.callStaticMethod("MJUserInfoDataTool","retriveUserInfoFromLocalUD");
+            //     cc.log(userjson.isagent);
+            //     this.setUserInfo(userjson);
+            // }else {
+            //
+            // }
         }
         return this._userInfo;
     },

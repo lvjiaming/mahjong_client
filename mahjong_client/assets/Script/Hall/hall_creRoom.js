@@ -110,11 +110,11 @@ cc.Class({
     onRoomDelegateRecords() {
         cc.log("我的代开房间");
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_DELEGATE_ROOM_REOCRD_REP);
-        cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDelegateRecord", (prefab) => {
-            const gameRecord = cc.instantiate(prefab);
-        gameRecord.getComponent("RoomDelegRecord").initInfo();
-        cc.find("UI_ROOT").addChild(gameRecord);
-        });
+        // cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDelegateRecord", (prefab) => {
+        //     const gameRecord = cc.instantiate(prefab);
+        // gameRecord.getComponent("RoomDelegRecord").initInfo();
+        // cc.find("UI_ROOT").addChild(gameRecord);
+        // });
         this.node.destroy();
     },
     // 关闭

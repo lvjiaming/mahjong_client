@@ -11,7 +11,6 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.initInfo();
     },
     /**
      *  初始化代理房间记录
@@ -19,7 +18,7 @@ cc.Class({
      */
     initInfo(data) {
         cc.dd.Reload.loadPrefab("Hall/Prefab/DelegRoomRecordInfo", (prefab) => {
-            [1,9].forEach((item) => {
+            data.forEach((item) => {
             const info = cc.instantiate(prefab);
             info.getComponent("RoomDelegRecordInfo").initInfo(item);
             if (this.ContentNode) {

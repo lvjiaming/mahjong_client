@@ -173,7 +173,7 @@ cc.Class({
         userList.forEach((item, index) => {
             if (selfUserId === item.UID) {
                 idx = index;
-                cc.dd.user.setUserInfo(item);
+                // cc.dd.user.setUserInfo(item);
             }
         });
         for (let i = idx; i < userList.length; i ++) {

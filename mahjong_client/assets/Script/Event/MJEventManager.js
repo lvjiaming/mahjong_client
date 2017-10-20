@@ -257,15 +257,16 @@ const MJEventManager = cc.Class({
     recieveWXAuthenticationCode(wxcode){
         this.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP,wxcode);
     },
+    // 往手机本地存用户信息
     writtenUserInfoIntoCellPhone(user) {
-        // 往手机本地存用户信息
-        if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地
-
-        }else if(cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("MJUserInfoDataTool","writtenUserInfoInLocalUD:", JSON.stringify(user));
-        }else {
-
-        }
+        cc.sys.localStorage.setItem(cc.dd.userEvName.USER_INFO_KEY, JSON.stringify(user));
+        // if (cc.sys.os == cc.sys.OS_ANDROID) { //  安卓写个存到本地
+        //
+        // }else if(cc.sys.os == cc.sys.OS_IOS) {
+        //     jsb.reflection.callStaticMethod("MJUserInfoDataTool","writtenUserInfoInLocalUD:", JSON.stringify(user));
+        // }else {
+        //
+        // }
     },
 });
 cc.dd.net = MJEventManager.getInstance();
