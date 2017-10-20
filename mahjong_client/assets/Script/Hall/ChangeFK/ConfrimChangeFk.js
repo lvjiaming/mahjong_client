@@ -43,8 +43,8 @@ cc.Class({
     },
     setRecieverAvatarContent(data) {
         //头像
-        var iamgenew =  cc.dd.loadPicTool.LoadAvatar(data);
-        cc.log(iamgenew);// 返回的为undefine
+        // var iamgenew =  cc.dd.loadPicTool.LoadAvatar(data);
+        cc.log(cc.dd.loadPicTool.LoadAvatar(data));// 返回的为undefine
     },
     onCancleClick() {
         this.node.destroy();
