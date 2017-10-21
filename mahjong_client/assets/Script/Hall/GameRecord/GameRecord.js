@@ -18,15 +18,24 @@ cc.Class({
      * @param data
      */
     initInfo(data) {
-        cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecordInfo", (prefab) => {
+        // cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecordInfo", (prefab) => {
+        //     data.forEach((item) => {
+        //         const info = cc.instantiate(prefab);
+        //         info.getComponent("GameRecordInfo").initInfo(item);
+        //         if (this.ContentNode) {
+        //             this.ContentNode.addChild(info);
+        //         }
+        //     });
+        // });
+        cc.dd.Reload.loadPrefab("Hall/Prefab/GameRecordInfoBlue", (prefab) => {
             data.forEach((item) => {
-                const info = cc.instantiate(prefab);
-                info.getComponent("GameRecordInfo").initInfo(item);
-                if (this.ContentNode) {
-                    this.ContentNode.addChild(info);
-                }
-            });
-        });
+            const info = cc.instantiate(prefab);
+        info.getComponent("GameRecordInfo").initInfo(item);
+        if (this.ContentNode) {
+            this.ContentNode.addChild(info);
+        }
+    });
+    });
     },
     onCloseClick() {
         this.node.destroy();
