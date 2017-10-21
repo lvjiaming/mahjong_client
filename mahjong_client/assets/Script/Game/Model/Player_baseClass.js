@@ -52,6 +52,7 @@ cc.Class({
         this.setLocalSeat();
         this.setNickNameLabel(data.nickname);
         this.setCoinLabel(data.score);
+        this.setHeadSpr(data.wx_portrait);
     },
     /**
      *  设置玩家的本地桌位号
@@ -84,8 +85,8 @@ cc.Class({
     /**
      * 设置头像
      */
-    setHeadSpr() {
-
+    setHeadSpr(url) {
+        cc.dd.setPlayerHead(url,this.HeadNode)
     },
     /**
      *  生成手牌

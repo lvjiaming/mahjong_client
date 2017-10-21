@@ -14,3 +14,4 @@ require("../Game/Control/CardMgr.js");
 require("../Utils/SoundManger.js");
 require("../Common/Const.js");
 require("../Game/Config/SoundConfig.js");
+require("../Common/TipManager.js");

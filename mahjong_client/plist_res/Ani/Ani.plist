@@ -59,7 +59,7 @@
             <key>gang2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{306,306},{139,139}}</string>
+                <string>{{2,328},{139,139}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>peng1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,328},{139,139}}</string>
+                <string>{{306,306},{139,139}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -160,6 +160,188 @@
                 <key>sourceSize</key>
                 <string>{161,161}</string>
             </dict>
+            <key>ylg_fzgame_sezi1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{196,588},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{55,610},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,610},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{143,588},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{196,588},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{425,536},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi7.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{425,483},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi8.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{196,588},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi_result_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{447,430},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi_result_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{447,377},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi_result_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{447,324},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi_result_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{447,271},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi_result_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{447,218},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
+            <key>ylg_fzgame_sezi_result_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{447,165},{51,51}}</string>
+                <key>offset</key>
+                <string>{0,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,5},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{65,65}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -170,7 +352,7 @@
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:717bf5be709df7a60c6a70002d408f17$</string>
+            <string>$TexturePacker:SmartUpdate:3968f005e607810f6043baa76131071e$</string>
             <key>textureFileName</key>
             <string>Ani.png</string>
         </dict>
