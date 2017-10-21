@@ -51,13 +51,34 @@ cc.Class({
         QiangTouCard: {
             default: null,
             type: cc.Node,
-            tooltip: "墙头牌"
+            tooltip: "墙头牌",
         },
         TopLabel: {
             default: null,
             type: cc.Label,
-            tooltip: "顶部的信息",
+            tooltip: "玩法和番数",
         },
+        JushuLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "局数",
+        },
+        RoomIDLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "房间号",
+        },
+        BatteryImage: {
+            default: null,
+            type: cc.Sprite,
+            tooltip: "电池图标",
+        },
+        TimeLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "时间",
+        },
+        callback: null,
     },
 
     // use this for initialization
@@ -72,6 +93,9 @@ cc.Class({
        // this.PlayerNode.getChildByName("Bottom").getComponent("PlayerSelf").createHandCard(cardArr);
 
         cc.dd.roomEvent.notifyMsg();
+    },
+    onDestroy() {
+        this.unschedule(this.callback);
     },
 
     // 初始化玩家的列表
@@ -186,16 +210,44 @@ cc.Class({
     },
     // 初始化顶部玩法信息
     initTopInfo(data) {
-        let str = "朝阳麻将";
+        // let str = "朝阳麻将";
+        // let hasLouBao = false;
+        // str = str + " " + data.room.rounds + "局";
+        // if (data) {
+        //     data.room.rules.forEach((item) => {
+        //         if (item == cc.dd.gameCfg.PLAY_OPERA.LOU_BAO) {
+        //             hasLouBao = true;
+        //         }
+        //         str = str + " " + PLAY_OPERA_NAME[item];
+        //     });
+        // }
+
+        // 时间的定时器
+        this.callback = function () {
+            this.updateCurrentTime();
+        }
+        this.schedule(this.callback, 1);
+
+        if(this.RoomIDLabel) {
+            this.RoomIDLabel.string = "房间号：" + data.room.roomid;
+        }
+        if (this.JushuLabel) {
+            this.JushuLabel.string = data.room.nowround + "/" + data.room.rounds + " 局";
+        }
+        let str = "";
         let hasLouBao = false;
-        str = str + " " + data.room.rounds + "局";
         if (data) {
             data.room.rules.forEach((item) => {
-                if (item == cc.dd.gameCfg.PLAY_OPERA.LOU_BAO) {
+                if(item == cc.dd.gameCfg.PLAY_OPERA.LOU_BAO) {
                     hasLouBao = true;
                 }
-                str = str + " " + PLAY_OPERA_NAME[item];
+                if(!str){
+                    str = PLAY_OPERA_NAME[item];
+                }else {
+                    str = str + " " + PLAY_OPERA_NAME[item];
+                }
             });
+            str = str + "\n底番" + data.room.basicraise + "倍";
         }
         if (this.TopLabel) {
             this.TopLabel.string = str;
@@ -527,4 +579,48 @@ cc.Class({
         });
         return localSeat;
     },
+    // 获取当前时间
+    updateCurrentTime() {
+        let date = new Date();
+        let str = date.getHours() + ":" + date.getMinutes();
+        if (this.TimeLabel) {
+            this.TimeLabel.string = str;
+        }
+    },
+    // 被原生回调的更新电池电量图标的方法
+    updateCurrentBatteryStatus(status) {
+        switch (status) {
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_FULL_FIFTH: {
+                cc.log("五格电量");
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_FOURTH: {
+                cc.log("四格电量");
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_THRID: {
+                cc.log("三格电量");
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_SECOND: {
+                cc.log("二格电量");
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_LOW: {
+                cc.log("一格电量");
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING: {
+                cc.log("充电中");
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_UNPULG: {
+                cc.log("充电线拔出");
+                break;
+            }
+            default: {
+                cc.log("unknown");
+            }
+        }
+    }
 });

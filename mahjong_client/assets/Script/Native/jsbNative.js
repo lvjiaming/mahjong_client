@@ -84,3 +84,9 @@ cc.dd.invokeWXFriendShareCustumText = (str) => {
         }
     }
 };
+
+// 获取电量
+cc.dd.getCurrentBatteryStatus = () => {
+    var result =  jsb.reflection.callStaticMethod("BatterMonitor","getBatteryLevel");
+
+};
