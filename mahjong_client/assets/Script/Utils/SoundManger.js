@@ -19,6 +19,12 @@ const SoundManger = cc.Class({
      *  初始化函数
      */
     init() {
+        cc.loader.loadResDir("Game/Sound",function(err,assets){
+            if(err){
+                cc.error(err);
+                return;
+            }
+        });
         if (cc.sys.localStorage.getItem("musicVolume") === null) {
             this._musicVolume = 1;
             cc.sys.localStorage.setItem("musicVolume", this._musicVolume * 10);

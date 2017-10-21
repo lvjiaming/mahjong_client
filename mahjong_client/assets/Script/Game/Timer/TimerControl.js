@@ -10,6 +10,12 @@ cc.Class({
 
     properties: {
         _preTimer: null,
+        TimeLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "时间显示",
+        },
+        _time: null,
     },
 
     // use this for initialization
@@ -18,6 +24,9 @@ cc.Class({
     },
     // 转动
     ratateTimer(localSeat) {
+        this.unscheduleAllCallbacks();
+        this._time = 15;
+        this.timing();
         const timer = this.node.getChildByName(TIMER_NAME[localSeat]);
         if (timer) {
             if (this._preTimer) {
@@ -25,6 +34,18 @@ cc.Class({
             }
             timer.active = true;
             this._preTimer = timer;
+        }
+    },
+    timing() {
+        if (this.TimeLabel) {
+            this.TimeLabel.string = this._time;
+            this.scheduleOnce(this.timingFun.bind(this), 1.0);
+        }
+    },
+    timingFun() {
+        if (this._time) {
+            this._time--;
+            this.timing();
         }
     },
 });
