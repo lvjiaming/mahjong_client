@@ -2229,7 +2229,9 @@
     },
     "_enabled": true,
     "NickNameLabel": null,
-    "HeadNode": null,
+    "HeadNode": {
+      "__id__": 37
+    },
     "CoinLabel": {
       "__id__": 35
     },
@@ -3259,7 +3261,9 @@
     },
     "_enabled": true,
     "NickNameLabel": null,
-    "HeadNode": null,
+    "HeadNode": {
+      "__id__": 59
+    },
     "CoinLabel": {
       "__id__": 63
     },
@@ -4289,7 +4293,9 @@
     },
     "_enabled": true,
     "NickNameLabel": null,
-    "HeadNode": null,
+    "HeadNode": {
+      "__id__": 87
+    },
     "CoinLabel": {
       "__id__": 83
     },
@@ -6151,7 +6157,9 @@
     },
     "_enabled": true,
     "NickNameLabel": null,
-    "HeadNode": null,
+    "HeadNode": {
+      "__id__": 111
+    },
     "CoinLabel": {
       "__id__": 107
     },

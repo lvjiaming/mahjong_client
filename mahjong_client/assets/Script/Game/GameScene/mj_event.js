@@ -10,6 +10,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        cc.dd.tipMgr.init(this.node);
         cc.dd.roomEvent.addObserver(this);
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);

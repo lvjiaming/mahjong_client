@@ -17,13 +17,16 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        cc.dd.tipMgr.init(this.node);
         cc.dd.sendGetAndroidDeviceId();
         cc.dd.appUtil.setScreenFit(this.node);
         cc.dd.soundMgr.init();
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
+        cc.dd.tipMgr.show("正在连接网络，请稍后...");
         cc.dd.net.connectNet(cc.dd.pubConst.HOST_STR, () => {
             this.setBtnLoginState(true);
+            cc.dd.tipMgr.hide();
         });
     },
     onDestroy() {
