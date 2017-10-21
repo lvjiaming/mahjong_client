@@ -11,15 +11,11 @@ cc.Class({
     },
     onshareToFriendClick() {
     	cc.log("分享到朋友");
-    	if(cc.sys.isNative) {
-            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare");
-        }
+        cc.dd.invokeWXFriendShareCustumLink();
     },
     onshareToQuanClick() {
     	cc.log("分享到票圈");
-        if(cc.sys.isNative) {
-            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXMomentssShare");
-        }
+        cc.dd.invokeWXMomentShareCustumLink();
     },
     onCloseClick() {
         this.node.destroy();

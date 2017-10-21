@@ -42,17 +42,18 @@ cc.Class({
         this.recieverNameLabel.string = data + "（ID：" + recUid + ")";
     },
     setRecieverAvatarContent(data) {
-        var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
-        cc.log("拼接头像地址："+full);
-        var self = this;
-        cc.loader.load(full, function(err, texture){
-            if (err){
-                cc.log("头像下载错误： " + err);
-            }else {
-                self.avatar.spriteFrame = new cc.SpriteFrame(texture);
-            }
-        });
-        // cc.dd.setPlayerHead(sfurl,this.recieverAvatar);
+        // var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
+        // cc.log("拼接头像地址："+full);
+        // var self = this;
+        // cc.loader.load(full, function(err, texture){
+        //     if (err){
+        //         cc.log("头像下载错误： " + err);
+        //     }else {
+        //         self.avatar.spriteFrame = new cc.SpriteFrame(texture);
+        //     }
+        // });
+        var target = this.recieverAvatar;
+        cc.dd.setPlayerHead(data,target);
     },
     onCancleClick() {
         this.node.destroy();

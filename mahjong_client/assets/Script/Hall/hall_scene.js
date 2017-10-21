@@ -51,7 +51,9 @@ cc.Class({
         }else {
             this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         }
-        this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait); // 浏览器调试记得注释它
+        if(cc.dd.user.getUserInfo().wx_portrait.indexOf("/static") != -1) {
+            this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
+        }
         this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
@@ -67,17 +69,18 @@ cc.Class({
         this.RoomCard.string = "房卡：" + num;
     },
     setAvatarSpriteFrame(sfurl) {
-        var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
-        cc.log("拼接头像地址："+full);
-        var self = this;
-        // cc.dd.setPlayerHead(sfurl,this.avatar);// 模拟器黑屏
-        cc.loader.load(full, function(err, texture){
-            if (err){
-                cc.log("头像下载错误： " + err);
-            }else {
-                self.avatar.spriteFrame = new cc.SpriteFrame(texture);
-            }
-        });
+        // var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
+        // cc.log("拼接头像地址："+full);
+        // var self = this;
+        // cc.loader.load(full, function(err, texture){
+        //     if (err){
+        //         cc.log("头像下载错误： " + err);
+        //     }else {
+        //         self.avatar.spriteFrame = new cc.SpriteFrame(texture);
+        //     }
+        // });
+        var target = this.avatar;
+        cc.dd.setPlayerHead(sfurl,target); // 模拟器黑屏
     },
     // 设置转让房卡按钮是否可见
     setBtnChangeState(state) {

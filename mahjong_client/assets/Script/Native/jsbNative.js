@@ -43,7 +43,7 @@ cc.AndroidDeviceId = (id) => {
  * @param head 需要设置的头像的sprite组件
  */
 cc.dd.setPlayerHead = (url, head) => {
-    const headUrl = cc.dd.pubConst.IMAGE_PREFIX_HOST + halfurl;  // 此处写你拼接的url
+    const headUrl = cc.dd.pubConst.IMAGE_PREFIX_HOST + url;  // 此处写你拼接的url
     cc.loader.load(headUrl, (err, texture) => {
         if (err) {
             cc.error(err);
@@ -51,4 +51,34 @@ cc.dd.setPlayerHead = (url, head) => {
             head.spriteFrame = new cc.SpriteFrame(texture);
         }
     });
+};
+// app下载链接分享到朋友对话
+cc.dd.invokeWXFriendShareCustumLink = () => {
+    if(cc.sys.isMobile) {
+        if (cc.sys.os == cc.sys.OS_ANDROID){
+
+        }else {
+            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare");
+        }
+    }
+};
+// app下载链接分享到朋友圈
+cc.dd.invokeWXMomentShareCustumLink = () => {
+    if(cc.sys.isMobile) {
+        if (cc.sys.os == cc.sys.OS_ANDROID){
+
+        }else {
+            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXMomentssShare");
+        }
+    }
+};
+// 房间号，房间信息分享到朋友对话
+cc.dd.invokeWXFriendShareCustumText = (str) => {
+    if(cc.sys.isMobile) {
+        if(cc.sys.os == cc.sys.OS_ANDROID) {
+
+        }else {
+            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",contentstr);
+        }
+    }
 };

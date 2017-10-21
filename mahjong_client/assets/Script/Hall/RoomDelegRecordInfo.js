@@ -127,8 +127,6 @@ cc.Class({
             }
         });
         var contentstr = "房间号："+ this.roomidString + " 本房间玩法：" + str;
-        if(cc.sys.isMobile) {
-            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",contentstr);//this.roomidString
-        }
+        cc.dd.invokeWXFriendShareCustumText(contentstr);
     },
 });
