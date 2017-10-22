@@ -81,7 +81,7 @@ cc.Class({
         //     }
         // });
         var target = this.avatar;
-        cc.dd.setPlayerHead(sfurl,target); // 模拟器黑屏
+        cc.dd.setPlayerHead(sfurl,target);
     },
     // 设置转让房卡按钮是否可见
     setBtnChangeState(state) {

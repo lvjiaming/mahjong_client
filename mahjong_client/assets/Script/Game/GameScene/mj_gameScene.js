@@ -672,7 +672,21 @@ cc.Class({
     // 获取当前时间
     updateCurrentTime() {
         let date = new Date();
-        let str = date.getHours() + ":" + date.getMinutes();
+        let str = "";
+        if (date.getHours()<10 ||date.getMinutes()<10) {
+            if(date.getHours()<10){
+                str = "0"+date.getHours();
+            }else {
+                str = date.getHours();
+            }
+            if(date.getMinutes()<10) {
+                str = str + ":" + "0"+date.getMinutes();
+            }else {
+                str = str + ":" + date.getMinutes();
+            }
+        }else {
+            str = date.getHours() + ":" + date.getMinutes();
+        }
         if (this.TimeLabel) {
             this.TimeLabel.string = str;
         }

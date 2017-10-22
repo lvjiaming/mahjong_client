@@ -3,6 +3,6 @@
  */
 module.exports = {
     HOST_STR: "ws://cymj.91snack.com/websocket",
-    IMAGE_PREFIX_HOST: "http://47.95.116.118",
+    IMAGE_PREFIX_HOST: "http://cymj.91snack.com",
 };
 cc.dd.pubConst = module.exports;
