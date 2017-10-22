@@ -90,12 +90,13 @@ module.exports = {
     },
     // 电池电量状态
     BATTERTY: {
-        BATTERTY_FULL_FIFTH: "battery_full", // 满格五格
-        BATTERTY_FOURTH: "battery_four_bar", // 四格
-        BATTERTY_THRID: "battery_three_bar",
-        BATTERTY_SECOND: "battery_two_bar",
-        BATTERTY_LOW: "battery_one_bar",    // 一格低电量
-        BATTERTY_CHARGING: "battery_charging",  // 充电中
+        // BATTERTY_FULL_FIFTH: "battery_full", // 满格五格
+        // BATTERTY_FOURTH: "battery_four_bar", // 四格
+        // BATTERTY_THRID: "battery_three_bar",
+        // BATTERTY_SECOND: "battery_two_bar",
+        // BATTERTY_LOW: "battery_one_bar",    // 一格低电量
+        BATTERTY_LEVEL_UPDATE: "battery_level_update", // 原生监听到电量的改变的回调
+        BATTERTY_CHARGING: "Charging",  // 充电中
         BATTERTY_UNPULG: "battery_unpulg",  // 充电线拔出
     },
 };

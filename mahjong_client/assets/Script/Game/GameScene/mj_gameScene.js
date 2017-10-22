@@ -70,8 +70,13 @@ cc.Class({
         },
         BatteryImage: {
             default: null,
-            type: cc.Sprite,
+            type: cc.ProgressBar,
             tooltip: "电池图标",
+        },
+        ChargingSignImage: {
+            default: null,
+            type: cc.Node,
+            tooltip: "电池充电图标",
         },
         TimeLabel: {
             default: null,
@@ -221,18 +226,29 @@ cc.Class({
         //         str = str + " " + PLAY_OPERA_NAME[item];
         //     });
         // }
-
+        // 电池
+        if(this.BatteryImage) {
+            if(cc.sys.isMobile) {
+                this.BatteryImage.progress = cc.dd.getCurrentBatteryStatus();
+                this.ChargingSignImage.active = cc.dd.getCurrentBatteryChargingStatus();
+            }
+        }
         // 时间的定时器
+        this.updateCurrentTime();
         this.callback = function () {
             this.updateCurrentTime();
         }
-        this.schedule(this.callback, 1);
+        this.schedule(this.callback, 60);
 
         if(this.RoomIDLabel) {
             this.RoomIDLabel.string = "房间号：" + data.room.roomid;
         }
         if (this.JushuLabel) {
-            this.JushuLabel.string = data.room.nowround + "/" + data.room.rounds + " 局";
+            if(data.room.nowround == -1) {
+                this.JushuLabel.string = "0/" + data.room.rounds + " 局";
+            }else{
+                this.JushuLabel.string = data.room.nowround + "/" + data.room.rounds + " 局";
+            }
         }
         let str = "";
         let hasLouBao = false;
@@ -587,40 +603,44 @@ cc.Class({
             this.TimeLabel.string = str;
         }
     },
+    // 是否充电状态
+    updateChargingSign(data) {
+        this.ChargingSignImage.active = data;
+    },
     // 被原生回调的更新电池电量图标的方法
-    updateCurrentBatteryStatus(status) {
-        switch (status) {
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_FULL_FIFTH: {
-                cc.log("五格电量");
-                break;
-            }
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_FOURTH: {
-                cc.log("四格电量");
-                break;
-            }
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_THRID: {
-                cc.log("三格电量");
-                break;
-            }
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_SECOND: {
-                cc.log("二格电量");
-                break;
-            }
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_LOW: {
-                cc.log("一格电量");
-                break;
-            }
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING: {
-                cc.log("充电中");
-                break;
-            }
-            case cc.dd.gameCfg.BATTERTY.BATTERTY_UNPULG: {
-                cc.log("充电线拔出");
-                break;
-            }
-            default: {
-                cc.log("unknown");
-            }
-        }
-    }
+    // updateCurrentBatteryStatus(status) {
+    //     switch (status) {
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_FULL_FIFTH: {
+    //             cc.log("五格电量");
+    //             break;
+    //         }
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_FOURTH: {
+    //             cc.log("四格电量");
+    //             break;
+    //         }
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_THRID: {
+    //             cc.log("三格电量");
+    //             break;
+    //         }
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_SECOND: {
+    //             cc.log("二格电量");
+    //             break;
+    //         }
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_LOW: {
+    //             cc.log("一格电量");
+    //             break;
+    //         }
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING: {
+    //             cc.log("充电中");
+    //             break;
+    //         }
+    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_UNPULG: {
+    //             cc.log("充电线拔出");
+    //             break;
+    //         }
+    //         default: {
+    //             cc.log("unknown");
+    //         }
+    //     }
+    // }
 });
