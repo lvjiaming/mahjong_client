@@ -35,7 +35,7 @@ const MJEventManager = cc.Class({
                 body.did = deviceid;
             }
         }else{
-            body.did = "877aa339-df6c-4863-99b2-544884d746ee";// 网页
+            body.did = "47194279-dfb8-4e35-9ba2-d13dd70028dc";// 网页
         }
 
         switch (event) {
@@ -168,7 +168,11 @@ const MJEventManager = cc.Class({
                 this.notifyEvent(msgId, msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {  // 查询房卡返回，5007
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP: {  // 查询房卡失败返回，1007
+                this.notifyEvent(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {  // 查询房卡成功返回，5007
                 cc.dd.user.updataUserFangka(msgData);
                 break;
             }

@@ -5,7 +5,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        didShowCountDownBar: null,
     },
 
     // use this for initialization
@@ -15,6 +15,7 @@ cc.Class({
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
         cc.dd.user.getUserInfo().wereInGameSence = true;
+        this.didShowCountDownBar = false;
     },
     onDestroy() {
         cc.dd.roomEvent.removeObserver(this);
@@ -90,25 +91,43 @@ cc.Class({
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_STATE: {
                 cc.log("收到4004");
                 if(cc.dd.room.userList.length > 1) {//一个在房间自动解散，不需要显示条条
-                    cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
-                        const bar = cc.instantiate(prefab);
-                    cc.find("UI_ROOT").addChild(bar);
-                    });
+                    if(this.didShowCountDownBar) {
+
+                    }else {
+                        this.didShowCountDownBar = true;
+                        cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
+                            const bar = cc.instantiate(prefab);
+                        cc.find("UI_ROOT").addChild(bar);
+                        });
+                    }
                 }
                 break;
             }
             case  cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {
                 if(data.success) {
                     cc.log("收到4008,成功解散房间：" + data.success);
-                    cc.dd.soundMgr.stopAllSound();
-                    cc.dd.Reload.loadDir("DirRes", () => {
-                        cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
+                    cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                        const exitroomsuc = cc.instantiate(prefab);
+                    exitroomsuc.getComponent("AlterViewScript").initInfoMes("解散房间成功");
+                    cc.find("UI_ROOT").addChild(exitroomsuc);
                     });
                 }else {
                     cc.log("收到4008,不解散房间：" + data.success);
+                    this.didShowCountDownBar = false;
+                    // 弹窗节点干掉
+                    this.node.getChildByName("RoomDismiss").removeFromParent();
                     // 条条节点干掉
-                    // 弹窗也是
+                    this.node.getChildByName("progressBar").removeFromParent();
+                    cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                        const exitroomfail = cc.instantiate(prefab);
+                    exitroomfail.getComponent("AlterViewScript").initInfoMes("解散房间失败");
+                    cc.find("UI_ROOT").addChild(exitroomfail);
+                    });
                 }
+                break;
+            }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING: {
+                this.node.getComponent("mj_gameScene").updateChargingSign(data);
                 break;
             }
             default: {

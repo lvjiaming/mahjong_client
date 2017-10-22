@@ -48,14 +48,18 @@ cc.Class({
     onWanFaClick(event, custom) {
         const item = cc.dd.hall_config.CYMJ_WF[custom];
         if (event.isChecked) {
-            cc.log("gotchecked");
             if (item == 3 || item == 5){
                 this.WanFa.push(item);
                 if (item == 3){
-                    this.JiahuToggle.interactable = false;
+                    if(this.WanFa.indexOf(5) != -1) {
+                        //取消勾选🈚️
+                        this.JiahuToggle.uncheck();
+                    }
                 }
                 if (item == 5){
-                    this.HuiToggle.interactable = false;
+                    if(this.WanFa.indexOf(3) != -1) {
+                        this.HuiToggle.uncheck();
+                    }
                 }
             }else {
                 this.WanFa.push(item);
@@ -73,7 +77,7 @@ cc.Class({
                 }
             });
         }
-        cc.log(this.WanFa);
+        // cc.log(this.WanFa);
     },
     // 底番
     onDiFanClick(event, custom) {

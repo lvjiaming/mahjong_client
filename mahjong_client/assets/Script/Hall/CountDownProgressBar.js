@@ -61,7 +61,7 @@ cc.Class({
                 }
                 break;
             }
-            case  cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {
+            case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_RESULT: {
                 cc.log("收到4008");
                 this.node.destroy();
                 break;

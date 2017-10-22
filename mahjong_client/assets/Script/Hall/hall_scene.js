@@ -122,6 +122,15 @@ cc.Class({
                 }
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP: {  // 查询房卡失败返回，1007
+                cc.log("输入的用户UID不存在");
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const UIDNotExitMes = cc.instantiate(prefab);
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes(data.errmsg);
+                    this.node.addChild(UIDNotExitMes);//getComponent
+                });
+                break;
+            }
             case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
                 cc.log("查询接收者成功");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {

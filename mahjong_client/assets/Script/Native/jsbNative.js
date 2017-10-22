@@ -86,13 +86,53 @@ cc.dd.invokeWXFriendShareCustumText = (str) => {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
 
         }else {
-            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",contentstr);
+            jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",str);
         }
     }
 };
 
 // 获取电量
 cc.dd.getCurrentBatteryStatus = () => {
-    var result =  jsb.reflection.callStaticMethod("BatterMonitor","getBatteryLevel");
+    if(cc.sys.isMobile) {
+        if(cc.sys.os == cc.sys.OS_ANDROID) {
+            return 1;
+        }else {
+            var result = jsb.reflection.callStaticMethod("BatterMonitor","getBatteryLevel");
+            cc.log("返回的电池电量"+result.toPrecision(2));
+            return result.toPrecision(2);
+        }
+    }
+};
+// 获取正在充电与否的状态
+cc.dd.getCurrentBatteryChargingStatus = () => {
 
+    if(cc.sys.isMobile) {
+        if(cc.sys.os == cc.sys.OS_ANDROID) {
+            return false;
+        }else {
+            var stateResult = jsb.reflection.callStaticMethod("BatterMonitor","getBatteryLevel");
+            cc.log("返回的充电状态"+ stateResult);
+            if(stateResult == "Charging") {
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }else {
+        return true; // 网页调试
+    }
+};
+// 被原生回调的更新电池电量的方法
+cc.dd.updateCurrentBatteryLevel = (level) => {
+    cc.log("oc观察者观察电量发生改变回调"+level);
+    // cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE
+};
+// 被原生回调的更新电池是否在充电状态的方法
+cc.dd.updateCurrentBatteryStatus = (sta) => {
+    cc.log("oc观察者观察电量发生改变回调"+sta);
+    if(sta == "Charging"){
+        cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,true);
+    }else {
+        cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
+    }
 };
