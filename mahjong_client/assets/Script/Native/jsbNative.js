@@ -110,7 +110,7 @@ cc.dd.getCurrentBatteryChargingStatus = () => {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
             return false;
         }else {
-            var stateResult = jsb.reflection.callStaticMethod("BatterMonitor","getBatteryLevel");
+            var stateResult = jsb.reflection.callStaticMethod("BatterMonitor","getBatteryState");
             cc.log("返回的充电状态"+ stateResult);
             if(stateResult == "Charging") {
                 return true;
