@@ -74,10 +74,14 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").baoCardChange(data);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_HAI_DI_LAO: { // 海底捞
+                this.node.getComponent("mj_gameScene").haiDiLao(data);
+                break;
+            }
             case cc.dd.roomEvName.MSG_NOTIFY: {
                 this.scheduleOnce(() => {
                     cc.dd.roomEvent.notifyCacheList();
-                }, 0.5);
+                }, 0.8);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: {

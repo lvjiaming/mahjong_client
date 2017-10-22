@@ -81,6 +81,7 @@ module.exports = {
         EVENT_ONE_GAME_OVER: 4017, // 结算
         EVENT_PLAYER_TING_CARD: 4022, // 玩家听牌
         EVENT_BAO_CARD_CHANGE: 4021,  // 宝牌更换
+        EVENT_HAI_DI_LAO: 4020, // 海底捞
 
         // 消息枚举，你在下面添加，我在上面添加
         EVENT_DELEGATE_ROOM_REOCRD_REP: 1015, // 代理用户查询自己代开房间的记录

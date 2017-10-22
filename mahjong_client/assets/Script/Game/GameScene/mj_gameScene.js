@@ -18,6 +18,15 @@ const cardArr = [
     {id: 12},
    // {suit: 2, num: 6},
 ];
+const HU_TYPE_NAME = [
+    null,
+    "zimo",
+    "pinghu",
+    "sihui",
+    "duibao",
+    "loubao",
+    "gangshanghua"
+];
 const PLAY_OPERA_NAME = [
     null,
     "可断门",
@@ -82,6 +91,11 @@ cc.Class({
             default: null,
             type: cc.Label,
             tooltip: "时间",
+        },
+        HuAniNode: {
+            default: null,
+            type: cc.Node,
+            tooltip: "胡的动画节点",
         },
         callback: null,
     },
@@ -423,14 +437,36 @@ cc.Class({
         cc.dd.playEffect(1, cc.dd.soundName.V_HU);
         const localSeat = this.getLocalSeatByUserId(data.huuid);
         if (localSeat) {
-
+            // 播放胡牌动画
+            cc.dd.Reload.loadAtlas("Game/Atlas/hutype", (atlas) => {
+                const str = HU_TYPE_NAME[data.hutype];
+                this.huAni(localSeat, data, atlas.getSpriteFrame(str));
+            });
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
-        }, 0.5);
+        }, 3);
+    },
+    huAni(localSeat, data, huSpr) {
+        const huInfo = this.playerArr[localSeat - 1].getChildByName("HuInfo");
+        this.HuAniNode.active = true;
+        const card = huInfo.getChildByName("HuCard");
+        const huSign = huInfo.getChildByName("HuSign");
+        const huTypeNode = huInfo.getChildByName("HuType");
+        const scaleAni = cc.scaleTo(0.5, 1.2);
+        const moveAni = cc.moveTo(0.5, huSign.getPosition());
+        huTypeNode.getComponent(cc.Sprite).spriteFrame = huSpr;
+        const callFun1 = cc.callFunc(() => {
+            this.HuAniNode.active = false;
+            card.getComponent("CardSpr").initCard(data.hupai);
+            card.active = true;
+            huSign.active = true;
+            huTypeNode.active = true;
+        });
+        this.HuAniNode.runAction(cc.sequence(scaleAni, moveAni, callFun1));
     },
     // 玩家摸牌
     playerMoCard(data, userid) {
@@ -443,13 +479,18 @@ cc.Class({
                 if (data.ting) {
                     cc.dd.cardMgr.setTingList(data.ting);
                 }
-                if (data.hu) {
-                    this.playerArr[0].getComponent("PlayerSelf").showOperateBtn({hu: data.hu});
-                }
-                if (cc.dd.cardMgr.getIsTing()) {
-                    if (!data.hu) {
-                        cc.log(`自动出牌`);
-                        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                if (data.forcehu) {
+                    cc.log(`玩家必须胡牌`);
+                    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
+                } else {
+                    if (data.hu) {
+                        this.playerArr[0].getComponent("PlayerSelf").showOperateBtn({hu: data.hu});
+                    }
+                    if (cc.dd.cardMgr.getIsTing()) {
+                        if (!data.hu) {
+                            cc.log(`自动出牌`);
+                            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                        }
                     }
                 }
             }
@@ -495,6 +536,23 @@ cc.Class({
     baoCardChange(data) {
         this.setBaoCard(true, data.baocard);
     },
+    haiDiLao(data) {
+        cc.dd.roomEvent.setIsCache(false);
+        if (data.forcehu) {
+            cc.log(`玩家必须胡牌`);
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
+        }
+        const localSeat = this.getLocalSeatByUserId(data.uid);
+        const card = this.playerArr[localSeat - 1].getChildByName("HuInfo").getChildByName("HuCard");
+        const haidilao = this.playerArr[localSeat - 1].getChildByName("HuInfo").getChildByName("HaiDiLao");
+        card.getComponent("CardSpr").initCard(data.mopai);
+        card.active = true;
+        haidilao.active = true;
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
+    },
 
     // 指针转动
     timerRatation(data) {
@@ -511,6 +569,17 @@ cc.Class({
         if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
             cc.log(`轮到自己操作`);
             cc.dd.cardMgr.setIsCanOutCard(true);
+            const tingList = cc.dd.cardMgr.getTingList();
+            if (tingList) {
+                const cardNode = this.playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+                tingList.forEach((item) => {
+                    cardNode.children.forEach((card) => {
+                        if (item == card.cardId) {
+                            card.getChildByName("TingSign").active = true;
+                        }
+                    });
+                });
+            }
         } else {
             cc.log(`不是自己操作, 不能出牌`);
             cc.dd.cardMgr.setIsCanOutCard(false);
@@ -571,6 +640,10 @@ cc.Class({
 
             // 清理听得标志
             item.getChildByName("InfoBk").getChildByName("Ting").active = false;
+            const huInfo = item.getChildByName("HuInfo");
+            huInfo.children.forEach((note) => {
+                note.active = false;
+            });
 
         });
         cc.dd.cardMgr.setReadyOutCard(null);
@@ -579,6 +652,7 @@ cc.Class({
         cc.dd.cardMgr.setChiList(null);
         cc.dd.cardMgr.setTingList(null);
         cc.dd.cardMgr.setIsTing(false);
+        cc.dd.cardMgr.setMoCard(null);
     },
     /**
      *  根据玩家id返回本地座位号
