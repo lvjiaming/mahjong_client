@@ -224,6 +224,10 @@ const MJEventManager = cc.Class({
                 cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_HAI_DI_LAO: { // 海底捞
+                cc.dd.room.saveMsg(msgId, msgData);
+                break;
+            }
             // 回复处理，你在下面添加，我在上面添加
             case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: { // 查询战绩成功，5006
                 this.notifyEvent(msgId, msgData);

@@ -20,7 +20,7 @@
             <key>Game_Change.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,680},{62,62}}</string>
+                <string>{{413,748},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>Game_Help.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,616},{62,62}}</string>
+                <string>{{413,684},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>Game_KuoZhan.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,552},{62,62}}</string>
+                <string>{{413,620},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>Game_Return.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,488},{62,62}}</string>
+                <string>{{413,556},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>Game_Setting.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,424},{62,62}}</string>
+                <string>{{413,492},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>Game_TimerLeft.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{347,86},{68,115}}</string>
+                <string>{{378,159},{68,115}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{68,115}}</string>
                 <key>sourceSize</key>
@@ -124,11 +124,11 @@
             <key>Game_TimerRight.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{417,114},{67,114}}</string>
+                <string>{{347,229},{67,114}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{67,114}}</string>
                 <key>sourceSize</key>
@@ -150,7 +150,7 @@
             <key>Game_Up.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{347,203},{588,64}}</string>
+                <string>{{347,298},{588,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,11 +163,11 @@
             <key>Game_infoBk.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{422,2},{83,110}}</string>
+                <string>{{398,74},{83,110}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{83,110}}</string>
                 <key>sourceSize</key>
@@ -176,7 +176,7 @@
             <key>Gmae_Audio.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,360},{62,62}}</string>
+                <string>{{413,428},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>bp@2x.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,296},{62,62}}</string>
+                <string>{{413,364},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>bpdx-01@2x.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,230},{64,64}}</string>
+                <string>{{413,298},{64,64}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
@@ -215,11 +215,11 @@
             <key>bpp@2x.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{477,347},{33,49}}</string>
+                <string>{{347,121},{33,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{33,49}}</string>
                 <key>sourceSize</key>
@@ -228,11 +228,11 @@
             <key>qt@2x.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{477,296},{33,49}}</string>
+                <string>{{347,86},{33,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{33,49}}</string>
                 <key>sourceSize</key>
@@ -241,7 +241,7 @@
             <key>tingSign.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{479,230},{29,29}}</string>
+                <string>{{347,156},{29,29}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -250,6 +250,19 @@
                 <string>{{0,0},{29,29}}</string>
                 <key>sourceSize</key>
                 <string>{29,29}</string>
+            </dict>
+            <key>tingSign2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{422,2},{70,84}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{70,84}}</string>
+                <key>sourceSize</key>
+                <string>{70,84}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -261,7 +274,7 @@
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b23e8b617adc645b13d01f2376087f22$</string>
+            <string>$TexturePacker:SmartUpdate:d72b5c0b52649c06a431b57d1b4d3888$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

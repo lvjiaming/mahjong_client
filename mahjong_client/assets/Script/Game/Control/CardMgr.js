@@ -55,6 +55,7 @@ const CardMgr = cc.Class({
     _chiList: null,  // 吃牌的列表
     _tingList: null, // 听牌的列表
     _isTing: null, // 是否是听牌
+    _moCard: null, // 摸的牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -68,6 +69,7 @@ const CardMgr = cc.Class({
         this._readyOutCard = null;
         this._selfHandCard = [];
         this._isTing = false;
+        this._moCard = null;
     },
     /**
      *  手牌的初始化
@@ -131,6 +133,7 @@ const CardMgr = cc.Class({
                 const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
                 card.getComponent("Card").id = item;
                 card.cardId = item;
+                card.getChildByName("TingSign").active = false;
                 if (this._huiPai == item) {
                     card.getComponent("Card").isHuiPi = true;
                 }
@@ -323,6 +326,9 @@ const CardMgr = cc.Class({
                     if (item.name === "AnGang") {
                         item.active = true;
                     }
+                    if (item.name !== "GangCard" && item.name !== "AnGang") {
+                        item.getChildByName("bk").active = true;
+                    }
                 } else {
                     if (item.name === "GangCard") {
                         item.active = true;
@@ -337,6 +343,17 @@ const CardMgr = cc.Class({
                 }
             }
         });
+        if (isGang === cc.dd.gameCfg.OPERATE_TYPE.GANG) {
+            if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
+                if (data.angang) {
+                    const gang = pengGang.getChildByName("GangCard");
+                    const angang = pengGang.getChildByName("AnGang");
+                    gang.active = true;
+                    angang.active = false;
+                    gang.getComponent("CardSpr").initCard(this.getMoCard());
+                }
+            }
+        }
     },
     /**
      *  出牌的操作
@@ -469,11 +486,20 @@ const CardMgr = cc.Class({
      */
     MoCard(m_node, localSeat, data) {
         let preStr = null;
+        this.setMoCard(data.mopai);
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 if (data.mopai !== true) {
                     const str = "HandPoker";
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
+                    // 听啤的标志
+                    if (cc.dd.cardMgr.getTingList()) {
+                        cc.dd.cardMgr.getTingList().forEach((item) => {
+                            if (item == data.mopai) {
+                                card.getChildByName("TingSign").active = true;
+                            }
+                        });
+                    }
                     card.getComponent("Card").id = data.mopai;
                     card.cardId = data.mopai;
                     if (this._huiPai == data.mopai) {
@@ -580,6 +606,18 @@ const CardMgr = cc.Class({
      */
     getIsTing() {
         return this._isTing;
+    },
+    /**
+     * 设置摸牌
+     */
+    setMoCard(card) {
+        this._moCard = card;
+    },
+    /**
+     *  得到摸牌
+     */
+    getMoCard() {
+        return this._moCard;
     },
     /**
      *  排序手牌
