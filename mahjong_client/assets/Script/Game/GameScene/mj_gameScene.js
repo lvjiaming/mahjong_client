@@ -97,6 +97,16 @@ cc.Class({
             type: cc.Node,
             tooltip: "胡的动画节点",
         },
+        CopyRoomIDBtn: {
+            default: null,
+            type: cc.Node,
+            tooltip: "复制房间号",
+        },
+        InviteFriendBtn: {
+            default: null,
+            type: cc.Node,
+            tooltip: "邀请好友",
+        },
         callback: null,
     },
 
@@ -253,6 +263,15 @@ cc.Class({
             this.updateCurrentTime();
         }
         this.schedule(this.callback, 60);
+
+        // 显示与否，邀请按钮
+        if(data.userlist.length < 4) {
+            this.CopyRoomIDBtn.active = true;
+            this.InviteFriendBtn.active = true;
+        }else {
+            this.CopyRoomIDBtn.active = false;
+            this.InviteFriendBtn.active = false;
+        }
 
         if(this.RoomIDLabel) {
             this.RoomIDLabel.string = "房间号：" + data.room.roomid;
@@ -695,40 +714,21 @@ cc.Class({
     updateChargingSign(data) {
         this.ChargingSignImage.active = data;
     },
-    // 被原生回调的更新电池电量图标的方法
-    // updateCurrentBatteryStatus(status) {
-    //     switch (status) {
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_FULL_FIFTH: {
-    //             cc.log("五格电量");
-    //             break;
-    //         }
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_FOURTH: {
-    //             cc.log("四格电量");
-    //             break;
-    //         }
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_THRID: {
-    //             cc.log("三格电量");
-    //             break;
-    //         }
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_SECOND: {
-    //             cc.log("二格电量");
-    //             break;
-    //         }
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_LOW: {
-    //             cc.log("一格电量");
-    //             break;
-    //         }
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING: {
-    //             cc.log("充电中");
-    //             break;
-    //         }
-    //         case cc.dd.gameCfg.BATTERTY.BATTERTY_UNPULG: {
-    //             cc.log("充电线拔出");
-    //             break;
-    //         }
-    //         default: {
-    //             cc.log("unknown");
-    //         }
-    //     }
-    // }
+    onClickCopyRoom() {
+        cc.log("复制房间号");
+    },
+    onClickInviteFriends() {
+        cc.log("邀请微信朋友");
+        let str = "";
+        //wanfaSet
+        this.wanfaSet.forEach((item) => {
+            if(!str){
+            str = PLAY_OPERA_NAME_ORAL[item];
+            }else {
+            str = str + " 、" + PLAY_OPERA_NAME_ORAL[item];
+            }
+        });
+        var contentstr = "房间号："+ this.roomidString + " 本房间玩法：" + str;
+        cc.dd.invokeWXFriendShareCustumText(contentstr);
+    },
 });
