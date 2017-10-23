@@ -103,7 +103,11 @@ cc.Class({
      */
     setSameIPAdress(ipadress) {
         if(this.IPAdressLabel){
-            this.IPAdressLabel.string = "IP地址:" + ipadress;
+            if(ipadress.length > 1) {
+                this.IPAdressLabel.string = "IP地址:" + ipadress;
+            }else {
+                this.IPAdressLabel.string = ipadress;
+            }
         }
     },
     /**
