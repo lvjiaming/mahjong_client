@@ -56,6 +56,7 @@ const CardMgr = cc.Class({
     _tingList: null, // 听牌的列表
     _isTing: null, // 是否是听牌
     _moCard: null, // 摸的牌
+    _ziMoGangCard: null, // 自摸杠的牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -397,15 +398,9 @@ const CardMgr = cc.Class({
                 // 更新手牌数组
                 str = "OutCard_Bottom";
                 preConfif = CONFIG.BOTTOM;
-                if (!notDes) {
-                    for (let i = 0; i < this._selfHandCard.length; i ++) {
-                        if (this._selfHandCard[i] === data) {
-                            this._selfHandCard.splice(i, 1);
-                            break;
-                        }
-                    }
-                    this.updateCard(handNode);
-                }
+                // if (!notDes) {
+                //
+                // }
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
@@ -618,6 +613,24 @@ const CardMgr = cc.Class({
      */
     getMoCard() {
         return this._moCard;
+    },
+    /**
+     * 设置自摸杠牌
+     */
+    setZiMoGang(card) {
+        this._ziMoGangCard = card;
+    },
+    /**
+     *  得到自摸杠牌
+     */
+    getZiMoGang() {
+        return this._ziMoGangCard;
+    },
+    /**
+     *  得到玩家的手牌数组
+     */
+    getSelfHandCard() {
+        return this._selfHandCard;
     },
     /**
      *  排序手牌

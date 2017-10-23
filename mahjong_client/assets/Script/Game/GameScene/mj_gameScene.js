@@ -235,6 +235,7 @@ cc.Class({
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
         }, 0.5);
+
     },
     /**
      *  排序玩家
@@ -410,6 +411,7 @@ cc.Class({
                 if (data.lostcards4ting) {
                     cc.dd.cardMgr.setTingList(data.lostcards4ting);
                 }
+                this.showTingSign();
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -437,6 +439,7 @@ cc.Class({
                 if (data.lostcards4ting) {
                     cc.dd.cardMgr.setTingList(data.lostcards4ting);
                 }
+                this.showTingSign();
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -524,14 +527,24 @@ cc.Class({
                     cc.log(`玩家必须胡牌`);
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
                 } else {
+                    let operateData = null;
                     if (data.hu) {
-                        this.playerArr[0].getComponent("PlayerSelf").showOperateBtn({hu: data.hu});
+                        operateData = {hu: data.hu};
+                    }
+                    if (data.gangpais) {
+                        operateData.gang = true;
+                    }
+                    if (operateData) {
+                        cc.dd.cardMgr.setZiMoGang(data.gangpais);
+                        this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
                     }
                     if (cc.dd.cardMgr.getIsTing()) {
                         if (!data.hu) {
                             cc.log(`自动出牌`);
                             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
                         }
+                    } else {
+                        this.showTingSign();
                     }
                 }
             }
@@ -592,7 +605,7 @@ cc.Class({
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
-        }, 0.5);
+        }, 2);
     },
 
     // 指针转动
@@ -610,16 +623,9 @@ cc.Class({
         if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
             cc.log(`轮到自己操作`);
             cc.dd.cardMgr.setIsCanOutCard(true);
-            const tingList = cc.dd.cardMgr.getTingList();
-            if (tingList) {
-                const cardNode = this.playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
-                tingList.forEach((item) => {
-                    cardNode.children.forEach((card) => {
-                        if (item == card.cardId) {
-                            card.getChildByName("TingSign").active = true;
-                        }
-                    });
-                });
+            if (cc.dd.cardMgr.getReadyOutCard()) {
+                cc.dd.cardMgr.getReadyOutCard().getComponent("Card").cancelSelect();
+                cc.dd.cardMgr.setReadyOutCard(null);
             }
         } else {
             cc.log(`不是自己操作, 不能出牌`);
@@ -631,6 +637,20 @@ cc.Class({
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
         }, 0.5);
+    },
+    // 显示听牌的标志
+    showTingSign() {
+        const tingList = cc.dd.cardMgr.getTingList();
+        if (tingList) {
+            const cardNode = this.playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+            tingList.forEach((item) => {
+                cardNode.children.forEach((card) => {
+                    if (item == card.cardId) {
+                        card.getChildByName("TingSign").active = true;
+                    }
+                });
+            });
+        }
     },
     /**
      *  清理桌面
@@ -694,6 +714,7 @@ cc.Class({
         cc.dd.cardMgr.setTingList(null);
         cc.dd.cardMgr.setIsTing(false);
         cc.dd.cardMgr.setMoCard(null);
+        cc.dd.cardMgr.setZiMoGang(null);
     },
     /**
      *  根据玩家id返回本地座位号
