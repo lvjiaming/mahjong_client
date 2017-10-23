@@ -40,7 +40,16 @@ cc.Class({
     // 杠
     onGangClick() {
         cc.log(`发送杠牌请求`);
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP);
+        const gangList = cc.dd.cardMgr.getZiMoGang();
+        if (gangList) {
+            cc.dd.Reload.loadPrefab("Game/Prefab/GangSelect", (prefab) => {
+                const gangLayer = cc.instantiate(prefab);
+                gangLayer.getComponent("GangSelect").initCard(gangList);
+                this.node.addChild(gangLayer);
+            });
+        } else {
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP);
+        }
     },
     onHuClick() {
         cc.log(`发送胡牌请求`);

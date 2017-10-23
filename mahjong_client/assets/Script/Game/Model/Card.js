@@ -112,6 +112,21 @@ cc.Class({
                             }
                         });
                     }
+                    // 手牌更新
+                    const cardList = cc.dd.cardMgr.getSelfHandCard();
+                    for (let i = 0; i < cardList.length; i ++) {
+                        if (cardList[i] === this.id) {
+                            cardList.splice(i, 1);
+                            break;
+                        }
+                    }
+                    const handNode = cc.find("UI_ROOT").getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+                    const moCard = cc.find("UI_ROOT").getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+                    moCard.children.forEach((item) => {
+                        item.destroy();
+                    });
+                    cc.dd.cardMgr.setIsCanOutCard(false);
+                    cc.dd.cardMgr.updateCard(handNode);
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: tingPai});
 
                     // 处理直接更新手牌
