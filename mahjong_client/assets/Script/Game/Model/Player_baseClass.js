@@ -58,6 +58,11 @@ cc.Class({
         this.setNickNameLabel(data.nickname);
         this.setCoinLabel(data.score);
         this.setHeadSpr(data.wx_portrait);
+        if(!data.needHideIp) {
+            this.setSameIPAdress(data.ipaddress);
+        }else {
+            this.setSameIPAdress("");
+        }
     },
     /**
      *  设置玩家的本地桌位号
@@ -92,6 +97,14 @@ cc.Class({
      */
     setHeadSpr(url) {
         cc.dd.setPlayerHead(url,this.HeadNode)
+    },
+    /**
+     * 设置ip地址
+     */
+    setSameIPAdress(ipadress) {
+        if(this.IPAdressLabel){
+            this.IPAdressLabel.string = "IP地址:" + ipadress;
+        }
     },
     /**
      *  生成手牌

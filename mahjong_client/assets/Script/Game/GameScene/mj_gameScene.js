@@ -145,6 +145,28 @@ cc.Class({
         const userList = this.sortUserList(data.myuid);
         cc.dd.roomEvent.setIsCache(false);
         cc.dd.cardMgr.setHuiPai(data.room.guicard);
+        // 相同IP地址需要显示
+        let count = 0;
+        let newarr = [];
+        for (i = 0; i < userList.length-1; i++) { //
+            if (userList[i].ipaddress != userList[i + 1].ipaddress) {
+                newarr.push(userList.slice(count, i + 1));
+                count = i + 1;
+            }
+        }
+        cc.log(JSON.stringify(newarr) + "数组：" +userList);
+        if(newarr.length > 0 ) {
+            userList.forEach((item, index) => {
+                    if(item == newarr[0][0]){
+                        item.needHideIp = true;
+                    }
+                    if(newarr.length == 2) {
+                        if(item == newarr[0][1]){
+                            item.needHideIp = true;
+                        }
+                    }
+            });
+        }
         userList.forEach((item, index) => {
             this.playerArr[index].active = true;
             let player_class = null;
