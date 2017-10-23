@@ -38,6 +38,11 @@ cc.Class({
             type: cc.Node,
             tooltip: "摸牌的节点",
         },
+        IPAdressLabel: {
+            default: null,
+            type: cc.Label,
+            tooltip: "ip地址相同的需要显示出来",
+        },
         // 数据
         _HandCardArr: [], // 手牌数组
         _PengCardArr: [], // 碰牌数组
