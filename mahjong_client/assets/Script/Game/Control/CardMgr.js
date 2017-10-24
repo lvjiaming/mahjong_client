@@ -240,7 +240,7 @@ const CardMgr = cc.Class({
                     } else {
                         for (let i = 0; i < pengOrGangId.length; i ++) {
                             for (let j = 0; j < this._selfHandCard.length; j++) {
-                                if (pengOrGangId[i] == this._selfHandCard[j]) {
+                                if (pengOrGangId[i] == this._selfHandCard[j] && pengOrGangId[i] != data.chipai) {
                                     this._selfHandCard.splice(j, 1);
                                     break;
                                 }

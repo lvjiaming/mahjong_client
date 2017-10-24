@@ -242,7 +242,6 @@ cc.Class({
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
         }, 0.5);
-
     },
     /**
      *  排序玩家
@@ -291,7 +290,7 @@ cc.Class({
         this.updateCurrentTime();
         this.callback = function () {
             this.updateCurrentTime();
-        }
+        };
         this.schedule(this.callback, 60);
 
         // 显示与否，邀请按钮
@@ -534,7 +533,7 @@ cc.Class({
                     cc.log(`玩家必须胡牌`);
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
                 } else {
-                    let operateData = null;
+                    let operateData = {};
                     if (data.hu) {
                         operateData = {hu: data.hu};
                     }
@@ -548,7 +547,13 @@ cc.Class({
                     if (cc.dd.cardMgr.getIsTing()) {
                         if (!data.hu) {
                             cc.log(`自动出牌`);
-                            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                            this.scheduleOnce(() => {
+                                moNode.children.forEach((item) => {
+                                    item.destroy();
+                                });
+                                moNode.removeAllChildren();
+                                cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                            }, 0.5);
                         }
                     } else {
                         this.showTingSign();
@@ -620,7 +625,9 @@ cc.Class({
         cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.pointtouid);
         if (data.mopai) {
-            this.playerMoCard(data, data.pointtouid);
+            if (localSeat !== 1) {
+                this.playerMoCard(data, data.pointtouid);
+            }
         }
         if (localSeat) {
             this.TimerNode.getComponent("TimerControl").ratateTimer(localSeat);
