@@ -134,6 +134,10 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").updateChargingSign(data);
                 break;
             }
+            case cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE: {
+                this.node.getComponent("mj_gameScene").updateBatteryLevelProgressBar(data);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

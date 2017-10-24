@@ -57,7 +57,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 418,
+      "width": 230,
       "height": 125
     },
     "_rotationX": 0,
@@ -66,8 +66,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -220,
-      "y": 300
+      "x": -120,
+      "y": 265
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -111,8 +111,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 213.37,
-      "height": 40
+      "width": 227.81,
+      "height": 30
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -121,7 +121,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -20
+      "y": -35
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -139,14 +139,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
-    "_lineHeight": 40,
+    "_actualFontSize": 25,
+    "_fontSize": 25,
+    "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "解散房间（00）",
+    "_N$string": "解散房间申请（00）",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -198,8 +198,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
-      "height": 30
+      "width": 50,
+      "height": 10
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -207,7 +207,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -150,
+      "x": -90,
       "y": -85
     },
     "_skewX": 0,
@@ -289,8 +289,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
-      "height": 30
+      "width": 50,
+      "height": 10
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -298,7 +298,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -50,
+      "x": -35,
       "y": -85
     },
     "_skewX": 0,
@@ -382,8 +382,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
-      "height": 30
+      "width": 50,
+      "height": 10
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -391,7 +391,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 50,
+      "x": 20,
       "y": -85
     },
     "_skewX": 0,
@@ -475,8 +475,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
-      "height": 30
+      "width": 50,
+      "height": 10
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -484,7 +484,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 150,
+      "x": 75,
       "y": -85
     },
     "_skewX": 0,

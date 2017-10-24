@@ -123,16 +123,17 @@ cc.dd.getCurrentBatteryChargingStatus = () => {
     }
 };
 // 被原生回调的更新电池电量的方法
-cc.dd.updateCurrentBatteryLevel = (level) => {
-    cc.log("oc观察者观察电量发生改变回调"+level);
-    // cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE
-};
+// cc.dd.updateCurrentBatteryLevel = (level) => {
+//     cc.log("oc观察者观察电量发生改变回调"+level);
+//     // cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE
+// };
 // 被原生回调的更新电池是否在充电状态的方法
-cc.dd.updateCurrentBatteryStatus = (sta) => {
-    cc.log("oc观察者观察电量发生改变回调"+sta);
-    if(sta == "Charging"){
-        cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,true);
-    }else {
-        cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
-    }
-};
+// cc.dd.updateCurrentBatteryStatus = (sta) => {
+//     cc.log("oc");
+//     // cc.log("oc观察者观察电量发生改变回调"+sta);
+//     // if(sta == "Charging"){
+//     //     cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,true);
+//     // }else {
+//     //     cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
+//     // }
+// };

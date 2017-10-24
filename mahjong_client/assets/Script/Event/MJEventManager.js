@@ -259,7 +259,7 @@ const MJEventManager = cc.Class({
         }
     },
     /**
-     *  微信回调返回到code后，被调用的方法
+     *  微信回调返回到code后，被调用的方法(被原生回调的)
      * @param wxcode 微信成功授权登录后传过来的code
      */
     recieveWXAuthenticationCode(wxcode){
@@ -268,6 +268,26 @@ const MJEventManager = cc.Class({
     // 往手机本地存用户信息
     writtenUserInfoIntoCellPhone(user) {
         cc.sys.localStorage.setItem(cc.dd.userEvName.USER_INFO_KEY, JSON.stringify(user));
+    },
+    /**
+     *  电量改变监听的回调更新(被原生回调的)
+     * @param sta 充电状态
+     */
+    updateCurrentBatteryStatus(sta) {
+        cc.log("oc观察者观察电量发生改变回调"+sta);
+        if(sta == "Charging"){
+            cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,true);
+        }else {
+            cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
+        }
+    },
+    /**
+     *  电量改变监听的回调更新(被原生回调的)
+     * @param elevel 电量值
+     */
+    updateCurrentBatteryLevel(elevel) {
+        cc.log("oc观察者观察电量发生改变回调"+elevel);
+        // cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE,elevel.toPrecision(2));
     },
 });
 cc.dd.net = MJEventManager.getInstance();
