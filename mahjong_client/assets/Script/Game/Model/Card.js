@@ -127,6 +127,14 @@ cc.Class({
                     });
                     cc.dd.cardMgr.setIsCanOutCard(false);
                     cc.dd.cardMgr.updateCard(handNode);
+
+
+                    const suit = parseInt(this.id / 9) + 1;
+                    const num = this.id % 9 + 1;
+                    cc.dd.playEffect(1, num, suit);
+                    const outCardNode = cc.find("UI_ROOT").getComponent("mj_gameScene").playerArr[0].getChildByName("OutCardLayer");
+                    cc.dd.cardMgr.outCard(outCardNode, 1, this.id);
+
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: this.id, tingpai: tingPai});
 
                     // 处理直接更新手牌

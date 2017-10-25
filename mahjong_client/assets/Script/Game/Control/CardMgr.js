@@ -57,6 +57,7 @@ const CardMgr = cc.Class({
     _isTing: null, // 是否是听牌
     _moCard: null, // 摸的牌
     _ziMoGangCard: null, // 自摸杠的牌
+    _CurOutCard: null, // 当前出的牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -169,6 +170,10 @@ const CardMgr = cc.Class({
             }
             case cc.dd.gameCfg.OPERATE_TYPE.GANG: {
                 pengOrGangId = data.gangpai;
+                if (data.mopaigang) {
+                    pengOrGangId = this.getMoCard();
+                    data.angang = true;
+                }
                 if (!data.angang) {
                     // needCre = false;
                     destoryNum = 3;
@@ -240,7 +245,7 @@ const CardMgr = cc.Class({
                     } else {
                         for (let i = 0; i < pengOrGangId.length; i ++) {
                             for (let j = 0; j < this._selfHandCard.length; j++) {
-                                if (pengOrGangId[i] == this._selfHandCard[j]) {
+                                if (pengOrGangId[i] == this._selfHandCard[j] && pengOrGangId[i] != data.chipai) {
                                     this._selfHandCard.splice(j, 1);
                                     break;
                                 }
@@ -346,13 +351,21 @@ const CardMgr = cc.Class({
         });
         if (isGang === cc.dd.gameCfg.OPERATE_TYPE.GANG) {
             if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
-                if (data.angang) {
+                if (data.mopaogang) {
                     const gang = pengGang.getChildByName("GangCard");
                     const angang = pengGang.getChildByName("AnGang");
                     gang.active = true;
                     angang.active = false;
                     gang.getComponent("CardSpr").initCard(this.getMoCard());
                 }
+            }
+        }
+        if (!data.notDes) {
+            cc.log(`将牌清掉`);
+            if (this.getCurOutCard()) {
+                this.getCurOutCard().removeFromParent(true);
+                this.getCurOutCard().destroy();
+                this.setCurOutCard(null);
             }
         }
     },
@@ -365,6 +378,9 @@ const CardMgr = cc.Class({
     outCard(o_node, localSeat, data, notDes) {
         if (data == null) {
             return;
+        }
+        if (this.getCurOutCard()) {
+            this.getCurOutCard().getChildByName("Sign").active = false;
         }
         const node1 = o_node.getChildByName("OutCardLayer1");
         const node2 = o_node.getChildByName("OutCardLayer2");
@@ -470,6 +486,8 @@ const CardMgr = cc.Class({
             } else {
                 addNode.addChild(outCard);
             }
+            outCard.getChildByName("Sign").active = true;
+            this.setCurOutCard(outCard);
         }
     },
     /**
@@ -489,9 +507,17 @@ const CardMgr = cc.Class({
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
                     // 听啤的标志
                     if (cc.dd.cardMgr.getTingList()) {
+                        let hasTing = false;
                         cc.dd.cardMgr.getTingList().forEach((item) => {
                             if (item == data.mopai) {
                                 card.getChildByName("TingSign").active = true;
+                                hasTing = true;
+                            }
+                            if (hasTing) {
+                                cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
+                                    const buting = cc.instantiate(prefab);
+                                    this.node.addChild(buting);
+                                });
                             }
                         });
                     }
@@ -625,6 +651,18 @@ const CardMgr = cc.Class({
      */
     getZiMoGang() {
         return this._ziMoGangCard;
+    },
+    /**
+     * 设置当前出牌
+     */
+    setCurOutCard(card) {
+        this._CurOutCard = card;
+    },
+    /**
+     *  得到当前出牌
+     */
+    getCurOutCard() {
+        return this._CurOutCard;
     },
     /**
      *  得到玩家的手牌数组

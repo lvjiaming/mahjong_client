@@ -42,11 +42,15 @@ cc.Class({
         cc.log(`发送杠牌请求`);
         const gangList = cc.dd.cardMgr.getZiMoGang();
         if (gangList) {
-            cc.dd.Reload.loadPrefab("Game/Prefab/GangSelect", (prefab) => {
-                const gangLayer = cc.instantiate(prefab);
-                gangLayer.getComponent("GangSelect").initCard(gangList);
-                this.node.addChild(gangLayer);
-            });
+            if (gangList.length == 1) {
+                cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP, gangList[0]);
+            } else {
+                cc.dd.Reload.loadPrefab("Game/Prefab/GangSelect", (prefab) => {
+                    const gangLayer = cc.instantiate(prefab);
+                    gangLayer.getComponent("GangSelect").initCard(gangList);
+                    this.node.addChild(gangLayer);
+                });
+            }
         } else {
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP);
         }
@@ -65,11 +69,15 @@ cc.Class({
         cc.log(`发送吃牌的请求`);
         const chiList = cc.dd.cardMgr.getChiList();
         if (chiList) {
-            cc.dd.Reload.loadPrefab("Game/Prefab/ChiSelect", (prefab) => {
-                const chiLayer = cc.instantiate(prefab);
-                chiLayer.getComponent("ChiSelect").initCard(chiList);
-                this.node.addChild(chiLayer);
-            });
+            if (chiList.length == 1) {
+                cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHICARD_REP, chiList[0]);
+            } else {
+                cc.dd.Reload.loadPrefab("Game/Prefab/ChiSelect", (prefab) => {
+                    const chiLayer = cc.instantiate(prefab);
+                    chiLayer.getComponent("ChiSelect").initCard(chiList);
+                    this.node.addChild(chiLayer);
+                });
+            }
         }
     },
 });

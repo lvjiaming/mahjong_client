@@ -85,16 +85,19 @@ const SoundManger = cc.Class({
         if (this._musicVolume === 0) {
             return;
         }
+
         this._bgm = cc.audioEngine.play(cc.url.raw(url), loop, this._musicVolume);
     },
     /**
      *  播放音效
-     * @param url 路径
+     * @param url 路
      */
     playSound(url) {
         if (this._soundVolume === 0) {
             return;
         }
+        // // 播放这里有问题
+        // console.log(`url:${url}`) // 我给你看真机的问题吧，有日志的，浏览器没问题的
         cc.audioEngine.play(cc.url.raw(url), false, this._soundVolume);
     },
     /**

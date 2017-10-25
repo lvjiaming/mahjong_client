@@ -213,12 +213,6 @@ cc.Class({
                     this.playerPengCard({pengpai: pengcard, penguid: item.UID, notDes: true});
                 });
             }
-            // 渲染暗杠的牌
-            if (item.angangcards) {
-                item.angangcards.forEach((gangcard) => {
-                    this.playerGangCard({ganguid: item.UID, gangpai: gangcard, angang: true, notDes: true});
-                });
-            }
             // 渲染明杠的牌
             if (item.minggangcards) {
                 item.minggangcards.forEach((gangcard) => {
@@ -233,6 +227,12 @@ cc.Class({
             }
 
         });
+        // 渲染暗杠的牌
+        if (data.angangcards) {
+            data.angangcards.forEach((gangcard) => {
+                this.playerGangCard({ganguid: data.myuid, gangpai: gangcard, angang: true, notDes: true});
+            });
+        }
         // 初始化墙头牌
         this.initQiangTouCard(data.room.qiangtoucard);
         // 初始化顶部信息
@@ -242,7 +242,6 @@ cc.Class({
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
         }, 0.5);
-
     },
     /**
      *  排序玩家
@@ -291,7 +290,7 @@ cc.Class({
         this.updateCurrentTime();
         this.callback = function () {
             this.updateCurrentTime();
-        }
+        };
         this.schedule(this.callback, 60);
 
         // 显示与否，邀请按钮
@@ -370,9 +369,6 @@ cc.Class({
     playerOutCard(data) {
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
-            const suit = parseInt(data.chupai / 9) + 1;
-            const num = data.chupai % 9 + 1;
-            cc.dd.playEffect(1, num, suit)
         }
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
@@ -382,7 +378,12 @@ cc.Class({
                     cc.dd.cardMgr.outCard(outNode, localSeat, item, data.notDes);
                 });
             } else {
-                cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
+                if (localSeat !== 1) {
+                    const suit = parseInt(data.chupai / 9) + 1;
+                    const num = data.chupai % 9 + 1;
+                    cc.dd.playEffect(1, num, suit);
+                    cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
+                }
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -534,24 +535,37 @@ cc.Class({
                     cc.log(`玩家必须胡牌`);
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
                 } else {
-                    let operateData = null;
+                    let operateData = {};
                     if (data.hu) {
                         operateData = {hu: data.hu};
                     }
                     if (data.gangpais) {
                         operateData.gang = true;
                     }
-                    if (operateData) {
-                        cc.dd.cardMgr.setZiMoGang(data.gangpais);
-                        this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
-                    }
-                    if (cc.dd.cardMgr.getIsTing()) {
-                        if (!data.hu) {
-                            cc.log(`自动出牌`);
-                            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                    cc.dd.cardMgr.setZiMoGang(data.gangpais);
+                    const hasCre = this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
+                    if (!hasCre) {
+                        if (cc.dd.cardMgr.getIsTing()) {
+                            if (!data.hu) {
+                                cc.log(`自动出牌`);
+                                this.scheduleOnce(() => {
+                                    moNode.children.forEach((item) => {
+                                        item.destroy();
+                                    });
+                                    moNode.removeAllChildren();
+                                    const suit = parseInt(data.mopai / 9) + 1;
+                                    const num = data.mopai % 9 + 1;
+                                    cc.dd.playEffect(1, num, suit);
+                                    const outCardNode = this.playerArr[0].getChildByName("OutCardLayer");
+                                    cc.dd.cardMgr.outCard(outCardNode, 1, data.mopai);
+                                    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
+                                }, 0.5);
+                            }
+                        } else {
+                            this.showTingSign();
                         }
                     } else {
-                        this.showTingSign();
+                        cc.log(`有其他操作`);
                     }
                 }
             }
@@ -620,7 +634,9 @@ cc.Class({
         cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.pointtouid);
         if (data.mopai) {
-            this.playerMoCard(data, data.pointtouid);
+            if (localSeat !== 1) {
+                this.playerMoCard(data, data.pointtouid);
+            }
         }
         if (localSeat) {
             this.TimerNode.getComponent("TimerControl").ratateTimer(localSeat);
@@ -650,13 +666,21 @@ cc.Class({
         const tingList = cc.dd.cardMgr.getTingList();
         if (tingList) {
             const cardNode = this.playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+            let hasTing = false;
             tingList.forEach((item) => {
                 cardNode.children.forEach((card) => {
                     if (item == card.cardId) {
                         card.getChildByName("TingSign").active = true;
+                        hasTing = true;
                     }
                 });
             });
+            if (hasTing) {
+                cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
+                    const buting = cc.instantiate(prefab);
+                    this.node.addChild(buting);
+                });
+            }
         }
     },
     /**
@@ -722,6 +746,7 @@ cc.Class({
         cc.dd.cardMgr.setIsTing(false);
         cc.dd.cardMgr.setMoCard(null);
         cc.dd.cardMgr.setZiMoGang(null);
+        cc.dd.cardMgr.setCurOutCard(null);
     },
     /**
      *  根据玩家id返回本地座位号
