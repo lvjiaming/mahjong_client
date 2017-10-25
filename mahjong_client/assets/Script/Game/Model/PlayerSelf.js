@@ -37,6 +37,7 @@ cc.Class({
         if (guoBtn) {
             this.operateBtnNode.getChildByName("BtnGuo").active = true;
         }
+        return guoBtn;
     },
     // 隐藏操作按钮
     hideOperateBtn() {
