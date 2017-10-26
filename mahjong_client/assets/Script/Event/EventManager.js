@@ -112,6 +112,12 @@ const EventManager = cc.Class({
         this._cacheList.push(body);
     },
     /**
+     *  q清空列表
+     */
+    cleanCacheList() {
+        this._cacheList = [];
+    },
+    /**
      *  缓存的开关
      * @param state
      */

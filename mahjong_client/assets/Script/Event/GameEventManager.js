@@ -10,6 +10,13 @@ const GameEventManager = cc.Class({
     reconnectTimer: null, // 重连的调度器
 
     isDisConnect: null,  // 是否是主动断开连接
+    _heartCheckTime: null, // 心跳检测的时间
+    _heartCurTime: null, // 当前的时间
+    _heartIsOk: null, // 心跳检测是否正常
+    _heartTimer: null, // 心跳检测的调度器
+
+    _ownSet: null,// 回调监听的对象
+    _isReconnect: null, // 是否是重连的
     /**
      *  构造函数
      */
@@ -21,6 +28,17 @@ const GameEventManager = cc.Class({
         this.reconnectTimer = null;
         this.isDisConnect = false;
         this.hostStr = null;
+        this._heartCheckTime = 1000;
+        this._heartCurTime = 0;
+        this._heartIsOk = true;
+        this._heartTimer = null;
+        this._isReconnect = false;
+    },
+    /**
+     *  设置回调监听的对象
+     */
+    setCallBack(target) {
+        this._ownSet = target;
     },
     /**
      *  连接服务器，已经监听服务器一系列事件
@@ -33,6 +51,15 @@ const GameEventManager = cc.Class({
         this.gameSocket.onopen = () => {
             cc.log(`websocket has connect`);
             this.cleanReconnectTimer();
+            this._heartIsOk = true;
+            cc.dd.tipMgr.hide();
+            this.heartCheck();
+            if (this._isReconnect) {
+                if (this._ownSet) {
+                    this._ownSet.reconnected();
+                }
+                this._isReconnect = false;
+            }
             if (callBack && callBack instanceof Function) {
                 callBack();
             }
@@ -46,11 +73,16 @@ const GameEventManager = cc.Class({
                 this.reconnect();
             }
         };
-        this.gameSocket.onmessage = function (data) {
-            data = JSON.parse(data.data);
-            const msgId = data.command;
-            const msgData = data;
-            self.onMsg(msgId, msgData);
+        this.gameSocket.onmessage = (data) => {
+            if (data.data == "pong") {
+                cc.log(`heart: ${data.data}`);
+                this._heartIsOk = true;
+            } else {
+                data = JSON.parse(data.data);
+                const msgId = data.command;
+                const msgData = data;
+                self.onMsg(msgId, msgData);
+            }
             return;
             //  todo 以下是用protobuf传输数据写法
             if (cc.sys.isNative) {
@@ -73,6 +105,34 @@ const GameEventManager = cc.Class({
             }
         };
     },
+    /**
+     * 心跳检测
+     */
+    heartCheck() {
+        const timeFun = () => {
+            if (this._heartIsOk) {
+                if (this.gameSocket) {
+                    const str = "ping";
+                    if (this.gameSocket.readyState === WebSocket.OPEN) {
+                        this._heartIsOk = false;
+                        this.gameSocket.send(str);
+                    }
+                }
+                this._heartCurTime = 0;
+            } else {
+                this._heartCurTime ++;
+            }
+            if (this._heartCurTime >= 5) {
+                cc.log(`心跳检测有问题`);
+                clearTimeout(this._heartTimer);
+                cc.dd.tipMgr.show("网络连接中断，正在重新连接....");
+                this.close(false);
+            } else {
+                this.heartCheck();
+            }
+        };
+        this._heartTimer = setTimeout(timeFun, this._heartCheckTime);
+    },
 
     /**
      *  重连
@@ -85,6 +145,7 @@ const GameEventManager = cc.Class({
         this.reconnectTimer = setTimeout(() => {
             cc.log(`正在进行第${this.reconnectCount}次重连`);
             this.connect(this.hostStr);
+            this._isReconnect = true;
             this.reconnectCount ++;
         }, this.reconnectTime);
     },
@@ -116,9 +177,10 @@ const GameEventManager = cc.Class({
     /**
      *  关闭与服务器的连接(主动断开)
      */
-    close() {
+    close(isDis) {
         this.gameSocket.close();
-        this.isDisConnect = true;
+        this.gameSocket = null;
+        this.isDisConnect = isDis;
     },
     /**
      *  处理数据（反序列化以及转化）

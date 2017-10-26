@@ -122,9 +122,17 @@ cc.Class({
        // this.PlayerNode.getChildByName("Bottom").getComponent("PlayerSelf").createHandCard(cardArr);
 
         cc.dd.roomEvent.notifyMsg();
+        cc.dd.net.setCallBack(this);
     },
     onDestroy() {
         this.unschedule(this.callback);
+    },
+
+    // 监听重连后的回调
+    reconnected() {
+        cc.log(`重连上了。。。`);
+        cc.dd.roomEvent.cleanCacheList();
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
     },
 
     // 初始化玩家的列表
@@ -367,6 +375,9 @@ cc.Class({
     },
     // 玩家出牌
     playerOutCard(data) {
+        if (this.node.getChildByName("BuTing")) {
+            this.node.getChildByName("BuTing").destroy();
+        }
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
         }
@@ -379,9 +390,11 @@ cc.Class({
                 });
             } else {
                 if (localSeat !== 1) {
-                    const suit = parseInt(data.chupai / 9) + 1;
-                    const num = data.chupai % 9 + 1;
-                    cc.dd.playEffect(1, num, suit);
+                    if (!data.notDes) {
+                        const suit = parseInt(data.chupai / 9) + 1;
+                        const num = data.chupai % 9 + 1;
+                        cc.dd.playEffect(1, num, suit);
+                    }
                     cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
                 }
             }

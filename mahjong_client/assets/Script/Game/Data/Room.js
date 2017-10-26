@@ -33,6 +33,9 @@ const Room = cc.Class({
             cc.dd.roomEvent.addMsg(cc.dd.roomEvName.ROOM_GAME_DATA, data);
         } else {
             cc.dd.roomEvent.addMsgToCacheList(cc.dd.roomEvName.ROOM_GAME_DATA, data);
+            if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE) {
+                cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.MSG_NOTIFY);
+            }
             // cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.ROOM_GAME_DATA, data);
         }
     },
