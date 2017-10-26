@@ -581,9 +581,9 @@ cc.Class({
     oneGameOver(data) {
         cc.dd.roomEvent.setIsCache(false);
         this.cleanDesk();
-        cc.dd.Reload.loadPrefab("Game/Prefab/OneGameOver", (prefab) => {
+        cc.dd.Reload.loadPrefab("Game/Prefab/JieSuan", (prefab) => {
             const gameOver = cc.instantiate(prefab);
-            gameOver.getComponent("GameOver").initNote(data, this);
+            gameOver.getComponent("NewGameOver").initNote(data, this);
             this.node.addChild(gameOver);
         });
         // this.scheduleOnce(() => {

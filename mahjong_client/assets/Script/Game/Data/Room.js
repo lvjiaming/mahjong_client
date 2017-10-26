@@ -24,6 +24,8 @@ const Room = cc.Class({
     properties: {
         userList: [], // 玩家列表
         _countNum: null, // 倒计时
+        _winneruid:null,  // 结算界面，赢家id
+        _dianpaouid: null, // 结算界面，点炮id
     },
     // 房间数据
     updataRoomData(data) {

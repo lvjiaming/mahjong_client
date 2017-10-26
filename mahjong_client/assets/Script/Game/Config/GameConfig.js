@@ -78,7 +78,7 @@ module.exports = {
         EVENT_MOCARD_RAB: 4012, // 摸牌的广播
         EVENT_GUOCARD_REP: 2002, // 过牌的请求
         EVENT_TIMER_SPRCIEL: 4010, // 指针转动
-        EVENT_ONE_GAME_OVER: 4017, // 结算
+        EVENT_ONE_GAME_OVER: 4018, // 结算 //原来的4017
         EVENT_PLAYER_TING_CARD: 4022, // 玩家听牌
         EVENT_BAO_CARD_CHANGE: 4021,  // 宝牌更换
         EVENT_HAI_DI_LAO: 4020, // 海底捞
