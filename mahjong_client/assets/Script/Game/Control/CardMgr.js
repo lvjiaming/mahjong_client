@@ -188,7 +188,11 @@ const CardMgr = cc.Class({
                         });
                     }
                 } else {
-                    destoryNum = 4;
+                    if (localSeat !== 1) {
+                        destoryNum = 3;
+                    } else {
+                        destoryNum = 4;
+                    }
                 }
                 break;
             }
@@ -323,6 +327,14 @@ const CardMgr = cc.Class({
                     index ++;
                 }
             });
+            if (!data.notDes) {
+                cc.log(`将牌清掉`);
+                if (this.getCurOutCard()) {
+                    this.getCurOutCard().removeFromParent(true);
+                    this.getCurOutCard().destroy();
+                    this.setCurOutCard(null);
+                }
+            }
             return;
         }
         pengGang.cardId = pengOrGangId;
