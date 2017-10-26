@@ -513,6 +513,7 @@ cc.Class({
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
+            cc.log(`胡牌的协议控制`);
         }, 3);
     },
     huAni(localSeat, data, huSpr) {
@@ -551,9 +552,11 @@ cc.Class({
                     let operateData = {};
                     if (data.hu) {
                         operateData = {hu: data.hu};
+                        operateData.customData = true;
                     }
                     if (data.gangpais) {
                         operateData.gang = true;
+                        operateData.customData = true;
                     }
                     cc.dd.cardMgr.setZiMoGang(data.gangpais);
                     const hasCre = this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
@@ -579,6 +582,9 @@ cc.Class({
                         }
                     } else {
                         cc.log(`有其他操作`);
+                        if (!cc.dd.cardMgr.getIsTing()) {
+                            this.showTingSign();
+                        }
                     }
                 }
             }
@@ -622,7 +628,12 @@ cc.Class({
     },
     // 更换宝牌
     baoCardChange(data) {
+        cc.dd.roomEvent.setIsCache(false);
         this.setBaoCard(true, data.baocard);
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);
     },
     haiDiLao(data) {
         cc.dd.roomEvent.setIsCache(false);
