@@ -65,7 +65,7 @@ cc.Class({
         // 更新局数信息
         if (this.NextBtn) {
             // this.NextBtn.getCompnent("label").string = `第${data.nowround}/${data.rounds}局`;
-            this.NextBtnTitle.string = `开始下一局（${data.nowround}）`;
+            this.NextBtnTitle.string = `开始下一局（${data.nowround+1}）`;
             if (data.nowround === data.rounds) {
                 this.showBtn(true);
             } else {
@@ -75,18 +75,28 @@ cc.Class({
         // 胡牌类型
         if(this.HuTypeSprite) {
             cc.dd.Reload.loadAtlas("Game/Atlas/hutype", (atlas) => {
-                if(data == -1) {
+                if(data.hutype == -1) {
                     this.HuTypeSprite.spriteFrame = atlas.getSpriteFrame(JIESUAN_HU_TYPE_NAME[7]);
-
                 }else {
                     this.HuTypeSprite.spriteFrame = atlas.getSpriteFrame(JIESUAN_HU_TYPE_NAME[data.hutype]);
                 }
             });
         }
-        // 鬼牌
-        this.initGuiCard(data.guicard);
-        // 宝牌
-        this.setBaoCard(true,data.baocard);
+        if(data.hutype == -1) {
+            this.GuiPaiNode.active = false;
+            this.BaoPaiNode.active = false;
+            this.winnerCards.active = false;
+        }else {
+            // 鬼牌
+            this.initGuiCard(data.guicard);
+            // 宝牌
+            this.setBaoCard(true,data.baocard);
+            // 保存赢家id
+            cc.dd.room._winneruid = data.winneruid;
+            cc.dd.room._dianpaouid = data.dianpaouid;
+            // 赢家牌面
+            this.presentCards(data);
+        }
         // 四人分数
         cc.dd.Reload.loadPrefab("Game/Prefab/InnerGameRecord", (prefab) => {
             data.userlist.forEach((item) => {
@@ -95,8 +105,6 @@ cc.Class({
             this.CenterContent.addChild(Record);
             });
         });
-        // 赢家牌面
-        this.presentCards(data);
     },
     // 显示按钮
     showBtn(state) {
@@ -149,16 +157,29 @@ cc.Class({
     presentCards(data) {
         let parantNode = this.winnerCards;
         cc.dd.Reload.loadAtlas("Game/Atlas/gameOver", (atlas) => {
+            const handcardNode = parantNode.getChildByName("HandCard");
             // 手牌
             if (data.winnerhandcards) {
             cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
                 data.winnerhandcards.forEach((item) => {
                 const card = cc.instantiate(prefab);
-            const str = "little_card_" + (item  + 1);
-            card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
-            parantNode.getChildByName("HandCard").addChild(card);
+                const str = "little_card_" + (item  + 1);
+                card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                handcardNode.addChild(card);
         });
         });
+        }
+        if(data.hucard) {
+            cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
+                const card = cc.instantiate(prefab);
+                const cardinvisable = cc.instantiate(prefab);
+                cardinvisable.active = false;
+                const str = "little_card_" + data.hucard;
+                card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                // handcardNode.addChild(cardinvisable);
+                // handcardNode.addChild(card);
+                parantNode.getChildByName("HuCard").addChild(card);
+            });
         }
         // 碰的牌
         cc.dd.Reload.loadPrefab("Game/Prefab/GO_PengGang", (prefab) => {

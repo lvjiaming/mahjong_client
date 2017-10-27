@@ -12,6 +12,11 @@ cc.Class({
             type: cc.Label,
             tooltip: "tag",
         },
+        NicknameLayout: {
+            default: null,
+            type: cc.Node,
+            tooltip: "昵称的layout层",
+        },
         Nickname: {
             default: null,
             type: cc.Label,
@@ -32,16 +37,6 @@ cc.Class({
             type: cc.Node,
             tooltip: "庄家头像层",
         },
-        dianpao: {
-            default: null,
-            type: cc.Node,
-            tooltip: "点炮图标",
-        },
-        yingjia: {
-            default: null,
-            type: cc.Node,
-            tooltip: "赢家图标",
-        },
     },
 
     // use this for initialization
@@ -57,9 +52,39 @@ cc.Class({
         this.Nickname.string = data.nickname;
         this.GameTag.string = data.tags;
         // cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
-        if(data.tags.indexOf("庄") != -1){
+        if(data.tags.indexOf("庄") != -1) {
             this.zhuangjia.active = true;
         }
-
+        let nlayout = this.NicknameLayout;
+        if(data.UID === cc.dd.room._winneruid) {
+            cc.dd.Reload.loadAtlas("Game/Atlas/gameOverAl",(atlas) => {
+                var node1 = new cc.Node('numstr1');
+                var sp1 = node1.addComponent(cc.Sprite);
+                sp1.spriteFrame = atlas.getSpriteFrame("js-miying@2x");
+                nlayout.addChild(node1);
+            });
+        }
+        if(data.UID === cc.dd.room._dianpaouid) {
+            cc.dd.Reload.loadAtlas("Game/Atlas/gameOverAl",(atlas) => {
+                var node1 = new cc.Node('numstr1');
+                var sp1 = node1.addComponent(cc.Sprite);
+                sp1.spriteFrame = atlas.getSpriteFrame("js-midp@2x");
+                nlayout.addChild(node1);
+            });
+        }
+        cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+            const ponitstr = cc.instantiate(prefab);
+            ponitstr.getComponent("composeNum").initPoint(data.huscore,atlas);
+            this.FristPoint.addChild(ponitstr);
+            });
+        });
+        cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+            const ponitstr = cc.instantiate(prefab);
+            ponitstr.getComponent("composeNum").initPoint(data.gangscore,atlas);
+            this.SecondPoint.addChild(ponitstr);
+            });
+        });
     },
 });

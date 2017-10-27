@@ -90,7 +90,7 @@ cc.Class({
         TimeLabel: {
             default: null,
             type: cc.Label,
-            tooltip: "时间",
+            tooltip: "当前时间",
         },
         HuAniNode: {
             default: null,
@@ -210,6 +210,11 @@ cc.Class({
                     cc.dd.cardMgr.setIsTing(item.isting);
                 }
                 this.playerArr[index].getChildByName("InfoBk").getChildByName("Ting").active = item.isting;
+            }
+        // 初始化庄家
+        // cc.log("庄家zhi:"+data.isbanker);
+            if(item.isbanker.toString() === "true") {
+                this.playerArr[index].getChildByName("InfoBk").getChildByName("zhuangsign").active = true;
             }
 
             this.playerArr[index].userInfo = item;
