@@ -60,9 +60,14 @@ cc.Class({
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
     },
     // 过
-    onGuoClick() {
+    onGuoClick(event) {
         cc.log(`过牌`);
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+        if ( event.target.customData) {
+            this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+            cc.dd.cardMgr.setIsCanOutCard(true);
+        } else {
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+        }
     },
     // 吃
     onChiClick() {

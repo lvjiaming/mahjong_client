@@ -35,6 +35,10 @@ cc.Class({
             cc.dd.cardMgr.setChiList(data.chilist);
         }
         if (guoBtn) {
+            if (data.customData) {
+                this.operateBtnNode.getChildByName("BtnGuo").customData = data.customData;
+                cc.dd.cardMgr.setIsCanOutCard(false);
+            }
             this.operateBtnNode.getChildByName("BtnGuo").active = true;
         }
         return guoBtn;
