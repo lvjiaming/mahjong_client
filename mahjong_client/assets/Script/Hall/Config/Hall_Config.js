@@ -8,6 +8,7 @@ module.exports = {
         LOU_BAO: 4, // 喽宝
         JIA_HU: 5, // 夹胡
         DIANPAO_BAOSANJIA: 6,// 点炮包三家
+        QING_YI_SE: 7, // 清一色
     },
 };
 cc.dd.hall_config = module.exports;

@@ -83,7 +83,7 @@ cc.Class({
      * @param data
      */
     initInfo(data) {
-        cc.log(`初始化单个信息`);
+        // cc.log(`初始化单个信息`);
         this.RoomID.string = "房间号: " + data.roomid;
         this.GameDate.string = "对战时间: " + data.time;
         this.NicknameOne.string =data.nickname1;

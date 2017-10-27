@@ -45,6 +45,7 @@ cc.AndroidDeviceId = (id) => {
 cc.dd.setPlayerHead = (url, head) => {
     if (cc.sys.isNative) {
         const headUrl = cc.dd.pubConst.IMAGE_PREFIX_HOST + url;  // 此处写你拼接的url
+        cc.log(headUrl);
         cc.loader.load(headUrl, (err, texture) => {
             if (err) {
                 cc.error(err);

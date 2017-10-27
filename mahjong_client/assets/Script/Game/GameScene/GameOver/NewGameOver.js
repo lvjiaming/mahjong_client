@@ -163,21 +163,19 @@ cc.Class({
             cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
                 data.winnerhandcards.forEach((item) => {
                 const card = cc.instantiate(prefab);
-                const str = "little_card_" + (item  + 1);
+                const str = "little_card_" + (item +1);
                 card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
                 handcardNode.addChild(card);
         });
         });
         }
-        if(data.hucard) {
+        if(data.hucard || data.hucard == 0) {
             cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
                 const card = cc.instantiate(prefab);
                 const cardinvisable = cc.instantiate(prefab);
                 cardinvisable.active = false;
-                const str = "little_card_" + data.hucard;
+                const str = "little_card_" + (data.hucard+1);
                 card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
-                // handcardNode.addChild(cardinvisable);
-                // handcardNode.addChild(card);
                 parantNode.getChildByName("HuCard").addChild(card);
             });
         }

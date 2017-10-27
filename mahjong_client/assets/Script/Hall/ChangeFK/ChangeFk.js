@@ -12,6 +12,11 @@ cc.Class({
             type: cc.EditBox,
             tooltip: "输入框",
         },
+        NumChangeEditBox: {
+            default: null,
+            type: cc.EditBox,
+            tooltip: "房卡数输入框",
+        },
         totalCardLabel: {
             default: null,
             type: cc.Label,
@@ -30,6 +35,10 @@ cc.Class({
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
         this.totalCardLabel.string = cc.dd.user.getUserInfo().roomcardnum + "张房卡可以转让";
+        if(cc.sys.ismobile) {
+            this.changeEditBox.InputMode = NUMERIC;
+            this.NumChangeEditBox.InputMode = NUMERIC;
+        }
     },
     onDestroy() {
         cc.dd.userEvent.removeObserver(this);
@@ -87,5 +96,21 @@ cc.Class({
                 cc.log(`unkown event: ${event}`);
             }
         }
+    },
+    onNumEditBoxStartEdting() {
+        cc.log("开始编辑");
+        // this.NumChangeEditBox.string = this._preNum.toString();
+        this.numLabel.node.active = false;
+    },
+    onNumEditBoxEdtingChanging() {
+        cc.log("编辑中途");
+        this._preNum = parseInt(this.NumChangeEditBox.string);
+    },
+    onNumEditBoxEndEdting() {
+        cc.log("结束编辑");
+        this.numLabel.node.active = true;
+        this._preNum = parseInt(this.NumChangeEditBox.string);
+        this.numLabel.string = this._preNum;
+        this.NumChangeEditBox.string = "";
     },
 });

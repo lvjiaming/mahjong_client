@@ -6,7 +6,8 @@ const PLAY_OPERA_NAME = [
     "会牌",
     "搂宝",
     "夹胡",
-    "点炮包三家"
+    "点炮包三家",
+    "清一色",
 ];
 const PLAY_OPERA_NAME_ORAL = [
     null,
@@ -15,7 +16,8 @@ const PLAY_OPERA_NAME_ORAL = [
     "带会儿",
     "搂宝",
     "夹胡",
-    "点炮赔三家"
+    "点炮赔三家",
+    "清一色",
 ];
 cc.Class({
     extends: cc.Component,
