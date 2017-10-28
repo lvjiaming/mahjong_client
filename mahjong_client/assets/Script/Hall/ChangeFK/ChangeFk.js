@@ -35,7 +35,7 @@ cc.Class({
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
         this.totalCardLabel.string = cc.dd.user.getUserInfo().roomcardnum + "张房卡可以转让";
-        if(cc.sys.ismobile) {
+        if(cc.sys.isMobile) {
             this.changeEditBox.InputMode = NUMERIC;
             this.NumChangeEditBox.InputMode = NUMERIC;
         }
