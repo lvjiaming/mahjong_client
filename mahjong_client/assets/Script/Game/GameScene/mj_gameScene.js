@@ -455,8 +455,13 @@ cc.Class({
             if (localSeat == 1) {
                 if (data.lostcards4ting) {
                     cc.dd.cardMgr.setTingList(data.lostcards4ting);
+                    // let operateData = {};
+                    // if (data.lostcards4ting.length > 0) {
+                    //     operateData.ting = true;
+                    // }
+                    // this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
                 }
-                this.showTingSign();
+                //this.showTingSign();
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -483,8 +488,13 @@ cc.Class({
             if (localSeat == 1) {
                 if (data.lostcards4ting) {
                     cc.dd.cardMgr.setTingList(data.lostcards4ting);
+                    // let operateData = {};
+                    // if (data.lostcards4ting.length > 0) {
+                    //     operateData.ting = true;
+                    // }
+                    // this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
                 }
-                this.showTingSign();
+                //this.showTingSign();
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -509,6 +519,7 @@ cc.Class({
         const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
+            cc.log(`进行杠牌的操作`);
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.GANG);
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -566,16 +577,19 @@ cc.Class({
             const moNode = this.playerArr[localSeat - 1].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
             cc.dd.cardMgr.MoCard(moNode, localSeat, data);
             if (localSeat == 1) {
+                let operateData = {};
                 if (data.ting) {
                     cc.dd.cardMgr.setTingList(data.ting);
+                    if (data.ting.length > 0) {
+                        operateData.ting = true;
+                    }
                 }
                 if (data.forcehu) {
                     cc.log(`玩家必须胡牌`);
                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
                 } else {
-                    let operateData = {};
                     if (data.hu) {
-                        operateData = {hu: data.hu};
+                        operateData.hu = data.hu;
                         operateData.customData = true;
                     }
                     if (data.gangpais) {
@@ -606,9 +620,9 @@ cc.Class({
                         }
                     } else {
                         cc.log(`有其他操作`);
-                        if (!cc.dd.cardMgr.getIsTing()) {
-                            this.showTingSign();
-                        }
+                        // if (!cc.dd.cardMgr.getIsTing()) {
+                        //     this.showTingSign();
+                        // }
                     }
                 }
             }
@@ -637,6 +651,12 @@ cc.Class({
     // 玩家听牌
     playerTingCard(data) {
         cc.dd.roomEvent.setIsCache(false);
+
+        cc.dd.playEffect(2, cc.dd.soundName.V_TING);
+        cc.dd.Reload.loadPrefab("Game/Prefab/TingAni", (prefab) => {
+            const gangAni = cc.instantiate(prefab);
+            this.node.addChild(gangAni);
+        });
 
         const localSeat = this.getLocalSeatByUserId(data.tinguid);
         this.playerArr[localSeat - 1].getChildByName("InfoBk").getChildByName("Ting").active = true;
@@ -681,6 +701,8 @@ cc.Class({
     timerRatation(data) {
         cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.pointtouid);
+        this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+        cc.dd.cardMgr.setTingList(null);
         if (data.mopai) {
             if (localSeat !== 1) {
                 this.playerMoCard(data, data.pointtouid);
@@ -693,6 +715,15 @@ cc.Class({
         }
         if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
             cc.log(`轮到自己操作`);
+            if (this.playerArr[0].getComponent("PlayerSelf").getTingBtnState()) {
+                let operateData = {};
+                if (cc.dd.cardMgr.getTingList()) {
+                    if (cc.dd.cardMgr.getTingList().length > 0) {
+                        operateData.ting = true;
+                    }
+                    this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
+                }
+            }
             cc.dd.cardMgr.setIsCanOutCard(true);
             if (cc.dd.cardMgr.getReadyOutCard()) {
                 cc.dd.cardMgr.getReadyOutCard().getComponent("Card").cancelSelect();
@@ -702,7 +733,6 @@ cc.Class({
             cc.log(`不是自己操作, 不能出牌`);
             cc.dd.cardMgr.setIsCanOutCard(false);
         }
-        this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
 
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
@@ -723,12 +753,21 @@ cc.Class({
                     }
                 });
             });
-            if (hasTing) {
-                cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
-                    const buting = cc.instantiate(prefab);
-                    this.node.addChild(buting);
+            const moCard = this.playerArr[0].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+            tingList.forEach((item) => {
+                moCard.children.forEach((card) => {
+                    if (item == card.cardId) {
+                        card.getChildByName("TingSign").active = true;
+                        hasTing = true;
+                    }
                 });
-            }
+            });
+            // if (hasTing) {
+            //     cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
+            //         const buting = cc.instantiate(prefab);
+            //         this.node.addChild(buting);
+            //     });
+            // }
         }
     },
     /**

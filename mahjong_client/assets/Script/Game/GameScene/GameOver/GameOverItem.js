@@ -52,8 +52,10 @@ cc.Class({
         this.Nickname.string = data.nickname;
         this.GameTag.string = data.tags;
         // cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
-        if(data.tags.indexOf("庄") != -1) {
-            this.zhuangjia.active = true;
+        if (data.tags) {
+            if(data.tags.indexOf("庄") != -1) {
+                this.zhuangjia.active = true;
+            }
         }
         let nlayout = this.NicknameLayout;
         if(data.UID === cc.dd.room._winneruid) {

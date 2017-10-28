@@ -17,6 +17,12 @@ cc.Class({
     // 显示玩家操作的按钮（比如碰，杠，胡）
     showOperateBtn(data) {
         let guoBtn = false;
+        this.operateBtnNode.getChildByName("BtnGuo").isOnlyTing = false;
+        if (data.ting) {
+            this.operateBtnNode.getChildByName("BtnGuo").isOnlyTing = true;
+            this.operateBtnNode.getChildByName("BtnTing").active = true;
+            guoBtn = true;
+        }
         if (data.hu) {
             this.operateBtnNode.getChildByName("BtnHu").active = true;
             guoBtn = true;
@@ -37,11 +43,15 @@ cc.Class({
         if (guoBtn) {
             if (data.customData) {
                 this.operateBtnNode.getChildByName("BtnGuo").customData = data.customData;
-                cc.dd.cardMgr.setIsCanOutCard(false);
             }
             this.operateBtnNode.getChildByName("BtnGuo").active = true;
+            cc.dd.cardMgr.setIsCanOutCard(false);
         }
         return guoBtn;
+    },
+    // 得到听牌的状态
+    getTingBtnState() {
+        return this.operateBtnNode.getChildByName("BtnTing").active
     },
     // 隐藏操作按钮
     hideOperateBtn() {
