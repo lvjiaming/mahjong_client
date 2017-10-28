@@ -237,6 +237,14 @@ cc.Class({
                     this.playerPengCard({pengpai: pengcard, penguid: item.UID, notDes: true});
                 });
             }
+            // 暗杠的显示
+            if (item.UID != data.myuid) {
+                if (item.angangcards) {
+                    item.angangcards.forEach((card) => {
+                        this.playerGangCard({ganguid: item.UID, gangpai: 1, angang: true, notDes: true});
+                    });
+                }
+            }
             // 渲染明杠的牌
             if (item.minggangcards) {
                 item.minggangcards.forEach((gangcard) => {

@@ -65,6 +65,25 @@ cc.Class({
         if ( event.target.customData) {
             this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
             cc.dd.cardMgr.setIsCanOutCard(true);
+            if (cc.dd.cardMgr.getIsTing()) {
+                const moCard = cc.dd.cardMgr.getMoCard();
+                if (moCard) {
+                    const moNode = this.node.getComponent("mj_gameScene").playerArr[0].
+                    getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+                    this.scheduleOnce(() => {
+                        moNode.children.forEach((item) => {
+                            item.destroy();
+                        });
+                        moNode.removeAllChildren();
+                        const suit = parseInt(moCard / 9) + 1;
+                        const num = moCard % 9 + 1;
+                        cc.dd.playEffect(1, num, suit);
+                        const outCardNode = this.playerArr[0].getChildByName("OutCardLayer");
+                        cc.dd.cardMgr.outCard(outCardNode, 1, moCard);
+                        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: moCard, tingpai: false});
+                    }, 0.5);
+                }
+            }
         } else {
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
         }
