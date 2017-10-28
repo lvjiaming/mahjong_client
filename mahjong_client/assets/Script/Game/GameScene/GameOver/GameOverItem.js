@@ -48,15 +48,16 @@ cc.Class({
      * @param data
      */
     initInfo(data) {
-        cc.log(`初始化单个信息`);
+        // cc.log(`初始化单个信息`);
         this.Nickname.string = data.nickname;
         this.GameTag.string = data.tags;
         // cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
         if (data.tags) {
-            if(data.tags.indexOf("庄") != -1) {
+            if (data.tags.indexOf("庄") != -1) {
                 this.zhuangjia.active = true;
             }
         }
+        cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
         let nlayout = this.NicknameLayout;
         if(data.UID === cc.dd.room._winneruid) {
             cc.dd.Reload.loadAtlas("Game/Atlas/gameOverAl",(atlas) => {
@@ -76,16 +77,39 @@ cc.Class({
         }
         cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
             cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
-            const ponitstr = cc.instantiate(prefab);
-            ponitstr.getComponent("composeNum").initPoint(data.huscore,atlas);
-            this.FristPoint.addChild(ponitstr);
+                const ponitstr = cc.instantiate(prefab);
+                ponitstr.getComponent("composeNum").initPoint(data.huscore,atlas);
+                this.FristPoint.addChild(ponitstr);
             });
         });
         cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
             cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
-            const ponitstr = cc.instantiate(prefab);
-            ponitstr.getComponent("composeNum").initPoint(data.gangscore,atlas);
-            this.SecondPoint.addChild(ponitstr);
+                const ponitstr = cc.instantiate(prefab);
+                ponitstr.getComponent("composeNum").initPoint(data.gangscore,atlas);
+                this.SecondPoint.addChild(ponitstr);
+            });
+        });
+    },
+    // 黄局
+    initHuangjuInfo(data) {
+        this.Nickname.string = data.nickname;
+        this.GameTag.string = data.tags;
+        cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
+        if(data.tags.indexOf("庄") != -1) {
+            this.zhuangjia.active = true;
+        }
+        cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+                const ponitstr = cc.instantiate(prefab);
+                ponitstr.getComponent("composeNum").initPoint(data.huscore,atlas);
+                this.FristPoint.addChild(ponitstr);
+            });
+        });
+        cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+                const ponitstr = cc.instantiate(prefab);
+                ponitstr.getComponent("composeNum").initPoint(data.roomscore,atlas);
+                this.SecondPoint.addChild(ponitstr);
             });
         });
     },

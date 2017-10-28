@@ -52,6 +52,11 @@ cc.Class({
             type: cc.Node,
             tooltip: "返回的按钮",
         },
+        GangPonitTitle: {
+            default: null,
+            type: cc.Sprite,
+            tooltip: "杠分/总分",
+        },
     },
 
     // use this for initialization
@@ -86,6 +91,18 @@ cc.Class({
             this.GuiPaiNode.active = false;
             this.BaoPaiNode.active = false;
             this.winnerCards.active = false;
+            cc.dd.room._guipai = data.guicard;
+            //改杠为总
+            // this.GangPonitTitle.spriteFrame = ;
+            this.GangPonitTitle.node.active = false;
+            // 四人分数
+            cc.dd.Reload.loadPrefab("Game/Prefab/InnerGameRecord", (prefab) => {
+                data.userlist.forEach((item) => {
+                const Record = cc.instantiate(prefab);
+                Record.getComponent("GameOverItem").initHuangjuInfo(item);
+                this.CenterContent.addChild(Record);
+                });
+            });
         }else {
             // 鬼牌
             this.initGuiCard(data.guicard);
@@ -94,17 +111,19 @@ cc.Class({
             // 保存赢家id
             cc.dd.room._winneruid = data.winneruid;
             cc.dd.room._dianpaouid = data.dianpaouid;
+            cc.dd.room._guipai = data.guicard;
             // 赢家牌面
             this.presentCards(data);
-        }
-        // 四人分数
-        cc.dd.Reload.loadPrefab("Game/Prefab/InnerGameRecord", (prefab) => {
-            data.userlist.forEach((item) => {
-            const Record = cc.instantiate(prefab);
-            Record.getComponent("GameOverItem").initInfo(item);
-            this.CenterContent.addChild(Record);
+            // 四人分数
+            cc.dd.Reload.loadPrefab("Game/Prefab/InnerGameRecord", (prefab) => {
+                data.userlist.forEach((item) => {
+                const Record = cc.instantiate(prefab);
+                Record.getComponent("GameOverItem").initInfo(item);
+                this.CenterContent.addChild(Record);
+                });
             });
-        });
+        }
+
     },
     // 显示按钮
     showBtn(state) {
@@ -123,6 +142,10 @@ cc.Class({
     // 返回监听的事件
     returnBtnClick() {
         cc.log(`返回`);
+        cc.dd.soundMgr.stopAllSound();
+        cc.dd.Reload.loadDir("DirRes", () => {
+            cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
+        });
     },
     // 鬼牌
     initGuiCard(data) {
@@ -165,6 +188,10 @@ cc.Class({
                 const card = cc.instantiate(prefab);
                 const str = "little_card_" + (item +1);
                 card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                // 加鬼牌遮罩 Giupai
+                if(cc.dd.room._guipai == item){
+                    card.getChildByName("Giupai").active = true;
+                }
                 handcardNode.addChild(card);
         });
         });

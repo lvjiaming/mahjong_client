@@ -2071,7 +2071,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "js-fga@2x",
+    "_name": "gangtitle",
     "_objFlags": 0,
     "_parent": {
       "__id__": 57
@@ -2867,6 +2867,9 @@
     },
     "ReturnBtn": {
       "__id__": 81
+    },
+    "GangPonitTitle": {
+      "__id__": 68
     }
   },
   {

@@ -43,7 +43,7 @@ cc.AndroidDeviceId = (id) => {
  * @param head 需要设置的头像的sprite组件
  */
 cc.dd.setPlayerHead = (url, head) => {
-    if (cc.sys.isNative) {
+    if (cc.sys.isMobile) {
         const headUrl = cc.dd.pubConst.IMAGE_PREFIX_HOST + url;  // 此处写你拼接的url
         cc.log(headUrl);
         cc.loader.load(headUrl, (err, texture) => {

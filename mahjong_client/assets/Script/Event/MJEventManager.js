@@ -36,7 +36,7 @@ const MJEventManager = cc.Class({
             }
         }else{
             body.did = "47194279-dfb8-4e35-9ba2-d13dd70028dc";// 网页
-        }
+        }//26ee669399b2ee1b
 
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
