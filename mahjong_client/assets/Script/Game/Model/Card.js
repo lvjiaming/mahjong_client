@@ -102,6 +102,12 @@ cc.Class({
             }
             case CARD_STATE.SELECT: {
                 if (cc.dd.cardMgr.getIsCanOutCard()) {
+                    if (cc.dd.cardMgr.getHuiPai()) {
+                        if (cc.dd.cardMgr.getHuiPai() == this.id) {
+                            cc.log(`会牌不可被打出`);
+                            return;
+                        }
+                    }
                     cc.log(`发送出牌请求：${this.id}`);
                     const tingList = cc.dd.cardMgr.getTingList();
                     let tingPai = false;
