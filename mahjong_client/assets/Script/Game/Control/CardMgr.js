@@ -181,16 +181,6 @@ const CardMgr = cc.Class({
                 if (!data.angang) {
                     // needCre = false;
                     destoryNum = 3;
-                    const p_childNode = p_node.children;
-                    if (p_childNode) {
-                        p_childNode.forEach((item) => {
-                            if (item.cardId == pengOrGangId) {
-                                needCre = false;
-                                destoryNum = 1;
-                                item.getChildByName("GangCard").active = true;
-                            }
-                        });
-                    }
                 } else {
                     if (localSeat !== 1) {
                         destoryNum = 3;
@@ -208,6 +198,16 @@ const CardMgr = cc.Class({
                 cc.log(`类型不对!!`);
                 return;
             }
+        }
+        const p_childNode = p_node.children;
+        if (p_childNode) {
+            p_childNode.forEach((item) => {
+                if (item.cardId == pengOrGangId) {
+                    needCre = false;
+                    destoryNum = 1;
+                    item.getChildByName("GangCard").active = true;
+                }
+            });
         }
         let hasMo = false;
         if (moNode && !data.notDes) { // 将摸牌的节点里的牌清掉
@@ -255,6 +255,13 @@ const CardMgr = cc.Class({
                                     break;
                                 }
                             }
+                        }
+                        if (!needCre) {
+                            this._selfHandCard.forEach((id, index) => {
+                                if (id == pengOrGangId) {
+                                    this._selfHandCard.splice(index, 1);
+                                }
+                            });
                         }
                     } else {
                         for (let i = 0; i < pengOrGangId.length; i ++) {
@@ -436,6 +443,13 @@ const CardMgr = cc.Class({
                 // 更新手牌数组
                 str = "OutCard_Bottom";
                 preConfif = CONFIG.BOTTOM;
+                for (let i = 0; i < this._selfHandCard.length; i ++) {
+                    if (data == this._selfHandCard[i]) {
+                        this._selfHandCard.splice(i, 1);
+                        break;
+                    }
+                }
+                this.updateCard(handNode);
                 // if (!notDes) {
                 //
                 // }
