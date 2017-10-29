@@ -27,7 +27,7 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         cc.dd.userEvent.addObserver(this);
-        cc.dd.user._countNum = 60;
+        cc.dd.user._countNum = 30;
         this.callback = function () {
             if (cc.dd.user._countNum === 1) {
                 this.unschedule(this.callback);

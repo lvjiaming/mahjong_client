@@ -13,7 +13,7 @@ cc.Class({
     onLoad: function () {
         cc.dd.net.addObserver(this);
         // 倒计时一分钟，一分钟后自动拒绝
-        cc.dd.room._countNum = 60;
+        cc.dd.room._countNum = 30;
         this.callback = function () {
             if (cc.dd.room._countNum === 1) {
                 this.unschedule(this.callback);

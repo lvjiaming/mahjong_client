@@ -54,8 +54,6 @@ cc.Class({
                 this.zhuangjia.active = true;
             }
             this.GameTag.string = data.tags;
-        }else {
-            this.GameTag.string = data.tags;
         }
         cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
         let nlayout = this.NicknameLayout;
@@ -98,8 +96,6 @@ cc.Class({
             if (data.tags.indexOf("庄") != -1) {
                 this.zhuangjia.active = true;
             }
-            this.GameTag.string = data.tags;
-        }else {
             this.GameTag.string = data.tags;
         }
         cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {

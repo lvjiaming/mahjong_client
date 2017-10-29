@@ -204,7 +204,7 @@ cc.Class({
                 const card = cc.instantiate(prefab);
                 const str = "little_card_" + (data.hucard+1);
                 card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
-                if(cc.dd.room._guipai == item){
+                if(cc.dd.room._guipai == data.hucard){
                     card.getChildByName("Giupai").active = true;
                 }
                 parantNode.getChildByName("HuCard").addChild(card);
