@@ -35,6 +35,7 @@ cc.Class({
     // 碰
     onPengClick() {
         cc.log(`发送碰牌请求`);
+        this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_PENGCARD_REP);
     },
     // 杠
@@ -43,6 +44,8 @@ cc.Class({
         const gangList = cc.dd.cardMgr.getZiMoGang();
         if (gangList) {
             if (gangList.length == 1) {
+                cc.dd.cardMgr.setCurZiMoGangCard(gangList[0]);
+                this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
                 cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP, gangList[0]);
             } else {
                 cc.dd.Reload.loadPrefab("Game/Prefab/GangSelect", (prefab) => {
@@ -52,6 +55,7 @@ cc.Class({
                 });
             }
         } else {
+            this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GANGCARD_REP);
         }
     },
@@ -100,6 +104,7 @@ cc.Class({
         const chiList = cc.dd.cardMgr.getChiList();
         if (chiList) {
             if (chiList.length == 1) {
+                this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
                 cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHICARD_REP, chiList[0]);
             } else {
                 cc.dd.Reload.loadPrefab("Game/Prefab/ChiSelect", (prefab) => {
@@ -128,13 +133,20 @@ cc.Class({
             });
             if (!hasRemove) {
                 handCard.children.forEach((card) => {
-                    if (cc.dd.cardMgr.getTingList()[0] == card.cardId) {
-                        card.removeFromParent(true);
-                        card.destroy();
-                        hasRemove = true;
+                    if (!hasRemove) {
+                        if (cc.dd.cardMgr.getTingList()[0] == card.cardId) {
+                            card.removeFromParent(true);
+                            card.destroy();
+                            hasRemove = true;
+                        }
                     }
                 });
             }
+            const suit = parseInt(cc.dd.cardMgr.getTingList()[0] / 9) + 1;
+            const num = cc.dd.cardMgr.getTingList()[0] % 9 + 1;
+            cc.dd.playEffect(1, num, suit);
+            const outCardNode = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("OutCardLayer");
+            cc.dd.cardMgr.outCard(outCardNode, 1, cc.dd.cardMgr.getTingList()[0]);
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: cc.dd.cardMgr.getTingList()[0], tingpai: true});
         }
         cc.dd.cardMgr.setIsCanOutCard(true);

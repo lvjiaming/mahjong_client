@@ -704,7 +704,6 @@ cc.Class({
         cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.pointtouid);
         this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
-        cc.dd.cardMgr.setTingList(null);
         if (data.mopai) {
             if (localSeat !== 1) {
                 this.playerMoCard(data, data.pointtouid);
@@ -717,14 +716,18 @@ cc.Class({
         }
         if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
             cc.log(`轮到自己操作`);
-            if (this.playerArr[0].getComponent("PlayerSelf").getTingBtnState()) {
-                let operateData = {};
-                if (cc.dd.cardMgr.getTingList()) {
-                    if (cc.dd.cardMgr.getTingList().length > 0) {
-                        operateData.ting = true;
+            if (!this.playerArr[0].getComponent("PlayerSelf").getTingBtnState()) {
+                if (!cc.dd.cardMgr.getIsTing()) {
+                    let operateData = {};
+                    if (cc.dd.cardMgr.getTingList()) {
+                        if (cc.dd.cardMgr.getTingList().length > 0) {
+                            operateData.ting = true;
+                        }
+                        this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
                     }
-                    this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
                 }
+            } else {
+                cc.dd.cardMgr.setTingList(null);
             }
             cc.dd.cardMgr.setIsCanOutCard(true);
             if (cc.dd.cardMgr.getReadyOutCard()) {
@@ -836,6 +839,7 @@ cc.Class({
         cc.dd.cardMgr.setMoCard(null);
         cc.dd.cardMgr.setZiMoGang(null);
         cc.dd.cardMgr.setCurOutCard(null);
+        cc.dd.cardMgr.setCurZiMoGangCard(null);
     },
     /**
      *  根据玩家id返回本地座位号
