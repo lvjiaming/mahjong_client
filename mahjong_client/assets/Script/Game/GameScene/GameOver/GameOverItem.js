@@ -54,6 +54,8 @@ cc.Class({
                 this.zhuangjia.active = true;
             }
             this.GameTag.string = data.tags;
+        }else {
+            this.GameTag.string = "";
         }
         cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
         let nlayout = this.NicknameLayout;
@@ -97,6 +99,8 @@ cc.Class({
                 this.zhuangjia.active = true;
             }
             this.GameTag.string = data.tags;
+        }else {
+            this.GameTag.string = "";
         }
         cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
             cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
