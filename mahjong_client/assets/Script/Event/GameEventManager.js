@@ -96,10 +96,14 @@ const GameEventManager = cc.Class({
                 fileReader.readAsArrayBuffer(data.data);
             }
         };
-        this.gameSocket.sendMessage = (msgData) => {
+        this.gameSocket.sendMessage = (msgData, state) => {
             if (this.gameSocket.readyState === WebSocket.OPEN) {
                 cc.log(`发送的消息为：${JSON.stringify(msgData)}`);
-                this.gameSocket.send(JSON.stringify(msgData));
+                if (state) {
+                    this.gameSocket.send(msgData)
+                } else {
+                    this.gameSocket.send(JSON.stringify(msgData));
+                }
             } else {
                 cc.error(`websocket connect error: ${this.gameSocket.readyState}`);
             }
@@ -115,7 +119,8 @@ const GameEventManager = cc.Class({
                     const str = "ping";
                     if (this.gameSocket.readyState === WebSocket.OPEN) {
                         this._heartIsOk = false;
-                        this.gameSocket.send(str);
+                        // this.gameSocket.send(str);
+                        this.sendMessage(str, true)
                     }
                 }
                 this._heartCurTime = 0;
@@ -125,8 +130,7 @@ const GameEventManager = cc.Class({
             if (this._heartCurTime >= 5) {
                 cc.log(`心跳检测有问题`);
                 clearTimeout(this._heartTimer);
-                cc.dd.tipMgr.show("网络连接中断，正在重新连接....");
-                this.close(false);
+                // this.close(false);
             } else {
                 this.heartCheck();
             }
@@ -144,6 +148,7 @@ const GameEventManager = cc.Class({
         }
         this.reconnectTimer = setTimeout(() => {
             cc.log(`正在进行第${this.reconnectCount}次重连`);
+            cc.dd.tipMgr.show("网络连接中断，正在重新连接....");
             this.connect(this.hostStr);
             this._isReconnect = true;
             this.reconnectCount ++;
@@ -166,13 +171,13 @@ const GameEventManager = cc.Class({
      * @param msgId 消息的id
      * @param msgData 消息的数据
      */
-    sendMessage(msgData) {
+    sendMessage(msgData, state) {
         if (msgData === null || msgData === undefined) {
             msgData = null;
             cc.log(`消息为空`);
             return;
         }
-        this.gameSocket.sendMessage(msgData);
+        this.gameSocket.sendMessage(msgData, state);
     },
     /**
      *  关闭与服务器的连接(主动断开)

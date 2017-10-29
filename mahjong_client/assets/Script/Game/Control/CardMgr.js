@@ -58,6 +58,7 @@ const CardMgr = cc.Class({
     _moCard: null, // 摸的牌
     _ziMoGangCard: null, // 自摸杠的牌
     _CurOutCard: null, // 当前出的牌
+    _CurZiMoGangCard: null, // 当前自摸杠的牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -174,7 +175,8 @@ const CardMgr = cc.Class({
                 if (data.mopaigang) {
                     pengOrGangId = this.getMoCard();
                     data.angang = true;
-                    pengOrGangId = cc.dd.cardMgr.getMoCard();
+                    pengOrGangId = this.getCurZiMoGangCard();
+                    this.setCurZiMoGangCard(null);
                 }
                 if (!data.angang) {
                     // needCre = false;
@@ -213,6 +215,11 @@ const CardMgr = cc.Class({
                 hasMo = true;
                 item.destroy();
                 destoryNum --;
+                if (isGang == cc.dd.gameCfg.OPERATE_TYPE.GANG && data.angang) {
+                    if (item.cardId != pengOrGangId) {
+                        destoryNum++;
+                    }
+                }
             });
             moNode.removeAllChildren();
         }
@@ -371,7 +378,7 @@ const CardMgr = cc.Class({
                     const angang = pengGang.getChildByName("AnGang");
                     gang.active = true;
                     angang.active = false;
-                    gang.getComponent("CardSpr").initCard(this.getMoCard());
+                    gang.getComponent("CardSpr").initCard(pengOrGangId);
                 }
             }
         }
@@ -686,6 +693,16 @@ const CardMgr = cc.Class({
         return this._selfHandCard;
     },
     /**
+     *  当前自摸杠的牌
+     * @param card
+     */
+    setCurZiMoGangCard(card) {
+        this._CurZiMoGangCard = card;
+    },
+    getCurZiMoGangCard () {
+        return this._CurZiMoGangCard;
+    },
+    /**
      *  排序手牌
      * @param data
      */
@@ -715,6 +732,5 @@ const CardMgr = cc.Class({
         // 将选中牌赋予空
         this.setReadyOutCard(null);
     },
-
 });
 cc.dd.cardMgr = CardMgr.getInstance();
