@@ -138,6 +138,10 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").updateBatteryLevelProgressBar(data);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: { // 4002
+                cc.dd.room._subcommand = data.subcommand;
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

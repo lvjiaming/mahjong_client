@@ -27,6 +27,7 @@ const Room = cc.Class({
         _winneruid:null,  // 结算界面，赢家id
         _dianpaouid: null, // 结算界面，点炮id
         _guipai:null,  // 结算界面，鬼牌
+        _subcommand: null, // 结算界面，为4时显示返回大厅
     },
     // 房间数据
     updataRoomData(data) {

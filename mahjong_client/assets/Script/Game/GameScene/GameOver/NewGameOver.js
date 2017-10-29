@@ -71,8 +71,8 @@ cc.Class({
         if (this.NextBtn) {
             // this.NextBtn.getCompnent("label").string = `第${data.nowround}/${data.rounds}局`;
             this.NextBtnTitle.string = `开始下一局（${data.nowround+1}）`;
-            if (data.nowround === data.rounds) {
-                this.showBtn(true);
+            if (cc.dd.room._subcommand == 4) {
+                this.showBtn(true); // 显示返回按钮
             } else {
                 this.showBtn(false);
             }
@@ -130,8 +130,10 @@ cc.Class({
     showBtn(state) {
         if (state) {
             this.ReturnBtn.active = true;
-        } else {
+            this.NextBtn.active = false;
+        }else {
             this.NextBtn.active = true;
+            this.ReturnBtn.active = false;
         }
     },
     // 下一句监听事件
