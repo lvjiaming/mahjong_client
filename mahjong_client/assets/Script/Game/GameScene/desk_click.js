@@ -66,14 +66,13 @@ cc.Class({
     // 过
     onGuoClick(event) {
         cc.log(`过牌`);
+        this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         if (event.target.isOnlyTing) {
             cc.dd.cardMgr.setIsCanOutCard(true);
             cc.dd.cardMgr.setTingList(null);
-            this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
             return;
         }
         if ( event.target.customData) {
-            this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
             cc.dd.cardMgr.setIsCanOutCard(true);
             if (cc.dd.cardMgr.getIsTing()) {
                 const moCard = cc.dd.cardMgr.getMoCard();
@@ -88,7 +87,7 @@ cc.Class({
                         const suit = parseInt(moCard / 9) + 1;
                         const num = moCard % 9 + 1;
                         cc.dd.playEffect(1, num, suit);
-                        const outCardNode = this.playerArr[0].getChildByName("OutCardLayer");
+                        const outCardNode = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("OutCardLayer");
                         cc.dd.cardMgr.outCard(outCardNode, 1, moCard);
                         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: moCard, tingpai: false});
                     }, 0.5);
@@ -96,6 +95,22 @@ cc.Class({
             }
         } else {
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+        }
+        if (cc.dd.cardMgr.getIsTing()) {
+            cc.log(`听牌状态`);
+            const moCard = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+            if (moCard) {
+                moCard.children.forEach((item) => {
+                    const suit = parseInt(item.cardId / 9) + 1;
+                    const num = item.cardId % 9 + 1;
+                    cc.dd.playEffect(1, num, suit);
+                    const outCardNode = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("OutCardLayer");
+                    cc.dd.cardMgr.outCard(outCardNode, 1, item.cardId);
+                    cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: item.cardId, tingpai: false});
+                    item.removeFromParent(true);
+                    item.destroy();
+                });
+            }
         }
     },
     // 吃

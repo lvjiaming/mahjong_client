@@ -168,7 +168,7 @@ cc.Class({
         if(userList.length > 1){
             let count = 0;
             let newarr = [];
-            for (i = 0; i < userList.length-1; i++) { //
+            for (let i = 0; i < userList.length-1; i++) { //
                 if (userList[i].ipaddress != userList[i + 1].ipaddress) {
                     newarr.push(userList.slice(count, i + 1));
                     count = i + 1;
@@ -537,6 +537,7 @@ cc.Class({
     // 玩家胡牌
     playerHuCard(data) {
         cc.dd.roomEvent.setIsCache(false);
+        this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.playEffect(1, cc.dd.soundName.V_HU);
         const localSeat = this.getLocalSeatByUserId(data.huuid);
         if (localSeat) {
@@ -563,12 +564,19 @@ cc.Class({
         const scaleAni = cc.scaleTo(0.5, 1.2);
         const moveAni = cc.moveTo(0.5, huSign.getPosition());
         huTypeNode.getComponent(cc.Sprite).spriteFrame = huSpr;
+        const daytime = cc.delayTime(0.5);
         const callFun1 = cc.callFunc(() => {
             this.HuAniNode.active = false;
             card.getComponent("CardSpr").initCard(data.hupai);
             card.active = true;
             huSign.active = true;
             huTypeNode.active = true;
+            this.scheduleOnce(() => {
+                cc.log(`隐藏胡牌的特效`);
+                card.active = false;
+                huSign.active = false;
+                huTypeNode.active = false;
+            }, 0.5);
         });
         this.HuAniNode.runAction(cc.sequence(scaleAni, moveAni, callFun1));
     },
@@ -580,6 +588,7 @@ cc.Class({
             const moNode = this.playerArr[localSeat - 1].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
             cc.dd.cardMgr.MoCard(moNode, localSeat, data);
             if (localSeat == 1) {
+                cc.dd.cardMgr.setIsCanOutCard(true);
                 let operateData = {};
                 if (data.ting) {
                     cc.dd.cardMgr.setTingList(data.ting);
@@ -667,7 +676,10 @@ cc.Class({
         if (localSeat == 1) {
             cc.dd.cardMgr.setIsTing(true);
         }
-
+        const cardNode = this.playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+        cardNode.children.forEach((card) => {
+            card.getChildByName("TingSign").active = false;
+        });
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
