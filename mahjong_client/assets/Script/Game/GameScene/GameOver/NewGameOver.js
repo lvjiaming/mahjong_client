@@ -138,10 +138,12 @@ cc.Class({
         this.node.destroy();
         cc.dd.roomEvent.setIsCache(true);
         cc.dd.roomEvent.notifyCacheList();
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_JIESUAN_START_NEXTROUND);
     },
     // 返回监听的事件
     returnBtnClick() {
         cc.log(`返回`);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_JIESUAN_START_NEXTROUND);
         cc.dd.soundMgr.stopAllSound();
         cc.dd.Reload.loadDir("DirRes", () => {
             cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
@@ -203,6 +205,9 @@ cc.Class({
                 cardinvisable.active = false;
                 const str = "little_card_" + (data.hucard+1);
                 card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
+                if(cc.dd.room._guipai == item){
+                    card.getChildByName("Giupai").active = true;
+                }
                 parantNode.getChildByName("HuCard").addChild(card);
             });
         }

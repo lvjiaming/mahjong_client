@@ -126,6 +126,10 @@ const MJEventManager = cc.Class({
                 this.sendMessage(body);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_JIESUAN_START_NEXTROUND: { //  结算界面点击开始下一局按钮，1014，不需要监听返回
+                this.sendMessage(body);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

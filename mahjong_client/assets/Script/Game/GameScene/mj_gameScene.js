@@ -226,6 +226,8 @@ cc.Class({
         // cc.log("庄家zhi:"+data.isbanker);
             if(item.isbanker.toString() === "true") {
                 this.playerArr[index].getChildByName("InfoBk").getChildByName("zhuangsign").active = true;
+            }else {
+                this.playerArr[index].getChildByName("InfoBk").getChildByName("zhuangsign").active = false;
             }
 
             this.playerArr[index].userInfo = item;
