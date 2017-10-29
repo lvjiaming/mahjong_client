@@ -93,8 +93,9 @@ cc.Class({
             this.winnerCards.active = false;
             cc.dd.room._guipai = data.guicard;
             //改杠为总
-            // this.GangPonitTitle.spriteFrame = ;
-            this.GangPonitTitle.node.active = false;
+            cc.dd.Reload.loadAtlas("Game/Atlas/gameOverAl", (atlas) => {
+                this.GangPonitTitle.spriteFrame = atlas.getSpriteFrame("zong@2x");
+            });
             // 四人分数
             cc.dd.Reload.loadPrefab("Game/Prefab/InnerGameRecord", (prefab) => {
                 data.userlist.forEach((item) => {
