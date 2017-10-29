@@ -48,14 +48,14 @@ cc.Class({
      * @param data
      */
     initInfo(data) {
-        // cc.log(`初始化单个信息`);
         this.Nickname.string = data.nickname;
-        this.GameTag.string = data.tags;
-        // cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
         if (data.tags) {
             if (data.tags.indexOf("庄") != -1) {
                 this.zhuangjia.active = true;
             }
+            this.GameTag.string = data.tags;
+        }else {
+            this.GameTag.string = data.tags;
         }
         cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
         let nlayout = this.NicknameLayout;
@@ -93,12 +93,14 @@ cc.Class({
     // 黄局
     initHuangjuInfo(data) {
         this.Nickname.string = data.nickname;
-        this.GameTag.string = data.tags;
         cc.dd.setPlayerHead(data.wx_portrait,this.PlayerAvatar);
-        if(data.tags){
-            if(data.tags.indexOf("庄") != -1) {
+        if (data.tags) {
+            if (data.tags.indexOf("庄") != -1) {
                 this.zhuangjia.active = true;
             }
+            this.GameTag.string = data.tags;
+        }else {
+            this.GameTag.string = data.tags;
         }
         cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
             cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {

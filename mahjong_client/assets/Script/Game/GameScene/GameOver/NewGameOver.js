@@ -202,8 +202,6 @@ cc.Class({
         if(data.hucard || data.hucard == 0) {
             cc.dd.Reload.loadPrefab("Game/Prefab/GO_HandPoker", (prefab) => {
                 const card = cc.instantiate(prefab);
-                const cardinvisable = cc.instantiate(prefab);
-                cardinvisable.active = false;
                 const str = "little_card_" + (data.hucard+1);
                 card.getChildByName("Spr").getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame(str);
                 if(cc.dd.room._guipai == item){

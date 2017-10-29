@@ -30,7 +30,7 @@ cc.Class({
     // 转动
     ratateTimer(localSeat) {
         this.unscheduleAllCallbacks();
-        this._time = 15;
+        this._time = 30;
         this.timing();
         const timer = this.node.getChildByName(TIMER_NAME[localSeat]);
         if (timer) {
