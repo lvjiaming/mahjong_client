@@ -26,8 +26,9 @@ const Room = cc.Class({
         _countNum: null, // 倒计时
         _winneruid:null,  // 结算界面，赢家id
         _dianpaouid: null, // 结算界面，点炮id
-        _guipai:null,  // 结算界面，鬼牌
+        _guipai: null,  // 结算界面，鬼牌
         _subcommand: null, // 结算界面，为4时显示返回大厅
+        _roomRules: null, // 游戏房间玩法规则
     },
     // 房间数据
     updataRoomData(data) {

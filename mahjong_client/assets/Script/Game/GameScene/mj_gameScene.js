@@ -349,6 +349,7 @@ cc.Class({
         let str = "";
         let hasLouBao = false;
         if (data) {
+            cc.dd.room._roomRules = data.room.rules;
             data.room.rules.forEach((item) => {
                 if(item == cc.dd.gameCfg.PLAY_OPERA.LOU_BAO) {
                     hasLouBao = true;
@@ -895,14 +896,14 @@ cc.Class({
         cc.log("邀请微信朋友");
         let str = "";
         //wanfaSet
-        this.wanfaSet.forEach((item) => {
+        cc.dd.room._roomRules.forEach((item) => {
             if(!str){
             str = PLAY_OPERA_NAME_ORAL[item];
             }else {
             str = str + " 、" + PLAY_OPERA_NAME_ORAL[item];
             }
-        });
-        var contentstr = "房间号："+ this.roomidString + " 本房间玩法：" + str;
+            });
+        var contentstr = "房间号："+ this.RoomIDLabel.string + " 本房间玩法：" + str;
         cc.dd.invokeWXFriendShareCustumText(contentstr);
     },
 });
