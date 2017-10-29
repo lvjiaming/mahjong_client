@@ -62,6 +62,12 @@ cc.Class({
     // 过
     onGuoClick(event) {
         cc.log(`过牌`);
+        if (event.target.isOnlyTing) {
+            cc.dd.cardMgr.setIsCanOutCard(true);
+            cc.dd.cardMgr.setTingList(null);
+            this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+            return;
+        }
         if ( event.target.customData) {
             this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
             cc.dd.cardMgr.setIsCanOutCard(true);
@@ -103,5 +109,34 @@ cc.Class({
                 });
             }
         }
+    },
+    // 听
+    onTingClick() {
+        cc.log(`玩家听牌`);
+        this.node.getComponent("mj_gameScene").showTingSign();
+        this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+        if (cc.dd.cardMgr.getTingList().length == 1) {
+            const moCard = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
+            const handCard = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
+            let hasRemove = false;
+            moCard.children.forEach((card) => {
+                if (cc.dd.cardMgr.getTingList()[0] == card.cardId) {
+                    card.removeFromParent(true);
+                    card.destroy();
+                    hasRemove = true;
+                }
+            });
+            if (!hasRemove) {
+                handCard.children.forEach((card) => {
+                    if (cc.dd.cardMgr.getTingList()[0] == card.cardId) {
+                        card.removeFromParent(true);
+                        card.destroy();
+                        hasRemove = true;
+                    }
+                });
+            }
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: cc.dd.cardMgr.getTingList()[0], tingpai: true});
+        }
+        cc.dd.cardMgr.setIsCanOutCard(true);
     },
 });

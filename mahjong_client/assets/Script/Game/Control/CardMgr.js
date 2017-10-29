@@ -152,6 +152,7 @@ const CardMgr = cc.Class({
      */
     pengGangCard(p_node, localSeat, data, isGang) {
         let preStr = "";
+        cc.log(`杠牌的信息：`, JSON.stringify(data));
         // 摸牌的节点
         const moNode = p_node.parent.getChildByName("HandCardLayer").getChildByName("MoCardLayer");
         // 手牌节点
@@ -173,6 +174,7 @@ const CardMgr = cc.Class({
                 if (data.mopaigang) {
                     pengOrGangId = this.getMoCard();
                     data.angang = true;
+                    pengOrGangId = cc.dd.cardMgr.getMoCard();
                 }
                 if (!data.angang) {
                     // needCre = false;
@@ -235,11 +237,12 @@ const CardMgr = cc.Class({
         let pengGang = null;
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
+                cc.log(`杠牌轮到自己操作`);
                 preStr = "PengGang";
                 if (!data.notDes) {
                     if (isGang !== cc.dd.gameCfg.OPERATE_TYPE.CHI) {
-                        for (let i = 0; i < destoryNum; i ++) {
-                            for (let j = 0; this._selfHandCard.length; j ++) {
+                        for (var i = 0; i < destoryNum; i ++) {
+                            for (var j = 0; j < this._selfHandCard.length; j ++) {
                                 if (this._selfHandCard[j] == pengOrGangId) {
                                     this._selfHandCard.splice(j, 1);
                                     break;
@@ -363,7 +366,7 @@ const CardMgr = cc.Class({
         });
         if (isGang === cc.dd.gameCfg.OPERATE_TYPE.GANG) {
             if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
-                if (data.mopaogang) {
+                if (data.angang) {
                     const gang = pengGang.getChildByName("GangCard");
                     const angang = pengGang.getChildByName("AnGang");
                     gang.active = true;
