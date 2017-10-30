@@ -459,7 +459,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Change_EditBoxBk",
+    "_name": "avatar1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -726,7 +726,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Change_EditBoxBk",
+    "_name": "avartar2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1086,7 +1086,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Change_EditBoxBk",
+    "_name": "avatar3",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1308,7 +1308,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 440,
+      "x": 435,
       "y": 8
     },
     "_skewX": 0,
@@ -1353,7 +1353,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Change_EditBoxBk",
+    "_name": "avatar4",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1508,10 +1508,18 @@
     "NicknameFourPoint": {
       "__id__": 42
     },
-    "AvatarOne": null,
-    "AvatarTwo": null,
-    "AvatarThree": null,
-    "AvatarFour": null
+    "AvatarOne": {
+      "__id__": 15
+    },
+    "AvatarTwo": {
+      "__id__": 24
+    },
+    "AvatarThree": {
+      "__id__": 36
+    },
+    "AvatarFour": {
+      "__id__": 45
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
