@@ -443,10 +443,12 @@ const CardMgr = cc.Class({
                 // 更新手牌数组
                 str = "OutCard_Bottom";
                 preConfif = CONFIG.BOTTOM;
-                for (let i = 0; i < this._selfHandCard.length; i ++) {
-                    if (data == this._selfHandCard[i]) {
-                        this._selfHandCard.splice(i, 1);
-                        break;
+                if (!notDes) {
+                    for (let i = 0; i < this._selfHandCard.length; i ++) {
+                        if (data == this._selfHandCard[i]) {
+                            this._selfHandCard.splice(i, 1);
+                            break;
+                        }
                     }
                 }
                 this.updateCard(handNode);

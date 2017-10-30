@@ -118,14 +118,14 @@ cc.Class({
                             }
                         });
                     }
-                    // 手牌更新
-                    const cardList = cc.dd.cardMgr.getSelfHandCard();
-                    for (let i = 0; i < cardList.length; i ++) {
-                        if (cardList[i] === this.id) {
-                            cardList.splice(i, 1);
-                            break;
-                        }
-                    }
+                    // // 手牌更新
+                    // const cardList = cc.dd.cardMgr.getSelfHandCard();
+                    // for (let i = 0; i < cardList.length; i ++) {
+                    //     if (cardList[i] === this.id) {
+                    //         cardList.splice(i, 1);
+                    //         break;
+                    //     }
+                    // }
                     const handNode = cc.find("UI_ROOT").getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("HandCardLay");
                     const moCard = cc.find("UI_ROOT").getComponent("mj_gameScene").playerArr[0].getChildByName("HandCardLayer").getChildByName("MoCardLayer");
                     moCard.children.forEach((item) => {

@@ -67,6 +67,7 @@ cc.Class({
     onGuoClick(event) {
         cc.log(`过牌`);
         this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
         if (event.target.isOnlyTing) {
             cc.dd.cardMgr.setIsCanOutCard(true);
             cc.dd.cardMgr.setTingList(null);
@@ -91,10 +92,11 @@ cc.Class({
                         cc.dd.cardMgr.outCard(outCardNode, 1, moCard);
                         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: moCard, tingpai: false});
                     }, 0.5);
+                    return;
                 }
             }
         } else {
-            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+            // cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
         }
         if (cc.dd.cardMgr.getIsTing()) {
             cc.log(`听牌状态`);
