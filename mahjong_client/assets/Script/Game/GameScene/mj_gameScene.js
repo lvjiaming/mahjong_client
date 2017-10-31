@@ -619,6 +619,10 @@ cc.Class({
                                         item.destroy();
                                     });
                                     moNode.removeAllChildren();
+                                    if (data.mopai == true) {
+                                        cc.error(`摸牌有问题`);
+                                        return;
+                                    }
                                     const suit = parseInt(data.mopai / 9) + 1;
                                     const num = data.mopai % 9 + 1;
                                     cc.dd.playEffect(1, num, suit);
@@ -729,6 +733,7 @@ cc.Class({
         }
         if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
             cc.log(`轮到自己操作`);
+            cc.dd.cardMgr.setIsCanOutCard(true);
             if (!this.playerArr[0].getComponent("PlayerSelf").getTingBtnState()) {
                 if (!cc.dd.cardMgr.getIsTing()) {
                     let operateData = {};
@@ -742,7 +747,6 @@ cc.Class({
             } else {
                 cc.dd.cardMgr.setTingList(null);
             }
-            cc.dd.cardMgr.setIsCanOutCard(true);
             if (cc.dd.cardMgr.getReadyOutCard()) {
                 cc.dd.cardMgr.getReadyOutCard().getComponent("Card").cancelSelect();
                 cc.dd.cardMgr.setReadyOutCard(null);
