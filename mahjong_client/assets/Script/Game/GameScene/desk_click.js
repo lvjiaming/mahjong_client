@@ -2,7 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        _didClickRecordBtn: null,
     },
 
     // use this for initialization
@@ -30,7 +30,23 @@ cc.Class({
     },
     // 语音
     onSoundClick() {
-        cc.log(`语音`);
+        if(!cc.sys.isMobile){
+            return;
+        }
+        if(!this._didClickRecordBtn) {
+            this._didClickRecordBtn = true;
+            cc.log(`语音`);
+            cc.dd.Reload.loadPrefab("Game/Prefab/Recording", (prefan) => {
+                const recording = cc.instantiate(prefan);
+            this.node.addChild(recording);
+            });
+            jsb.reflection.callStaticMethod("RootViewController", "startGvoiceRecord");
+        }else {
+            this._didClickRecordBtn = false;
+            this.node.getChildByName("Recording").removeFromParent();
+            jsb.reflection.callStaticMethod("RootViewController", "stopGvoiceRecord");
+        }
+
     },
     // 碰
     onPengClick() {

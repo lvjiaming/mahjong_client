@@ -108,7 +108,7 @@ cc.Class({
             // 鬼牌
             this.initGuiCard(data.guicard);
             // 宝牌
-            this.setBaoCard(true,data.baocard);
+            this.setBaoCard(data.baocard);
             // 保存赢家id
             cc.dd.room._winneruid = data.winneruid;
             cc.dd.room._dianpaouid = data.dianpaouid;
@@ -164,18 +164,16 @@ cc.Class({
         }
     },
     // 设置宝牌
-    setBaoCard(state, data) {
+    setBaoCard(data) {
         if (this.BaoPaiNode) {
-            this.BaoPaiNode.active = state;
-            if (state) {
-                // const bk = this.BaoPaiNode.getChildByName("BaoCardBk");
-                const card = this.BaoPaiNode.getChildByName("BaoCard");
                 if (data || data == 0) {
-                    // bk.active = false;
+                    this.BaoPaiNode.active = true;
+                    const card = this.BaoPaiNode.getChildByName("BaoCard");
                     card.active = true;
                     this.BaoPaiNode.getComponent("CardSpr").initCard(data);
+                }else {
+                    this.BaoPaiNode.active = false;
                 }
-            }
         }
     },
     /**

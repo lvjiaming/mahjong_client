@@ -130,6 +130,11 @@ const MJEventManager = cc.Class({
                 this.sendMessage(body);
                 break;
             }
+            case  cc.dd.gameCfg.EVENT.EVENT_YUYIN_UPLOAD: { // 2009，通知服务器语音消息上传成功
+                body.voiceid = data;
+                this.sendMessage(body);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
@@ -292,6 +297,14 @@ const MJEventManager = cc.Class({
     updateCurrentBatteryLevel(elevel) {
         cc.log("oc观察者观察电量发生改变回调"+elevel);
         // cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE,elevel.toPrecision(2));
+    },
+    /**
+     *  成功上传到腾讯服务器后回调(被原生回调的)
+     * @param fileID 语音消息id
+     */
+    didUploadToGvoiceSever(fileID) {
+        cc.log("oc回调js成功"+fileID);
+        this.startEvent(cc.dd.gameCfg.EVENT.EVENT_YUYIN_UPLOAD,fileID);
     },
 });
 cc.dd.net = MJEventManager.getInstance();

@@ -87,7 +87,8 @@ module.exports = {
         EVENT_DELEGATE_ROOM_REOCRD_REP: 1015, // 代理用户查询自己代开房间的记录
         EVENT_DELEGATE_ROOM_REOCRD_REQ: 5015, // 代理用户查询自己代开房间的记录的返回
         EVENT_JIESUAN_START_NEXTROUND: 1014, // 结算界面点击开始下一局按钮需要发请求到1014，不需要监听返回
-
+        EVENT_YUYIN_UPLOAD: 2009,   // 上传腾讯服务器成功后，告知voiceid给服务器
+        EVENT_YUYIN_COMING: 4019,   // 广播有用户发言了
     },
     // 电池电量状态
     BATTERTY: {

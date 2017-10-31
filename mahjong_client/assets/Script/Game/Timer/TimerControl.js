@@ -42,20 +42,20 @@ cc.Class({
         }
     },
     timing() {
-        // if (this.TimeLabel) {
-        //     this.TimeLabel.string = this._time;
-        //     this.scheduleOnce(this.timingFun.bind(this), 1.0);
-        // }
         if(this.showTimeLayout) {
             this.showTimeLayout.removeAllChildren();
-            cc.dd.Reload.loadAtlas("Game/Atlas/timer", (atlas) => {
-                cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+            if(this.showTimeLayout.childrenCount == 0) {
+                cc.dd.Reload.loadAtlas("Game/Atlas/timer", (atlas) => {
+                    cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
                     const timestr = cc.instantiate(prefab);
                     timestr.getComponent("composeNum").initNum(this._time,atlas);
                     this.showTimeLayout.addChild(timestr);
+                    });
                 });
-            });
-            this.scheduleOnce(this.timingFun.bind(this), 1.0);
+                this.scheduleOnce(this.timingFun.bind(this), 1.0);
+            }else {
+                this.showTimeLayout.removeAllChildren();
+            }
         }
     },
     timingFun() {

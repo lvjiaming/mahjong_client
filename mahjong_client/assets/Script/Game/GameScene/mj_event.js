@@ -142,6 +142,9 @@ cc.Class({
                 cc.dd.room._subcommand = data.subcommand;
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: { // 4019,收到玩家发语音的广播
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
