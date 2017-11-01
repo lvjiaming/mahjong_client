@@ -138,3 +138,36 @@ cc.dd.getCurrentBatteryChargingStatus = () => {
 //     //     cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
 //     // }
 // };
+// 把房间id复制到手机剪贴板
+cc.dd.accessPatseBoard = (str) => {
+    if(cc.sys.isMobile) {
+        if(cc.sys.os == cc.sys.OS_ANDROID) {
+
+        }else {
+            jsb.reflection.callStaticMethod("RootViewController","copyRoomIDToPatseBoard:",str);
+        }
+    }
+};
+// gvoice 开始录音
+cc.dd.startRecordingWithGvoice = () => {
+    if(cc.sys.isMobile) {
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+
+        }else {
+            jsb.reflection.callStaticMethod("RootViewController", "startGvoiceRecord");
+        }
+    }
+};
+
+// gvoice 停止录音，并上传录音
+cc.dd.stopRecordingWithGvoice = () =>{
+    if (cc.sys.isMobile) {
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+
+        } else {
+            jsb.reflection.callStaticMethod("RootViewController", "stopGvoiceRecord");
+        }
+    }
+};
+
+// gvoice 下载并播放语音消息

@@ -101,7 +101,7 @@ const SoundManger = cc.Class({
         cc.audioEngine.play(cc.url.raw(url), false, this._soundVolume);
     },
     /**
-     *  暂停声音播放
+     *  停止声音播放
      * @param
      */
     stopAllSound() {
@@ -112,6 +112,32 @@ const SoundManger = cc.Class({
             return;
         }
         cc.audioEngine.stopAll();
-    }
+    },
+    /**
+     *  暂停声音播放
+     * @param
+     */
+    pauseAllSounds() {
+        if (this._musicVolume === 0) {
+            return;
+        }
+        if (this._soundVolume === 0) {
+            return;
+        }
+        cc.audioEngine.pauseAll();
+    },
+    /**
+     *  暂停中恢复声音播放
+     * @param
+     */
+    resumeAllSounds() {
+        if (this._musicVolume === 0) {
+            return;
+        }
+        if (this._soundVolume === 0) {
+            return;
+        }
+        cc.audioEngine.resumeAll();
+    },
 });
 cc.dd.soundMgr = SoundManger.getInstance();

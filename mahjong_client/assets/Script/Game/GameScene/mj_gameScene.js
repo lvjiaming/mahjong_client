@@ -619,7 +619,7 @@ cc.Class({
                                         item.destroy();
                                     });
                                     moNode.removeAllChildren();
-                                    if (data.mopai == true) {
+                                    if (data.mopai === true) {
                                         cc.error(`摸牌有问题`);
                                         return;
                                     }
@@ -907,6 +907,7 @@ cc.Class({
     },
     onClickCopyRoom() {
         cc.log("复制房间号");
+        cc.dd.accessPatseBoard(this.RoomIDLabel.string);
     },
     onClickInviteFriends() {
         cc.log("邀请微信朋友");
@@ -919,7 +920,7 @@ cc.Class({
             str = str + " 、" + PLAY_OPERA_NAME_ORAL[item];
             }
             });
-        var contentstr = "房间号："+ this.RoomIDLabel.string + " 本房间玩法：" + str;
+        var contentstr = this.RoomIDLabel.string + " 本房间玩法：" + str;
         cc.dd.invokeWXFriendShareCustumText(contentstr);
     },
 });

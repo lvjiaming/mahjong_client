@@ -40,11 +40,13 @@ cc.Class({
                 const recording = cc.instantiate(prefan);
                 this.node.addChild(recording);
             });
-            jsb.reflection.callStaticMethod("RootViewController", "startGvoiceRecord");
+            cc.dd.startRecordingWithGvoice();
+            cc.dd.soundMgr.pauseAllSounds();
         }else {
             this._didClickRecordBtn = false;
             this.node.getChildByName("Recording").removeFromParent();
-            jsb.reflection.callStaticMethod("RootViewController", "stopGvoiceRecord");
+            cc.dd.stopRecordingWithGvoice();
+            cc.dd.soundMgr.resumeAllSounds();
         }
 
     },

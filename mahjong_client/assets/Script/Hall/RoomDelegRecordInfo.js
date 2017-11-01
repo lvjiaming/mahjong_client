@@ -116,6 +116,7 @@ cc.Class({
     },
     onCopyRoomIdClick() {
         cc.log("复制房间号");
+        cc.dd.accessPatseBoard(this.RoomID.string);
     },
     onInvitatedFriendsClick() {
         cc.log("邀请微信朋友");

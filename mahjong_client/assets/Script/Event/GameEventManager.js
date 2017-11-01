@@ -75,7 +75,7 @@ const GameEventManager = cc.Class({
         };
         this.gameSocket.onmessage = (data) => {
             if (data.data == "pong") {
-                cc.log(`heart: ${data.data}`);
+                // cc.log(`heart: ${data.data}`);
                 this._heartIsOk = true;
             } else {
                 data = JSON.parse(data.data);
