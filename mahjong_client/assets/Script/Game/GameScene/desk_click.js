@@ -38,7 +38,7 @@ cc.Class({
             cc.log(`语音`);
             cc.dd.Reload.loadPrefab("Game/Prefab/Recording", (prefan) => {
                 const recording = cc.instantiate(prefan);
-            this.node.addChild(recording);
+                this.node.addChild(recording);
             });
             jsb.reflection.callStaticMethod("RootViewController", "startGvoiceRecord");
         }else {
