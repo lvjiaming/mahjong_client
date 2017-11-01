@@ -256,6 +256,14 @@ const CardMgr = cc.Class({
                                 }
                             }
                         }
+                        if (data.angang) {
+                            for (let index = 0; index < this._selfHandCard.length; index ++) {
+                                if (this._selfHandCard[index] == pengOrGangId) {
+                                    this._selfHandCard.splice(index, 1);
+                                    break;
+                                }
+                            }
+                        }
                         if (!needCre) {
                             this._selfHandCard.forEach((id, index) => {
                                 if (id == pengOrGangId) {
@@ -537,10 +545,10 @@ const CardMgr = cc.Class({
      */
     MoCard(m_node, localSeat, data) {
         let preStr = null;
-        this.setMoCard(data.mopai);
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 if (data.mopai !== true) {
+                    this.setMoCard(data.mopai);
                     const str = "HandPoker";
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
                     // 听啤的标志
