@@ -3231,7 +3231,7 @@
         "__id__": 82
       },
       {
-        "__id__": 84
+        "__id__": 83
       }
     ],
     "_tag": -1,
@@ -3260,7 +3260,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 536
+      "height": 586
     },
     "_rotationX": 2,
     "_rotationY": 2,
@@ -3270,6 +3270,54 @@
       "__type__": "cc.Vec2",
       "x": 456,
       "y": 337
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "MoCardLayer",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 81
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [],
+    "_prefab": null,
+    "_id": "deb3WLB9JGWYWonDrFfTXr",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 167,
+      "g": 167,
+      "b": 167,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 61,
+      "height": 100
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 69,
+      "y": -50
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -3290,7 +3338,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 83
+        "__id__": 84
       }
     ],
     "_prefab": null,
@@ -3335,7 +3383,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 83
     },
     "_enabled": false,
     "_layoutSize": {
@@ -3362,65 +3410,17 @@
     "_N$horizontalDirection": 0
   },
   {
-    "__type__": "cc.Node",
-    "_name": "MoCardLayer",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 81
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [],
-    "_prefab": null,
-    "_id": "81Jrr7OBdIh7Juc+FaDdLT",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 61,
-      "height": 100
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 60,
-      "y": -50
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 81
     },
-    "_enabled": true,
+    "_enabled": false,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 536
+      "height": 586
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -3934,7 +3934,7 @@
       "__id__": 60
     },
     "HandCardNode": {
-      "__id__": 82
+      "__id__": 83
     },
     "PengGangNode": {
       "__id__": 72
@@ -3943,7 +3943,7 @@
       "__id__": 74
     },
     "MoCardNode": {
-      "__id__": 84
+      "__id__": 82
     },
     "IPAdressLabel": {
       "__id__": 64
