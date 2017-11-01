@@ -338,6 +338,7 @@ cc.Class({
 
         if(this.RoomIDLabel) {
             this.RoomIDLabel.string = "房间号：" + data.room.roomid;
+            this.roomPassword = data.room.roomid;
         }
         if (this.JushuLabel) {
             if(data.room.nowround == -1) {
@@ -921,6 +922,6 @@ cc.Class({
             }
             });
         var contentstr = this.RoomIDLabel.string + " 本房间玩法：" + str;
-        cc.dd.invokeWXFriendShareCustumText(contentstr);
+        cc.dd.invokeWXFriendShareCustumText(contentstr, this.roomPassword);
     },
 });

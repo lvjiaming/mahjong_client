@@ -13,8 +13,8 @@ const SOUND_NAME = {
     V_PENG: "dgame_peng",
     V_GANG: "dgame_gang",
     V_HU: "dgame_hu",
-    // V_TING: "ting",
-    V_TING: "ting_man",
+    V_TING: "ting",
+    // V_TING: "ting_man",
 };
 cc.dd.soundName = SOUND_NAME;
 const SoundConfig = {

@@ -59,6 +59,7 @@ const CardMgr = cc.Class({
     _ziMoGangCard: null, // 自摸杠的牌
     _CurOutCard: null, // 当前出的牌
     _CurZiMoGangCard: null, // 当前自摸杠的牌
+    _SelfPlayerNode: null, // 自己玩家的节点
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -85,6 +86,7 @@ const CardMgr = cc.Class({
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
                 this.initSelfHandCard(h_node, data);
+                this._SelfPlayerNode = h_node.parent.parent;
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
@@ -547,7 +549,7 @@ const CardMgr = cc.Class({
         let preStr = null;
         switch (localSeat) {
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM: {
-                if (data.mopai !== true) {
+                if (data.mopai !== true && data.mopai !== -1) {
                     this.setMoCard(data.mopai);
                     const str = "HandPoker";
                     const card = cc.instantiate(cc.dd.dirRes[str.toUpperCase()]);
@@ -579,14 +581,17 @@ const CardMgr = cc.Class({
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT: {
                 preStr = "HandCard_Left";
+                this.setMoCard(null);
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.TOP: {
                 preStr = "HandCard_Top";
+                this.setMoCard(null);
                 break;
             }
             case cc.dd.gameCfg.PLAYER_SEAT_LOCAL.LEFT: {
                 preStr = "HandCard_Left";
+                this.setMoCard(null);
                 break;
             }
             default: {
@@ -725,6 +730,16 @@ const CardMgr = cc.Class({
     },
     getCurZiMoGangCard () {
         return this._CurZiMoGangCard;
+    },
+    /**
+     *  得到听得按钮状态
+     */
+    getTingBtnState() {
+        let state = null;
+        if (this._SelfPlayerNode) {
+            state = this._SelfPlayerNode.getComponent("PlayerSelf").getTingBtnState();
+        }
+        return state;
     },
     /**
      *  排序手牌

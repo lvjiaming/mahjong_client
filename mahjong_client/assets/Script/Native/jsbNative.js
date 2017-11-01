@@ -82,10 +82,13 @@ cc.dd.invokeWXMomentShareCustumLink = () => {
     }
 };
 // 房间号，房间信息分享到朋友对话
-cc.dd.invokeWXFriendShareCustumText = (str) => {
+cc.dd.invokeWXFriendShareCustumText = (str, password) => {
     if(cc.sys.isMobile) {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
-
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"SendWXAppContent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+                password ,
+                "朝阳麻将",
+                str);
         }else {
             jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",str);
         }

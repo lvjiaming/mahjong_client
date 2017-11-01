@@ -101,6 +101,10 @@ cc.Class({
                 break;
             }
             case CARD_STATE.SELECT: {
+                if (cc.dd.cardMgr.getTingBtnState()) {
+                    this.cancelSelect();
+                    return;
+                }
                 if (cc.dd.cardMgr.getIsCanOutCard()) {
                     if (cc.dd.cardMgr.getHuiPai()) {
                         if (cc.dd.cardMgr.getHuiPai() == this.id) {
