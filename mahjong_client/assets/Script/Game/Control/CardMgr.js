@@ -559,12 +559,12 @@ const CardMgr = cc.Class({
                                 card.getChildByName("TingSign").active = true;
                                 hasTing = true;
                             }
-                            if (hasTing) {
-                                cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
-                                    const buting = cc.instantiate(prefab);
-                                    this.node.addChild(buting);
-                                });
-                            }
+                            // if (hasTing) {
+                            //     cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
+                            //         const buting = cc.instantiate(prefab);
+                            //         this.node.addChild(buting);
+                            //     });
+                            // }
                         });
                     }
                     card.getComponent("Card").id = data.mopai;
