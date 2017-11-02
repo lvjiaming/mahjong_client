@@ -941,12 +941,24 @@ cc.Class({
     onClickMessgaeBtn(event, custom) {
         const localSeat = custom;
         if(localSeat) {
+            if(!cc.dd.room._currentMessageSeatID){ // 离开场景的时候记得清空
+                cc.dd.room._currentMessageSeatID = localSeat;
+            }else {
+                if(localSeat != cc.dd.room._currentMessageSeatID) {
+                    cc.dd.room._currentMessageSeatID = localSeat;
+                }
+            }
+            // 判断是开始还是暂停点击
             if(this.playerArr[localSeat-1].mesArr.length > 0) {
                 cc.dd.soundMgr.pauseAllSounds();
-                this.playerArr[localSeat-1].mesArr.forEach((item) => {
-                    cc.dd.downloadAndPlayMessageWithMessageID(item);
-                });
+                cc.dd.downloadAndPlayMessageWithMessageID(this.playerArr[localSeat-1].mesArr[0]);
             }
         }
+    },
+    // 成功播放完当前消息的回调的处理
+    didFinishPlayingCurrentMessage() {
+        // 给语音数组删项
+        // 判断数组长度，不显示语音消息图标,或是点击按钮播放下一条（是否清当前发言人/语音id、恢复背景音播放）
+
     },
 });

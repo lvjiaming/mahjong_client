@@ -29,6 +29,8 @@ const Room = cc.Class({
         _guipai: null,  // 结算界面，鬼牌
         _subcommand: null, // 结算界面，为4时显示返回大厅
         _roomRules: null, // 游戏房间玩法规则
+        _currentMessageSeatID: null,  // 当前播放的语音信息的是这个座位号的
+        _currentMessageID: null,  // 当前播放的语音消息的id
     },
     // 房间数据
     updataRoomData(data) {

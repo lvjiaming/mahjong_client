@@ -3,6 +3,16 @@ cc.Class({
 
     properties: {
         _didClickRecordBtn: null,
+        recordSprite: {
+            default: null,
+            type: cc.Node,
+            tooltip: "录音按钮图标",
+        },
+        stopRecord: {
+            default: null,
+            type: cc.Node,
+            tooltip: "停止录音按钮图标",
+        },
     },
 
     // use this for initialization
@@ -35,16 +45,22 @@ cc.Class({
         }
         if(!this._didClickRecordBtn) {
             this._didClickRecordBtn = true;
-            cc.log(`语音`);
             cc.dd.Reload.loadPrefab("Game/Prefab/Recording", (prefan) => {
                 const recording = cc.instantiate(prefan);
                 this.node.addChild(recording);
             });
+            // var imgstop = cc.url.raw("Game/Atlas/stoprecord.png");// htu
+            // var rejectTexture = cc.textureCache.addImage(imgstop);
+            // this.recordSprite.spriteFrame.setTexture(rejectTexture);
+            this.recordSprite.active = false;
+            this.stopRecord.active = true;
             cc.dd.startRecordingWithGvoice();
             cc.dd.soundMgr.pauseAllSounds();
         }else {
             this._didClickRecordBtn = false;
             this.node.getChildByName("Recording").removeFromParent();
+            this.recordSprite.active = true;
+            this.stopRecord.active = false;
             cc.dd.stopRecordingWithGvoice();
             cc.dd.soundMgr.resumeAllSounds();
         }

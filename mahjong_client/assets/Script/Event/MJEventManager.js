@@ -135,10 +135,10 @@ const MJEventManager = cc.Class({
                 this.sendMessage(body);
                 break;
             }
-            case cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING: {
-                cc.dd.soundMgr.resumeAllSounds();
-                break;
-            }
+            // case cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING: {
+            //     cc.dd.soundMgr.resumeAllSounds();
+            //     break;
+            // }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
@@ -320,7 +320,7 @@ const MJEventManager = cc.Class({
      */
     didFinishPlayCurrentMessage() {
         cc.log("oc回调js成功，播放完成");
-        this.startEvent(cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING);
+        cc.dd.notifyEvent(cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING);
     },
 });
 cc.dd.net = MJEventManager.getInstance();
