@@ -150,12 +150,16 @@ cc.Class({
     initPlayerArr() {
         this.playerArr.push(this.PlayerNode.getChildByName("Bottom"));
         this.PlayerNode.getChildByName("Bottom").localSeat = 1;
+        this.PlayerNode.getChildByName("Bottom").mesArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Right"));
         this.PlayerNode.getChildByName("Right").localSeat = 2;
+        this.PlayerNode.getChildByName("Right").mesArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Top"));
         this.PlayerNode.getChildByName("Top").localSeat = 3;
+        this.PlayerNode.getChildByName("Top").mesArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Left"));
         this.PlayerNode.getChildByName("Left").localSeat = 4;
+        this.PlayerNode.getChildByName("Left").mesArr = [];
     },
     // 初始化玩家
     initPlayerSeat(data) {
@@ -930,10 +934,19 @@ cc.Class({
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
             this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = true;
+            this.playerArr[localSeat-1].mesArr.push(data.voiceid); // 给他的语音数组赋值
         }
     },
     // 语音图标的点击
     onClickMessgaeBtn(event, custom) {
-        cc.log(custom);
+        const localSeat = custom;
+        if(localSeat) {
+            if(this.playerArr[localSeat-1].mesArr.length > 0) {
+                cc.dd.soundMgr.pauseAllSounds();
+                this.playerArr[localSeat-1].mesArr.forEach((item) => {
+                    cc.dd.downloadAndPlayMessageWithMessageID(item);
+                });
+            }
+        }
     },
 });

@@ -174,3 +174,13 @@ cc.dd.stopRecordingWithGvoice = () =>{
 };
 
 // gvoice 下载并播放语音消息
+cc.dd.downloadAndPlayMessageWithMessageID = (mesID) => {
+    if (cc.sys.isMobile) {
+        cc.log("调用原生sdk下载并播放");
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+
+        } else {
+            jsb.reflection.callStaticMethod("RootViewController", "playGvoiceMessage:",mesID);
+        }
+    }
+};

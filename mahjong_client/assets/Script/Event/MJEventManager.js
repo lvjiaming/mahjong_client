@@ -135,6 +135,10 @@ const MJEventManager = cc.Class({
                 this.sendMessage(body);
                 break;
             }
+            case cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING: {
+                cc.dd.soundMgr.resumeAllSounds();
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }
@@ -262,6 +266,10 @@ const MJEventManager = cc.Class({
                 this.notifyEvent(msgId, msgData);
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: {
+                this.notifyEvent(msgId,msgData);
+                break;
+            }
             default: {
                 cc.log(`unkown msgId: ${msgId}`);
             }
@@ -303,8 +311,16 @@ const MJEventManager = cc.Class({
      * @param fileID 语音消息id
      */
     didUploadToGvoiceSever(fileID) {
-        cc.log("oc回调js成功"+fileID);
+        cc.log("oc回调js成功，上传成功"+fileID);
         this.startEvent(cc.dd.gameCfg.EVENT.EVENT_YUYIN_UPLOAD,fileID);
+    },
+    /**
+     *  播放成功后回调(被原生回调的)
+     * @param fileID 语音消息id
+     */
+    didFinishPlayCurrentMessage() {
+        cc.log("oc回调js成功，播放完成");
+        this.startEvent(cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING);
     },
 });
 cc.dd.net = MJEventManager.getInstance();

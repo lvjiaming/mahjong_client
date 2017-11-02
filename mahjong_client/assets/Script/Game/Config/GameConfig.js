@@ -101,5 +101,10 @@ module.exports = {
         BATTERTY_CHARGING: "Charging",  // 充电中
         BATTERTY_UNPULG: "battery_unpulg",  // 充电线拔出
     },
+    // gvoice 离线语音消息相关
+    GVOICE: {
+        GVOICE_MESSAGE_FINISH_PLAYING: "message_finish_playing", // 完成播放当前语音消息
+
+    },
 };
 cc.dd.gameCfg = module.exports;
