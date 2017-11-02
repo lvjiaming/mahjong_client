@@ -922,6 +922,18 @@ cc.Class({
             }
             });
         var contentstr = this.RoomIDLabel.string + " 本房间玩法：" + str;
+        // cc.dd.invokeWXFriendShareCustumText(contentstr);
         cc.dd.invokeWXFriendShareCustumText(contentstr, this.roomPassword);
+    },
+    // 给发言用户显示语音图标
+    onRecievedPlayerMessage(data) {
+        const localSeat = this.getLocalSeatByUserId(data.senduid);
+        if (localSeat) {
+            this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = true;
+        }
+    },
+    // 语音图标的点击
+    onClickMessgaeBtn(event, custom) {
+        cc.log(custom);
     },
 });

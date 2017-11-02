@@ -32,6 +32,11 @@ cc.Class({
             type: cc.Node,
             tooltip: "杠得分",
         },
+        ThridPoint: {
+            default: null,
+            type: cc.Node,
+            tooltip: "总得分",
+        },
         zhuangjia: {
             default: null,
             type: cc.Node,
@@ -89,6 +94,13 @@ cc.Class({
                 this.SecondPoint.addChild(ponitstr);
             });
         });
+        cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+            const ponitstr = cc.instantiate(prefab);
+            ponitstr.getComponent("composeNum").initPoint(data.roomscore,atlas);
+            this.ThridPoint.addChild(ponitstr);
+            });
+        });
     },
     // 黄局
     initHuangjuInfo(data) {
@@ -112,8 +124,15 @@ cc.Class({
         cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
             cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
                 const ponitstr = cc.instantiate(prefab);
-                ponitstr.getComponent("composeNum").initPoint(data.roomscore,atlas);
+                ponitstr.getComponent("composeNum").initPoint(data.gangscore,atlas);
                 this.SecondPoint.addChild(ponitstr);
+            });
+        });
+        cc.dd.Reload.loadAtlas("Game/Atlas/num", (atlas) => {
+            cc.dd.Reload.loadPrefab("Game/Prefab/ShowTime", (prefab) => {
+            const ponitstr = cc.instantiate(prefab);
+            ponitstr.getComponent("composeNum").initPoint(data.roomscore,atlas);
+            this.ThridPoint.addChild(ponitstr);
             });
         });
     },

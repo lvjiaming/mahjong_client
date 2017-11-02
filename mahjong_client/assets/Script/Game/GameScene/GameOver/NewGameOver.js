@@ -52,11 +52,11 @@ cc.Class({
             type: cc.Node,
             tooltip: "返回的按钮",
         },
-        GangPonitTitle: {
-            default: null,
-            type: cc.Sprite,
-            tooltip: "杠分/总分",
-        },
+        // GangPonitTitle: {
+        //     default: null,
+        //     type: cc.Sprite,
+        //     tooltip: "杠分/总分",
+        // },
     },
 
     // use this for initialization
@@ -93,9 +93,9 @@ cc.Class({
             this.winnerCards.active = false;
             cc.dd.room._guipai = data.guicard;
             //改杠为总
-            cc.dd.Reload.loadAtlas("Game/Atlas/gameOverAl", (atlas) => {
-                this.GangPonitTitle.spriteFrame = atlas.getSpriteFrame("zong@2x");
-            });
+            // cc.dd.Reload.loadAtlas("Game/Atlas/gameOverAl", (atlas) => {
+            //     this.GangPonitTitle.spriteFrame = atlas.getSpriteFrame("zong@2x");
+            // });
             // 四人分数
             cc.dd.Reload.loadPrefab("Game/Prefab/InnerGameRecord", (prefab) => {
                 data.userlist.forEach((item) => {

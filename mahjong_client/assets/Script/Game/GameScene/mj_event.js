@@ -143,6 +143,7 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: { // 4019,收到玩家发语音的广播
+                this.node.getComponent("mj_gameScene").onRecievedPlayerMessage(data);
                 break;
             }
             default: {
