@@ -933,11 +933,34 @@ cc.Class({
     onRecievedPlayerMessage(data) {
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
+            cc.dd.room._currentMessageSeatID = localSeat;
             this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = true;
             this.playerArr[localSeat-1].mesArr.push(data.voiceid); // 给他的语音数组赋值
+            cc.dd.soundMgr.pauseAllSounds();
+            cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0]
+            this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
+            cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
         }
     },
-    // 语音图标的点击
+    // 成功播放完当前消息的回调的处理
+    didFinishPlayingCurrentMessage() { // 联系播放
+        const localSeat = cc.dd.room._currentMessageSeatID;
+        this.playerArr[localSeat-1].mesArr.splice(0,1);
+        this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
+        if(this.playerArr[localSeat-1].mesArr.length > 0) {
+            // this.onRecievedPlayerMessage(this.playerArr[localSeat-1].mesArr);
+        }else {
+            cc.dd.soundMgr.resumeAllSounds();
+            cc.dd.room._currentMessageSeatID = null;
+            cc.dd.room._currentMessageID = null;
+            this.scheduleOnce(function() {
+                this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
+                cc.dd.soundMgr.resumeAllSounds();
+            }, 1.5);
+
+        }
+    },
+    // 语音图标的点击  弃用
     onClickMessgaeBtn(event, custom) {
         cc.log("播放语音");
         const localSeat = custom;
@@ -946,7 +969,6 @@ cc.Class({
                 cc.dd.room._currentMessageSeatID = localSeat;
             }else {
                 if(localSeat != cc.dd.room._currentMessageSeatID) {
-                    this.playerArr[cc.dd.room._currentMessageSeatID-1].click = null;
                     cc.dd.room._currentMessageSeatID = localSeat;
                 }
             }
@@ -966,20 +988,5 @@ cc.Class({
                 cc.dd.soundMgr.resumeAllSounds();
             }
         }
-    },
-    // 成功播放完当前消息的回调的处理
-    didFinishPlayingCurrentMessage() { // 联系播放
-        const localSeat = cc.dd.room._currentMessageSeatID;
-        this.playerArr[localSeat-1].mesArr.splice(0,1);
-        this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
-        if(this.playerArr[localSeat-1].mesArr.length > 0) {
-            this.onClickMessgaeBtn("event",localSeat);
-        }else {
-            this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
-            cc.dd.room._currentMessageSeatID = null;
-            cc.dd.room._currentMessageID = null;
-            cc.dd.soundMgr.resumeAllSounds();
-        }
-
     },
 });

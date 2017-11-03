@@ -3,21 +3,57 @@ cc.Class({
 
     properties: {
         _didClickRecordBtn: null,
-        recordSprite: {
+        // recordSprite: {
+        //     default: null,
+        //     type: cc.Node,
+        //     tooltip: "录音按钮图标",
+        // },
+        // stopRecord: {
+        //     default: null,
+        //     type: cc.Node,
+        //     tooltip: "停止录音按钮图标",
+        // },
+        RecordBTN: {
             default: null,
             type: cc.Node,
-            tooltip: "录音按钮图标",
-        },
-        stopRecord: {
-            default: null,
-            type: cc.Node,
-            tooltip: "停止录音按钮图标",
+            tooltip: "录音按钮",
         },
     },
 
     // use this for initialization
     onLoad: function () {
-
+        this.RecordBTN.on('touchstart',function (event) {
+            this.count = 0;
+            this.callback = function () {
+                if (this.count === 179) {
+                    cc.log("achieve179:");
+                    this.stopRecordingWithGvoiceSDk();
+                    this.unschedule(this.callback);
+                    this.callback = null;
+                }
+                this.count++;
+                cc.log(this.count);
+            }
+            this.schedule(this.callback, 1);
+            cc.dd.Reload.loadPrefab("Game/Prefab/Recording", (prefan) => {
+                const recording = cc.instantiate(prefan);
+                this.node.addChild(recording);
+            });
+            cc.dd.startRecordingWithGvoice();
+            cc.dd.soundMgr.pauseAllSounds();
+        },this);
+        this.RecordBTN.on('touchend',function (event) {
+            if(this.callback) {
+                this.unschedule(this.callback);
+                this.stopRecordingWithGvoiceSDk();
+            }
+        },this);
+        this.RecordBTN.on('touchcancel',function (event) {
+            if(this.callback) {
+                this.unschedule(this.callback);
+                this.stopRecordingWithGvoiceSDk();
+            }
+        },this);
     },
     // 返回
     onReturnClick() {
@@ -38,7 +74,14 @@ cc.Class({
             });
         }
     },
-    // 语音
+    // 停止录音
+    stopRecordingWithGvoiceSDk() {
+        this.node.getChildByName("Recording").removeFromParent();
+        cc.dd.stopRecordingWithGvoice();
+        cc.dd.soundMgr.resumeAllSounds();
+    },
+
+    // 语音 弃用
     onSoundClick() {
         if(!cc.sys.isMobile){
             return;

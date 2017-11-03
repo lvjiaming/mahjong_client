@@ -35,7 +35,7 @@ const MJEventManager = cc.Class({
                 body.did = deviceid;
             }
         }else{
-            body.did = "47194279-dfb8-4e35-9ba2-d13dd70028dc";// 网页
+            body.did = "26ee669399b2ee1b";// 网页47194279-dfb8-4e35-9ba2-d13dd70028dc
         }//26ee669399b2ee1b
 
         switch (event) {
@@ -267,7 +267,8 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: {
-                this.notifyEvent(msgId,msgData);
+                // this.notifyEvent(msgId,msgData);
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             default: {
