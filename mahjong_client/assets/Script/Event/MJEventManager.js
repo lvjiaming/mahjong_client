@@ -293,9 +293,9 @@ const MJEventManager = cc.Class({
     updateCurrentBatteryStatus(sta) {
         cc.log("oc观察者观察电量发生改变回调"+sta);
         if(sta == "Charging"){
-            cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,true);
+            this.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,true);
         }else {
-            cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
+            this.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_CHARGING,false);
         }
     },
     /**
@@ -316,11 +316,11 @@ const MJEventManager = cc.Class({
     },
     /**
      *  播放成功后回调(被原生回调的)
-     * @param fileID 语音消息id
+     * @param
      */
     didFinishPlayCurrentMessage() {
         cc.log("oc回调js成功，播放完成");
-        cc.dd.notifyEvent(cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING);
+        this.notifyEvent(cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING);
     },
 });
 cc.dd.net = MJEventManager.getInstance();

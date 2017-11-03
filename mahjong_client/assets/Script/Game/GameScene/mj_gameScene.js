@@ -939,26 +939,47 @@ cc.Class({
     },
     // 语音图标的点击
     onClickMessgaeBtn(event, custom) {
+        cc.log("播放语音");
         const localSeat = custom;
         if(localSeat) {
             if(!cc.dd.room._currentMessageSeatID){ // 离开场景的时候记得清空
                 cc.dd.room._currentMessageSeatID = localSeat;
             }else {
                 if(localSeat != cc.dd.room._currentMessageSeatID) {
+                    this.playerArr[cc.dd.room._currentMessageSeatID-1].click = null;
                     cc.dd.room._currentMessageSeatID = localSeat;
                 }
             }
             // 判断是开始还是暂停点击
-            if(this.playerArr[localSeat-1].mesArr.length > 0) {
-                cc.dd.soundMgr.pauseAllSounds();
-                cc.dd.downloadAndPlayMessageWithMessageID(this.playerArr[localSeat-1].mesArr[0]);
+            if(!this.playerArr[localSeat-1].click) {
+                this.playerArr[localSeat-1].click = true;
+                if(this.playerArr[localSeat-1].mesArr.length > 0) {
+                    cc.dd.soundMgr.pauseAllSounds();
+                    cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0]
+                    cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
+                    this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
+                }
+            }else {
+                this.playerArr[localSeat-1].click = false;
+                this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
+                cc.dd.stopPlayingCurrentGvoiceMessage();
+                cc.dd.soundMgr.resumeAllSounds();
             }
         }
     },
     // 成功播放完当前消息的回调的处理
-    didFinishPlayingCurrentMessage() {
-        // 给语音数组删项
-        // 判断数组长度，不显示语音消息图标,或是点击按钮播放下一条（是否清当前发言人/语音id、恢复背景音播放）
+    didFinishPlayingCurrentMessage() { // 联系播放
+        const localSeat = cc.dd.room._currentMessageSeatID;
+        this.playerArr[localSeat-1].mesArr.splice(0,1);
+        this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
+        if(this.playerArr[localSeat-1].mesArr.length > 0) {
+            this.onClickMessgaeBtn("event",localSeat);
+        }else {
+            this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
+            cc.dd.room._currentMessageSeatID = null;
+            cc.dd.room._currentMessageID = null;
+            cc.dd.soundMgr.resumeAllSounds();
+        }
 
     },
 });

@@ -184,3 +184,15 @@ cc.dd.downloadAndPlayMessageWithMessageID = (mesID) => {
         }
     }
 };
+
+// gvoice 停止播放当前语音消息
+cc.dd.stopPlayingCurrentGvoiceMessage = () => {
+    if (cc.sys.isMobile) {
+        cc.log("调用原生sdk下载并播放");
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+
+        } else {
+            jsb.reflection.callStaticMethod("RootViewController", "stopPlayingGvoiceMessage");
+        }
+    }
+};

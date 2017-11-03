@@ -147,7 +147,8 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING: { // 收到当前语音消息播放完毕
-                this.node.getComponent("mj_gameScene").onRecievedPlayerMessage();
+                cc.log("didnotifyevent播放语音完成");
+                this.node.getComponent("mj_gameScene").didFinishPlayingCurrentMessage();
                 break;
             }
             default: {
