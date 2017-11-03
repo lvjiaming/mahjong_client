@@ -87,7 +87,7 @@ cc.dd.invokeWXFriendShareCustumText = (str, password) => {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"SendWXAppContent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
                 password ,
-                "朝阳麻将",
+                "http://dafuvip.com/baaEJ3",
                 str);
         }else {
             jsb.reflection.callStaticMethod("WXShareTool", "jsInitiateWXFriendsShare:",str);
