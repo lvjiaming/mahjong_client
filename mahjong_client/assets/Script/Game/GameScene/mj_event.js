@@ -21,6 +21,8 @@ cc.Class({
         cc.dd.roomEvent.removeObserver(this);
         cc.dd.userEvent.removeObserver(this);
         cc.dd.net.removeObserver(this);
+        cc.dd.room._currentMessageSeatID = null;
+        cc.dd.room._currentMessageID = null;
     },
 
     onMessageEvent(event, data) {
@@ -149,6 +151,18 @@ cc.Class({
             case cc.dd.gameCfg.GVOICE.GVOICE_MESSAGE_FINISH_PLAYING: { // 收到当前语音消息播放完毕
                 cc.log("didnotifyevent播放语音完成");
                 this.node.getComponent("mj_gameScene").didFinishPlayingCurrentMessage();
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: { // 转让房卡
+                cc.dd.user.getUserInfo().roomcardnum = data.mycards;
+                this.node.getComponent("mj_gameScene").onClickExchangeFangKa();
+                break;
+            }
+            case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+                cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
+                    const exchangeFK = cc.instantiate(prefab);
+                    this.node.addChild(exchangeFK);
+                });
                 break;
             }
             default: {

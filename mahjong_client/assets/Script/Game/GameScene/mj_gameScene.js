@@ -541,6 +541,7 @@ cc.Class({
     },
     // 玩家胡牌
     playerHuCard(data) {
+        cc.log("玩家胡牌动画效果");
         cc.dd.roomEvent.setIsCache(false);
         this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.playEffect(1, cc.dd.soundName.V_HU);
@@ -571,6 +572,7 @@ cc.Class({
         huTypeNode.getComponent(cc.Sprite).spriteFrame = huSpr;
         const daytime = cc.delayTime(0.5);
         const callFun1 = cc.callFunc(() => {
+            cc.log("胡牌动画");
             this.HuAniNode.active = false;
             card.getComponent("CardSpr").initCard(data.hupai);
             card.active = true;
@@ -581,7 +583,7 @@ cc.Class({
                 card.active = false;
                 huSign.active = false;
                 huTypeNode.active = false;
-            }, 0.5);
+            }, 1);
         });
         this.HuAniNode.runAction(cc.sequence(scaleAni, moveAni, callFun1));
     },
@@ -931,6 +933,7 @@ cc.Class({
     },
     // 给发言用户显示语音图标
     onRecievedPlayerMessage(data) {
+        cc.dd.roomEvent.setIsCache(false);
         const localSeat = this.getLocalSeatByUserId(data.senduid);
         if (localSeat) {
             cc.dd.room._currentMessageSeatID = localSeat;
@@ -943,7 +946,7 @@ cc.Class({
         }
     },
     // 成功播放完当前消息的回调的处理
-    didFinishPlayingCurrentMessage() { // 联系播放
+    didFinishPlayingCurrentMessage() { // 联续播放
         const localSeat = cc.dd.room._currentMessageSeatID;
         this.playerArr[localSeat-1].mesArr.splice(0,1);
         this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
@@ -956,37 +959,16 @@ cc.Class({
             this.scheduleOnce(function() {
                 this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
                 cc.dd.soundMgr.resumeAllSounds();
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
             }, 1.5);
 
         }
     },
-    // 语音图标的点击  弃用
-    onClickMessgaeBtn(event, custom) {
-        cc.log("播放语音");
-        const localSeat = custom;
-        if(localSeat) {
-            if(!cc.dd.room._currentMessageSeatID){ // 离开场景的时候记得清空
-                cc.dd.room._currentMessageSeatID = localSeat;
-            }else {
-                if(localSeat != cc.dd.room._currentMessageSeatID) {
-                    cc.dd.room._currentMessageSeatID = localSeat;
-                }
-            }
-            // 判断是开始还是暂停点击
-            if(!this.playerArr[localSeat-1].click) {
-                this.playerArr[localSeat-1].click = true;
-                if(this.playerArr[localSeat-1].mesArr.length > 0) {
-                    cc.dd.soundMgr.pauseAllSounds();
-                    cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0]
-                    cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
-                    this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
-                }
-            }else {
-                this.playerArr[localSeat-1].click = false;
-                this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
-                cc.dd.stopPlayingCurrentGvoiceMessage();
-                cc.dd.soundMgr.resumeAllSounds();
-            }
-        }
+    onClickExchangeFangKa() {
+        cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+            const changePup = cc.instantiate(prefab);
+            this.node.addChild(changePup);
+        });
     },
 });
