@@ -217,14 +217,18 @@ const CardMgr = cc.Class({
         }
         let hasMo = false;
         if (moNode && !data.notDes) { // 将摸牌的节点里的牌清掉
+            let hasDestroy = false;
             moNode.children.forEach((item) => {
-                hasMo = true;
-                item.destroy();
-                destoryNum --;
-                if (isGang == cc.dd.gameCfg.OPERATE_TYPE.GANG && data.angang) {
-                    if (item.cardId != pengOrGangId) {
-                        destoryNum++;
-                    }
+                if (!hasDestroy) {
+                    destoryNum --;
+                    // if (isGang == cc.dd.gameCfg.OPERATE_TYPE.GANG && data.angang) {
+                    //     if (item.cardId != pengOrGangId) {
+                    //         destoryNum++;
+                    //     }
+                    // }
+                    hasMo = true;
+                    item.destroy();
+                    hasDestroy = true;
                 }
             });
             moNode.removeAllChildren();
