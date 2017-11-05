@@ -31,6 +31,7 @@ const Room = cc.Class({
         _roomRules: null, // 游戏房间玩法规则
         _currentMessageSeatID: null,  // 当前播放的语音信息的是这个座位号的
         _currentMessageID: null,  // 当前播放的语音消息的id
+        huing: null,    // 收到胡牌广播
     },
     // 房间数据
     updataRoomData(data) {
@@ -55,7 +56,7 @@ const Room = cc.Class({
         //     cc.dd.net.notifyEvent(event, data);
         // }
         cc.dd.roomEvent.addMsgToCacheList(event, data);
-        if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE) {
+        if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE && !this.huing) {
             cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.MSG_NOTIFY);
         }
     },

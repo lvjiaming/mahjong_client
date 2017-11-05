@@ -135,10 +135,10 @@ const EventManager = cc.Class({
         //         }, 1000);
         //     }
         // });
-        if(!this._isCache) {
-            cc.log("执行缓存的开关");
-            return;
-        }
+        // if(!this._isCache) {
+        //     cc.log("执行缓存的开关");
+        //     return;
+        // }
         if (this._isCache && this._cacheList.length > 0) {
             const cacheMsg = this._cacheList[0];
             this._cacheList.splice(0, 1);

@@ -98,12 +98,12 @@ cc.Class({
                 cc.log("收到4004");
                 if(cc.dd.room.userList.length > 1) {//一个在房间自动解散，不需要显示条条
                     if(this.didShowCountDownBar) {
-
+                        this.node.getChildByName("progressBar").getComponent("CountDownProgressBar").updateBarStrike(data);
                     }else {
                         this.didShowCountDownBar = true;
                         cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
                             const bar = cc.instantiate(prefab);
-                        cc.find("UI_ROOT").addChild(bar);
+                            cc.find("UI_ROOT").addChild(bar);
                         });
                     }
                 }

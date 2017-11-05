@@ -583,12 +583,13 @@ cc.Class({
                 card.active = false;
                 huSign.active = false;
                 huTypeNode.active = false;
+                cc.dd.room.huing = null;
             }, 1);
             this.scheduleOnce(() => {
                 cc.dd.roomEvent.setIsCache(true);
                 cc.dd.roomEvent.notifyCacheList();
                 cc.log(`胡牌的协议控制`);
-            }, 3);
+            }, 2);
         });
         this.HuAniNode.runAction(cc.sequence(scaleAni, moveAni, callFun1));
     },
@@ -731,17 +732,17 @@ cc.Class({
         card.getComponent("CardSpr").initCard(data.mopai);
         card.active = true;
         haidilao.active = true;
-        if (data.forcehu) {
-            this.scheduleOnce(() => {
-                cc.dd.roomEvent.setIsCache(true);
-                cc.dd.roomEvent.notifyCacheList();
-            }, 5);
-        }else {
+        // if (data.forcehu) {
+        //     this.scheduleOnce(() => {
+        //         cc.dd.roomEvent.setIsCache(true);
+        //         cc.dd.roomEvent.notifyCacheList();
+        //     }, 2);
+        // }else {
             this.scheduleOnce(() => {
                 cc.dd.roomEvent.setIsCache(true);
                 cc.dd.roomEvent.notifyCacheList();
             }, 2);
-        }
+        // }
     },
 
     // 指针转动
