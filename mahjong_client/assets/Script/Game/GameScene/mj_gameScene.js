@@ -652,10 +652,12 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
-        this.scheduleOnce(() => {
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
-        }, 0.5);
+        if (!data.forcehu) {
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 0.5);
+        }
     },
     // 结算
     oneGameOver(data) {
