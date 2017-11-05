@@ -179,10 +179,10 @@ const CardMgr = cc.Class({
                         pengOrGangId = data.gangpai;
                     } else {
                         pengOrGangId = this.getMoCard();
+                        pengOrGangId = this.getCurZiMoGangCard();
+                        this.setCurZiMoGangCard(null);
                     }
                     data.angang = true;
-                    pengOrGangId = this.getCurZiMoGangCard();
-                    this.setCurZiMoGangCard(null);
                 }
                 if (!data.angang) {
                     // needCre = false;
