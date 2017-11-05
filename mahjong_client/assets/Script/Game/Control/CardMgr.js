@@ -175,7 +175,11 @@ const CardMgr = cc.Class({
             case cc.dd.gameCfg.OPERATE_TYPE.GANG: {
                 pengOrGangId = data.gangpai;
                 if (data.mopaigang) {
-                    pengOrGangId = this.getMoCard();
+                    if (data.gangpai !== -1) {
+                        pengOrGangId = data.gangpai;
+                    } else {
+                        pengOrGangId = this.getMoCard();
+                    }
                     data.angang = true;
                     pengOrGangId = this.getCurZiMoGangCard();
                     this.setCurZiMoGangCard(null);
@@ -556,18 +560,20 @@ const CardMgr = cc.Class({
                     // 听啤的标志
                     if (cc.dd.cardMgr.getTingList()) {
                         let hasTing = false;
-                        cc.dd.cardMgr.getTingList().forEach((item) => {
-                            if (item == data.mopai) {
-                                card.getChildByName("TingSign").active = true;
-                                hasTing = true;
-                            }
-                            // if (hasTing) {
-                            //     cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
-                            //         const buting = cc.instantiate(prefab);
-                            //         this.node.addChild(buting);
-                            //     });
-                            // }
-                        });
+                        if (!cc.dd.cardMgr.getIsTing()) {
+                            cc.dd.cardMgr.getTingList().forEach((item) => {
+                                if (item == data.mopai) {
+                                    card.getChildByName("TingSign").active = true;
+                                    hasTing = true;
+                                }
+                                // if (hasTing) {
+                                //     cc.dd.Reload.loadPrefab("Game/Prefab/BuTing", (prefab) => {
+                                //         const buting = cc.instantiate(prefab);
+                                //         this.node.addChild(buting);
+                                //     });
+                                // }
+                            });
+                        }
                     }
                     card.getComponent("Card").id = data.mopai;
                     card.cardId = data.mopai;

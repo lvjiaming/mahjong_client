@@ -532,6 +532,10 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
+        if (data.myaction) {
+            const self = this.playerArr[0].getComponent("PlayerSelf");
+            self.showOperateBtn(data.myaction);
+        }
         if (!data.notDes) {
             this.scheduleOnce(() => {
                 cc.dd.roomEvent.setIsCache(true);
@@ -709,11 +713,13 @@ cc.Class({
     },
     haiDiLao(data) {
         cc.dd.roomEvent.setIsCache(false);
-        if (data.forcehu) {
-            cc.log(`玩家必须胡牌`);
-            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
-        }
         const localSeat = this.getLocalSeatByUserId(data.uid);
+        if (localSeat === 1) {
+            if (data.forcehu) {
+                cc.log(`玩家必须胡牌`);
+                cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
+            }
+        }
         const card = this.playerArr[localSeat - 1].getChildByName("HuInfo").getChildByName("HuCard");
         const haidilao = this.playerArr[localSeat - 1].getChildByName("HuInfo").getChildByName("HaiDiLao");
         card.getComponent("CardSpr").initCard(data.mopai);

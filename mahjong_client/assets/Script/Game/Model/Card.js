@@ -92,11 +92,11 @@ cc.Class({
         }
         switch (this.cardState) {
             case CARD_STATE.NORMAL: {
-                this.selectCard();
                 const readyCard = cc.dd.cardMgr.getReadyOutCard();
                 if (readyCard) {
                     readyCard.getComponent("Card").cancelSelect();
                 }
+                this.selectCard();
                 cc.dd.cardMgr.setReadyOutCard(this.node);
                 break;
             }
