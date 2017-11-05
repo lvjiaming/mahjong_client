@@ -762,7 +762,7 @@ const CardMgr = cc.Class({
             }
         }
         data.forEach((item) => {
-            cc.log(`排序后的手牌数组为：${item}`);
+            // cc.log(`排序后的手牌数组为：${item}`);
         });
     },
     /**

@@ -559,11 +559,7 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
-        this.scheduleOnce(() => {
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
-            cc.log(`胡牌的协议控制`);
-        }, 3);
+
     },
     huAni(localSeat, data, huSpr) {
         const huInfo = this.playerArr[localSeat - 1].getChildByName("HuInfo");
@@ -588,6 +584,11 @@ cc.Class({
                 huSign.active = false;
                 huTypeNode.active = false;
             }, 1);
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+                cc.log(`胡牌的协议控制`);
+            }, 3);
         });
         this.HuAniNode.runAction(cc.sequence(scaleAni, moveAni, callFun1));
     },
@@ -662,10 +663,10 @@ cc.Class({
                 cc.dd.roomEvent.notifyCacheList();
             }, 0.5);
         }else { // 强制胡
-            // this.scheduleOnce(() => {
-            //     cc.dd.roomEvent.setIsCache(true);
-            //     cc.dd.roomEvent.notifyCacheList();
-            // }, 3);
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 3);
         }
     },
     // 结算
@@ -731,10 +732,10 @@ cc.Class({
         card.active = true;
         haidilao.active = true;
         if (data.forcehu) {
-            // this.scheduleOnce(() => {
-            //     cc.dd.roomEvent.setIsCache(true);
-            //     cc.dd.roomEvent.notifyCacheList();
-            // }, 5);
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 5);
         }else {
             this.scheduleOnce(() => {
                 cc.dd.roomEvent.setIsCache(true);
