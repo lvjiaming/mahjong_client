@@ -434,7 +434,7 @@ cc.Class({
             cc.error(`本地座位号未找到！！！`);
         }
 
-        // 有碰刚胡时显示操作按钮
+        // 有碰杠胡时显示操作按钮
         if (data.myaction) {
             const self = this.playerArr[0].getComponent("PlayerSelf");
             self.showOperateBtn(data.myaction);
@@ -652,11 +652,16 @@ cc.Class({
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
-        if (!data.forcehu) {
+        if (!data.forcehu) { // 非强制胡
             this.scheduleOnce(() => {
                 cc.dd.roomEvent.setIsCache(true);
                 cc.dd.roomEvent.notifyCacheList();
             }, 0.5);
+        }else { // 强制胡
+            // this.scheduleOnce(() => {
+            //     cc.dd.roomEvent.setIsCache(true);
+            //     cc.dd.roomEvent.notifyCacheList();
+            // }, 3);
         }
     },
     // 结算
@@ -719,10 +724,17 @@ cc.Class({
         card.getComponent("CardSpr").initCard(data.mopai);
         card.active = true;
         haidilao.active = true;
-        this.scheduleOnce(() => {
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
-        }, 2);
+        if (data.forcehu) {
+            // this.scheduleOnce(() => {
+            //     cc.dd.roomEvent.setIsCache(true);
+            //     cc.dd.roomEvent.notifyCacheList();
+            // }, 5);
+        }else {
+            this.scheduleOnce(() => {
+                cc.dd.roomEvent.setIsCache(true);
+                cc.dd.roomEvent.notifyCacheList();
+            }, 2);
+        }
     },
 
     // 指针转动
