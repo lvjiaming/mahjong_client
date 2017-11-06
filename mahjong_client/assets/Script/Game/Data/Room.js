@@ -56,10 +56,10 @@ const Room = cc.Class({
         // } else {
         //     cc.dd.net.notifyEvent(event, data);
         // }
-        if(this.huing) {
-            cc.log("huing为true");
-            return;
-        }
+        // if(this.huing) {
+        //     cc.log("huing为true");
+        //     return;
+        // }
         cc.dd.roomEvent.addMsgToCacheList(event, data);
         if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE) {
             cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.MSG_NOTIFY);
