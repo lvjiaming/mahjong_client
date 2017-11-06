@@ -90,6 +90,7 @@ cc.Class({
                 cc.log("收到4003");
                 cc.dd.Reload.loadPrefab("Hall/Prefab/RoomDismiss", (prefab) => {
                     const RoomDismiss = cc.instantiate(prefab);
+                    RoomDismiss.getComponent("RoomDismissScript").initApplyernickname(data.applyernickname);
                     cc.find("UI_ROOT").addChild(RoomDismiss);
                 });
                 break;
@@ -103,8 +104,8 @@ cc.Class({
                         this.didShowCountDownBar = true;
                         cc.dd.Reload.loadPrefab("Hall/Prefab/progressBar", (prefab) => {
                             const bar = cc.instantiate(prefab);
-                            cc.find("UI_ROOT").addChild(bar);
-                        });
+                        cc.find("UI_ROOT").addChild(bar);
+                    });
                     }
                 }
                 break;
@@ -116,19 +117,19 @@ cc.Class({
                         const exitroomsuc = cc.instantiate(prefab);
                     exitroomsuc.getComponent("AlterViewScript").initInfoMes("解散房间成功");
                     cc.find("UI_ROOT").addChild(exitroomsuc);
-                    });
+                });
                 }else {
                     cc.log("收到4008,不解散房间：" + data.success);
                     this.didShowCountDownBar = false;
-                    // 弹窗节点干掉
-                    this.node.getChildByName("RoomDismiss").removeFromParent();
                     // 条条节点干掉
-                    this.node.getChildByName("progressBar").removeFromParent();
+                    if (this.node.getChildByName("progressBar")) {
+                        this.node.getChildByName("progressBar").removeFromParent();
+                    }
                     cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
                         const exitroomfail = cc.instantiate(prefab);
                     exitroomfail.getComponent("AlterViewScript").initInfoMes("解散房间失败");
                     cc.find("UI_ROOT").addChild(exitroomfail);
-                    });
+                });
                 }
                 break;
             }

@@ -7,6 +7,11 @@ cc.Class({
             type: cc.Label,
             tooltip: "确认取消房间",
        },
+        applyerName: {
+            default: null,
+            type: cc.Label,
+            tooltip: "申请人昵称",
+        },
     },
 
     // use this for initialization
@@ -27,6 +32,9 @@ cc.Class({
     onDestroy() {
         this.unschedule(this.callback);
         cc.dd.net.removeObserver(this);
+    },
+    initApplyernickname(data) {
+        this.applyerName.string = data;
     },
     onRejectClick() {
         cc.log("拒绝取消房间");

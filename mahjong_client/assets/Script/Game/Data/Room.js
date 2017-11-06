@@ -41,6 +41,7 @@ const Room = cc.Class({
             cc.dd.roomEvent.addMsg(cc.dd.roomEvName.ROOM_GAME_DATA, data);
         } else {
             cc.dd.roomEvent.addMsgToCacheList(cc.dd.roomEvName.ROOM_GAME_DATA, data);
+            cc.log("在游戏场景中，协议准备执行");
             if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE) {
                 cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.MSG_NOTIFY);
             }
@@ -55,6 +56,10 @@ const Room = cc.Class({
         // } else {
         //     cc.dd.net.notifyEvent(event, data);
         // }
+        if(this.huing) {
+            cc.log("huing为true");
+            return;
+        }
         cc.dd.roomEvent.addMsgToCacheList(event, data);
         if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE && !this.huing) {
             cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.MSG_NOTIFY);

@@ -45,18 +45,46 @@ cc.Class({
     },
     updateBarStrike(data) {
         cc.log("收到4004");
+        let rejectTexture = null;
+        let accesttexture = null;
         if(data.denys > 0) {
-            var imgReject = cc.url.raw("Hall/Atlas/dismiss-ty@2x.png");
-            var rejectTexture = cc.textureCache.addImage(imgReject);
-            if(data.denys == 1){
-                this.secondBar.spriteFrame.setTexture(rejectTexture);
-            }else if(data.denys == 2){
-                this.secondBar.spriteFrame.setTexture(rejectTexture);
-                this.thridBar.spriteFrame.setTexture(rejectTexture);
-            }else {
-                this.secondBar.spriteFrame.setTexture(rejectTexture);
-                this.thridBar.spriteFrame.setTexture(rejectTexture);
-                this.fourthBar.spriteFrame.setTexture(rejectTexture);
+            let imgReject = cc.url.raw("resources/Hall/Atlas/dismiss-ty@2x.png");
+            rejectTexture = new cc.SpriteFrame(imgReject);
+        }
+        if(data.accepts >= 2) {
+            let imgReject = cc.url.raw("resources/Hall/Atlas/dismiss-qr@2x.png");
+            accesttexture = new cc.SpriteFrame(imgReject);
+        }
+        if(data.denys > 0 && data.accepts > 0) {
+            if(data.denys === 1){
+                this.secondBar.spriteFrame = rejectTexture;
+                if(data.accepts == 2) {
+                    this.thridBar.spriteFrame = accesttexture;
+                }else if(data.accepts == 3) {
+                    this.thridBar.spriteFrame = accesttexture;
+                    this.fourthBar.spriteFrame = accesttexture;
+                }
+            }else if(data.denys == 2) {
+                this.secondBar.spriteFrame = rejectTexture;
+                this.thridBar.spriteFrame = rejectTexture;
+                if(data.accepts == 2) {
+                    this.fourthBar.spriteFrame = accesttexture;
+                }
+            }else if(data.denys == 3) {
+                this.secondBar.spriteFrame = rejectTexture;
+                this.thridBar.spriteFrame = rejectTexture;
+                this.fourthBar.spriteFrame = rejectTexture;
+            }
+        }else if (data.denys === 0 && data.accepts > 1){
+            if(data.accepts == 2) {
+                this.secondBar.spriteFrame = accesttexture;
+            }else if(data.accepts == 3) {
+                this.secondBar.spriteFrame = accesttexture;
+                this.thridBar.spriteFrame = accesttexture;
+            }else if(data.accepts == 4) {
+                this.secondBar.spriteFrame = accesttexture;
+                this.thridBar.spriteFrame = accesttexture;
+                this.fourthBar.spriteFrame = accesttexture;
             }
         }
     },
