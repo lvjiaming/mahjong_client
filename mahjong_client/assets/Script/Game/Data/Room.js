@@ -61,7 +61,7 @@ const Room = cc.Class({
             return;
         }
         cc.dd.roomEvent.addMsgToCacheList(event, data);
-        if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE && !this.huing) {
+        if (cc.director.getScene().sceneId == cc.dd.sceneID.GAME_SCENE) {
             cc.dd.roomEvent.notifyEvent(cc.dd.roomEvName.MSG_NOTIFY);
         }
     },

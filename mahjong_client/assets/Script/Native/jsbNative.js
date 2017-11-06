@@ -101,7 +101,7 @@ cc.dd.getCurrentBatteryStatus = () => {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
             return 1;
         }else {
-            var result = jsb.reflection.callStaticMethod("BatterMonitor","getBatteryLevel");
+            var result = jsb.reflection.callStaticMethod("RootViewController","getBatteryLevel");
             cc.log("返回的电池电量"+result.toPrecision(2));
             return result.toPrecision(2);
         }
@@ -114,7 +114,7 @@ cc.dd.getCurrentBatteryChargingStatus = () => {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
             return false;
         }else {
-            var stateResult = jsb.reflection.callStaticMethod("BatterMonitor","getBatteryState");
+            var stateResult = jsb.reflection.callStaticMethod("RootViewController","getBatteryState");
             cc.log("返回的充电状态"+ stateResult);
             if(stateResult == "Charging") {
                 return true;

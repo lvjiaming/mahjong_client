@@ -268,8 +268,8 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: {
-                // this.notifyEvent(msgId,msgData);
-                cc.dd.room.saveMsg(msgId, msgData);
+                this.notifyEvent(msgId,msgData);
+                // cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             default: {
@@ -306,7 +306,7 @@ const MJEventManager = cc.Class({
      */
     updateCurrentBatteryLevel(elevel) {
         cc.log("oc观察者观察电量发生改变回调"+elevel);
-        // cc.dd.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE,elevel.toPrecision(2));
+        this.notifyEvent(cc.dd.gameCfg.BATTERTY.BATTERTY_LEVEL_UPDATE,elevel.toPrecision(2));
     },
     /**
      *  成功上传到腾讯服务器后回调(被原生回调的)
