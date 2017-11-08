@@ -141,6 +141,12 @@ const EventManager = cc.Class({
         // }
         if (this._isCache && this._cacheList.length > 0) {
             const cacheMsg = this._cacheList[0];
+            if(cc.dd.room.huing) {
+                if(cacheMsg.event === 4018 || cacheMsg.event == "room_game_data") {
+                    cc.log("还没到胡牌动画");
+                    return;
+                }
+            }
             this._cacheList.splice(0, 1);
             cc.log(`下一条协议：${cacheMsg.event}`);
             cc.dd.roomEvent.notifyEvent(cacheMsg.event, cacheMsg.data);

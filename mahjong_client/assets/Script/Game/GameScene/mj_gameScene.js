@@ -178,7 +178,7 @@ cc.Class({
                     count = i + 1;
                 }
             }
-            cc.log(JSON.stringify(newarr) + "数组：" +userList);
+            // cc.log(JSON.stringify(newarr) + "数组：" +userList);
             if(newarr.length > 0 ) {
                 userList.forEach((item, index) => {
                     if(item == newarr[0][0]){
@@ -408,6 +408,7 @@ cc.Class({
     },
     // 玩家出牌
     playerOutCard(data) {
+        cc.dd.roomEvent.setIsCache(false);
         if (this.node.getChildByName("BuTing")) {
             this.node.getChildByName("BuTing").destroy();
         }
@@ -563,6 +564,7 @@ cc.Class({
 
     },
     huAni(localSeat, data, huSpr) {
+        cc.dd.roomEvent.setIsCache(false);
         const huInfo = this.playerArr[localSeat - 1].getChildByName("HuInfo");
         this.HuAniNode.active = true;
         const card = huInfo.getChildByName("HuCard");
@@ -585,12 +587,12 @@ cc.Class({
                 huSign.active = false;
                 huTypeNode.active = false;
                 cc.dd.room.huing = null;
-            }, 1);
-            this.scheduleOnce(() => {
+            if(!cc.dd.room.huing) {
+                cc.log(`胡牌的协议控制`);
                 cc.dd.roomEvent.setIsCache(true);
                 cc.dd.roomEvent.notifyCacheList();
-                cc.log(`胡牌的协议控制`);
-            }, 2);
+            }
+            }, 1);
         });
         this.HuAniNode.runAction(cc.sequence(scaleAni, moveAni, callFun1));
     },
@@ -668,7 +670,7 @@ cc.Class({
             this.scheduleOnce(() => {
                 cc.dd.roomEvent.setIsCache(true);
                 cc.dd.roomEvent.notifyCacheList();
-            }, 3);
+            });
         }
     },
     // 结算

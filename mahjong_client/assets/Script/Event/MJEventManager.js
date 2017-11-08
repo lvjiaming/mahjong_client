@@ -215,7 +215,9 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_HUCARD_RAD: {  // 玩家胡牌的广播
                 cc.dd.room.huing = true;
-                cc.dd.room.saveMsg(msgId, msgData);
+                // setTimeout(() => {
+                    cc.dd.room.saveMsg(msgId, msgData);
+                // },200);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_MOCARD_RAB: {  // 玩家摸牌的广播

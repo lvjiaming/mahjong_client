@@ -56,7 +56,7 @@ cc.Class({
             var password = '';
             for(var i = 0; i < this.keyboardInput.homeNumber.length; i++){
                 password = password + this.keyboardInput.homeNumber[i];
-                console.log("房间号：",this.keyboardInput.homeNumber[i]);
+                // console.log("房间号：",this.keyboardInput.homeNumber[i]);
             }
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_ROOM_REP, password);
         }

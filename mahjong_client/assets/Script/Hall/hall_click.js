@@ -19,7 +19,7 @@ cc.Class({
     },
     // 进入房间
     onEnterRoomClick() {
-        cc.log(`进入房间`);
+        // cc.log(`进入房间`);
         cc.dd.Reload.loadPrefab("Hall/Prefab/EnterPup", (prefab) => {
             const enterPup = cc.instantiate(prefab);
             this.node.addChild(enterPup);

@@ -145,6 +145,10 @@ cc.Class({
         cc.log(`过牌`);
         this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        });
         if (event.target.isOnlyTing) {
             cc.dd.cardMgr.setIsCanOutCard(true);
             cc.dd.cardMgr.setTingList(null);
