@@ -166,6 +166,14 @@ cc.Class({
                 });
                 break;
             }
+            case cc.dd.gameCfg.EVENT.EVENT_USER_OFFLINE: {
+                this.node.getComponent("mj_gameScene").userDidOffline(data);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_USER_BACKONLINE: {
+                this.node.getComponent("mj_gameScene").userDidComebackOnline(data);
+                break;
+            }
             default: {
                 cc.log(`unkown event: ${event}`);
             }

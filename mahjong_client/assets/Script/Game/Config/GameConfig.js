@@ -89,6 +89,8 @@ module.exports = {
         EVENT_JIESUAN_START_NEXTROUND: 1014, // 结算界面点击开始下一局按钮需要发请求到1014，不需要监听返回
         EVENT_YUYIN_UPLOAD: 2009,   // 上传腾讯服务器成功后，告知voiceid给服务器
         EVENT_YUYIN_COMING: 4019,   // 广播有用户发言了
+        EVENT_USER_OFFLINE: 4005,   // 广播用户断线
+        EVENT_USER_BACKONLINE: 4006,  // 广播断线用户上线了
     },
     // 电池电量状态
     BATTERTY: {

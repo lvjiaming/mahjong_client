@@ -268,8 +268,16 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: {
-                this.notifyEvent(msgId,msgData);
+                cc.dd.room.saveMsg(msgId,msgData);
                 // cc.dd.room.saveMsg(msgId, msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_USER_OFFLINE: {
+                cc.dd.room.saveMsg(msgId,msgData);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_USER_BACKONLINE: {
+                cc.dd.room.saveMsg(msgId,msgData);
                 break;
             }
             default: {

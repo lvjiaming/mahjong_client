@@ -230,6 +230,7 @@ cc.Class({
         // cc.log("庄家zhi:"+data.isbanker);
             if(item.isbanker.toString() === "true") {
                 this.playerArr[index].getChildByName("InfoBk").getChildByName("zhuangsign").active = true;
+                // this.playerArr[index].getChildByName("InfoBk").getChildByName("offline").active = true;
             }else {
                 this.playerArr[index].getChildByName("InfoBk").getChildByName("zhuangsign").active = false;
             }
@@ -992,5 +993,13 @@ cc.Class({
             const changePup = cc.instantiate(prefab);
             this.node.addChild(changePup);
         });
+    },
+    userDidOffline(data) {
+        const localSeat = this.getLocalSeatByUserId(data.UID);
+        this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("offline").active = true;
+    },
+    userDidComebackOnline(data) {
+        const localSeat = this.getLocalSeatByUserId(data.UID);
+        this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("offline").active = false;
     },
 });
