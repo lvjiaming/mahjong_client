@@ -83,7 +83,7 @@ cc.Class({
             case cc.dd.roomEvName.MSG_NOTIFY: {
                 this.scheduleOnce(() => {
                     cc.dd.roomEvent.notifyCacheList();
-                }, 0.8);
+                }, 0.5);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ROOM_DISMISS_ANOUNCE: {

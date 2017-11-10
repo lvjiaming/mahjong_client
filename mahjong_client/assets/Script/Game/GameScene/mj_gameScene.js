@@ -735,17 +735,12 @@ cc.Class({
         card.getComponent("CardSpr").initCard(data.mopai);
         card.active = true;
         haidilao.active = true;
-        // if (data.forcehu) {
-        //     this.scheduleOnce(() => {
-        //         cc.dd.roomEvent.setIsCache(true);
-        //         cc.dd.roomEvent.notifyCacheList();
-        //     }, 2);
-        // }else {
             this.scheduleOnce(() => {
+                // cc.dd.room.huing = null;
                 cc.dd.roomEvent.setIsCache(true);
                 cc.dd.roomEvent.notifyCacheList();
             }, 2);
-        // }
+
     },
 
     // 指针转动
@@ -791,7 +786,7 @@ cc.Class({
         this.scheduleOnce(() => {
             cc.dd.roomEvent.setIsCache(true);
             cc.dd.roomEvent.notifyCacheList();
-        }, 0.5);
+        },0.4);
     },
     // 显示听牌的标志
     showTingSign() {

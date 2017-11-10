@@ -19,7 +19,7 @@ const CONFIG = {
         PENG_GANG_Y: 85,
         PENG_GANE_INIT_Y: 40,
         OUT_CARD_X: 5.5,
-        OUT_CARD_Y: 22,
+        OUT_CARD_Y: 27,
         OUT_CARD_INIT_Y: 33.5,  // 出牌的第一张位置x为：-(length - 1) * 5.5
     },
     TOP: {
@@ -37,14 +37,14 @@ const CONFIG = {
         PENG_GANG_Y: -80,
         PENG_GANE_INIT_Y: -40,
         OUT_CARD_X: -5.5,
-        OUT_CARD_Y: -22,
+        OUT_CARD_Y: -27,
         OUT_CARD_INIT_Y: -33.5,
     },
     // 出牌的每层里牌的张数
     OUT_CARD_NUM: {
-        LAYER_ONE: 13,
-        LAYER_TWO: 11,
-        LAYER_THREE: 9,
+        LAYER_ONE: 7,
+        LAYER_TWO: 7,
+        LAYER_THREE: 4,
     },
 };
 const CardMgr = cc.Class({

@@ -143,18 +143,19 @@ cc.Class({
     // 过
     onGuoClick(event) {
         cc.log(`过牌`);
+        cc.dd.roomEvent.setIsCache(true);
+        // cc.dd.roomEvent.notifyCacheList();
         this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
-        this.scheduleOnce(() => {
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
-        });
+        // this.scheduleOnce(() => {
+
+        // });
         if (event.target.isOnlyTing) {
             cc.dd.cardMgr.setIsCanOutCard(true);
             cc.dd.cardMgr.setTingList(null);
             return;
         }
-        if ( event.target.customData) {
+        if (event.target.customData) {
             cc.dd.cardMgr.setIsCanOutCard(true);
             if (cc.dd.cardMgr.getIsTing()) {
                 const moCard = cc.dd.cardMgr.getMoCard();

@@ -215,9 +215,7 @@ const MJEventManager = cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_HUCARD_RAD: {  // 玩家胡牌的广播
                 cc.dd.room.huing = true;
-                // setTimeout(() => {
-                    cc.dd.room.saveMsg(msgId, msgData);
-                // },200);
+                cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_MOCARD_RAB: {  // 玩家摸牌的广播
@@ -241,6 +239,7 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_HAI_DI_LAO: { // 海底捞
+                // cc.dd.room.huing = true;
                 cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
