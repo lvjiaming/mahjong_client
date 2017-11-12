@@ -102,14 +102,9 @@ cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: {
-                if(data.subcommand == 1) {
-                    cc.log("4002,action为1");
-                }else {
-                    cc.log("4002,action为其他");
-                    cc.dd.Reload.loadDir("DirRes", () => {
-                        cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
-                    });
-                }
+                cc.dd.Reload.loadDir("DirRes", () => {
+                    cc.dd.sceneMgr.runScene(cc.dd.sceneID.GAME_SCENE);
+                });
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
