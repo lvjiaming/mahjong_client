@@ -4,6 +4,36 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>cdp@2x.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{46,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{46,46}</string>
+                <key>textureRect</key>
+                <string>{{29,0},{46,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>cdpx@2x.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{104,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{104,46}</string>
+                <key>textureRect</key>
+                <string>{{0,115},{104,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>doc1@2x.png</key>
             <dict>
                 <key>aliases</key>
@@ -60,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{68,69}</string>
                 <key>textureRect</key>
-                <string>{{29,0},{68,69}}</string>
+                <string>{{0,46},{68,69}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -76,9 +106,9 @@
             <key>realTextureFileName</key>
             <string>offline.png</string>
             <key>size</key>
-            <string>{97,69}</string>
+            <string>{104,161}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:79ffa5c37ddcb4895d3211bd204b470c:818dbb870a016f187dd240f2688870f8:b55e1282f8da23e2faa34028f772c871$</string>
+            <string>$TexturePacker:SmartUpdate:ec2ff752f2f0490a7db9c709c2071728:cdc95dffadbdf5f9b03cb5530fbd198d:b55e1282f8da23e2faa34028f772c871$</string>
             <key>textureFileName</key>
             <string>offline.png</string>
         </dict>
