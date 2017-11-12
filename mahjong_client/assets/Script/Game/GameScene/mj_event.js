@@ -14,7 +14,9 @@ cc.Class({
         cc.dd.roomEvent.addObserver(this);
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
-        cc.dd.user.getUserInfo().wereInGameSence = true;
+        if (cc.dd.user.getUserInfo()) {
+            cc.dd.user.getUserInfo().wereInGameSence = true;
+        }
         this.didShowCountDownBar = false;
     },
     onDestroy() {

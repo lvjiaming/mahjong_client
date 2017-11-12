@@ -124,7 +124,7 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         // 屏幕适配
-
+        cc.dd.pollKey = false;
         cc.dd.appUtil.setScreenFit(this.node);
         cc.dd.soundMgr.playMusic("resources/Game/Sound/common/bg.mp3", true);
 
@@ -998,5 +998,9 @@ cc.Class({
     userDidComebackOnline(data) {
         const localSeat = this.getLocalSeatByUserId(data.UID);
         this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("offline").active = false;
+    },
+    // 更新函数
+    update() {
+        cc.dd.updataPollFunc();
     },
 });

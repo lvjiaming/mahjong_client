@@ -155,7 +155,7 @@ cc.dd.accessPatseBoard = (str) => {
 cc.dd.startRecordingWithGvoice = () => {
     if(cc.sys.isMobile) {
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"startRecord", "()V");
         }else {
             jsb.reflection.callStaticMethod("RootViewController", "startGvoiceRecord");
         }
@@ -166,9 +166,17 @@ cc.dd.startRecordingWithGvoice = () => {
 cc.dd.stopRecordingWithGvoice = () =>{
     if (cc.sys.isMobile) {
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"stopRecord", "()V");
         } else {
             jsb.reflection.callStaticMethod("RootViewController", "stopGvoiceRecord");
+        }
+    }
+};
+
+cc.dd.updataPollFunc = () => {
+    if (cc.sys.isMobile) {
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"updataPoll", "()V");
         }
     }
 };
@@ -178,7 +186,7 @@ cc.dd.downloadAndPlayMessageWithMessageID = (mesID) => {
     if (cc.sys.isMobile) {
         cc.log("调用原生sdk下载并播放");
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity" ,"playRecordVoice", "(Ljava/lang/String;)V", mesID);
         } else {
             jsb.reflection.callStaticMethod("RootViewController", "playGvoiceMessage:",mesID);
         }
