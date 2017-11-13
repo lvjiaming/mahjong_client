@@ -35,7 +35,7 @@ const MJEventManager = cc.Class({
                 body.did = deviceid;
             }
         }else{
-            body.did = "47194279-dfb8-4e35-9ba2-d13dd70028dc";// 网页47194279-dfb8-4e35-9ba2-d13dd70028dc
+            body.did = "7d5d9880-486b-45cf-9346-795954ba3968";// 网页47194279-dfb8-4e35-9ba2-d13dd70028dc
         }//26ee669399b2ee1b
 
         switch (event) {
@@ -152,7 +152,7 @@ const MJEventManager = cc.Class({
      */
     onMsg(msgId, msgData) {
         cc.log(`收到的协议id为：${msgId}`);
-        cc.log(JSON.stringify(msgData));
+        cc.log(msgData);
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
                 this.writtenUserInfoIntoCellPhone(msgData.user);

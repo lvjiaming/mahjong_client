@@ -47,6 +47,7 @@ cc.Class({
         _HandCardArr: [], // 手牌数组
         _PengCardArr: [], // 碰牌数组
         _GangCardArr: [], // 杠牌数组
+        // _OutCardArr: [],  // 出牌数组
         _LocalSeat: 1,
     },
     /**

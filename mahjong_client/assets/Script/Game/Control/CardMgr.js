@@ -46,6 +46,11 @@ const CONFIG = {
         LAYER_TWO: 7,
         LAYER_THREE: 4,
     },
+    LIGHTUP_AREA: {
+        OUTCARDLAYER: "out_card",
+        CHICARDLAYER: "chi_card",
+        PENGCARDLAYER: "peng_card",
+    },
 };
 const CardMgr = cc.Class({
     _canOutCard: false,  // 是否可以出牌
@@ -60,6 +65,7 @@ const CardMgr = cc.Class({
     _CurOutCard: null, // 当前出的牌
     _CurZiMoGangCard: null, // 当前自摸杠的牌
     _SelfPlayerNode: null, // 自己玩家的节点
+    _lightupNodeArr: null, // 飙蓝的牌
     statics: {
         getInstance() {
             if (!this.cardMgr) {
@@ -74,6 +80,7 @@ const CardMgr = cc.Class({
         this._selfHandCard = [];
         this._isTing = false;
         this._moCard = null;
+        this._lightupNodeArr = [];
     },
     /**
      *  手牌的初始化
@@ -780,6 +787,79 @@ const CardMgr = cc.Class({
         this.initSelfHandCard(handNode, this._selfHandCard);
         // 将选中牌赋予空
         this.setReadyOutCard(null);
+    },
+    /**
+     *  飚蓝与手牌选中的牌，相同的牌
+     */
+    singleOutSeletedHandCardSimilarOutCard(carid) {
+        cc.log("飚蓝与手牌选中的牌，相同的牌"+cc.dd.room._playerNodeArr[0].outPengArr);
+        // 遍历出牌，有无一样的
+        cc.dd.room._playerNodeArr[0].outCardArr.forEach((item,index) => {//OutCardLayer
+            if (item === carid){
+                const outNode = cc.dd.room._playerNodeArr[0].getChildByName("OutCardLayer");
+                this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.OUTCARDLAYER,outNode,index);
+            }
+        });
+        cc.dd.room._playerNodeArr[1].outCardArr.forEach((item,index) => {
+            if (item === carid){
+                const outNode = cc.dd.room._playerNodeArr[1].getChildByName("OutCardLayer");
+                this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.OUTCARDLAYER,outNode,index);
+            }
+        });
+        cc.dd.room._playerNodeArr[2].outCardArr.forEach((item,index) => {
+            if (item === carid){
+                const outNode = cc.dd.room._playerNodeArr[2].getChildByName("OutCardLayer");
+                this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.OUTCARDLAYER,outNode,index);
+            }
+        });
+        cc.dd.room._playerNodeArr[3].outCardArr.forEach((item,index) => {
+            if (item === carid){
+                const outNode = cc.dd.room._playerNodeArr[3].getChildByName("OutCardLayer");
+                this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.OUTCARDLAYER,outNode,index);
+            }
+        });
+        // 遍历吃牌
+
+        // 遍历碰杠
+    },
+    cancelSingleOutMask(carid) {
+        if(this._lightupNodeArr.length > 0) {
+            this._lightupNodeArr.forEach((item) => {
+                item.getChildByName("blueMask").active = false;
+            });
+            this._lightupNodeArr = [];
+            cc.log(this._lightupNodeArr.length);
+        }
+    },
+    lightUpBlueMask(area,pnode,index) {
+        cc.log(index);
+        switch (area){
+            case CONFIG.LIGHTUP_AREA.OUTCARDLAYER: {
+                if(index <= 7) {
+                    let target = pnode.getChildByName("OutCardLayer1").children[index];
+                    this._lightupNodeArr.push(target);
+                    target.getChildByName("blueMask").active = true;
+                }else if(index - 14 >= 1 ) {
+                    let target = pnode.getChildByName("OutCardLayer1").children[index-14];
+                    this._lightupNodeArr.push(target);
+                    target.getChildByName("blueMask").active = true;
+                }else {
+                    let target = pnode.getChildByName("OutCardLayer1").children[index-7];
+                    this._lightupNodeArr.push(target);
+                    target.getChildByName("blueMask").active = true;
+                }
+                break;
+            }
+            case CONFIG.LIGHTUP_AREA.OUTCARDLAYER: {
+                break;
+            }
+            case CONFIG.LIGHTUP_AREA.OUTCARDLAYER: {
+                break;
+            }
+            default: {
+                cc.log("未知区域");
+            }
+        }
     },
 });
 cc.dd.cardMgr = CardMgr.getInstance();

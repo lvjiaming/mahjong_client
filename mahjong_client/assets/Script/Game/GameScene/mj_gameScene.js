@@ -151,15 +151,28 @@ cc.Class({
         this.playerArr.push(this.PlayerNode.getChildByName("Bottom"));
         this.PlayerNode.getChildByName("Bottom").localSeat = 1;
         this.PlayerNode.getChildByName("Bottom").mesArr = [];
+        this.PlayerNode.getChildByName("Bottom").outCardArr = [];
+        this.PlayerNode.getChildByName("Bottom").outPengArr = [];
+        this.PlayerNode.getChildByName("Bottom").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Right"));
         this.PlayerNode.getChildByName("Right").localSeat = 2;
         this.PlayerNode.getChildByName("Right").mesArr = [];
+        this.PlayerNode.getChildByName("Right").outCardArr = [];
+        this.PlayerNode.getChildByName("Right").outPengArr = [];
+        this.PlayerNode.getChildByName("Right").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Top"));
         this.PlayerNode.getChildByName("Top").localSeat = 3;
         this.PlayerNode.getChildByName("Top").mesArr = [];
+        this.PlayerNode.getChildByName("Top").outCardArr = [];
+        this.PlayerNode.getChildByName("Top").outPengArr = [];
+        this.PlayerNode.getChildByName("Top").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Left"));
         this.PlayerNode.getChildByName("Left").localSeat = 4;
         this.PlayerNode.getChildByName("Left").mesArr = [];
+        this.PlayerNode.getChildByName("Left").outCardArr = [];
+        this.PlayerNode.getChildByName("Left").outPengArr = [];
+        this.PlayerNode.getChildByName("Left").outChiArr = [];
+        cc.dd.room._playerNodeArr = this.playerArr;
     },
     // 初始化玩家
     initPlayerSeat(data) {
@@ -240,6 +253,8 @@ cc.Class({
             this.playerOutCard({chupai: item.playedcards, senduid: item.UID, notDes: true});
             // 渲染碰的牌
             if (item.pengcards) {
+                // cc.dd.room._playerNodeArr[index].outPengArr = item.pengcards;
+                this.playerArr[index].outPengArr = item.pengcards;
                 item.pengcards.forEach((pengcard) => {
                     this.playerPengCard({pengpai: pengcard, penguid: item.UID, notDes: true});
                 });
@@ -260,11 +275,12 @@ cc.Class({
             }
             // 渲染吃的牌
             if (item.chicards) {
+                // cc.dd.room._playerNodeArr[index].outChiArr = item.chicards;
+                this.playerArr[index].outChiArr = item.chicards;
                 item.chicards.forEach((chicard) => {
                     this.playerChiCard({straight: chicard, chipaiuid: item.UID, notDes: true});
                 });
             }
-
         });
         // 渲染暗杠的牌
         if (data.angangcards) {
@@ -419,6 +435,8 @@ cc.Class({
         if (localSeat) {
             const outNode = this.playerArr[localSeat - 1].getChildByName("OutCardLayer");
             if (data.chupai instanceof Array) {
+                // cc.dd.room._playerNodeArr[localSeat - 1].outCardArr = data.chupai;
+                this.playerArr[localSeat-1].outCardArr = data.chupai;
                 data.chupai.forEach((item) => {
                     cc.dd.cardMgr.outCard(outNode, localSeat, item, data.notDes);
                 });
@@ -431,11 +449,13 @@ cc.Class({
                     }
                     cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
                 }
+                // cc.dd.room._playerNodeArr[localSeat - 1].outCardArr.push(data.chupai);
+                this.playerArr[localSeat-1].outCardArr.push(data.chupai);
+                cc.log(`push进去玩家${data.senduid}出牌牌面数组中${this.playerArr[localSeat - 1].outCardArr}`);
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
         }
-
         // 有碰杠胡时显示操作按钮
         if (data.myaction) {
             const self = this.playerArr[0].getComponent("PlayerSelf");

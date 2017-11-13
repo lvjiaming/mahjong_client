@@ -32,6 +32,7 @@ const Room = cc.Class({
         _currentMessageSeatID: null,  // 当前播放的语音信息的是这个座位号的
         _currentMessageID: null,  // 当前播放的语音消息的id
         huing: null,    // 收到胡牌广播
+        _playerNodeArr: [], // 四玩家的节点数组
     },
     // 房间数据
     updataRoomData(data) {

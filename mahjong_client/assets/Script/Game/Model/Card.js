@@ -107,7 +107,7 @@ cc.Class({
                 }
                 if (cc.dd.cardMgr.getIsCanOutCard()) {
                     if (cc.dd.cardMgr.getHuiPai()) {
-                        if (cc.dd.cardMgr.getHuiPai() == this.id) {
+                        if (cc.dd.cardMgr.getHuiPai() === this.id) {
                             cc.log(`会牌不可被打出`);
                             return;
                         }
@@ -155,6 +155,7 @@ cc.Class({
                 break;
             }
             case CARD_STATE.HAS_OUT: {
+                cc.dd.cardMgr.cancelSingleOutMask(this.id);
                 cc.log(`麻将已经打出去了`);
                 cc.dd.cardMgr.setIsCanOutCard(false);
                 break;
@@ -175,8 +176,12 @@ cc.Class({
      *  麻将被选择
      */
     selectCard() {
+        if (cc.dd.cardMgr.getHuiPai() === this.id) {
+            return;
+        }
         this.node.runAction(cc.moveTo(0.1, cc.p(this._pos_x, this._pos_y + MOVE_Y)));
         this.cardState = CARD_STATE.SELECT;
+        cc.dd.cardMgr.singleOutSeletedHandCardSimilarOutCard(this.id);
     },
     /**
      *  麻将取消选择
@@ -184,5 +189,6 @@ cc.Class({
     cancelSelect() {
         this.node.runAction(cc.moveTo(0.1, cc.p(this._pos_x, this._pos_y)));
         this.cardState = CARD_STATE.NORMAL;
+        cc.dd.cardMgr.cancelSingleOutMask(this.id);
     },
 });
