@@ -255,6 +255,7 @@ cc.Class({
             if (item.pengcards) {
                 // cc.dd.room._playerNodeArr[index].outPengArr = item.pengcards;
                 this.playerArr[index].outPengArr = item.pengcards;
+                cc.log("飚蓝与手牌选中的牌，相同的牌"+item.pengcards);
                 item.pengcards.forEach((pengcard) => {
                     this.playerPengCard({pengpai: pengcard, penguid: item.UID, notDes: true});
                 });

@@ -113,6 +113,7 @@ cc.Class({
                         }
                     }
                     cc.log(`发送出牌请求：${this.id}`);
+                    cc.dd.cardMgr.cancelSingleOutMask();
                     const tingList = cc.dd.cardMgr.getTingList();
                     let tingPai = false;
                     if (tingList) {
@@ -155,7 +156,6 @@ cc.Class({
                 break;
             }
             case CARD_STATE.HAS_OUT: {
-                cc.dd.cardMgr.cancelSingleOutMask(this.id);
                 cc.log(`麻将已经打出去了`);
                 cc.dd.cardMgr.setIsCanOutCard(false);
                 break;
@@ -189,6 +189,6 @@ cc.Class({
     cancelSelect() {
         this.node.runAction(cc.moveTo(0.1, cc.p(this._pos_x, this._pos_y)));
         this.cardState = CARD_STATE.NORMAL;
-        cc.dd.cardMgr.cancelSingleOutMask(this.id);
+        cc.dd.cardMgr.cancelSingleOutMask();
     },
 });
