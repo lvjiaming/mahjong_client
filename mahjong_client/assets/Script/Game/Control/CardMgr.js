@@ -196,7 +196,7 @@ const CardMgr = cc.Class({
                     destoryNum = 3;
                 } else {
                     if (localSeat !== 1) {
-                        destoryNum = 3;
+                        destoryNum = 4;
                     } else {
                         destoryNum = 4;
                     }
@@ -215,7 +215,7 @@ const CardMgr = cc.Class({
         const p_childNode = p_node.children;
         if (p_childNode) {
             p_childNode.forEach((item) => {
-                if (item.cardId == pengOrGangId) {
+                if (item.cardId == pengOrGangId && item.cardId !== -1) {
                     needCre = false;
                     destoryNum = 1;
                     item.getChildByName("GangCard").active = true;
