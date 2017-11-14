@@ -152,23 +152,23 @@ cc.Class({
         this.playerArr.push(this.PlayerNode.getChildByName("Bottom"));
         this.PlayerNode.getChildByName("Bottom").localSeat = 1;
         this.PlayerNode.getChildByName("Bottom").mesArr = [];
-        this.PlayerNode.getChildByName("Bottom").outCardArr = [];
+        // this.PlayerNode.getChildByName("Bottom").outCardArr = [];
         this.PlayerNode.getChildByName("Bottom").outPengArr = [];
         // this.PlayerNode.getChildByName("Bottom").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Right"));
         this.PlayerNode.getChildByName("Right").localSeat = 2;
         this.PlayerNode.getChildByName("Right").mesArr = [];
-        this.PlayerNode.getChildByName("Right").outCardArr = [];
+        // this.PlayerNode.getChildByName("Right").outCardArr = [];
         this.PlayerNode.getChildByName("Right").outPengArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Top"));
         this.PlayerNode.getChildByName("Top").localSeat = 3;
         this.PlayerNode.getChildByName("Top").mesArr = [];
-        this.PlayerNode.getChildByName("Top").outCardArr = [];
+        // this.PlayerNode.getChildByName("Top").outCardArr = [];
         this.PlayerNode.getChildByName("Top").outPengArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Left"));
         this.PlayerNode.getChildByName("Left").localSeat = 4;
         this.PlayerNode.getChildByName("Left").mesArr = [];
-        this.PlayerNode.getChildByName("Left").outCardArr = [];
+        // this.PlayerNode.getChildByName("Left").outCardArr = [];
         this.PlayerNode.getChildByName("Left").outPengArr = [];
         cc.dd.room._playerNodeArr = this.playerArr;
     },
@@ -280,7 +280,6 @@ cc.Class({
                     }else {
                         this.playerArr[index].outPengArr.push(item.chicards);
                     }
-                    cc.log(this.playerArr[index].outPengArr);
                 });
             }
         });
@@ -437,8 +436,7 @@ cc.Class({
         if (localSeat) {
             const outNode = this.playerArr[localSeat - 1].getChildByName("OutCardLayer");
             if (data.chupai instanceof Array) {
-                // cc.dd.room._playerNodeArr[localSeat - 1].outCardArr = data.chupai;
-                this.playerArr[localSeat-1].outCardArr = data.chupai;
+                // this.playerArr[localSeat-1].outCardArr = data.chupai;
                 data.chupai.forEach((item) => {
                     cc.dd.cardMgr.outCard(outNode, localSeat, item, data.notDes);
                 });
@@ -451,9 +449,7 @@ cc.Class({
                     }
                     cc.dd.cardMgr.outCard(outNode, localSeat, data.chupai);
                 }
-                // cc.dd.room._playerNodeArr[localSeat - 1].outCardArr.push(data.chupai);
-                this.playerArr[localSeat-1].outCardArr.push(data.chupai);
-                cc.log(`push进去玩家${data.senduid}出牌牌面数组中${this.playerArr[localSeat - 1].outCardArr}`);
+                // this.playerArr[localSeat-1].outCardArr.push(data.chupai);
             }
         } else {
             cc.error(`本地座位号未找到！！！`);
@@ -480,8 +476,8 @@ cc.Class({
                 const chiAni = cc.instantiate(prefab);
                 this.node.addChild(chiAni);
             });
-            const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
-            this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
+            // const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
+            // this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
             this.playerArr[localSeat - 1].outPengArr.push(data.straight);
         }
 
@@ -517,8 +513,8 @@ cc.Class({
                 const pengAni = cc.instantiate(prefab);
                 this.node.addChild(pengAni);
             });
-            const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
-            this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
+            // const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
+            // this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
             this.playerArr[localSeat - 1].outPengArr.push(data.pengpai);
         }
 
@@ -556,10 +552,10 @@ cc.Class({
                 const gangAni = cc.instantiate(prefab);
                 this.node.addChild(gangAni);
             });
-            if(data.angang === false){
-                const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
-                this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
-            }
+            // if(data.angang === false){
+            //     const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
+            //     this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
+            // }
             this.playerArr[localSeat - 1].outPengArr.push(data.gangpai);
         }
 
@@ -910,8 +906,8 @@ cc.Class({
             });
 
             // 清理数组
-            item.outCardArr = [];
             item.mesArr = [];
+            // item.outCardArr = [];
             item.outPengArr = [];
 
         });

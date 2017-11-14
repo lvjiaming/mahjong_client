@@ -7,6 +7,7 @@ cc.Class({
             type: cc.Sprite,
             tooltip: "纹理",
         },
+        id: -1,  // 牌的id
     },
 
     // use this for initialization
@@ -18,6 +19,7 @@ cc.Class({
      * @param data
      */
     initCard(data) {
+        this.id = data;
         let str = "";
         this.suit = parseInt(data / 9) + 1;
         this.num = data % 9 + 1;

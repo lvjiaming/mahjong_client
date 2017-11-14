@@ -792,19 +792,28 @@ const CardMgr = cc.Class({
      *  飚蓝与手牌选中的牌，相同的牌
      */
     singleOutSeletedHandCardSimilarOutCard(carid) {
-        cc.log(cc.dd.room._playerNodeArr[0].outPengArr);
         let haspeng = false;
         // 遍历碰杠
         cc.dd.room._playerNodeArr.forEach((pitem,pindex,parr) => {
-            if (pitem.outPengArr.length > 0) {
-                pitem.outPengArr.forEach((item,index) => {
-                    if(Array.isArray(item)) {
-                       // cc.log("是吃牌");
+            const pengchinode = pitem.getChildByName("PengGangLayer");
+            if(pengchinode.children.length > 0) {
+                pitem.outPengArr.forEach((mitem,mindex) => {
+                    if(Array.isArray(mitem)){
+                        pengchinode.children[mindex].children.forEach((item,index) => {
+                            if(item.getComponent("CardSpr").id === carid){
+                                item.getChildByName("blueMask").active = true;
+                                this._lightupNodeArr.push(item);
+                            }
+                        });
                     }else {
-                        if(item === carid){
-                            const outNode = parr[pindex].getChildByName("PengGangLayer");
-                            this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.PENGCARDLAYER,outNode,index);
+                        if(mitem === carid) {
                             haspeng = true;
+                            pengchinode.children[mindex].children.forEach((item,index) => {
+                                if(index <=2){
+                                    item.getChildByName("blueMask").active = true;
+                                    this._lightupNodeArr.push(item);
+                                }
+                            });
                         }
                     }
                 });
@@ -816,56 +825,20 @@ const CardMgr = cc.Class({
         }
         // 遍历出牌，有无一样的
         cc.dd.room._playerNodeArr.forEach((pitem,pindex,parr) => {
-            if (pitem.outCardArr.length > 0) {
-                if(pindex === 1){
-                    let reversearr = pitem.outCardArr.concat();
-                    reversearr.reverse();
-                    reversearr.forEach((item,index) => {
-                        if(item === carid){
-                            cc.log(index);
-                            const outNode = parr[pindex].getChildByName("OutCardLayer");
-                            this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.OUTCARDLAYER,outNode,index);
-                        }
-                    });
-                }else {
-                    pitem.outCardArr.forEach((item,index) => {
-                        if(item === carid){
-                            const outNode = parr[pindex].getChildByName("OutCardLayer");
-                            this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.OUTCARDLAYER,outNode,index);
-                        }
-                    });
-                }
-
+            const outNode = parr[pindex].getChildByName("OutCardLayer");
+            if (outNode.children.length > 0) {
+                outNode.children.forEach((mitem) => {
+                    if(mitem.children.length > 0) {
+                        mitem.children.forEach((item,index) => {
+                            if(item.getComponent("CardSpr").id === carid){// 出牌的prefab没有绑定id
+                                this._lightupNodeArr.push(item);
+                                item.getChildByName("blueMask").active = true;
+                            }
+                        });
+                    }
+                });
             }
         });
-        // cc.dd.room._playerNodeArr.forEach((pitem,pindex,parr) => {
-        //     const outNode = parr[pindex].getChildByName("OutCardLayer");
-        //     if (outNode.children.length > 0) {
-        //         outNode.children.forEach((mitem) => {
-        //             if(mitem.children.length > 0) {
-        //                 mitem.children.forEach((item,index) => {
-        //                     if(item.id === carid){// 出牌的prefab没有绑定id
-        //                         this._lightupNodeArr.push(target);
-        //                         item.getChildByName("blueMask").active = true;
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     }
-        // });
-        // 遍历吃牌  // todo: 合并碰与吃
-        // cc.dd.room._playerNodeArr.forEach((pitem,pindex,parr) => {
-        //     if (pitem.outCardArr.length > 0) {
-        //         pitem.outCardArr.forEach((item,index) => {
-        //             if(item === carid){
-        //                 const outNode = parr[pindex].getChildByName("PengGangLayer");
-        //                 this.lightUpBlueMask(CONFIG.LIGHTUP_AREA.CHICARDLAYER,outNode,index);
-        //             }
-        //         });
-        //     }
-        // });
-
-
     },
     cancelSingleOutMask() {
         if(this._lightupNodeArr.length > 0) {
@@ -876,7 +849,7 @@ const CardMgr = cc.Class({
             cc.log(this._lightupNodeArr.length);
         }
     },
-    lightUpBlueMask(area,pnode,index) {
+    lightUpBlueMask(area,pnode,index) { // 弃用
         switch (area){
             case CONFIG.LIGHTUP_AREA.OUTCARDLAYER: {
                 if(index <= 6) {
