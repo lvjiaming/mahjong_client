@@ -33,6 +33,7 @@ const Room = cc.Class({
         _currentMessageID: null,  // 当前播放的语音消息的id
         huing: null,    // 收到胡牌广播
         _playerNodeArr: [], // 四玩家的节点数组
+        _isFourZeroOneTwo: null, // 4012状态下点过不需要发送2002
     },
     // 房间数据
     updataRoomData(data) {

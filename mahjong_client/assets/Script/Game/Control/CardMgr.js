@@ -799,10 +799,13 @@ const CardMgr = cc.Class({
             if(pengchinode.children.length > 0) {
                 pitem.outPengArr.forEach((mitem,mindex) => {
                     if(Array.isArray(mitem)){
+                        cc.log(pengchinode.children[mindex]);
                         pengchinode.children[mindex].children.forEach((item,index) => {
-                            if(item.getComponent("CardSpr").id === carid){
-                                item.getChildByName("blueMask").active = true;
-                                this._lightupNodeArr.push(item);
+                            if(index <= 3){
+                                if(item.getComponent("CardSpr").id === carid){
+                                    item.getChildByName("blueMask").active = true;
+                                    this._lightupNodeArr.push(item);
+                                }
                             }
                         });
                     }else {

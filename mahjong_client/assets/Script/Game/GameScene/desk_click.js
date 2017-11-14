@@ -118,6 +118,9 @@ cc.Class({
     // 杠
     onGangClick() {
         cc.log(`发送杠牌请求`);
+        if(cc.dd.room._isFourZeroOneTwo) {
+            cc.dd.room._isFourZeroOneTwo = false;
+        }
         const gangList = cc.dd.cardMgr.getZiMoGang();
         if (gangList) {
             if (gangList.length == 1) {
@@ -138,6 +141,9 @@ cc.Class({
     },
     onHuClick() {
         cc.log(`发送胡牌请求`);
+        if(cc.dd.room._isFourZeroOneTwo) {
+            cc.dd.room._isFourZeroOneTwo = false;
+        }
         cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_HUCARD_REP);
     },
     // 过
@@ -146,7 +152,11 @@ cc.Class({
         cc.dd.roomEvent.setIsCache(true);
         // cc.dd.roomEvent.notifyCacheList();
         this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+        // if(cc.dd.room._isFourZeroOneTwo) {
+        //     cc.dd.room._isFourZeroOneTwo = false;
+        // }else {
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GUOCARD_REP);
+        // }
         // this.scheduleOnce(() => {
 
         // });
@@ -217,6 +227,9 @@ cc.Class({
     // 听
     onTingClick() {
         cc.log(`玩家听牌`);
+        if(cc.dd.room._isFourZeroOneTwo) {
+            cc.dd.room._isFourZeroOneTwo = false;
+        }
         this.node.getComponent("mj_gameScene").showTingSign();
         this.node.getComponent("mj_gameScene").playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         if (cc.dd.cardMgr.getTingList().length == 1) {

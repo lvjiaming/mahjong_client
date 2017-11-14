@@ -643,6 +643,7 @@ cc.Class({
                     if (data.ting.length > 0) {
                         operateData.ting = true;
                     }
+                    cc.dd.room._isFourZeroOneTwo = true;
                 }
                 if (data.forcehu) {
                     cc.log(`玩家必须胡牌`);
@@ -651,10 +652,12 @@ cc.Class({
                     if (data.hu) {
                         operateData.hu = data.hu;
                         operateData.customData = true;
+                        cc.dd.room._isFourZeroOneTwo = true;
                     }
                     if (data.gangpais) {
                         operateData.gang = true;
                         operateData.customData = true;
+                        cc.dd.room._isFourZeroOneTwo = true;
                     }
                     cc.dd.cardMgr.setZiMoGang(data.gangpais);
                     const hasCre = this.playerArr[0].getComponent("PlayerSelf").showOperateBtn(operateData);
