@@ -148,30 +148,28 @@ cc.Class({
 
     // 初始化玩家的列表
     initPlayerArr() {
+        cc.log("初始化玩家的列表init");
         this.playerArr.push(this.PlayerNode.getChildByName("Bottom"));
         this.PlayerNode.getChildByName("Bottom").localSeat = 1;
         this.PlayerNode.getChildByName("Bottom").mesArr = [];
         this.PlayerNode.getChildByName("Bottom").outCardArr = [];
         this.PlayerNode.getChildByName("Bottom").outPengArr = [];
-        this.PlayerNode.getChildByName("Bottom").outChiArr = [];
+        // this.PlayerNode.getChildByName("Bottom").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Right"));
         this.PlayerNode.getChildByName("Right").localSeat = 2;
         this.PlayerNode.getChildByName("Right").mesArr = [];
         this.PlayerNode.getChildByName("Right").outCardArr = [];
         this.PlayerNode.getChildByName("Right").outPengArr = [];
-        this.PlayerNode.getChildByName("Right").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Top"));
         this.PlayerNode.getChildByName("Top").localSeat = 3;
         this.PlayerNode.getChildByName("Top").mesArr = [];
         this.PlayerNode.getChildByName("Top").outCardArr = [];
         this.PlayerNode.getChildByName("Top").outPengArr = [];
-        this.PlayerNode.getChildByName("Top").outChiArr = [];
         this.playerArr.push(this.PlayerNode.getChildByName("Left"));
         this.PlayerNode.getChildByName("Left").localSeat = 4;
         this.PlayerNode.getChildByName("Left").mesArr = [];
         this.PlayerNode.getChildByName("Left").outCardArr = [];
         this.PlayerNode.getChildByName("Left").outPengArr = [];
-        this.PlayerNode.getChildByName("Left").outChiArr = [];
         cc.dd.room._playerNodeArr = this.playerArr;
     },
     // 初始化玩家
@@ -253,9 +251,7 @@ cc.Class({
             this.playerOutCard({chupai: item.playedcards, senduid: item.UID, notDes: true});
             // 渲染碰的牌
             if (item.pengcards) {
-                // cc.dd.room._playerNodeArr[index].outPengArr = item.pengcards;
                 this.playerArr[index].outPengArr = item.pengcards;
-                cc.log("飚蓝与手牌选中的牌，相同的牌"+item.pengcards);
                 item.pengcards.forEach((pengcard) => {
                     this.playerPengCard({pengpai: pengcard, penguid: item.UID, notDes: true});
                 });
@@ -276,10 +272,15 @@ cc.Class({
             }
             // 渲染吃的牌
             if (item.chicards) {
-                // cc.dd.room._playerNodeArr[index].outChiArr = item.chicards;
-                this.playerArr[index].outChiArr = item.chicards;
+                cc.log(item.chicards);
                 item.chicards.forEach((chicard) => {
                     this.playerChiCard({straight: chicard, chipaiuid: item.UID, notDes: true});
+                    if(Array.isArray(item.chicards[0])){
+                        this.playerArr[index].outPengArr.push(chicard);
+                    }else {
+                        this.playerArr[index].outPengArr.push(item.chicards);
+                    }
+                    cc.log(this.playerArr[index].outPengArr);
                 });
             }
         });
@@ -471,6 +472,7 @@ cc.Class({
     },
     // 玩家吃牌
     playerChiCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
             cc.dd.playEffect(1, cc.dd.soundName.V_CHI);
@@ -478,8 +480,11 @@ cc.Class({
                 const chiAni = cc.instantiate(prefab);
                 this.node.addChild(chiAni);
             });
+            const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
+            this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
+            this.playerArr[localSeat - 1].outPengArr.push(data.straight);
         }
-        const localSeat = this.getLocalSeatByUserId(data.chipaiuid);
+
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.CHI);
@@ -504,6 +509,7 @@ cc.Class({
     },
     // 玩家碰牌
     playerPengCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.penguid);
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
             cc.dd.playEffect(1, cc.dd.soundName.V_PENG);
@@ -511,8 +517,11 @@ cc.Class({
                 const pengAni = cc.instantiate(prefab);
                 this.node.addChild(pengAni);
             });
+            const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
+            this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
+            this.playerArr[localSeat - 1].outPengArr.push(data.pengpai);
         }
-        const localSeat = this.getLocalSeatByUserId(data.penguid);
+
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.PENG);
@@ -539,6 +548,7 @@ cc.Class({
     },
     // 玩家杠牌
     playerGangCard(data) {
+        const localSeat = this.getLocalSeatByUserId(data.ganguid);
         if (!data.notDes) {
             cc.dd.roomEvent.setIsCache(false);
             cc.dd.playEffect(1, cc.dd.soundName.V_GANG);
@@ -546,8 +556,13 @@ cc.Class({
                 const gangAni = cc.instantiate(prefab);
                 this.node.addChild(gangAni);
             });
+            if(data.angang === false){
+                const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
+                this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
+            }
+            this.playerArr[localSeat - 1].outPengArr.push(data.gangpai);
         }
-        const localSeat = this.getLocalSeatByUserId(data.ganguid);
+
         if (localSeat) {
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.log(`进行杠牌的操作`);
@@ -894,6 +909,11 @@ cc.Class({
                 note.active = false;
             });
 
+            // 清理数组
+            item.outCardArr = [];
+            item.mesArr = [];
+            item.outPengArr = [];
+
         });
         cc.dd.cardMgr.setReadyOutCard(null);
         this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
@@ -984,6 +1004,8 @@ cc.Class({
             cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0]
             this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
             cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
         }
     },
     // 成功播放完当前消息的回调的处理
@@ -1000,8 +1022,6 @@ cc.Class({
             this.scheduleOnce(function() {
                 this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
                 cc.dd.soundMgr.resumeAllSounds();
-                cc.dd.roomEvent.setIsCache(true);
-                cc.dd.roomEvent.notifyCacheList();
             }, 1.5);
 
         }

@@ -83,6 +83,9 @@ cc.Class({
                 break;
             }
             case cc.dd.roomEvName.MSG_NOTIFY: {
+                // if(cc.dd.roomEvent.msgList.length === 1) {
+                //     cc.dd.roomEvent.notifyCacheList();
+                // }
                 this.scheduleOnce(() => {
                     cc.dd.roomEvent.notifyCacheList();
                 }, 0.5);

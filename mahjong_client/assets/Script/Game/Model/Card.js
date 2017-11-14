@@ -113,7 +113,7 @@ cc.Class({
                         }
                     }
                     cc.log(`发送出牌请求：${this.id}`);
-                    cc.dd.cardMgr.cancelSingleOutMask();
+                    // cc.dd.cardMgr.cancelSingleOutMask();
                     const tingList = cc.dd.cardMgr.getTingList();
                     let tingPai = false;
                     if (tingList) {
@@ -181,7 +181,7 @@ cc.Class({
         }
         this.node.runAction(cc.moveTo(0.1, cc.p(this._pos_x, this._pos_y + MOVE_Y)));
         this.cardState = CARD_STATE.SELECT;
-        cc.dd.cardMgr.singleOutSeletedHandCardSimilarOutCard(this.id);
+        // cc.dd.cardMgr.singleOutSeletedHandCardSimilarOutCard(this.id);
     },
     /**
      *  麻将取消选择
@@ -189,6 +189,6 @@ cc.Class({
     cancelSelect() {
         this.node.runAction(cc.moveTo(0.1, cc.p(this._pos_x, this._pos_y)));
         this.cardState = CARD_STATE.NORMAL;
-        cc.dd.cardMgr.cancelSingleOutMask();
+        // cc.dd.cardMgr.cancelSingleOutMask();
     },
 });
