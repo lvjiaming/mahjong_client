@@ -3022,7 +3022,8 @@
     "_enabled": true,
     "Spr": {
       "__id__": 72
-    }
+    },
+    "id": -1
   },
   {
     "__type__": "cc.Node",
@@ -4480,7 +4481,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 236,
+      "x": 192,
       "y": 324
     },
     "_skewX": 0,
@@ -5144,7 +5145,8 @@
     "_enabled": true,
     "Spr": {
       "__id__": 124
-    }
+    },
+    "id": -1
   },
   {
     "__type__": "cc.Node",
@@ -7266,7 +7268,8 @@
     "_enabled": true,
     "Spr": {
       "__id__": 176
-    }
+    },
+    "id": -1
   },
   {
     "__type__": "cc.Node",
@@ -10369,7 +10372,8 @@
     "_enabled": true,
     "Spr": {
       "__id__": 254
-    }
+    },
+    "id": -1
   },
   {
     "__type__": "cc.Node",
@@ -12132,7 +12136,8 @@
     "_enabled": true,
     "Spr": {
       "__id__": 296
-    }
+    },
+    "id": -1
   },
   {
     "__type__": "cc.Node",
@@ -12472,7 +12477,8 @@
     "_enabled": true,
     "Spr": {
       "__id__": 305
-    }
+    },
+    "id": -1
   },
   {
     "__type__": "cc.Node",

@@ -213,6 +213,9 @@ const CardMgr = cc.Class({
             }
         }
         const p_childNode = p_node.children;
+        if (pengOrGangId == null) {
+            pengOrGangId = -1;
+        }
         if (p_childNode) {
             p_childNode.forEach((item) => {
                 if (item.cardId == pengOrGangId && item.cardId !== -1) {
