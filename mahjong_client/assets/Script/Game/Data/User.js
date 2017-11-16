@@ -27,10 +27,10 @@ const User = cc.Class({
     properties: {
         _userInfo: null, // 用户信息
         _receiverInfo: null, // 房卡转让接受者信息
-        // _isAgent: null,  // 是否是代理商
+        _agentInfo: null, // 代理商库存信息
+        _cardStateInfo: null, // 用户在用次卡还是包时卡的相关信息
         _countNum: null, // 给解散房间的同意进度条倒数
         _creatRoomDelegate: null, // 是否是代理人新建代理房间
-        // did
         _did: null,
     },
     // 设置用户信息
@@ -52,32 +52,52 @@ const User = cc.Class({
     },
     // 得到接收者信息
     getReciverInfo() {
-        // cc.log(this._receiverInfo);
         return this._receiverInfo;
     },
-    // 用户登录成功
+    // 设置代理商信息
+    setAgentInfo(data) {
+        this._agentInfo = data;
+    },
+    // 得到代理商信息
+    getAgentInfo() {
+      return this._agentInfo;
+    },
+    setCardState(data) {
+        this._cardStateInfo = data;
+    },
+    getCardState() {
+      return this._cardStateInfo;
+    },
+    // 用户登录成功，更新用户信息
     updataUserInfo(data) {
         this.setUserInfo(data);
         cc.dd.userEvent.notifyEvent(cc.dd.userEvName.USER_LOGIN_SCU, data);
     },
-    // 查询接收者用户房卡数量成功
-    updataReciverInfo(data) {
-        this.setReciverInfo(data);
-        cc.dd.userEvent.notifyEvent(cc.dd.userEvName.QUERY_RECEIVER_SCU, data);
+    // 用户登录成功，更新代理商信息
+    updateAgentInfo(data) {
+        this.setAgentInfo(data);
     },
-    // 查询当前用户房卡数量成功
+    // 用户登录成功，更新用户用卡信息
+    updateCardStateInfo(data) {
+        this.setCardState(data);
+    },
+    // 查询接收者用户房卡数量成功，更新接收者信息
     updataUserFangka(data) {
+        this.updataReciverInfo(data);
         if (this._userInfo.UID == data.uid4query) {
             cc.log("当前登录用户房卡数量"+ data.mycards);
             this._userInfo.roomcardnum = data.mycards;
             cc.dd.userEvent.notifyEvent(cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ, data);
         }else {
             cc.log("接收者昵称"+ data.nickname);
-            this.updataReciverInfo(data);
             cc.dd.userEvent.notifyEvent(cc.dd.userEvent.QUERY_RECEIVER_SCU, data);
         }
     },
-    // 设置did
+    updataReciverInfo(data) {
+        this.setReciverInfo(data);
+        cc.dd.userEvent.notifyEvent(cc.dd.userEvName.QUERY_RECEIVER_SCU, data);
+    },
+    // 设置did（设备唯一识别）
     setUserDid(did) {
         this._did = did;
     },

@@ -22,6 +22,10 @@ cc.Class({
             default:null,
             type: cc.Node,
         },
+        infoNode: {
+            default:null,
+            type: cc.Node,
+        },
         toUpdateCardum: null,
     },
 
@@ -52,9 +56,7 @@ cc.Class({
         }else {
             this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
         }
-        if(cc.dd.user.getUserInfo().wx_portrait.indexOf("/static") != -1) {
-            this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
-        }
+        this.setAvatarSpriteFrame(cc.dd.user.getUserInfo().wx_portrait);
         this.setBtnChangeState(parseInt(cc.dd.user.getUserInfo().isagent));
     },
     // 设置用户的id
@@ -67,19 +69,24 @@ cc.Class({
     },
     // 设置房卡数目
     setFangKaNum(num) {
-        this.RoomCard.string = "房卡：" + num;
+        if(cc.dd.user.getCardState().unlimited === true) {
+            this.RoomCard.string = "房卡：无限畅打";
+            let deadline = new cc.Node('deadline');
+            let deadlineLabel = deadline.addComponent(cc.Label);
+            deadlineLabel.fontSize = 19;
+            deadlineLabel.lineHeight = 30;
+            deadline.anchorX = 0;
+            this.infoNode.addChild(deadline);
+            let tempstr = "";
+            cc.dd.user.getCardState().unlimitedshowdetail.forEach((item) => {
+               tempstr = tempstr + item;
+            });
+            deadlineLabel.string = tempstr;
+        }else {
+            this.RoomCard.string = "房卡：" + num;
+        }
     },
     setAvatarSpriteFrame(sfurl) {
-        // var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
-        // cc.log("拼接头像地址："+full);
-        // var self = this;
-        // cc.loader.load(full, function(err, texture){
-        //     if (err){
-        //         cc.log("头像下载错误： " + err);
-        //     }else {
-        //         self.avatar.spriteFrame = new cc.SpriteFrame(texture);
-        //     }
-        // });
         var target = this.avatar;
         cc.dd.setPlayerHead(sfurl,target);
     },
@@ -112,13 +119,18 @@ cc.Class({
                     this.toUpdateCardum = false;
                     cc.dd.user.getUserInfo().roomcardnum = data.mycards;
                     this.setFangKaNum(cc.dd.user.getUserInfo().roomcardnum);
-                }else {
-                    cc.log("显示转让房卡的弹窗");
-                    cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
-                        const changePup = cc.instantiate(prefab);
-                    this.node.addChild(changePup);
-                    });
                 }
+                // else {
+                    // cc.log("显示转让房卡的弹窗");
+                    // cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
+                    //     const changePup = cc.instantiate(prefab);
+                    //     this.node.addChild(changePup);
+                    // });
+                    // cc.dd.Reload.loadPrefab("Hall/Prefab/ExchangeFangKa", (prefab) => {
+                    //     const changePup = cc.instantiate(prefab);
+                    //     this.node.addChild(changePup);
+                    // });
+                // }
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP: {  // 查询房卡失败返回，1007
@@ -130,17 +142,18 @@ cc.Class({
                 });
                 break;
             }
-            case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
-                cc.log("查询接收者成功");
-                cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
-                    const exchangeFK = cc.instantiate(prefab);
-                    this.node.addChild(exchangeFK);
-                });
-                break;
-            }
+            // case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
+            //     cc.log("查询接收者成功");
+            //     // cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
+            //     //     const exchangeFK = cc.instantiate(prefab);
+            //     //     this.node.addChild(exchangeFK);
+            //     // });
+            //     break;
+            // }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
                 cc.log("转让房卡成功，更新大厅房卡数");
                 this.setFangKaNum(data.myroomcards);
+                cc.dd.user.updateAgentInfo(data);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {

@@ -21,18 +21,12 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.setUserInfo();
-        // cc.dd.net.addObserver(this);
-        // cc.dd.userEvent.addObserver(this);
     },
-    onDestroy() {
-        // cc.dd.net.removeObserver(this);
-        // cc.dd.userEvent.removeObserver(this);
-    },
-    setUserInfo() {
-        this.setFangkaAmountLabelContent(cc.dd.user._userInfo.recieveCardNum);
-        this.setRecieverNameLabelContent(cc.dd.user.getReciverInfo().nickname,cc.dd.user.getReciverInfo().uid4query);
-        this.setRecieverAvatarContent(cc.dd.user.getReciverInfo().wx_portrait);
+
+    setUserInfo(data) {
+        this.setFangkaAmountLabelContent(cc.dd.user._receiverInfo.recieveCardNum);
+        this.setRecieverNameLabelContent(data.nickname,data.uid4query);
+        this.setRecieverAvatarContent(data.wx_portrait);
 
     },
     setFangkaAmountLabelContent(data) {
@@ -42,16 +36,6 @@ cc.Class({
         this.recieverNameLabel.string = data + "（ID：" + recUid + ")";
     },
     setRecieverAvatarContent(data) {
-        // var full = cc.dd.pubConst.IMAGE_PREFIX_HOST + sfurl;
-        // cc.log("拼接头像地址："+full);
-        // var self = this;
-        // cc.loader.load(full, function(err, texture){
-        //     if (err){
-        //         cc.log("头像下载错误： " + err);
-        //     }else {
-        //         self.avatar.spriteFrame = new cc.SpriteFrame(texture);
-        //     }
-        // });
         var target = this.recieverAvatar;
         cc.dd.setPlayerHead(data,target);
     },
@@ -59,18 +43,7 @@ cc.Class({
         this.node.destroy();
     },
     onComfrimClick() {
-        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP,cc.dd.user.getReciverInfo().uid4query);
+        cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP,cc.dd.user.getReciverInfo());
         this.node.destroy();
     },
-    // onMessageEvent(event, data) {
-        // switch(event) {
-        //     case cc.dd.userEvent.EXCHANGE_FK_SCU: {
-        //         this.node.destroy();
-        //         break;
-        //     }
-        //     default: {
-        //         cc.log(`unkown event: ${event}`);
-            // }
-        // }
-    // },
 });

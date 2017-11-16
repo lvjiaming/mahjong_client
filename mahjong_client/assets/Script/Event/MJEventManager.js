@@ -35,8 +35,8 @@ const MJEventManager = cc.Class({
                 body.did = deviceid;
             }
         }else{
-            body.did = "7d5d9880-486b-45cf-9346-795954ba3968";// 网页47194279-dfb8-4e35-9ba2-d13dd70028dc
-        }//26ee669399b2ee1b
+            body.did = "7427107d-d571-494b-819b-7e001ebf7d3c";// 网页47194279-dfb8-4e35-9ba2-d13dd70028dc
+        }//26ee669399b2ee1b //7d5d9880-486b-45cf-9346-795954ba3968
 
         switch (event) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
@@ -68,8 +68,11 @@ const MJEventManager = cc.Class({
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: {  // 转让房卡请求，1008
-                body.receiveruid = data;
-                body.roomcardnum = cc.dd.user._userInfo.recieveCardNum;
+                body.receiveruid = data.uid4query;
+                body.cardtype = data.recieveCardtype;
+                body.cardnumber = data.recieveCardNum;
+                // body.cardtype = cc.dd.user._userInfo.recieveCardtype;
+                // body.cardnumber = cc.dd.user._userInfo.recieveCardNum;
                 this.sendMessage(body);
                 break;
             }
@@ -155,11 +158,19 @@ const MJEventManager = cc.Class({
         cc.log(msgData);
         switch (msgId) {
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
+                if(msgData.agent) {
+                    cc.dd.user.updateAgentInfo(msgData.agent);
+                }
                 this.writtenUserInfoIntoCellPhone(msgData.user);
+                cc.dd.user.updateCardStateInfo(msgData.cards);
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_LOGIN_REQ: {  // 检查登录的回复，1002登录成功返回5002
+                if(msgData.agent) {
+                    cc.dd.user.updateAgentInfo(msgData.agent);
+                }
+                cc.dd.user.updateCardStateInfo(msgData.cards);
                 this.writtenUserInfoIntoCellPhone(msgData.user);
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;

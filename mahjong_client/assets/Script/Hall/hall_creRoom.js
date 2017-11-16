@@ -27,6 +27,11 @@ cc.Class({
             type: cc.Node,
             tooltip: "我的代开房间",
         },
+        BaoshikaTip: {
+            default: null,
+            type: cc.Node,
+            tooltip: "包时卡用户不消耗房卡",
+        }
     },
 
     // use this for initialization
@@ -35,9 +40,10 @@ cc.Class({
         this.FanShu = 1;
         this.WanFa = [1];
         if (cc.dd.user.getUserInfo().isagent == 1) {
-            cc.log("是代理了");
             this.DelegateRoomRecord.active = true;
         }
+        this.BaoshikaTip.active = cc.dd.user.getCardState().unlimited;
+
     },
     // 局数
     onJuShuClick(event, custom) {
