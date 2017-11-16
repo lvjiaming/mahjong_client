@@ -260,7 +260,7 @@ cc.Class({
             if (item.UID != data.myuid) {
                 if (item.angangcards) {
                     item.angangcards.forEach((card) => {
-                        this.playerGangCard({ganguid: item.UID, gangpai: 1, angang: true, notDes: true});
+                        this.playerGangCard({ganguid: item.UID, gangpai: -1, angang: true, notDes: true});
                     });
                 }
             }
