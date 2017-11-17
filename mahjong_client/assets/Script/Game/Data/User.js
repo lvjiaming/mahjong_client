@@ -9,6 +9,8 @@ const UserEventName = {
     QUERY_RECEIVER_SCU: "query_receiver_scu", //查询接收者信息成功
     EXCHANGE_FK_SCU: "exchange_fk_scu", // 转让房卡成功
     USER_INFO_KEY: "userInfoKey",  // 本地化读写 _userinfo 的key
+    USER_CARD_INFO_KEY: "userCardInfoKey",  // 本地化读写用户用卡状态
+    USER_ANGENT_INFO: "userAgentInfoKey",  // 本地化读写用户卡库存 的key
 };
 cc.dd.userEvName = UserEventName;
 const UserEvent = cc.Class({
@@ -60,13 +62,21 @@ const User = cc.Class({
     },
     // 得到代理商信息
     getAgentInfo() {
+        if(!this._agentInfo) {
+            this._agentInfo = JSON.parse(cc.sys.localStorage.getItem(cc.dd.userEvName.USER_ANGENT_INFO));
+        }
       return this._agentInfo;
     },
+    // 设置当前用户用卡状态
     setCardState(data) {
         this._cardStateInfo = data;
     },
+    // 得到当前用户用卡状态
     getCardState() {
-      return this._cardStateInfo;
+        if(!this._cardStateInfo) {
+            this._cardStateInfo = JSON.parse(cc.sys.localStorage.getItem(cc.dd.userEvName.USER_CARD_INFO_KEY));
+        }
+        return this._cardStateInfo;
     },
     // 用户登录成功，更新用户信息
     updataUserInfo(data) {

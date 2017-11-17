@@ -56,6 +56,7 @@ cc.Class({
     },
     setupInit(type) {
         this._selectCardType = type;
+        this.node.getChildByName("bottomHalf").active = false;
         switch (type) {
             case cc.dd.hall_config.EXC_CARD_TYPE.EXC_DAYKA: {
                 this.numLabel.string = cc.dd.user.getAgentInfo().mydaycards + "张" + cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_DAY + "可以转让";
@@ -74,6 +75,7 @@ cc.Class({
             }
         }
     },
+    // 查询按钮点击响应方法
     onClickQuery() {
         cc.log("查询接收者信息");
         if (this.changeEditBox) {
@@ -85,7 +87,7 @@ cc.Class({
             }
         }
     },
-    // 选择转让那种卡
+    // 顶部三个tab的点击响应方法
     onClickToChooseCardType(event,customData) {
         this.setupInit(customData);
         switch (customData) {
@@ -161,6 +163,9 @@ cc.Class({
         }
     },
     randerBottomHalf(data) {
+        if (!this.changeEditBox.string || (this.changeEditBox.string != data.uid4query)) {
+            return;
+        }
         switch (this._selectCardType) {
             case cc.dd.hall_config.EXC_CARD_TYPE.EXC_DAYKA: {
                 this.snipLabelStringForDestriptionLabel(data.daycard);

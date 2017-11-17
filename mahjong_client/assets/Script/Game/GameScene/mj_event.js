@@ -159,16 +159,17 @@ cc.Class({
                 this.node.getComponent("mj_gameScene").didFinishPlayingCurrentMessage();
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: { // 转让房卡
-                cc.dd.user.getUserInfo().roomcardnum = data.mycards;
-                this.node.getComponent("mj_gameScene").onClickExchangeFangKa();
+            case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REP: {  // 查询房卡失败返回，1007
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const UIDNotExitMes = cc.instantiate(prefab);
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes(data.errmsg);
+                    this.node.addChild(UIDNotExitMes);
+                });
                 break;
             }
-            case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
-                cc.dd.Reload.loadPrefab("Hall/Prefab/ComfrimFKExchange", (prefab) => {
-                    const exchangeFK = cc.instantiate(prefab);
-                    this.node.addChild(exchangeFK);
-                });
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: { // 5008
+                cc.log("转让房卡成功");
+                cc.dd.user.updateAgentInfo(data);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_USER_OFFLINE: {

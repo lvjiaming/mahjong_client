@@ -31,6 +31,9 @@ cc.Class({
                     this.unschedule(this.callback);
                     this.callback = null;
                 }
+                if(!cc.dd.room._selfRecording) {
+                    cc.dd.room._selfRecording = true;
+                }
                 this.count++;
                 cc.log(this.count);
             }
@@ -79,6 +82,7 @@ cc.Class({
         this.node.getChildByName("Recording").removeFromParent();
         cc.dd.stopRecordingWithGvoice();
         cc.dd.soundMgr.resumeAllSounds();
+        cc.dd.room._selfRecording = false;
     },
 
     // 语音 弃用

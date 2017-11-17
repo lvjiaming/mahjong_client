@@ -79,11 +79,6 @@ cc.Class({
             case cc.dd.userEvName.USER_LOGIN_FAIL: {
                 cc.log('登录失败');
                 this.setBtnLoginInterateState(true);
-                // if (cc.sys.os == cc.sys.OS_ANDROID) {
-                //     cc.dd.sendWXLogin();
-                // } else {
-                //     cc.dd.sendOCWXlogin();
-                // }
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_GAME_STATE: { // 4002

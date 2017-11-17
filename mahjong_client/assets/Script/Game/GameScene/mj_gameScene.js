@@ -1025,7 +1025,7 @@ cc.Class({
 
         }
     },
-    onClickExchangeFangKa() {
+    onClickExchangeFangKa() { // 弃用
         cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
             const changePup = cc.instantiate(prefab);
             this.node.addChild(changePup);

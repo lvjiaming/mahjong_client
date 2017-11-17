@@ -161,7 +161,7 @@ const MJEventManager = cc.Class({
                 if(msgData.agent) {
                     cc.dd.user.updateAgentInfo(msgData.agent);
                 }
-                this.writtenUserInfoIntoCellPhone(msgData.user);
+                this.writtenUserInfoIntoCellPhone(msgData);
                 cc.dd.user.updateCardStateInfo(msgData.cards);
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;
@@ -171,7 +171,7 @@ const MJEventManager = cc.Class({
                     cc.dd.user.updateAgentInfo(msgData.agent);
                 }
                 cc.dd.user.updateCardStateInfo(msgData.cards);
-                this.writtenUserInfoIntoCellPhone(msgData.user);
+                this.writtenUserInfoIntoCellPhone(msgData);
                 cc.dd.user.updataUserInfo(msgData.user);
                 break;
             }
@@ -279,9 +279,8 @@ const MJEventManager = cc.Class({
                 this.notifyEvent(msgId, msgData);
                 break;
             }
-            case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: {
+            case cc.dd.gameCfg.EVENT.EVENT_YUYIN_COMING: { // 4019,收到玩家发语音的广播
                 cc.dd.room.saveMsg(msgId,msgData);
-                // cc.dd.room.saveMsg(msgId, msgData);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_USER_OFFLINE: {
@@ -305,8 +304,12 @@ const MJEventManager = cc.Class({
         this.startEvent(cc.dd.gameCfg.EVENT.EVENT_LOGIN_REP,wxcode);
     },
     // 往手机本地存用户信息
-    writtenUserInfoIntoCellPhone(user) {
-        cc.sys.localStorage.setItem(cc.dd.userEvName.USER_INFO_KEY, JSON.stringify(user));
+    writtenUserInfoIntoCellPhone(data) {
+        cc.sys.localStorage.setItem(cc.dd.userEvName.USER_INFO_KEY, JSON.stringify(data.user));
+        cc.sys.localStorage.setItem(cc.dd.userEvName.USER_CARD_INFO_KEY, JSON.stringify(data.cards));
+        if(data.agent) {
+            cc.sys.localStorage.setItem(cc.dd.userEvName.USER_ANGENT_INFO, JSON.stringify(data.agent));
+        }
     },
     /**
      *  电量改变监听的回调更新(被原生回调的)
