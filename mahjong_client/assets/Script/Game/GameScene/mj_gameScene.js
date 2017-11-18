@@ -724,7 +724,7 @@ cc.Class({
     },
     // 玩家听牌
     playerTingCard(data) {
-        cc.dd.roomEvent.setIsCache(false);
+        // cc.dd.roomEvent.setIsCache(false);
 
         cc.dd.playEffect(2, cc.dd.soundName.V_TING);
         cc.dd.Reload.loadPrefab("Game/Prefab/TingAni", (prefab) => {
@@ -742,10 +742,10 @@ cc.Class({
         cardNode.children.forEach((card) => {
             card.getChildByName("TingSign").active = false;
         });
-        this.scheduleOnce(() => {
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
-        }, 0.5);
+        // this.scheduleOnce(() => {
+        //     cc.dd.roomEvent.setIsCache(true);
+        //     cc.dd.roomEvent.notifyCacheList();
+        // }, 0.5);
     },
     // 更换宝牌
     baoCardChange(data) {
