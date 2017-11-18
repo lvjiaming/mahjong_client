@@ -31,6 +31,7 @@ const Room = cc.Class({
         _roomRules: null, // 游戏房间玩法规则
         _currentMessageSeatID: null,  // 当前播放的语音信息的是这个座位号的
         _currentMessageID: null,  // 当前播放的语音消息的id
+        _hasMessageOnPlay: null,  // 当前有正在播放的语音消息
         _selfRecording: null,  // 录音发言中
         huing: null,    // 收到胡牌广播
         _playerNodeArr: [], // 四玩家的节点数组

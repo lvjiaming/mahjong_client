@@ -994,27 +994,43 @@ cc.Class({
     // 给发言用户显示语音图标
     onRecievedPlayerMessage(data) {
         cc.dd.roomEvent.setIsCache(false);
-        const localSeat = this.getLocalSeatByUserId(data.senduid);
-        if (localSeat) {
-            cc.dd.room._currentMessageSeatID = localSeat;
-            this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = true;
-            this.playerArr[localSeat-1].mesArr.push(data.voiceid); // 给他的语音数组赋值
-            cc.dd.soundMgr.pauseAllSounds();
-            cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0]
-            this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
-            cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
+        var localSeat = null;
+        if(data) {
+            localSeat = this.getLocalSeatByUserId(data.senduid);
+        }else {
+            localSeat = cc.dd.room._currentMessageSeatID;
         }
+        if (localSeat) {
+            if(data) {
+                this.playerArr[localSeat-1].mesArr.push(data.voiceid); // 给他的语音数组赋值
+                this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = true;
+            }
+            if(!cc.dd.room._hasMessageOnPlay) {
+                cc.dd.room._hasMessageOnPlay = true;
+                cc.dd.room._currentMessageSeatID = localSeat;
+                cc.dd.soundMgr.pauseAllSounds();
+                cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0];
+                this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
+                cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
+            }
+        }
+        cc.dd.roomEvent.setIsCache(true);
+        cc.dd.roomEvent.notifyCacheList();
     },
     // 成功播放完当前消息的回调的处理
     didFinishPlayingCurrentMessage() { // 联续播放
         const localSeat = cc.dd.room._currentMessageSeatID;
         this.playerArr[localSeat-1].mesArr.splice(0,1);
-        cc.dd.roomEvent.setIsCache(true);
-        cc.dd.roomEvent.notifyCacheList();
         this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
-        // if(this.playerArr[localSeat-1].mesArr.length > 0) {
-        //     // this.onRecievedPlayerMessage(this.playerArr[localSeat-1].mesArr);
-        // }else {
+        if(this.playerArr[localSeat-1].mesArr.length > 0) {
+            cc.dd.room._hasMessageOnPlay = false;
+            const nextlocalSeat = this.getLocalSeatByUserId(this.playerArr[localSeat-1].mesArr[0].senduid);
+            if(localSeat != nextlocalSeat) {
+                cc.dd.room._currentMessageSeatID = nextlocalSeat;
+            }
+            this.onRecievedPlayerMessage();
+        }else {
+            cc.dd.room._hasMessageOnPlay = false;
             cc.dd.soundMgr.resumeAllSounds();
             cc.dd.room._currentMessageSeatID = null;
             cc.dd.room._currentMessageID = null;
@@ -1022,7 +1038,7 @@ cc.Class({
                 this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
                 cc.dd.soundMgr.resumeAllSounds();
             }, 1.5);
-        // }
+        }
     },
     onClickExchangeFangKa() { // 弃用
         cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {
