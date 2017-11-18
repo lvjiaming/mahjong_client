@@ -58,6 +58,7 @@ const User = cc.Class({
     // 设置代理商信息
     setAgentInfo(data) {
         this._agentInfo = data;
+        cc.sys.localStorage.setItem(cc.dd.userEvName.USER_ANGENT_INFO, JSON.stringify(data));
     },
     // 得到代理商信息
     getAgentInfo() {

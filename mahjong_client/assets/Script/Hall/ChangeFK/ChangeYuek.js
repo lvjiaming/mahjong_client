@@ -158,8 +158,8 @@ cc.Class({
                 // this.node.parent.parent.parent.destroy();
                 cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
                     const UIDNotExitMes = cc.instantiate(prefab);
-                    // const tempstr = "成功转让"+ this._selectCardTypeShowName +"1张\n剩余次卡" + data.myroomcards + "张\n" + "剩余天卡" + data.agent.mydaycards + "张\n" + "剩余小王卡" + data.agent.myweekcards + "张\n" + "剩余大王卡" + data.agent.mymonthcards + "张";
-                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes("hehe");
+                    const tempstr = "成功转让"+ this._selectCardTypeShowName +"1张\n剩余次卡" + data.myroomcards + "张\n" + "剩余天卡" + data.agent.mydaycards + "张\n" + "剩余小王卡" + data.agent.myweekcards + "张\n" + "剩余大王卡" + data.agent.mymonthcards + "张";
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes(tempstr);
                     this.node.parent.parent.addChild(UIDNotExitMes);
                 });
                 break;

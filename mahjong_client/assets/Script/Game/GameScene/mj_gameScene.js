@@ -1003,18 +1003,18 @@ cc.Class({
             cc.dd.room._currentMessageID = this.playerArr[localSeat-1].mesArr[0]
             this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).play();
             cc.dd.downloadAndPlayMessageWithMessageID(cc.dd.room._currentMessageID);
-            cc.dd.roomEvent.setIsCache(true);
-            cc.dd.roomEvent.notifyCacheList();
         }
     },
     // 成功播放完当前消息的回调的处理
     didFinishPlayingCurrentMessage() { // 联续播放
         const localSeat = cc.dd.room._currentMessageSeatID;
         this.playerArr[localSeat-1].mesArr.splice(0,1);
+        cc.dd.roomEvent.setIsCache(true);
+        cc.dd.roomEvent.notifyCacheList();
         this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").getComponent(cc.Animation).stop();
-        if(this.playerArr[localSeat-1].mesArr.length > 0) {
-            // this.onRecievedPlayerMessage(this.playerArr[localSeat-1].mesArr);
-        }else {
+        // if(this.playerArr[localSeat-1].mesArr.length > 0) {
+        //     // this.onRecievedPlayerMessage(this.playerArr[localSeat-1].mesArr);
+        // }else {
             cc.dd.soundMgr.resumeAllSounds();
             cc.dd.room._currentMessageSeatID = null;
             cc.dd.room._currentMessageID = null;
@@ -1022,8 +1022,7 @@ cc.Class({
                 this.playerArr[localSeat-1].getChildByName("InfoBk").getChildByName("message_receiver").active = false;
                 cc.dd.soundMgr.resumeAllSounds();
             }, 1.5);
-
-        }
+        // }
     },
     onClickExchangeFangKa() { // 弃用
         cc.dd.Reload.loadPrefab("Hall/Prefab/ChangeFanKa", (prefab) => {

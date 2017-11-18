@@ -307,9 +307,9 @@ const MJEventManager = cc.Class({
     writtenUserInfoIntoCellPhone(data) {
         cc.sys.localStorage.setItem(cc.dd.userEvName.USER_INFO_KEY, JSON.stringify(data.user));
         cc.sys.localStorage.setItem(cc.dd.userEvName.USER_CARD_INFO_KEY, JSON.stringify(data.cards));
-        if(data.agent) {
-            cc.sys.localStorage.setItem(cc.dd.userEvName.USER_ANGENT_INFO, JSON.stringify(data.agent));
-        }
+        // if(data.agent) {
+        //     cc.sys.localStorage.setItem(cc.dd.userEvName.USER_ANGENT_INFO, JSON.stringify(data.agent));
+        // }
     },
     /**
      *  电量改变监听的回调更新(被原生回调的)
