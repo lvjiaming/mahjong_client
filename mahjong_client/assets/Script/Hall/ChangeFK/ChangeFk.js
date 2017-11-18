@@ -32,6 +32,11 @@ cc.Class({
             type: cc.Label,
             tooltip: "玩家昵称",
         },
+        querybtn: {
+            default: null,
+            type: cc.Button,
+            tooltip: "查询按钮",
+        },
         _preNum: 1,
     },
 
@@ -40,6 +45,9 @@ cc.Class({
         cc.dd.userEvent.addObserver(this);
         cc.dd.net.addObserver(this);
         this.totalCardLabel.string = cc.dd.user.getUserInfo().roomcardnum + "张房卡可以转让";
+        if(cc.dd.user.getUserInfo().roomcardnum === 0){
+            this.renderQueryBtn();
+        }
         if(cc.sys.isMobile) {
             this.changeEditBox.InputMode = cc.EditBox.InputMode.PHONE_NUMBER;
             this.NumChangeEditBox.InputMode = cc.EditBox.InputMode.PHONE_NUMBER;
@@ -48,6 +56,11 @@ cc.Class({
     onDestroy() {
         cc.dd.userEvent.removeObserver(this);
         cc.dd.net.removeObserver(this);
+    },
+    // 查询按钮的状态
+    renderQueryBtn() {
+        this.querybtn.interactable = false;
+        this.querybtn.node.getChildByName("Label").color = cc.Color.GRAY;
     },
     // 添加或减少数量的事件
     onAddOrDelClick(event, custom) {
@@ -75,9 +88,19 @@ cc.Class({
         });
     },
     onMessageEvent(event, data) {
+        if(this.node.active === false) {
+            cc.log("非次卡");
+            return;
+        }
         switch(event) {
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
-                this.node.parent.parent.parent.destroy();
+                // this.node.parent.parent.parent.destroy();
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const UIDNotExitMes = cc.instantiate(prefab);
+                    const tempstr = "成功转让"+ this._preNum +"张次卡\n剩余次卡" + data.myroomcards + "张\n" + "剩余天卡" + data.agent.mydaycards + "张\n" + "剩余小王卡" + data.agent.myweekcards + "张\n" + "剩余大王卡" + data.agent.mymonthcards + "张";
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes(tempstr);
+                    this.node.parent.parent.addChild(UIDNotExitMes);
+                });
                 break;
             }
             case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
@@ -85,6 +108,14 @@ cc.Class({
                 this.recieverName.string = data.nickname;
                 cc.dd.setPlayerHead(data.wx_portrait,this.recieverAvatar);
                 cc.dd.user._receiverInfo.recieveCardtype = cc.dd.hall_config.EXC_CARD_TYPE.EXC_CHIKA;
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: { // 1008 转让失败
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const UIDNotExitMes = cc.instantiate(prefab);
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes("转让失败。"+data.errmsg);
+                    this.node.parent.parent.addChild(UIDNotExitMes);
+                });
                 break;
             }
             default: {

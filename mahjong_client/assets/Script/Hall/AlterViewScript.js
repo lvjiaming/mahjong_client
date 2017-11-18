@@ -16,6 +16,10 @@ cc.Class({
         this.MesLabel.string = data;
         if(data == "解散房间成功") {
             this.DismissRoomSuc = true;
+        }else if(data.indexOf("成功转让") != -1) {
+            this.exchangeFKSuc = true;
+        }else if(data.indexOf("转让失败") != -1) {
+            this.exchangeFKFail = true;
         }
     },
     // 确认按钮
@@ -26,8 +30,15 @@ cc.Class({
             cc.dd.Reload.loadDir("DirRes", () => {
                 cc.dd.sceneMgr.runScene(cc.dd.sceneID.HALL_SCENE);
             });
+            this.node.destroy();
+        }else if(this.exchangeFKSuc) {
+            this.node.parent.parent.destroy();
+        }else if(this.exchangeFKFail) {
+            this.node.parent.parent.destroy();
+        }else {
+            this.node.destroy();
         }
-        this.node.destroy();
+
     },
 
 });

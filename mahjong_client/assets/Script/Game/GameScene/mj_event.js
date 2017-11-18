@@ -169,7 +169,7 @@ cc.Class({
             }
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: { // 5008
                 cc.log("转让房卡成功");
-                cc.dd.user.updateAgentInfo(data);
+                cc.dd.user.updateAgentInfo(data.agent);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_USER_OFFLINE: {

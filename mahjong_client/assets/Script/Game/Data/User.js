@@ -7,7 +7,6 @@ const UserEventName = {
     USER_LOGIN_SCU: "user_login_suc", // 用户登录成功
     USER_LOGIN_FAIL: "user_login_fail",
     QUERY_RECEIVER_SCU: "query_receiver_scu", //查询接收者信息成功
-    EXCHANGE_FK_SCU: "exchange_fk_scu", // 转让房卡成功
     USER_INFO_KEY: "userInfoKey",  // 本地化读写 _userinfo 的key
     USER_CARD_INFO_KEY: "userCardInfoKey",  // 本地化读写用户用卡状态
     USER_ANGENT_INFO: "userAgentInfoKey",  // 本地化读写用户卡库存 的key

@@ -38,7 +38,13 @@ cc.Class({
             type: cc.Label,
             tooltip: "转让卡tips",
         },
+        querybtn: {
+            default: null,
+            type: cc.Button,
+            tooltip: "查询按钮",
+        },
         _selectCardType: null,
+        _selectCardTypeShowName: null,
     },
 
     // use this for initialization
@@ -60,20 +66,36 @@ cc.Class({
         switch (type) {
             case cc.dd.hall_config.EXC_CARD_TYPE.EXC_DAYKA: {
                 this.numLabel.string = cc.dd.user.getAgentInfo().mydaycards + "张" + cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_DAY + "可以转让";
+                this.renderQueryBtn((cc.dd.user.getAgentInfo().mydaycards != 0));
+                this._selectCardTypeShowName = cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_DAY;
                 break;
             }
             case cc.dd.hall_config.EXC_CARD_TYPE.EXC_WEEKKA: {
                 this.numLabel.string = cc.dd.user.getAgentInfo().myweekcards + "张" + cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_WEEK + "可以转让";
+                this.renderQueryBtn((cc.dd.user.getAgentInfo().myweekcards != 0));
+                this._selectCardTypeShowName = cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_WEEK;
                 break;
             }
             case cc.dd.hall_config.EXC_CARD_TYPE.EXC_MOUTHKA: {
                 this.numLabel.string = cc.dd.user.getAgentInfo().mymonthcards + "张" + cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_MOUTH + "可以转让";
+                this.renderQueryBtn((cc.dd.user.getAgentInfo().mymonthcards != 0));
+                this._selectCardTypeShowName = cc.dd.hall_config.EXC_BAOSHIKA_TABNUM.BAOSHIKA_MOUTH;
                 break;
             }
             default: {
                 cc.log(`unkown init: ${type}`);
             }
         }
+    },
+    // 查询按钮的状态
+    renderQueryBtn(state) {
+        this.querybtn.interactable = state;
+        if (state) {
+            this.querybtn.node.getChildByName("Label").color = cc.Color.BLACK;
+        }else {
+            this.querybtn.node.getChildByName("Label").color = cc.Color.GRAY;
+        }
+
     },
     // 查询按钮点击响应方法
     onClickQuery() {
@@ -127,17 +149,35 @@ cc.Class({
         });
     },
     onMessageEvent(event, data) {
+        if(this.node.active === false) {
+            cc.log("非宝石卡");
+            return;
+        }
         switch(event) {
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
-                this.node.parent.parent.parent.destroy();
+                // this.node.parent.parent.parent.destroy();
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const UIDNotExitMes = cc.instantiate(prefab);
+                    // const tempstr = "成功转让"+ this._selectCardTypeShowName +"1张\n剩余次卡" + data.myroomcards + "张\n" + "剩余天卡" + data.agent.mydaycards + "张\n" + "剩余小王卡" + data.agent.myweekcards + "张\n" + "剩余大王卡" + data.agent.mymonthcards + "张";
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes("hehe");
+                    this.node.parent.parent.addChild(UIDNotExitMes);
+                });
                 break;
             }
             case cc.dd.userEvent.QUERY_RECEIVER_SCU: {
-                this.randerBottomHalf(data);
+                this.renderBottomHalf(data);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_ENTER_CARDCHANGE_REQ: {
-                this.randerBottomHalf(data);
+                this.renderBottomHalf(data);
+                break;
+            }
+            case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REP: { // 1008 转让失败
+                cc.dd.Reload.loadPrefab("Hall/Prefab/AlertView", (prefab) => {
+                    const UIDNotExitMes = cc.instantiate(prefab);
+                    UIDNotExitMes.getComponent("AlterViewScript").initInfoMes("转让失败。"+data.errmsg);
+                    this.node.parent.parent.addChild(UIDNotExitMes);
+                });
                 break;
             }
             default: {
@@ -162,7 +202,7 @@ cc.Class({
             return;
         }
     },
-    randerBottomHalf(data) {
+    renderBottomHalf(data) {
         if (!this.changeEditBox.string || (this.changeEditBox.string != data.uid4query)) {
             return;
         }

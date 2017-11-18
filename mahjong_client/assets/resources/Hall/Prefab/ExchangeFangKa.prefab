@@ -3792,6 +3792,9 @@
     "recieverName": {
       "__id__": 102
     },
+    "querybtn": {
+      "__id__": 56
+    },
     "_preNum": 1
   },
   {
@@ -6135,7 +6138,7 @@
       }
     ],
     "_N$interactable": true,
-    "_N$enableAutoGrayEffect": false,
+    "_N$enableAutoGrayEffect": true,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -7081,7 +7084,11 @@
     "recieverTip": {
       "__id__": 210
     },
-    "_selectCardType": null
+    "querybtn": {
+      "__id__": 190
+    },
+    "_selectCardType": null,
+    "_selectCardTypeShowName": null
   },
   {
     "__type__": "cc.PrefabInfo",

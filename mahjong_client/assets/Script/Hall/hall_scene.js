@@ -70,6 +70,9 @@ cc.Class({
     },
     // 设置房卡数目
     setFangKaNum(num) {
+        if(this.infoNode.children.length == 4) {
+            return;
+        }
         if(cc.dd.user.getCardState().unlimited === true) {
             this.RoomCard.string = "房卡：无限畅打";
             let deadline = new cc.Node('deadline');
@@ -134,7 +137,7 @@ cc.Class({
             case cc.dd.gameCfg.EVENT.EVENT_CARDCHANGE_REQ: {
                 cc.log("转让房卡成功，更新大厅房卡数");
                 this.setFangKaNum(data.myroomcards);
-                cc.dd.user.updateAgentInfo(data);
+                cc.dd.user.updateAgentInfo(data.agent);
                 break;
             }
             case cc.dd.gameCfg.EVENT.EVENT_QUERY_GAMERECORD_REQ: {
