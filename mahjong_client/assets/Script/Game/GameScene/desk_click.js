@@ -165,12 +165,15 @@ cc.Class({
 
         // });
         if (event.target.isOnlyTing) {
+            //过牌不应该影响能否出牌  但这里不置为true会有问题
             cc.dd.cardMgr.setIsCanOutCard(true);
             cc.dd.cardMgr.setTingList(null);
             return;
         }
         if (event.target.customData) {
-            cc.dd.cardMgr.setIsCanOutCard(true);
+            //过牌不应该影响能否出牌 
+            cc.dd.cardMgr.setIsCanOutCard(false);
+
             if (cc.dd.cardMgr.getIsTing()) {
                 const moCard = cc.dd.cardMgr.getMoCard();
                 if (moCard) {
@@ -264,7 +267,13 @@ cc.Class({
             const outCardNode = this.node.getComponent("mj_gameScene").playerArr[0].getChildByName("OutCardLayer");
             cc.dd.cardMgr.outCard(outCardNode, 1, cc.dd.cardMgr.getTingList()[0]);
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: cc.dd.cardMgr.getTingList()[0], tingpai: true});
+            /*************************************/
+            //cc.dd.cardMgr.setIsCanOutCard(true);
+            cc.dd.cardMgr.setIsCanOutCard(false);//自动出牌后不能再手动出牌
+            /*************************************/            
+        }else{
+            cc.dd.cardMgr.setIsCanOutCard(true);
         }
-        cc.dd.cardMgr.setIsCanOutCard(true);
+
     },
 });

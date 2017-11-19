@@ -485,6 +485,9 @@ cc.Class({
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.CHI);
             if (localSeat == 1) {
+                /* ---------------------------  */
+                cc.dd.cardMgr.setIsCanOutCard(true);//吃牌成功以后可以出牌
+                /* ---------------------------  */
                 if (data.lostcards4ting) {
                     cc.dd.cardMgr.setTingList(data.lostcards4ting);
                     // let operateData = {};
@@ -522,6 +525,9 @@ cc.Class({
             const pengNode = this.playerArr[localSeat - 1].getChildByName("PengGangLayer");
             cc.dd.cardMgr.pengGangCard(pengNode, localSeat, data, cc.dd.gameCfg.OPERATE_TYPE.PENG);
             if (localSeat == 1) {
+                /* ---------------------------  */
+                cc.dd.cardMgr.setIsCanOutCard(true);//碰牌成功以后可以出牌
+                /* ---------------------------  */
                 if (data.lostcards4ting) {
                     cc.dd.cardMgr.setTingList(data.lostcards4ting);
                     // let operateData = {};
@@ -637,6 +643,11 @@ cc.Class({
             cc.dd.cardMgr.MoCard(moNode, localSeat, data);
             if (localSeat == 1) {
                 cc.dd.cardMgr.setIsCanOutCard(true);
+                if (cc.dd.cardMgr.getIsTing()) {
+                    /* ----------------------------  */
+                   cc.dd.cardMgr.setIsCanOutCard(false);//听牌状态摸到的牌不能再手动出牌
+                    /* ----------------------------  */
+                }
                 let operateData = {};
                 if (data.ting) {
                     cc.dd.cardMgr.setTingList(data.ting);
@@ -680,7 +691,7 @@ cc.Class({
                                     const outCardNode = this.playerArr[0].getChildByName("OutCardLayer");
                                     cc.dd.cardMgr.outCard(outCardNode, 1, data.mopai);
                                     cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_OUTCARD_REP, {id: data.mopai, tingpai: false});
-                                }, 0.5);
+                                }, 0.5);//add by ycjia 2017-11-19
                             }
                         } else {
                             this.showTingSign();
@@ -724,7 +735,7 @@ cc.Class({
     },
     // 玩家听牌
     playerTingCard(data) {
-        // cc.dd.roomEvent.setIsCache(false);
+        cc.dd.roomEvent.setIsCache(false);
 
         cc.dd.playEffect(2, cc.dd.soundName.V_TING);
         cc.dd.Reload.loadPrefab("Game/Prefab/TingAni", (prefab) => {
@@ -742,10 +753,10 @@ cc.Class({
         cardNode.children.forEach((card) => {
             card.getChildByName("TingSign").active = false;
         });
-        // this.scheduleOnce(() => {
-        //     cc.dd.roomEvent.setIsCache(true);
-        //     cc.dd.roomEvent.notifyCacheList();
-        // }, 0.5);
+        this.scheduleOnce(() => {
+            cc.dd.roomEvent.setIsCache(true);
+            cc.dd.roomEvent.notifyCacheList();
+        }, 0.5);//add by ycjia 2017-11-19
     },
     // 更换宝牌
     baoCardChange(data) {
@@ -795,7 +806,11 @@ cc.Class({
         }
         if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.BOTTOM) {
             cc.log(`轮到自己操作`);
-            cc.dd.cardMgr.setIsCanOutCard(true);
+            
+            //指针转到自己就可以出牌是不严谨的，应该是吃、碰成功、摸牌(非听牌状态)以后才可以手动出牌
+            //cc.dd.cardMgr.setIsCanOutCard(true);
+            //比如听牌状态，指针转到自己但还未收到摸牌指令，此时玩家是可以出牌的，就会导致手牌变少
+
             if (!this.playerArr[0].getComponent("PlayerSelf").getTingBtnState()) {
                 if (!cc.dd.cardMgr.getIsTing()) {
                     let operateData = {};
