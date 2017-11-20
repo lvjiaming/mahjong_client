@@ -43,6 +43,8 @@ module.exports = {
     },
     // 消息枚举
     EVENT: {
+        EVENT_GET_VERSION_REP: 1000, // 检测最新版本
+        EVENT_GET_VERSION_REQ: 5000, // 检测最新版本的返回
         EVENT_CHECK_LOGIN_REP: 1001, // 检测登录请求
         EVENT_CHECK_LOGIN_REQ: 5001, // 检测登录的返回
         EVENT_LOGIN_REP: 1002, // 登录的请求

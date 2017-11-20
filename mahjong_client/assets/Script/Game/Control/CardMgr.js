@@ -375,6 +375,7 @@ const CardMgr = cc.Class({
             if (!data.notDes) {
                 cc.log(`将牌清掉`);
                 if (this.getCurOutCard()) {
+                    this.HideZoneOutCard();
                     this.getCurOutCard().removeFromParent(true);
                     this.getCurOutCard().destroy();
                     this.setCurOutCard(null);
@@ -420,11 +421,13 @@ const CardMgr = cc.Class({
         if (!data.notDes) {
             cc.log(`将牌清掉`);
             if (this.getCurOutCard()) {
+                this.HideZoneOutCard();
                 this.getCurOutCard().removeFromParent(true);
                 this.getCurOutCard().destroy();
                 this.setCurOutCard(null);
             }
         }
+
     },
     /**
      *  出牌的操作
@@ -455,6 +458,7 @@ const CardMgr = cc.Class({
         // 其他玩家出牌
         const otherDes = (handNode) => {
             const childNode = handNode.children;
+            this.ZoneOutCardMask(localSeat,data,notDes);
             if (!hasMo && !notDes) {
                 let index = 0;
                 if (localSeat === cc.dd.gameCfg.PLAYER_SEAT_LOCAL.RIGHT) {
@@ -462,6 +466,7 @@ const CardMgr = cc.Class({
                 }
                 childNode[index].destroy();
                 childNode[index].removeFromParent();
+                cc.log("到底是什么情况下调用");
             }
         };
         let str = "";
@@ -480,6 +485,7 @@ const CardMgr = cc.Class({
                     }
                 }
                 this.updateCard(handNode);
+                this.ZoneOutCardMask(localSeat);
                 // if (!notDes) {
                 //
                 // }
@@ -855,35 +861,33 @@ const CardMgr = cc.Class({
             cc.log(this._lightupNodeArr.length);
         }
     },
-    lightUpBlueMask(area,pnode,index) { // 弃用
-        switch (area){
-            case CONFIG.LIGHTUP_AREA.OUTCARDLAYER: {
-                if(index <= 6) {
-                    let target = pnode.getChildByName("OutCardLayer1").children[index];
-                    this._lightupNodeArr.push(target);
-                    target.getChildByName("blueMask").active = true;
-                }else if(index - 12 >= 1 ) {
-                    let target = pnode.getChildByName("OutCardLayer1").children[index-12];
-                    this._lightupNodeArr.push(target);
-                    target.getChildByName("blueMask").active = true;
-                }else {
-                    let target = pnode.getChildByName("OutCardLayer1").children[index-6];
-                    this._lightupNodeArr.push(target);
-                    target.getChildByName("blueMask").active = true;
-                }
-                break;
-            }
-            case CONFIG.LIGHTUP_AREA.PENGCARDLAYER: {
-                cc.log("碰的牌"+index);
-                break;
-            }
-            case CONFIG.LIGHTUP_AREA.CHICARDLAYER: {
-                break;
-            }
-            default: {
-                cc.log("未知区域");
-            }
+    /**
+     *  放大非当前玩家的出牌
+     */
+    ZoneOutCardMask(seatid,data,notDes) {
+        if(notDes) {
+            return;
         }
+        // if(cc.dd.room._curentChuPaiSeat && cc.dd.room._curentChuPaiSeat !== 1) {
+        //     const lastChuPaiUserNode = cc.dd.room._playerNodeArr[cc.dd.room._curentChuPaiSeat -1];
+        //     lastChuPaiUserNode.getChildByName("ZoneOutCard").active = false;
+        // }
+        this.HideZoneOutCard();
+        cc.dd.room._curentChuPaiSeat = seatid;
+        if(cc.dd.room._curentChuPaiSeat !== 1){
+            const currentUserNode = cc.dd.room._playerNodeArr[seatid -1];
+            currentUserNode.getChildByName("ZoneOutCard").active = true;
+            currentUserNode.getChildByName("ZoneOutCard").getChildByName("Card").getComponent("CardSpr").initCard(data);
+        }
+    },
+    /**
+     *  隐藏放大效果
+     */
+    HideZoneOutCard(){
+    if(cc.dd.room._curentChuPaiSeat && cc.dd.room._curentChuPaiSeat !== 1) {
+        const lastChuPaiUserNode = cc.dd.room._playerNodeArr[cc.dd.room._curentChuPaiSeat -1];
+        lastChuPaiUserNode.getChildByName("ZoneOutCard").active = false;
+    }
     },
 });
 cc.dd.cardMgr = CardMgr.getInstance();

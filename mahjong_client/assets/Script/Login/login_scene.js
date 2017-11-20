@@ -56,6 +56,7 @@ cc.Class({
     setBtnLoginState(state) {
         if (this.BtnLogin) {
             this.BtnLogin.active = state;
+            cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_GET_VERSION_REP);
             cc.dd.net.startEvent(cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP, "6SDF4ASD4GFAS4FG5ASD5F5Dsdf");
             this.setBtnLoginInterateState(false);
         } else {

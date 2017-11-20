@@ -68,7 +68,7 @@ cc.dd.invokeWXFriendShareCustumLink = () => {
         }
     }
 };
-// app下载链接分享到朋友圈
+// app下载链接分享到朋友圈  // todo 链接换成 data.androidupdateurl
 cc.dd.invokeWXMomentShareCustumLink = () => {
     if(cc.sys.isMobile) {
         if (cc.sys.os == cc.sys.OS_ANDROID){
@@ -81,7 +81,7 @@ cc.dd.invokeWXMomentShareCustumLink = () => {
         }
     }
 };
-// 房间号，房间信息分享到朋友对话
+// 房间号，房间信息分享到朋友对话 // todo 链接换成 data.androidupdateurl
 cc.dd.invokeWXFriendShareCustumText = (str, password) => {
     if(cc.sys.isMobile) {
         if(cc.sys.os == cc.sys.OS_ANDROID) {
@@ -191,4 +191,19 @@ cc.dd.downloadAndPlayMessageWithMessageID = (mesID) => {
             jsb.reflection.callStaticMethod("RootViewController", "playGvoiceMessage:",mesID);
         }
     }
+};
+
+// 检测是否需要更新下载新版本
+cc.dd.checkForNewVersion = (iosVersion,androidVersion,data) => {
+    cc.dd.pubConst.IOS_DOWNLOAD_LINK = data.iosupdateurl;
+    cc.dd.pubConst.ANDROID_DOWNLOAD_LINK = data.androidupdateurl;
+    if (cc.sys.isMobile) {
+        cc.log("检测是否需要更新下载新版本");
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+
+        }else {
+            jsb.reflection.callStaticMethod("RootViewController", "readryToDownloadNewerVersion:whitDownloadLink:",iosVersion.toString(),data.iosupdateurl);
+        }
+    }
+
 };

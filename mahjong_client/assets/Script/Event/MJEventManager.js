@@ -39,6 +39,10 @@ const MJEventManager = cc.Class({
         }//26ee669399b2ee1b //7d5d9880-486b-45cf-9346-795954ba3968
 
         switch (event) {
+            case cc.dd.gameCfg.EVENT.EVENT_GET_VERSION_REP: {   // 检测最新版本，1000
+                this.sendMessage(body);
+                break;
+            }
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REP: {  // 检查登录，1001
                 if(!cc.sys.isNative) {
                     body.code = data; // 真机里不需要它
@@ -157,6 +161,10 @@ const MJEventManager = cc.Class({
         cc.log(`收到的协议id为：${msgId}`);
         cc.log(msgData);
         switch (msgId) {
+            case cc.dd.gameCfg.EVENT.EVENT_GET_VERSION_REQ: {  // 检测最新版本的返回，5000
+                cc.dd.checkForNewVersion(msgData.iosversion,msgData.androidversion,msgData);
+                break;
+            }
             case cc.dd.gameCfg.EVENT.EVENT_CHECK_LOGIN_REQ: {  // 检查登录的回复,5001
                 if(msgData.agent) {
                     cc.dd.user.updateAgentInfo(msgData.agent);

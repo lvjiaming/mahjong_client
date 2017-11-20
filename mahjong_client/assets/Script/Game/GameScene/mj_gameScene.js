@@ -587,6 +587,7 @@ cc.Class({
     playerHuCard(data) {
         cc.log("玩家胡牌动画效果");
         cc.dd.roomEvent.setIsCache(false);
+        cc.dd.cardMgr.HideZoneOutCard();
         this.playerArr[0].getComponent("PlayerSelf").hideOperateBtn();
         cc.dd.playEffect(1, cc.dd.soundName.V_HU);
         const localSeat = this.getLocalSeatByUserId(data.huuid);
@@ -939,6 +940,7 @@ cc.Class({
         cc.dd.cardMgr.setZiMoGang(null);
         cc.dd.cardMgr.setCurOutCard(null);
         cc.dd.cardMgr.setCurZiMoGangCard(null);
+        cc.dd.room._curentChuPaiSeat = null;
     },
     /**
      *  根据玩家id返回本地座位号
