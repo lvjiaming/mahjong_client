@@ -474,7 +474,7 @@ cc.Class({
             cc.dd.playEffect(1, cc.dd.soundName.V_CHI);
             cc.dd.Reload.loadPrefab("Game/Prefab/ChiAni", (prefab) => {
                 const chiAni = cc.instantiate(prefab);
-                this.node.addChild(chiAni);
+                this.playerArr[localSeat - 1].getChildByName("AniNode").addChild(chiAni);
             });
             // const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
             // this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
@@ -514,7 +514,7 @@ cc.Class({
             cc.dd.playEffect(1, cc.dd.soundName.V_PENG);
             cc.dd.Reload.loadPrefab("Game/Prefab/PengAni", (prefab) => {
                 const pengAni = cc.instantiate(prefab);
-                this.node.addChild(pengAni);
+                this.playerArr[localSeat - 1].getChildByName("AniNode").addChild(pengAni);
             });
             // const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
             // this.playerArr[chupaiseat - 1].outCardArr.splice(this.playerArr[chupaiseat - 1].outCardArr.length-1,1);
@@ -556,7 +556,7 @@ cc.Class({
             cc.dd.playEffect(1, cc.dd.soundName.V_GANG);
             cc.dd.Reload.loadPrefab("Game/Prefab/GangAni", (prefab) => {
                 const gangAni = cc.instantiate(prefab);
-                this.node.addChild(gangAni);
+                this.playerArr[localSeat - 1].getChildByName("AniNode").addChild(gangAni);
             });
             // if(data.angang === false){
             //     const chupaiseat = this.getLocalSeatByUserId(data.chupaiuid);
@@ -741,7 +741,7 @@ cc.Class({
         cc.dd.playEffect(2, cc.dd.soundName.V_TING);
         cc.dd.Reload.loadPrefab("Game/Prefab/TingAni", (prefab) => {
             const gangAni = cc.instantiate(prefab);
-            this.node.addChild(gangAni);
+            this.playerArr[localSeat - 1].getChildByName("AniNode").addChild(gangAni);
         });
 
         const localSeat = this.getLocalSeatByUserId(data.tinguid);
